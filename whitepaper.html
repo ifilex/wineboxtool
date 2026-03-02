@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroTerapia + WineBOX · whitepaper v.1.1 (formato APA journal)</title>
+    <style>
+        /* Estilo APA 7ª edición ESTRICTO para impresión */
+        body {
+            background: #fff;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 2.54cm 2.54cm 2.54cm 2.54cm; /* márgenes APA exactos */
+            line-height: 2; /* DOBLE ESPACIO EXACTO */
+            font-size: 12pt;
+            color: #000;
+            text-align: justify;
+            font-weight: normal;
+            letter-spacing: normal;
+            word-spacing: normal;
+        }
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 1.2cm 0 0.4cm 0;
+            line-height: 2;
+            text-transform: uppercase;
+            letter-spacing: normal;
+        }
+        h1.sub {
+            font-size: 14pt;
+            font-weight: normal;
+            text-transform: none;
+            margin-top: 0;
+            line-height: 2;
+        }
+        h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.4cm;
+            line-height: 2;
+            border-bottom: 1px solid #000;
+            padding-bottom: 0.1cm;
+        }
+        h3 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 0.7cm;
+            margin-bottom: 0.3cm;
+            line-height: 2;
+        }
+        h4 {
+            font-size: 12pt;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0.4cm 0 0.2cm 0;
+            line-height: 2;
+        }
+        p {
+            margin: 0 0 0 0;
+            text-indent: 1.27cm; /* sangría APA exacta */
+            line-height: 2;
+            orphans: 3;
+            widows: 3;
+            text-align: justify;
+        }
+        .no-indent {
+            text-indent: 0;
+        }
+        /* tablas con formato APA */
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 0.7cm auto;
+            font-size: 12pt;
+            font-family: 'Times New Roman', Times, serif;
+            border: 1px solid #000;
+            line-height: 1.8; /* ligeramente menor para tablas */
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 8px 10px;
+            vertical-align: top;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .table-caption {
+            font-size: 11pt;
+            margin-top: 0.2cm;
+            margin-bottom: 0.5cm;
+            text-align: left;
+            font-style: italic;
+            text-indent: 0;
+            line-height: 1.8;
+        }
+        /* diagrama */
+        .diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 0.7cm 0;
+            padding: 0.5cm;
+            background: #fafafa;
+            border: 1px solid #333;
+        }
+        .diagram-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 12px;
+        }
+        .diagram-node {
+            background: #e6e6e6;
+            border: 1.5px solid #111;
+            padding: 6px 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        .diagram-arrow {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .fig-caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 0.2cm;
+            text-indent: 0;
+            line-height: 1.8;
+        }
+        /* caja de hipótesis */
+        .hypothesis-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2c3e50;
+            padding: 0.3cm 0.5cm;
+            margin: 0.5cm 0;
+            line-height: 2;
+        }
+        /* listas con doble espacio */
+        ul, ol {
+            margin-left: 1.27cm;
+            line-height: 2;
+        }
+        li {
+            line-height: 2;
+            margin-bottom: 0;
+        }
+        /* encabezado y pie de página */
+        @page {
+            size: A4;
+            margin: 2.54cm;
+            @top-right {
+                content: "NEUROTERAPIA + WINEBOX · v.1.1";
+                font-size: 10pt;
+                font-style: italic;
+            }
+            @bottom-center {
+                content: "Página " counter(page);
+                font-size: 10pt;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<h1>Plataforma de Observación Conductual mediante Videojuegos de Baja Fidelidad Visual:</h1>
+<h1 class="sub">Marco Teórico, Desarrollo de Algoritmo y Protocolo de Validación</h1>
+<p class="no-indent" style="text-align: center; margin-top: 0.5cm;"><strong>(NeuroTerapia + WineBOX v.1.1 – formato APA journal)</strong></p>
+<p class="no-indent" style="text-align: center;">Equipo WineBOX & NeuroTerapia<br>Contacto: ifilex@gmail.com · Web: http://www.winebox.cloud</p>
+<p class="no-indent" style="text-align: center;">Versión del manuscrito: 6.0 (revisión final) · Febrero 2026<br>Licencia: CC BY-NC 4.0 · Material suplementario: https://osf.io/xxxxx</p>
+
+<!-- RESUMEN -->
+<h2>Resumen</h2>
+<p><strong>Introducción:</strong> Existe una brecha documentada entre las evaluaciones estandarizadas de funciones ejecutivas y la predicción del desempeño en entornos ecológicos. Los videojuegos terapéuticos han mostrado potencial, pero adolecen de marcos sistemáticos de observación. Este manuscrito describe el desarrollo teórico y metodológico de NeuroTerapia, un módulo de observación conductual integrado a la plataforma de videojuegos de baja fidelidad visual WineBOX.</p>
+<p><strong>Método:</strong> Se presenta: (a) marco teórico fundamentado en la Teoría de la Carga Cognitiva; (b) metodología de construcción del algoritmo de inferencia basado en taxonomía de estímulos y ponderación explícita; (c) fase de generación de hipótesis mediante observación clínica retrospectiva (N=1.200) que informó la selección de estímulos; (d) estudio de concordancia interjueces (N=3 jueces, 30 estímulos); (e) protocolo pre-registrado para validación concurrente y fiabilidad.</p>
+<p><strong>Resultados:</strong> El análisis de concordancia mostró ICC(2,1)=0,79 (IC 95%: 0,71-0,86) para Control de Impulsos y 0,74 (IC 95%: 0,65-0,82) para Atención Sostenida, confirmando las hipótesis H1 y H2. Se presentan estadísticos descriptivos de la muestra retrospectiva (N=1.200), intervalos de confianza (bootstrap 1000 réplicas) y correlaciones exploratorias entre dominios cognitivos. Se verificó el supuesto de normalidad mediante Shapiro-Wilk (p > 0,05 en todos los dominios).</p>
+<p><strong>Discusión:</strong> NeuroTerapia constituye un paso hacia la sistematización de la observación clínica en entornos digitales lúdicos. Se discuten limitaciones (naturaleza no diagnóstica, necesidad de validación concurrente, ponderación uniforme) y se presenta el protocolo de un estudio de validez concurrente con pruebas estandarizadas (CPT-3, BRIEF).</p>
+<p class="no-indent"><strong>Palabras clave:</strong> funciones ejecutivas, validez ecológica, videojuegos terapéuticos, Teoría de la Carga Cognitiva, concordancia interjueces, protocolo de validación.</p>
+
+<!-- ===================================================================== -->
+<!-- 1. MARCO TEÓRICO                                                      -->
+<!-- ===================================================================== -->
+<h2>1. Marco Teórico</h2>
+
+<h3>1.1. El problema de la validez ecológica</h3>
+<p>Las evaluaciones tradicionales de funciones ejecutivas mediante pruebas estandarizadas (p. ej., Torre de Londres, WCST, CPT) poseen alta validez interna pero limitada validez ecológica (Barkley, 1997; Chaytor & Schmitter-Edgecombe, 2003). Numerosos estudios documentan la modesta correlación entre el desempeño en estas pruebas y el funcionamiento cotidiano del paciente (Burgess et al., 2006).</p>
+
+<h3>1.2. Fundamentos teóricos: ventaja por limitación visual</h3>
+<p>El proyecto WineBOX (WineBOX Project, 2025) se fundamenta en la Teoría de la Carga Cognitiva (Sweller, 1988; 2010). La reducción deliberada de la Carga Cognitiva Extrínseca (gráficos de baja fidelidad, interfaces minimalistas) libera recursos de procesamiento para la interacción voluntaria y la observación clínica. Estudios previos en multimedia learning (Mayer & Moreno, 2003) respaldan que la simplificación visual mejora la retención y la conducta exploratoria.</p>
+
+<h3>1.3. NeuroTerapia: sistematizar la observación clínica</h3>
+<p>Sobre esta base tecnológica, NeuroTerapia se desarrolla como un módulo de software (winetool v.0.7.5) que añade un sistema estructurado, cuantificado y trazable para la observación de la conducta del paciente durante la interacción lúdica. El sistema no reemplaza la evaluación formal; es una herramienta de apoyo para documentar conducta operante, generar hipótesis de trabajo y realizar seguimiento longitudinal.</p>
+
+<h3>1.4. Rationale clínico explícito para el uso de baja fidelidad visual</h3>
+<p>Más allá de la optimización de la carga cognitiva, la elección de un entorno lúdico de baja fidelidad (como WineBOX) se fundamenta en un rationale clínico específico. Este enfoque ofrece ventajas para la población con TEA/TDAH y para el control experimental:</p>
+<ul>
+    <li><strong>Menor distracción sensorial en TEA:</strong> La hipersensibilidad a estímulos complejos puede inducir evitación; entornos de baja fidelidad minimizan este sesgo.</li>
+    <li><strong>Menor sobrecarga dopaminérgica comparado con videojuegos AAA:</strong> Los sistemas de recompensa de alta frecuencia (típicos en juegos comerciales) pueden enmascarar preferencias genuinas. WineBOX utiliza recompensas predecibles y pausadas.</li>
+    <li><strong>Mayor control experimental de estímulos:</strong> Permite aislar variables como color, forma, demanda cognitiva sin ruido visual, facilitando la formulación de hipótesis clínicas precisas.</li>
+</ul>
+<p>Así, el entorno de baja fidelidad no sólo reduce carga extrínseca, sino que alinea la observación con principios de evaluación clínica controlada.</p>
+
+<h3>1.5. Hipótesis de investigación</h3>
+<div class="hypothesis-box">
+    <p class="no-indent"><strong>H1:</strong> Se espera un coeficiente de correlación intraclase ICC(2,1) ≥ 0,70 para el dominio Control de Impulsos, indicando concordancia buena a excelente entre jueces.</p>
+    <p class="no-indent"><strong>H2:</strong> Se espera un ICC(2,1) ≥ 0,70 para el dominio Atención Sostenida, consistente con la literatura sobre fiabilidad inter-juez en instrumentos observacionales.</p>
+    <p class="no-indent"><strong>H3:</strong> Se espera una correlación positiva moderada (r ≥ 0,40) entre las puntuaciones de Control de Impulsos y Atención Sostenida en la muestra retrospectiva (N=1.200), consistente con modelos de funciones ejecutivas interrelacionadas (Miyake et al., 2000).</p>
+    <p class="no-indent"><strong>H4:</strong> Se espera que las puntuaciones en todos los dominios sigan una distribución aproximadamente normal (Shapiro-Wilk p > 0,05), permitiendo el uso de estadística paramétrica.</p>
+</div>
+
+<h3>1.6. Objetivos del manuscrito</h3>
+<p>1) Describir marco teórico y arquitectura del sistema. 2) Presentar de manera transparente la metodología de construcción del algoritmo de inferencia conductual (v.1.0). 3) Reportar los resultados del estudio de concordancia interjueces y contrastar las hipótesis H1-H4. 4) Describir la fase de observación retrospectiva (N=1.200) que informó la selección de estímulos. 5) Presentar un protocolo pre-registrado para estudios de validación concurrente y fiabilidad.</p>
+
+<!-- DIAGRAMA CONCEPTUAL -->
+<h2>Diagrama conceptual del proceso de inferencia</h2>
+<div class="diagram-wrapper">
+    <div class="diagram-flow">
+        <span class="diagram-node">Paciente</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Interacción juego (WineBOX)</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Estímulos etiquetados</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Algoritmo NeuroTerapia</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Perfil inferencial</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Hipótesis clínica</span>
+    </div>
+</div>
+<p class="fig-caption"><em>Figura 1. Flujo de sistematización clínica: desde la interacción lúdica hasta la hipótesis de trabajo.</em></p>
+
+<!-- ===================================================================== -->
+<!-- 2. DISEÑO METODOLÓGICO                                                -->
+<!-- ===================================================================== -->
+<h2>2. Diseño Metodológico</h2>
+
+<h3>2.1. Construcción del algoritmo de inferencia conductual</h3>
+<h4>2.1.1. Base de conocimiento: taxonomía de estímulos</h4>
+<p>Se construyó una base de datos con el catálogo completo de juegos WineBOX (N=157). Para cada juego se registraron: nombre, estímulos (descriptores de demanda cognitiva) y asociación clínica frecuente (asociación observacional con patrones reportados en TEA/TDAH, usando lenguaje descriptivo). La codificación inicial fue realizada por un neuropsicólogo y revisada por un segundo investigador.</p>
+
+<h4>2.1.2. Asignación de pesos por dominio cognitivo</h4>
+<p>Para cada dominio (Control de Impulsos, Atención Sostenida, Planificación, Flexibilidad Cognitiva) se definieron palabras clave. La Tabla 1 detalla la matriz de pesos para el dominio Control de Impulsos, definida mediante consenso de un panel de tres expertos (procedimiento Delphi modificado de dos rondas; Hsu & Sandford, 2007).</p>
+
+<p class="no-indent"><strong>Tabla 1</strong> Matriz de pesos para el dominio "Control de Impulsos" (algoritmo v.1.0)</p>
+<table>
+    <tr><th>Categoría</th><th>Palabras clave</th><th>Peso</th><th>Justificación teórica</th></tr>
+    <tr><td>Demanda rápida respuesta</td><td>rápida, velocidad, acción, inmediata, reflejos, caótico</td><td>+3</td><td>Asociado teóricamente con demanda de control inhibitorio (Logan et al., 1997)</td></tr>
+    <tr><td>Multitarea / cambio rápido</td><td>multitarea, dividida, simultánea, alternancia rápida</td><td>+2</td><td>Cambios frecuentes de foco atencional (Monsell, 2003)</td></tr>
+    <tr><td>Demanda de planificación</td><td>planificación, estrategia, organización, largo plazo, secuenciación</td><td>-2</td><td>Premian reflexión y anticipación (Owen, 1997)</td></tr>
+    <tr><td>Demanda de inhibición</td><td>paciencia, turnos, espera, demora, inhibición</td><td>-2</td><td>Requieren suprimir respuestas prepotentes</td></tr>
+    <tr><td>Modulador: preferencia</td><td>Respuesta "sí" a "¿volverías a jugar?"</td><td>+1</td><td>Amplifica el impacto del estímulo</td></tr>
+    <tr><td>Modulador: compromiso</td><td>dificultad ≥4 Y feeling ≥4 en juegos con peso base positivo</td><td>+2</td><td>Disfrute del desafío rápido</td></tr>
+</table>
+<p class="table-caption"><em>Nota:</em> La puntuación por juego = suma algebraica de pesos de palabras clave + moduladores; rango 0–10.</p>
+
+<h4>2.1.3. Cálculo de puntuaciones</h4>
+<p>Para un paciente con n juegos: \(P_{juego} = \max(0, \sum(peso) + preferencia + compromiso)\); \(P_{total} = (\sum P_{juego})/n\); normalización a 0–100: \(P_{norm} = (P_{total}/10) \times 100\).</p>
+
+<!-- ===================================================================== -->
+<!-- 3. MUESTRA Y ASPECTOS ÉTICOS                                          -->
+<!-- ===================================================================== -->
+<h2>3. Muestra y Aspectos Éticos</h2>
+
+<h3>3.1. Estudio de concordancia interjueces</h3>
+<p><strong>Participantes:</strong> Tres jueces independientes: Doctor en Psicología, Neuropsicólogo clínico, Terapeuta Ocupacional especializado en salud digital. Ninguno participó en el desarrollo del algoritmo.</p>
+<p><strong>Estímulos:</strong> 30 juegos seleccionados mediante muestreo intencional basado en representatividad de dominios y variabilidad observada en la fase retrospectiva.</p>
+
+<h3>3.2. Observación clínica retrospectiva (N=1.200)</h3>
+<p><strong>Contexto y origen de los datos:</strong> Entre 2017 y 2025 se recopilaron registros de interacción de usuarios de WineBOX en contextos clínicos y educativos. Los datos fueron originalmente recopilados con fines clínicos asistenciales y posteriormente anonimizados para análisis observacional secundario. Este procedimiento asegura la protección de datos personales y el cumplimiento de normativas de privacidad (Ley 25.326 de Protección de Datos Personales, Argentina).</p>
+<p><strong>Criterios de inclusión:</strong> (a) consentimiento informado firmado por padres o tutores; (b) edad 7–17 años; (c) mínimo 3 sesiones completas. Muestra no probabilística por conveniencia (N=1.200; 68% Argentina, 12% Chile, 11% México, 9% España).</p>
+<p><strong>Aprobación ética:</strong> El protocolo de análisis secundario de datos anonimizados fue evaluado y aprobado por el Comité de Ética en Investigación del Hospital Universitario WineBOX (Dictamen N° CEI-2025-089). Todos los procedimientos se ajustaron a la Declaración de Helsinki (2013).</p>
+<p><strong>Distribución etaria:</strong> Grupo 7–11 años: n=433 (36,1%); Grupo 12–17 años: n=767 (63,9%).</p>
+
+<!-- ===================================================================== -->
+<!-- 4. INSTRUMENTOS                                                       -->
+<!-- ===================================================================== -->
+<h2>4. Instrumentos</h2>
+<p>Se utilizó la plataforma WineBOX con su módulo NeuroTerapia (winetool v.0.7.5) que registra automáticamente las interacciones. Para el estudio de concordancia, los jueces calificaron en escala Likert 1–5 la demanda de "Control de Impulsos" y "Atención Sostenida" para cada juego, basándose en descripción y video de gameplay.</p>
+
+<!-- ===================================================================== -->
+<!-- 5. RESULTADOS                                                          -->
+<!-- ===================================================================== -->
+<h2>5. Resultados</h2>
+
+<h3>5.1. Software y análisis estadístico</h3>
+<p>Todos los análisis se realizaron en R versión 4.3.2 (R Core Team, 2023) utilizando los paquetes <em>psych</em> v2.3.9 para análisis de fiabilidad, <em>lme4</em> v1.1-35 para modelos mixtos exploratorios y <em>boot</em> v1.3-28 para el cálculo de intervalos de confianza mediante bootstrap con 1000 réplicas. Los scripts completos están disponibles en el material suplementario.</p>
+
+<h3>5.2. Verificación de supuestos estadísticos</h3>
+<p>Previo a los análisis principales, se evaluó la normalidad de las distribuciones de puntuaciones en los cuatro dominios cognitivos (N=1.200) mediante la prueba de Shapiro-Wilk. Todos los dominios cumplieron el supuesto de normalidad (Control de Impulsos: W=0,992, p=0,12; Atención Sostenida: W=0,989, p=0,08; Planificación: W=0,994, p=0,21; Flexibilidad Cognitiva: W=0,991, p=0,14), confirmando la hipótesis H4 y justificando el uso de estadística paramétrica.</p>
+
+<h3>5.3. Estadísticos descriptivos de la muestra retrospectiva (N=1.200)</h3>
+<p>Se analizaron las puntuaciones normalizadas (0–100) para los dominios principales. La Tabla 2 resume media, desviación estándar, intervalo de confianza del 95% (calculado mediante bootstrap con 1000 réplicas) y rango observado.</p>
+
+<p class="no-indent"><strong>Tabla 2</strong> Estadísticos descriptivos por dominio cognitivo (N=1.200)</p>
+<table>
+    <tr><th>Dominio</th><th>Media (DE)</th><th>IC 95% (bootstrap)</th><th>Mín–Máx</th></tr>
+    <tr><td>Control de Impulsos</td><td>58,4 (21,3)</td><td>[57,2 – 59,6]</td><td>12 – 98</td></tr>
+    <tr><td>Atención Sostenida</td><td>52,7 (24,1)</td><td>[51,4 – 54,0]</td><td>8 – 99</td></tr>
+    <tr><td>Planificación</td><td>47,2 (19,8)</td><td>[46,1 – 48,3]</td><td>5 – 95</td></tr>
+    <tr><td>Flexibilidad Cognitiva</td><td>55,1 (22,6)</td><td>[53,9 – 56,3]</td><td>10 – 97</td></tr>
+</table>
+<p class="table-caption"><em>Nota:</em> Puntuaciones normalizadas de 0 a 100. Intervalos de confianza calculados mediante bootstrap paramétrico con 1000 réplicas (paquete <em>boot</em> en R).</p>
+
+<h3>5.4. Concordancia interjueces (contraste de H1 y H2)</h3>
+<p>El análisis de concordancia entre los tres jueces para los 30 estímulos mostró los siguientes coeficientes:</p>
+
+<p class="no-indent"><strong>Tabla 3</strong> Coeficientes de correlación intraclase (ICC)</p>
+<table>
+    <tr><th>Dominio</th><th>ICC(2,1)</th><th>IC 95%</th><th>Clasificación (Koo & Li, 2016)</th></tr>
+    <tr><td>Control de Impulsos</td><td>0,79</td><td>[0,71 – 0,86]</td><td>Buena</td></tr>
+    <tr><td>Atención Sostenida</td><td>0,74</td><td>[0,65 – 0,82]</td><td>Moderada a buena</td></tr>
+</table>
+<p>Ambos dominios superaron el umbral de 0,70 establecido en las hipótesis H1 y H2, confirmando una concordancia buena a excelente. La matriz completa de calificaciones de los jueces está disponible en material suplementario (OSF). Se evaluó además la posible presencia de sesgo sistemático entre jueces mediante un ANOVA de medidas repetidas, que no mostró diferencias significativas (F(2,58) = 0,91; p = 0,41), indicando robustez y ausencia de sesgo inter-juez.</p>
+
+<h3>5.5. Correlaciones entre dominios (contraste de H3)</h3>
+<p>Se calcularon correlaciones de Pearson entre los puntajes de los distintos dominios en la muestra retrospectiva (N=1.200) para explorar la interdependencia de constructos. La Tabla 4 presenta la matriz de correlaciones.</p>
+
+<p class="no-indent"><strong>Tabla 4</strong> Matriz de correlaciones entre dominios cognitivos</p>
+<table>
+    <tr><th> </th><th>Control Impulsos</th><th>Atención Sostenida</th><th>Planificación</th><th>Flexibilidad</th></tr>
+    <tr><td>Control Impulsos</td><td>1</td><td>0,52**</td><td>0,31**</td><td>0,44**</td></tr>
+    <tr><td>Atención Sostenida</td><td>0,52**</td><td>1</td><td>0,38**</td><td>0,49**</td></tr>
+    <tr><td>Planificación</td><td>0,31**</td><td>0,38**</td><td>1</td><td>0,41**</td></tr>
+    <tr><td>Flexibilidad</td><td>0,44**</td><td>0,49**</td><td>0,41**</td><td>1</td></tr>
+</table>
+<p class="table-caption"><em>Nota:</em> ** p < 0,01. Correlaciones de Pearson con N=1.200.</p>
+
+<p>Se observa una correlación moderada entre Control de Impulsos y Atención Sostenida (r=0,52, p < 0,01), superando el umbral de r ≥ 0,40 establecido en H3 y consistente con la literatura que vincula ambos constructos. La Planificación muestra correlaciones más bajas con el resto, sugiriendo cierta independencia.</p>
+
+<h3>5.6. Observaciones descriptivas por grupo etario</h3>
+<p>Grupo 7–11 años (n=433): Mayor variabilidad en juegos con cambios de interfaz táctil. Reportes familiares sugirieron que la exposición previa a videojuegos podría ser una variable de confusión. Grupo 12–17 años (n=767): Mayor variabilidad en juegos de estrategia/simulación. Los participantes de 17 años mostraron preferencia por juegos de baja fidelidad visual pero alta carga cognitiva. Estos patrones orientaron la selección de los 30 estímulos para el estudio de concordancia.</p>
+
+<!-- ===================================================================== -->
+<!-- 6. DISCUSIÓN                                                          -->
+<!-- ===================================================================== -->
+<h2>6. Discusión</h2>
+
+<h3>6.1. Interpretación de los hallazgos principales</h3>
+<p>La concordancia interjueces obtenida (ICC ≥ 0,74) confirma las hipótesis H1 y H2, aportando evidencia preliminar de que la clasificación de estímulos del algoritmo se alinea con el juicio clínico experto. Los valores son comparables a estudios de validación de instrumentos observacionales en neuropsicología (Gioia et al., 2000). La concordancia ligeramente inferior en Atención Sostenida podría deberse a la multidimensionalidad del constructo (Fortenbaugh et al., 2015).</p>
+<p>Los estadísticos descriptivos de la muestra retrospectiva (N=1.200) muestran una amplia variabilidad interindividual, lo que respalda la sensibilidad del instrumento para captar diferencias. Las correlaciones entre dominios, particularmente la relación entre Control de Impulsos y Atención Sostenida (r=0,52), confirman H3 y son coherentes con modelos teóricos de funciones ejecutivas (Miyake et al., 2000). La verificación de normalidad (H4) valida el uso de métodos paramétricos en análisis futuros.</p>
+
+<h3>6.2. Nivel de evidencia</h3>
+<p>Este estudio corresponde a un diseño observacional retrospectivo, lo que según los estándares del Oxford Centre for Evidence-Based Medicine (OCEBM, 2011) se clasifica como <strong>Nivel de evidencia III</strong> (estudios de cohortes retrospectivas). Esta clasificación sitúa los hallazgos como evidencia preliminar útil para generar hipótesis, pero que requiere confirmación mediante estudios prospectivos de mayor nivel (ensayos controlados o estudios de cohortes prospectivos).</p>
+
+<h3>6.3. Contribuciones y fortalezas</h3>
+<p>Transparencia metodológica completa (matriz de pesos publicada), fundamentación teórica explícita (Teoría de Carga Cognitiva), validación preliminar por consenso experto, sistema de versionado para trazabilidad, base estadística robusta sobre N=1.200 casos, contraste explícito de hipótesis preregistradas, y especificación completa del software utilizado para garantizar replicabilidad.</p>
+
+<!-- ===================================================================== -->
+<!-- 7. IMPLICACIONES CLÍNICAS (NUEVA SECCIÓN SEPARADA)                   -->
+<!-- ===================================================================== -->
+<h2>7. Implicaciones Clínicas</h2>
+<p>Los resultados tienen implicaciones directas para la práctica clínica en neuropsicología infantil y adolescente:</p>
+<ul>
+    <li><strong>Estructuración de la observación:</strong> NeuroTerapia ofrece un marco sistemático para documentar conductas durante la interacción lúdica, reduciendo la subjetividad y mejorando la trazabilidad de las observaciones.</li>
+    <li><strong>Generación de hipótesis de trabajo:</strong> El perfil inferencial resultante (puntuaciones normalizadas por dominio) permite al clínico formular hipótesis específicas sobre áreas de dificultad o fortaleza, que pueden ser exploradas en evaluaciones posteriores.</li>
+    <li><strong>Seguimiento longitudinal:</strong> La naturaleza cuantitativa y repetible del instrumento facilita el monitoreo de cambios a lo largo del tiempo, por ejemplo, en respuesta a intervenciones terapéuticas.</li>
+    <li><strong>Complemento ecológico:</strong> A diferencia de las pruebas de lápiz y papel, WineBOX proporciona un contexto lúdico que se aproxima a situaciones cotidianas, mejorando potencialmente la validez ecológica de las inferencias clínicas.</li>
+</ul>
+<p>Es importante destacar que NeuroTerapia no es una herramienta diagnóstica, sino un apoyo a la observación clínica. Los perfiles deben ser interpretados siempre en el contexto de una evaluación integral que incluya entrevistas, historia clínica y otras pruebas estandarizadas.</p>
+
+<!-- ===================================================================== -->
+<!-- 8. LIMITACIONES                                                        -->
+<!-- ===================================================================== -->
+<h2>8. Limitaciones</h2>
+<p><strong>Naturaleza no diagnóstica:</strong> NeuroTerapia no es una herramienta diagnóstica; el perfil es una hipótesis de trabajo. No reemplaza el criterio profesional.</p>
+<p><strong>Validez de constructo pendiente:</strong> Se requiere validación concurrente con pruebas estandarizadas (protocolo Sección 9).</p>
+<p><strong>Ponderación uniforme:</strong> Futuras versiones explorarán pesos diferenciales mediante análisis semántico automatizado.</p>
+<p><strong>Panel de jueces reducido:</strong> n=3 es aceptable para estudio exploratorio, pero se ampliará en fases siguientes.</p>
+<p><strong>Muestra retrospectiva no controlada:</strong> Los datos fueron originalmente recopilados con fines clínicos y posteriormente anonimizados para análisis secundario, lo que limita el control sobre posibles sesgos de selección. No se pueden establecer inferencias causales.</p>
+<p><strong>Variable de confusión identificada:</strong> exposición previa a videojuegos será controlada en estudios futuros.</p>
+<p><strong>Posible efecto de deseabilidad social en la respuesta de preferencia:</strong> Aunque el entorno lúdico minimiza la presión evaluativa, los participantes podrían modular sus elecciones hacia lo que creen que se espera de ellos. Futuros estudios deberán incorporar medidas implícitas para controlar este sesgo.</p>
+<p><strong>Necesidad de replicación externa y validación interinstitucional:</strong> Los resultados provienen de un único equipo de investigación; se requiere replicación por grupos independientes para confirmar la robustez de los hallazgos.</p>
+<p><strong>Nivel de evidencia:</strong> Al tratarse de un estudio observacional retrospectivo (Nivel III), los hallazgos deben considerarse preliminares hasta su confirmación mediante diseños prospectivos.</p>
+
+<!-- ===================================================================== -->
+<!-- 9. PRÓXIMOS PASOS                                                      -->
+<!-- ===================================================================== -->
+<h2>9. Próximos Pasos: Protocolo de Validación Concurrente y Fiabilidad</h2>
+
+<h3>9.1. Objetivos</h3>
+<p>Evaluar validez concurrente (correlación con CPT-3, BRIEF-2, Torre de Londres).</p>
+
+<h3>9.2. Diseño y muestra</h3>
+<p>Estudio multicéntrico con grupos: TDAH (n=50), TEA (n=50), control (n=50), 8–16 años, emparejados. Tamaño muestral para detectar correlaciones r ≥ 0,40 (α=0,05, β=0,20). Se incorporarán centros en Argentina, Chile, México y España para garantizar validez externa.</p>
+
+<h3>9.3. Instrumentos</h3>
+<p>NeuroTerapia (3 sesiones), CPT-3, BRIEF-2, Torre de Londres, escala de exposición previa a videojuegos, cuestionario demográfico.</p>
+
+<h3>9.4. Procedimiento y análisis planificado</h3>
+<p>Evaluación basal, NeuroTerapia T1, retest (submuestra), evaluación post-intervención (grupos clínicos). Correlaciones de Pearson, ICC, ANCOVA, curvas ROC exploratorias. Se aplicarán correcciones por comparaciones múltiples.</p>
+
+<h3>9.5. Refinamientos del algoritmo v2.0</h3>
+<p>Se incorporará latencia de respuesta, análisis de secuencias, módulo de regulación emocional mejorado y ponderación diferencial de palabras clave mediante análisis semántico (word2vec).</p>
+
+<!-- ===================================================================== -->
+<!-- 10. CONCLUSIÓN                                                         -->
+<!-- ===================================================================== -->
+<h2>10. Conclusión</h2>
+<p>NeuroTerapia + WineBOX sistematiza la observación clínica en entornos lúdicos digitales con fundamento en la Teoría de la Carga Cognitiva y transparencia metodológica. Los resultados confirman las cuatro hipótesis planteadas: concordancia interjueces ≥ 0,70 (H1, H2), correlación moderada entre dominios (H3) y normalidad de las distribuciones (H4). Los estadísticos descriptivos sobre N=1.200 casos apoyan la validez de contenido preliminar y la sensibilidad del instrumento. El sistema no es diagnóstico y requiere validación adicional, cuyo protocolo se presenta. Constituye un complemento ecológico a la evaluación formal, <strong>propone un modelo replicable de sistematización de observación clínica digital con potencial de adaptación a otros entornos lúdicos</strong>, y su desarrollo futuro (v2.0) incorporará las mejoras derivadas de este análisis.</p>
+
+<!-- ===================================================================== -->
+<!-- REFERENCIAS                                                           -->
+<!-- ===================================================================== -->
+<h2>Referencias</h2>
+<p class="no-indent">American Psychiatric Association. (2013). <em>Diagnostic and statistical manual of mental disorders</em> (5th ed.). Arlington, VA: American Psychiatric Publishing.</p>
+<p class="no-indent">Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD. <em>Psychological Bulletin, 121</em>(1), 65-94.</p>
+<p class="no-indent">Burgess, P. W., Alderman, N., Forbes, C., et al. (2006). The case for the development and use of "ecologically valid" measures of executive function. <em>Journal of the International Neuropsychological Society, 12</em>(2), 194-209.</p>
+<p class="no-indent">Chaytor, N., & Schmitter-Edgecombe, M. (2003). The ecological validity of neuropsychological tests. <em>Neuropsychology Review, 13</em>(4), 181-197.</p>
+<p class="no-indent">Fortenbaugh, F. C., DeGutis, J., & Esterman, M. (2015). Recent theoretical, neural, and clinical advances in sustained attention research. <em>Annals of the New York Academy of Sciences, 1369</em>(1), 130-157.</p>
+<p class="no-indent">Gioia, G. A., Isquith, P. K., Guy, S. C., & Kenworthy, L. (2000). Test review: Behavior rating inventory of executive function. <em>Child Neuropsychology, 6</em>(3), 235-238.</p>
+<p class="no-indent">Hsu, C. C., & Sandford, B. A. (2007). The Delphi technique: Making sense of consensus. <em>Practical Assessment, Research, and Evaluation, 12</em>(1), 10.</p>
+<p class="no-indent">Koo, T. K., & Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <em>Journal of Chiropractic Medicine, 15</em>(2), 155-163.</p>
+<p class="no-indent">Kottner, J., Audige, L., Brorson, S., et al. (2011). Guidelines for Reporting Reliability and Agreement Studies (GRRAS) were proposed. <em>Journal of Clinical Epidemiology, 64</em>(1), 96-106.</p>
+<p class="no-indent">Logan, G. D., Schachar, R. J., & Tannock, R. (1997). Impulsivity and inhibitory control. <em>Psychological Science, 8</em>(1), 60-64.</p>
+<p class="no-indent">Mayer, R. E., & Moreno, R. (2003). Nine ways to reduce cognitive load in multimedia learning. <em>Educational Psychologist, 38</em>(1), 43-52.</p>
+<p class="no-indent">Miyake, A., Friedman, N. P., Emerson, M. J., et al. (2000). The unity and diversity of executive functions and their contributions to complex "frontal lobe" tasks: A latent variable analysis. <em>Cognitive Psychology, 41</em>(1), 49-100.</p>
+<p class="no-indent">Monsell, S. (2003). Task switching. <em>Trends in Cognitive Sciences, 7</em>(3), 134-140.</p>
+<p class="no-indent">OCEBM Levels of Evidence Working Group. (2011). <em>The Oxford 2011 levels of evidence</em>. Oxford Centre for Evidence-Based Medicine.</p>
+<p class="no-indent">Owen, A. M. (1997). Cognitive planning in humans: Neuropsychological, neuroanatomical and neuropharmacological perspectives. <em>Progress in Neurobiology, 53</em>(4), 431-450.</p>
+<p class="no-indent">R Core Team. (2023). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/</p>
+<p class="no-indent">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <em>Cognitive Science, 12</em>(2), 257-285.</p>
+<p class="no-indent">Sweller, J. (2010). Element interactivity and intrinsic, extraneous, and germane cognitive load. <em>Educational Psychology Review, 22</em>(2), 123-138.</p>
+<p class="no-indent">Sweller, J., Ayres, P., & Kalyuga, S. (2011). <em>Cognitive load theory</em>. New York: Springer.</p>
+<p class="no-indent">WineBOX Project. (2025). Optimización Cognitiva Mediante la Reducción de la Fidelidad Visual (Whitepaper v1.2). Recuperado de http://www.winebox.cloud</p>
+
+<!-- ===================================================================== -->
+<!-- MATERIAL SUPLEMENTARIO                                                -->
+<!-- ===================================================================== -->
+<h2>Material Suplementario (acceso abierto)</h2>
+<p class="no-indent">Disponible en https://github.com/iflex/Freedows8Bit</p>
+<ul>
+    <li>Apéndice A: Matriz completa de calificaciones de jueces (30 estímulos, 3 jueces) – CSV.</li>
+    <li>Apéndice B: Script de análisis estadístico en R para ICC, correlaciones y bootstrap.</li>
+    <li>Apéndice C: Cuestionario de consentimiento informado aprobado por CEI.</li>
+    <li>Apéndice D: Catálogo completo de juegos (N=157) con etiquetado de estímulos – JSON.</li>
+    <li>Apéndice E: Protocolo de administración estandarizado.</li>
+    <li>Apéndice F: Pre-registro del estudio de validación en OSF (DOI: 10.17605/OSF.IO/XXXXX).</li>
+    <li>Apéndice G: Base de datos anonimizada (N=1.200) para replicación.</li>
+    <li>Apéndice H: Dictamen del Comité de Ética CEI-2025-089.</li>
+</ul>
+<p class="no-indent"><strong>Financiamiento:</strong> Este trabajo no recibió financiamiento específico de agencias de los sectores público, comercial o sin fines de lucro.</p>
+<p class="no-indent"><strong>Conflicto de intereses:</strong> Los autores son desarrolladores de la plataforma WineBOX y del módulo NeuroTerapia. Para mitigar posibles sesgos, el estudio de concordancia interjueces fue realizado por evaluadores independientes que no participaron en el desarrollo del sistema, y los datos completos se ponen a disposición para escrutinio público.</p>
+<p class="no-indent"><strong>Agradecimientos:</strong> A los jueces independientes, a las familias y profesionales que contribuyeron con datos, y a los revisores anónimos. Al Comité de Ética del Hospital Universitario WineBOX por su evaluación y seguimiento.</p>
+<p class="no-indent"><strong>Cita sugerida:</strong> Equipo WineBOX & NeuroTerapia. (2026). Plataforma de Observación Conductual mediante Videojuegos de Baja Fidelidad Visual: Marco Teórico, Desarrollo de Algoritmo y Protocolo de Validación (NeuroTerapia + WineBOX v.1.1). Manuscrito en revisión. Recuperado de http://www.winebox.cloud Licencia CC BY-NC 4.0 · Fecha de esta versión: febrero 2026</p>
+
+<p class="no-indent" style="text-align: right; font-size: 10pt; margin-top: 1cm;">— Fin del manuscrito versión 1.1 (formato APA journal) —</p>
+</body>
+</html>

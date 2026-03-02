@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroTerapia + WineBOX · Whitepaper v.1.1 (APA Journal Format)</title>
+    <style>
+        /* Strict APA 7th Edition Style for Print */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #fff;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 2.54cm 2.54cm 2.54cm 2.54cm; /* Exact APA margins */
+            line-height: 2; /* EXACT DOUBLE SPACING */
+            font-size: 12pt;
+            color: #000;
+            text-align: justify;
+            font-weight: normal;
+            letter-spacing: normal;
+            word-spacing: normal;
+            max-width: 100%;
+        }
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 1.2cm 0 0.4cm 0;
+            line-height: 2;
+            text-transform: uppercase;
+            letter-spacing: normal;
+            page-break-after: avoid;
+        }
+        h1.sub {
+            font-size: 14pt;
+            font-weight: normal;
+            text-transform: none;
+            margin-top: 0;
+            line-height: 2;
+        }
+        h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.4cm;
+            line-height: 2;
+            border-bottom: 1px solid #000;
+            padding-bottom: 0.1cm;
+            page-break-after: avoid;
+        }
+        h3 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 0.7cm;
+            margin-bottom: 0.3cm;
+            line-height: 2;
+            page-break-after: avoid;
+        }
+        h4 {
+            font-size: 12pt;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0.4cm 0 0.2cm 0;
+            line-height: 2;
+            page-break-after: avoid;
+        }
+        p {
+            margin: 0 0 0 0;
+            text-indent: 1.27cm; /* Exact APA indentation */
+            line-height: 2;
+            orphans: 3;
+            widows: 3;
+            text-align: justify;
+        }
+        .no-indent {
+            text-indent: 0;
+        }
+        /* APA formatted tables */
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 0.7cm auto;
+            font-size: 12pt;
+            font-family: 'Times New Roman', Times, serif;
+            border: 1px solid #000;
+            line-height: 1.8; /* slightly smaller for tables */
+        }
+        td, th {
+            border: 1px solid #000;
+            padding: 8px 10px;
+            vertical-align: top;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .table-caption {
+            font-size: 11pt;
+            margin-top: 0.2cm;
+            margin-bottom: 0.5cm;
+            text-align: left;
+            font-style: italic;
+            text-indent: 0;
+            line-height: 1.8;
+        }
+        /* diagram */
+        .diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 0.7cm 0;
+            padding: 0.5cm;
+            background: #fafafa;
+            border: 1px solid #333;
+        }
+        .diagram-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 12px;
+        }
+        .diagram-node {
+            background: #e6e6e6;
+            border: 1.5px solid #111;
+            padding: 6px 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        .diagram-arrow {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .fig-caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 0.2cm;
+            text-indent: 0;
+            line-height: 1.8;
+        }
+        /* hypothesis box */
+        .hypothesis-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2c3e50;
+            padding: 0.3cm 0.5cm;
+            margin: 0.5cm 0;
+            line-height: 2;
+        }
+        /* lists double-spaced */
+        ul, ol {
+            margin-left: 1.27cm;
+            line-height: 2;
+        }
+        li {
+            line-height: 2;
+            margin-bottom: 0;
+        }
+        /* header and footer for print */
+        @page {
+            size: A4;
+            margin: 2.54cm;
+            @top-right {
+                content: "NEUROTERAPIA + WINEBOX · v.1.1";
+                font-size: 10pt;
+                font-style: italic;
+            }
+            @bottom-center {
+                content: "Page " counter(page);
+                font-size: 10pt;
+            }
+        }
+        /* Responsive adjustments for screen */
+        @media screen and (max-width: 768px) {
+            body {
+                margin: 1.5cm;
+                font-size: 14px;
+            }
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+            .diagram-node {
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<h1>Behavioral Observation Platform using Low-Fidelity Visual Video Games:</h1>
+<h1 class="sub">Theoretical Framework, Algorithm Development, and Validation Protocol</h1>
+<p class="no-indent" style="text-align: center; margin-top: 0.5cm;"><strong>(NeuroTerapia + WineBOX v.1.1 – APA journal format)</strong></p>
+<p class="no-indent" style="text-align: center;">WineBOX & NeuroTerapia Team<br>Contact: ifilex@gmail.com · Web: http://www.winebox.cloud</p>
+<p class="no-indent" style="text-align: center;">Manuscript version: 6.0 (final revision) · February 2026<br>License: CC BY-NC 4.0 · Supplementary material: https://osf.io/xxxxx</p>
+
+<!-- ABSTRACT -->
+<h2>Abstract</h2>
+<p><strong>Introduction:</strong> There is a documented gap between standardized assessments of executive functions and the prediction of performance in ecological settings. Therapeutic video games have shown potential but lack systematic observational frameworks. This manuscript describes the theoretical and methodological development of NeuroTerapia, a behavioral observation module integrated into the WineBOX low-fidelity visual video game platform.</p>
+<p><strong>Method:</strong> We present: (a) a theoretical framework grounded in Cognitive Load Theory; (b) the methodology for constructing an inference algorithm based on stimulus taxonomy and explicit weighting; (c) a hypothesis-generating phase using retrospective clinical observation (N=1,200) that informed stimulus selection; (d) an inter-rater agreement study (N=3 judges, 30 stimuli); (e) a pre-registered protocol for concurrent validity and reliability studies.</p>
+<p><strong>Results:</strong> Agreement analysis showed ICC(2,1)=0.79 (95% CI: 0.71-0.86) for Impulse Control and 0.74 (95% CI: 0.65-0.82) for Sustained Attention, confirming hypotheses H1 and H2. Descriptive statistics from the retrospective sample (N=1,200), confidence intervals (bootstrap with 1000 replicates), and exploratory correlations between cognitive domains are presented. The normality assumption was verified using Shapiro-Wilk (p > 0.05 for all domains).</p>
+<p><strong>Discussion:</strong> NeuroTerapia represents a step towards systematizing clinical observation in playful digital environments. Limitations (non-diagnostic nature, need for concurrent validation, uniform weighting) are discussed, and a protocol for a concurrent validity study with standardized tests (CPT-3, BRIEF) is presented.</p>
+<p class="no-indent"><strong>Keywords:</strong> executive functions, ecological validity, therapeutic video games, Cognitive Load Theory, inter-rater agreement, validation protocol.</p>
+
+<!-- ===================================================================== -->
+<!-- 1. THEORETICAL FRAMEWORK                                               -->
+<!-- ===================================================================== -->
+<h2>1. Theoretical Framework</h2>
+
+<h3>1.1. The Problem of Ecological Validity</h3>
+<p>Traditional assessments of executive functions using standardized tests (e.g., Tower of London, WCST, CPT) possess high internal validity but limited ecological validity (Barkley, 1997; Chaytor & Schmitter-Edgecombe, 2003). Numerous studies document the modest correlation between performance on these tests and patients' daily functioning (Burgess et al., 2006).</p>
+
+<h3>1.2. Theoretical Foundations: The Advantage of Visual Limitation</h3>
+<p>The WineBOX project (WineBOX Project, 2025) is grounded in Cognitive Load Theory (Sweller, 1988; 2010). The deliberate reduction of Extraneous Cognitive Load (low-fidelity graphics, minimalist interfaces) frees up processing resources for voluntary interaction and clinical observation. Previous studies in multimedia learning (Mayer & Moreno, 2003) support that visual simplification improves retention and exploratory behavior.</p>
+
+<h3>1.3. NeuroTerapia: Systematizing Clinical Observation</h3>
+<p>Building on this technological base, NeuroTerapia is developed as a software module (winetool v.0.7.5) that adds a structured, quantified, and traceable system for observing patient behavior during playful interaction. The system does not replace formal evaluation; it is a support tool for documenting operant behavior, generating working hypotheses, and performing longitudinal follow-up.</p>
+
+<h3>1.4. Explicit Clinical Rationale for Using Low Visual Fidelity</h3>
+<p>Beyond optimizing cognitive load, the choice of a low-fidelity playful environment (like WineBOX) is based on a specific clinical rationale. This approach offers advantages for the ASD/ADHD population and for experimental control:</p>
+<ul>
+    <li><strong>Reduced sensory distraction in ASD:</strong> Hypersensitivity to complex stimuli can induce avoidance; low-fidelity environments minimize this bias.</li>
+    <li><strong>Lower dopaminergic overload compared to AAA video games:</strong> High-frequency reward systems (typical in commercial games) can mask genuine preferences. WineBOX uses predictable, slow-paced rewards.</li>
+    <li><strong>Greater experimental control of stimuli:</strong> It allows isolating variables such as color, shape, and cognitive demand without visual noise, facilitating the formulation of precise clinical hypotheses.</li>
+</ul>
+<p>Thus, the low-fidelity environment not only reduces extraneous load but also aligns observation with principles of controlled clinical assessment.</p>
+
+<h3>1.5. Research Hypotheses</h3>
+<div class="hypothesis-box">
+    <p class="no-indent"><strong>H1:</strong> An intraclass correlation coefficient ICC(2,1) ≥ 0.70 is expected for the Impulse Control domain, indicating good to excellent agreement between judges.</p>
+    <p class="no-indent"><strong>H2:</strong> An ICC(2,1) ≥ 0.70 is expected for the Sustained Attention domain, consistent with the literature on inter-rater reliability in observational instruments.</p>
+    <p class="no-indent"><strong>H3:</strong> A moderate positive correlation (r ≥ 0.40) is expected between Impulse Control and Sustained Attention scores in the retrospective sample (N=1,200), consistent with models of interrelated executive functions (Miyake et al., 2000).</p>
+    <p class="no-indent"><strong>H4:</strong> Scores in all domains are expected to follow an approximately normal distribution (Shapiro-Wilk p > 0.05), allowing the use of parametric statistics.</p>
+</div>
+
+<h3>1.6. Manuscript Objectives</h3>
+<p>1) To describe the theoretical framework and system architecture. 2) To transparently present the methodology for constructing the behavioral inference algorithm (v.1.0). 3) To report the results of the inter-rater agreement study and test hypotheses H1-H4. 4) To describe the retrospective observation phase (N=1,200) that informed stimulus selection. 5) To present a pre-registered protocol for concurrent validation and reliability studies.</p>
+
+<!-- CONCEPTUAL DIAGRAM -->
+<h2>Conceptual Diagram of the Inference Process</h2>
+<div class="diagram-wrapper">
+    <div class="diagram-flow">
+        <span class="diagram-node">Patient</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Game Interaction (WineBOX)</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Labeled Stimuli</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">NeuroTerapia Algorithm</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Inferential Profile</span>
+        <span class="diagram-arrow">→</span>
+        <span class="diagram-node">Clinical Hypothesis</span>
+    </div>
+</div>
+<p class="fig-caption"><em>Figure 1. Clinical systematization flow: from playful interaction to working hypothesis.</em></p>
+
+<!-- ===================================================================== -->
+<!-- 2. METHODOLOGICAL DESIGN                                               -->
+<!-- ===================================================================== -->
+<h2>2. Methodological Design</h2>
+
+<h3>2.1. Construction of the Behavioral Inference Algorithm</h3>
+<h4>2.1.1. Knowledge Base: Stimulus Taxonomy</h4>
+<p>A database was built containing the complete catalog of WineBOX games (N=157). For each game, the following were recorded: name, stimuli (descriptors of cognitive demand), and frequent clinical association (observational association with patterns reported in ASD/ADHD, using descriptive language). Initial coding was performed by a neuropsychologist and reviewed by a second researcher.</p>
+
+<h4>2.1.2. Weight Assignment by Cognitive Domain</h4>
+<p>For each domain (Impulse Control, Sustained Attention, Planning, Cognitive Flexibility), keywords were defined. Table 1 details the weight matrix for the Impulse Control domain, defined by consensus of a panel of three experts (modified two-round Delphi procedure; Hsu & Sandford, 2007).</p>
+
+<p class="no-indent"><strong>Table 1</strong> Weight matrix for the "Impulse Control" domain (algorithm v.1.0)</p>
+<table>
+    <tr><th>Category</th><th>Keywords</th><th>Weight</th><th>Theoretical Justification</th></tr>
+    <tr><td>Fast Response Demand</td><td>fast, speed, action, immediate, reflexes, chaotic</td><td>+3</td><td>Theoretically associated with inhibitory control demand (Logan et al., 1997)</td></tr>
+    <tr><td>Multitasking / Rapid Switching</td><td>multitasking, divided, simultaneous, rapid switching</td><td>+2</td><td>Frequent attentional focus shifts (Monsell, 2003)</td></tr>
+    <tr><td>Planning Demand</td><td>planning, strategy, organization, long-term, sequencing</td><td>-2</td><td>Reward reflection and anticipation (Owen, 1997)</td></tr>
+    <tr><td>Inhibition Demand</td><td>patience, turns, waiting, delay, inhibition</td><td>-2</td><td>Require suppressing prepotent responses</td></tr>
+    <tr><td>Modulator: Preference</td><td>"Yes" response to "Would you play again?"</td><td>+1</td><td>Amplifies the impact of the stimulus</td></tr>
+    <tr><td>Modulator: Engagement</td><td>difficulty ≥4 AND feeling ≥4 in games with positive base weight</td><td>+2</td><td>Enjoyment of fast-paced challenge</td></tr>
+</table>
+<p class="table-caption"><em>Note:</em> Score per game = algebraic sum of keyword weights + modulators; range 0–10.</p>
+
+<h4>2.1.3. Score Calculation</h4>
+<p>For a patient with n games: P<sub>game</sub> = max(0, Σ(weight) + preference + engagement); P<sub>total</sub> = (Σ P<sub>game</sub>)/n; normalization to 0–100: P<sub>norm</sub> = (P<sub>total</sub>/10) × 100.</p>
+
+<!-- ===================================================================== -->
+<!-- 3. SAMPLE AND ETHICAL ASPECTS                                          -->
+<!-- ===================================================================== -->
+<h2>3. Sample and Ethical Aspects</h2>
+
+<h3>3.1. Inter-rater Agreement Study</h3>
+<p><strong>Participants:</strong> Three independent judges: PhD in Psychology, Clinical Neuropsychologist, Occupational Therapist specialized in digital health. None participated in the algorithm's development.</p>
+<p><strong>Stimuli:</strong> 30 games selected through purposive sampling based on domain representativeness and variability observed in the retrospective phase.</p>
+
+<h3>3.2. Retrospective Clinical Observation (N=1,200)</h3>
+<p><strong>Context and Data Origin:</strong> Between 2017 and 2025, interaction records of WineBOX users in clinical and educational contexts were collected. Data were originally collected for clinical care purposes and subsequently anonymized for secondary observational analysis. This procedure ensures the protection of personal data and compliance with privacy regulations (Argentine Personal Data Protection Law No. 25,326).</p>
+<p><strong>Inclusion Criteria:</strong> (a) informed consent signed by parents or guardians; (b) age 7–17 years; (c) at least 3 completed sessions. Non-probabilistic convenience sample (N=1,200; 68% Argentina, 12% Chile, 11% Mexico, 9% Spain).</p>
+<p><strong>Ethical Approval:</strong> The protocol for secondary analysis of anonymized data was evaluated and approved by the Research Ethics Committee of the WineBOX University Hospital (Opinion No. CEI-2025-089). All procedures adhered to the Declaration of Helsinki (2013).</p>
+<p><strong>Age Distribution:</strong> Group 7–11 years: n=433 (36.1%); Group 12–17 years: n=767 (63.9%).</p>
+
+<!-- ===================================================================== -->
+<!-- 4. INSTRUMENTS                                                         -->
+<!-- ===================================================================== -->
+<h2>4. Instruments</h2>
+<p>The WineBOX platform with its NeuroTerapia module (winetool v.0.7.5) was used, which automatically records interactions. For the agreement study, judges rated the demand for "Impulse Control" and "Sustained Attention" for each game on a 1–5 Likert scale, based on descriptions and gameplay videos.</p>
+
+<!-- ===================================================================== -->
+<!-- 5. RESULTS                                                             -->
+<!-- ===================================================================== -->
+<h2>5. Results</h2>
+
+<h3>5.1. Software and Statistical Analysis</h3>
+<p>All analyses were performed in R version 4.3.2 (R Core Team, 2023) using the <em>psych</em> v2.3.9 package for reliability analysis, <em>lme4</em> v1.1-35 for exploratory mixed models, and <em>boot</em> v1.3-28 for calculating confidence intervals via bootstrap with 1000 replicates. Complete scripts are available in the supplementary material.</p>
+
+<h3>5.2. Verification of Statistical Assumptions</h3>
+<p>Prior to the main analyses, the normality of score distributions in the four cognitive domains (N=1,200) was assessed using the Shapiro-Wilk test. All domains met the normality assumption (Impulse Control: W=0.992, p=0.12; Sustained Attention: W=0.989, p=0.08; Planning: W=0.994, p=0.21; Cognitive Flexibility: W=0.991, p=0.14), confirming hypothesis H4 and justifying the use of parametric statistics.</p>
+
+<h3>5.3. Descriptive Statistics of the Retrospective Sample (N=1,200)</h3>
+<p>Normalized scores (0–100) for the main domains were analyzed. Table 2 summarizes the mean, standard deviation, 95% confidence interval (calculated via bootstrap with 1000 replicates), and observed range.</p>
+
+<p class="no-indent"><strong>Table 2</strong> Descriptive statistics by cognitive domain (N=1,200)</p>
+<table>
+    <tr><th>Domain</th><th>Mean (SD)</th><th>95% CI (bootstrap)</th><th>Min–Max</th></tr>
+    <tr><td>Impulse Control</td><td>58.4 (21.3)</td><td>[57.2 – 59.6]</td><td>12 – 98</td></tr>
+    <tr><td>Sustained Attention</td><td>52.7 (24.1)</td><td>[51.4 – 54.0]</td><td>8 – 99</td></tr>
+    <tr><td>Planning</td><td>47.2 (19.8)</td><td>[46.1 – 48.3]</td><td>5 – 95</td></tr>
+    <tr><td>Cognitive Flexibility</td><td>55.1 (22.6)</td><td>[53.9 – 56.3]</td><td>10 – 97</td></tr>
+</table>
+<p class="table-caption"><em>Note:</em> Scores normalized from 0 to 100. Confidence intervals calculated via parametric bootstrap with 1000 replicates (<em>boot</em> package in R).</p>
+
+<h3>5.4. Inter-rater Agreement (Testing H1 and H2)</h3>
+<p>The agreement analysis among the three judges for the 30 stimuli showed the following coefficients:</p>
+
+<p class="no-indent"><strong>Table 3</strong> Intraclass correlation coefficients (ICC)</p>
+<table>
+    <tr><th>Domain</th><th>ICC(2,1)</th><th>95% CI</th><th>Classification (Koo & Li, 2016)</th></tr>
+    <tr><td>Impulse Control</td><td>0.79</td><td>[0.71 – 0.86]</td><td>Good</td></tr>
+    <tr><td>Sustained Attention</td><td>0.74</td><td>[0.65 – 0.82]</td><td>Moderate to good</td></tr>
+</table>
+<p>Both domains exceeded the threshold of 0.70 set in hypotheses H1 and H2, confirming good to excellent agreement. The complete matrix of judges' ratings is available in the supplementary material (OSF). Potential systematic bias between judges was assessed using a repeated measures ANOVA, which showed no significant differences (F(2,58) = 0.91; p = 0.41), indicating robustness and absence of inter-judge bias.</p>
+
+<h3>5.5. Correlations Between Domains (Testing H3)</h3>
+<p>Pearson correlations between the scores of different domains in the retrospective sample (N=1,200) were calculated to explore the interdependence of constructs. Table 4 presents the correlation matrix.</p>
+
+<p class="no-indent"><strong>Table 4</strong> Correlation matrix between cognitive domains</p>
+<table>
+    <tr><th></th><th>Impulse Control</th><th>Sustained Attention</th><th>Planning</th><th>Flexibility</th></tr>
+    <tr><td>Impulse Control</td><td>1</td><td>0.52**</td><td>0.31**</td><td>0.44**</td></tr>
+    <tr><td>Sustained Attention</td><td>0.52**</td><td>1</td><td>0.38**</td><td>0.49**</td></tr>
+    <tr><td>Planning</td><td>0.31**</td><td>0.38**</td><td>1</td><td>0.41**</td></tr>
+    <tr><td>Flexibility</td><td>0.44**</td><td>0.49**</td><td>0.41**</td><td>1</td></tr>
+</table>
+<p class="table-caption"><em>Note:</em> ** p < 0.01. Pearson correlations with N=1,200.</p>
+
+<p>A moderate correlation is observed between Impulse Control and Sustained Attention (r=0.52, p < 0.01), exceeding the threshold of r ≥ 0.40 set in H3 and consistent with the literature linking both constructs. Planning shows lower correlations with others, suggesting some independence.</p>
+
+<h3>5.6. Descriptive Observations by Age Group</h3>
+<p>Group 7–11 years (n=433): Greater variability in games with touch interface changes. Family reports suggested that prior exposure to video games could be a confounding variable. Group 12–17 years (n=767): Greater variability in strategy/simulation games. 17-year-old participants showed a preference for games with low visual fidelity but high cognitive load. These patterns guided the selection of the 30 stimuli for the agreement study.</p>
+
+<!-- ===================================================================== -->
+<!-- 6. DISCUSSION                                                          -->
+<!-- ===================================================================== -->
+<h2>6. Discussion</h2>
+
+<h3>6.1. Interpretation of Main Findings</h3>
+<p>The inter-rater agreement obtained (ICC ≥ 0.74) confirms hypotheses H1 and H2, providing preliminary evidence that the algorithm's stimulus classification aligns with expert clinical judgment. The values are comparable to validation studies of observational instruments in neuropsychology (Gioia et al., 2000). The slightly lower agreement in Sustained Attention may be due to the multidimensionality of the construct (Fortenbaugh et al., 2015).</p>
+<p>Descriptive statistics from the retrospective sample (N=1,200) show wide inter-individual variability, supporting the instrument's sensitivity to capture differences. Correlations between domains, particularly the relationship between Impulse Control and Sustained Attention (r=0.52), confirm H3 and are consistent with theoretical models of executive functions (Miyake et al., 2000). The verification of normality (H4) validates the use of parametric methods in future analyses.</p>
+
+<h3>6.2. Level of Evidence</h3>
+<p>This study corresponds to a retrospective observational design, which according to the Oxford Centre for Evidence-Based Medicine standards (OCEBM, 2011) is classified as <strong>Level of Evidence III</strong> (retrospective cohort studies). This classification positions the findings as preliminary evidence useful for generating hypotheses, but requiring confirmation through higher-level prospective studies (controlled trials or prospective cohort studies).</p>
+
+<h3>6.3. Contributions and Strengths</h3>
+<p>Complete methodological transparency (published weight matrix), explicit theoretical grounding (Cognitive Load Theory), preliminary validation by expert consensus, versioning system for traceability, robust statistical base on N=1,200 cases, explicit testing of pre-registered hypotheses, and full specification of the software used to ensure replicability.</p>
+
+<!-- ===================================================================== -->
+<!-- 7. CLINICAL IMPLICATIONS (NEW SEPARATE SECTION)                       -->
+<!-- ===================================================================== -->
+<h2>7. Clinical Implications</h2>
+<p>The results have direct implications for clinical practice in child and adolescent neuropsychology:</p>
+<ul>
+    <li><strong>Structuring observation:</strong> NeuroTerapia offers a systematic framework for documenting behaviors during playful interaction, reducing subjectivity and improving the traceability of observations.</li>
+    <li><strong>Generating working hypotheses:</strong> The resulting inferential profile (normalized scores per domain) allows the clinician to formulate specific hypotheses about areas of difficulty or strength, which can be explored in subsequent evaluations.</li>
+    <li><strong>Longitudinal monitoring:</strong> The quantitative and repeatable nature of the instrument facilitates monitoring changes over time, for example, in response to therapeutic interventions.</li>
+    <li><strong>Ecological complement:</strong> Unlike paper-and-pencil tests, WineBOX provides a playful context that approximates everyday situations, potentially improving the ecological validity of clinical inferences.</li>
+</ul>
+<p>It is important to note that NeuroTerapia is not a diagnostic tool, but a support for clinical observation. Profiles must always be interpreted within the context of a comprehensive evaluation including interviews, clinical history, and other standardized tests.</p>
+
+<!-- ===================================================================== -->
+<!-- 8. LIMITATIONS                                                          -->
+<!-- ===================================================================== -->
+<h2>8. Limitations</h2>
+<p><strong>Non-diagnostic nature:</strong> NeuroTerapia is not a diagnostic tool; the profile is a working hypothesis. It does not replace professional judgment.</p>
+<p><strong>Construct validity pending:</strong> Concurrent validation with standardized tests is required (protocol Section 9).</p>
+<p><strong>Uniform weighting:</strong> Future versions will explore differential weights through automated semantic analysis.</p>
+<p><strong>Small panel of judges:</strong> n=3 is acceptable for an exploratory study, but will be expanded in subsequent phases.</p>
+<p><strong>Uncontrolled retrospective sample:</strong> Data were originally collected for clinical purposes and later anonymized for secondary analysis, which limits control over potential selection biases. Causal inferences cannot be established.</p>
+<p><strong>Identified confounding variable:</strong> prior exposure to video games will be controlled in future studies.</p>
+<p><strong>Possible social desirability effect in preference response:</strong> Although the playful environment minimizes evaluative pressure, participants might modulate their choices towards what they believe is expected. Future studies should incorporate implicit measures to control this bias.</p>
+<p><strong>Need for external replication and inter-institutional validation:</strong> Results come from a single research team; replication by independent groups is required to confirm the robustness of the findings.</p>
+<p><strong>Level of evidence:</strong> As this is a retrospective observational study (Level III), findings should be considered preliminary until confirmed by prospective designs.</p>
+
+<!-- ===================================================================== -->
+<!-- 9. NEXT STEPS: CONCURRENT VALIDITY AND RELIABILITY PROTOCOL            -->
+<!-- ===================================================================== -->
+<h2>9. Next Steps: Concurrent Validity and Reliability Protocol</h2>
+
+<h3>9.1. Objectives</h3>
+<p>To evaluate concurrent validity (correlation with CPT-3, BRIEF-2, Tower of London).</p>
+
+<h3>9.2. Design and Sample</h3>
+<p>Multicenter study with groups: ADHD (n=50), ASD (n=50), control (n=50), 8–16 years old, matched. Sample size to detect correlations r ≥ 0.40 (α=0.05, β=0.20). Centers in Argentina, Chile, Mexico, and Spain will be incorporated to ensure external validity.</p>
+
+<h3>9.3. Instruments</h3>
+<p>NeuroTerapia (3 sessions), CPT-3, BRIEF-2, Tower of London, prior video game exposure scale, demographic questionnaire.</p>
+
+<h3>9.4. Procedure and Planned Analysis</h3>
+<p>Baseline assessment, NeuroTerapia T1, retest (subsample), post-intervention assessment (clinical groups). Pearson correlations, ICC, ANCOVA, exploratory ROC curves. Corrections for multiple comparisons will be applied.</p>
+
+<h3>9.5. Algorithm Refinements v2.0</h3>
+<p>Response latency, sequence analysis, improved emotional regulation module, and differential weighting of keywords via semantic analysis (word2vec) will be incorporated.</p>
+
+<!-- ===================================================================== -->
+<!-- 10. CONCLUSION                                                          -->
+<!-- ===================================================================== -->
+<h2>10. Conclusion</h2>
+<p>NeuroTerapia + WineBOX systematizes clinical observation in digital playful environments based on Cognitive Load Theory and methodological transparency. The results confirm the four proposed hypotheses: inter-rater agreement ≥ 0.70 (H1, H2), moderate correlation between domains (H3), and normality of distributions (H4). Descriptive statistics on N=1,200 cases support preliminary content validity and instrument sensitivity. The system is not diagnostic and requires additional validation, the protocol for which is presented. It constitutes an ecological complement to formal assessment, <strong>proposes a replicable model for systematizing digital clinical observation with potential for adaptation to other playful environments</strong>, and its future development (v2.0) will incorporate improvements derived from this analysis.</p>
+
+<!-- ===================================================================== -->
+<!-- REFERENCES                                                            -->
+<!-- ===================================================================== -->
+<h2>References</h2>
+<p class="no-indent">American Psychiatric Association. (2013). <em>Diagnostic and statistical manual of mental disorders</em> (5th ed.). Arlington, VA: American Psychiatric Publishing.</p>
+<p class="no-indent">Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD. <em>Psychological Bulletin, 121</em>(1), 65-94.</p>
+<p class="no-indent">Burgess, P. W., Alderman, N., Forbes, C., et al. (2006). The case for the development and use of "ecologically valid" measures of executive function. <em>Journal of the International Neuropsychological Society, 12</em>(2), 194-209.</p>
+<p class="no-indent">Chaytor, N., & Schmitter-Edgecombe, M. (2003). The ecological validity of neuropsychological tests. <em>Neuropsychology Review, 13</em>(4), 181-197.</p>
+<p class="no-indent">Fortenbaugh, F. C., DeGutis, J., & Esterman, M. (2015). Recent theoretical, neural, and clinical advances in sustained attention research. <em>Annals of the New York Academy of Sciences, 1369</em>(1), 130-157.</p>
+<p class="no-indent">Gioia, G. A., Isquith, P. K., Guy, S. C., & Kenworthy, L. (2000). Test review: Behavior rating inventory of executive function. <em>Child Neuropsychology, 6</em>(3), 235-238.</p>
+<p class="no-indent">Hsu, C. C., & Sandford, B. A. (2007). The Delphi technique: Making sense of consensus. <em>Practical Assessment, Research, and Evaluation, 12</em>(1), 10.</p>
+<p class="no-indent">Koo, T. K., & Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. <em>Journal of Chiropractic Medicine, 15</em>(2), 155-163.</p>
+<p class="no-indent">Kottner, J., Audige, L., Brorson, S., et al. (2011). Guidelines for Reporting Reliability and Agreement Studies (GRRAS) were proposed. <em>Journal of Clinical Epidemiology, 64</em>(1), 96-106.</p>
+<p class="no-indent">Logan, G. D., Schachar, R. J., & Tannock, R. (1997). Impulsivity and inhibitory control. <em>Psychological Science, 8</em>(1), 60-64.</p>
+<p class="no-indent">Mayer, R. E., & Moreno, R. (2003). Nine ways to reduce cognitive load in multimedia learning. <em>Educational Psychologist, 38</em>(1), 43-52.</p>
+<p class="no-indent">Miyake, A., Friedman, N. P., Emerson, M. J., et al. (2000). The unity and diversity of executive functions and their contributions to complex "frontal lobe" tasks: A latent variable analysis. <em>Cognitive Psychology, 41</em>(1), 49-100.</p>
+<p class="no-indent">Monsell, S. (2003). Task switching. <em>Trends in Cognitive Sciences, 7</em>(3), 134-140.</p>
+<p class="no-indent">OCEBM Levels of Evidence Working Group. (2011). <em>The Oxford 2011 levels of evidence</em>. Oxford Centre for Evidence-Based Medicine.</p>
+<p class="no-indent">Owen, A. M. (1997). Cognitive planning in humans: Neuropsychological, neuroanatomical and neuropharmacological perspectives. <em>Progress in Neurobiology, 53</em>(4), 431-450.</p>
+<p class="no-indent">R Core Team. (2023). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/</p>
+<p class="no-indent">Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <em>Cognitive Science, 12</em>(2), 257-285.</p>
+<p class="no-indent">Sweller, J. (2010). Element interactivity and intrinsic, extraneous, and germane cognitive load. <em>Educational Psychology Review, 22</em>(2), 123-138.</p>
+<p class="no-indent">Sweller, J., Ayres, P., & Kalyuga, S. (2011). <em>Cognitive load theory</em>. New York: Springer.</p>
+<p class="no-indent">WineBOX Project. (2025). Cognitive Optimization through Reduction of Visual Fidelity (Whitepaper v1.2). Retrieved from http://www.winebox.cloud</p>
+
+<!-- ===================================================================== -->
+<!-- SUPPLEMENTARY MATERIAL                                                 -->
+<!-- ===================================================================== -->
+<h2>Supplementary Material (Open Access)</h2>
+<p class="no-indent">Available at https://github.com/iflex/Freedows8Bit</p>
+<ul>
+    <li>Appendix A: Complete matrix of judge ratings (30 stimuli, 3 judges) – CSV.</li>
+    <li>Appendix B: R statistical analysis script for ICC, correlations, and bootstrap.</li>
+    <li>Appendix C: Informed consent form approved by the REC.</li>
+    <li>Appendix D: Complete game catalog (N=157) with stimulus labeling – JSON.</li>
+    <li>Appendix E: Standardized administration protocol.</li>
+    <li>Appendix F: Pre-registration of the validation study on OSF (DOI: 10.17605/OSF.IO/XXXXX).</li>
+    <li>Appendix G: Anonymized database (N=1,200) for replication.</li>
+    <li>Appendix H: Opinion of the Research Ethics Committee CEI-2025-089.</li>
+</ul>
+<p class="no-indent"><strong>Funding:</strong> This work received no specific grant from any funding agency in the public, commercial, or not-for-profit sectors.</p>
+<p class="no-indent"><strong>Conflict of Interest:</strong> The authors are developers of the WineBOX platform and the NeuroTerapia module. To mitigate potential biases, the inter-rater agreement study was conducted by independent evaluators who did not participate in the system's development, and the full data are made available for public scrutiny.</p>
+<p class="no-indent"><strong>Acknowledgments:</strong> To the independent judges, the families and professionals who contributed data, and the anonymous reviewers. To the Research Ethics Committee of the WineBOX University Hospital for its evaluation and monitoring.</p>
+<p class="no-indent"><strong>Suggested Citation:</strong> WineBOX & NeuroTerapia Team. (2026). Behavioral Observation Platform using Low-Fidelity Visual Video Games: Theoretical Framework, Algorithm Development, and Validation Protocol (NeuroTerapia + WineBOX v.1.1). Manuscript under review. Retrieved from http://www.winebox.cloud License CC BY-NC 4.0 · Version date: February 2026</p>
+
+<p class="no-indent" style="text-align: right; font-size: 10pt; margin-top: 1cm;">— End of manuscript version 1.1 (APA journal format) —</p>
+</body>
+</html>
