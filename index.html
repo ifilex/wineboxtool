@@ -17,109 +17,6 @@
    <script src="install-script.js" defer></script>
 
     <style>
-
-   /* Estilos para la instalación PWA */
-  .update-notification,
-  .install-prompt {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 2000;
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    padding: 15px;
-    animation: slideUp 0.3s;
-    border-left: 5px solid var(--info);
-    max-width: 350px;
-}
-
-.install-prompt {
-    border-left-color: var(--success);
-}
-
-.update-content,
-.install-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.update-content i,
-.install-content i {
-    font-size: 1.5rem;
-    color: var(--info);
-}
-
-.install-content i {
-    color: var(--success);
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Modo standalone */
-.app-installed .nav-tabs {
-    padding-top: env(safe-area-inset-top);
-}
-
-.app-installed header {
-    padding-top: calc(25px + env(safe-area-inset-top));
-}
-
-/* Soporte para pantallas notch */
-@media (display-mode: standalone) {
-    body {
-        padding: 0;
-    }
-    
-    .container {
-        border-radius: 0;
-        min-height: 100vh;
-    }
-    
-    .help-button {
-        top: calc(20px + env(safe-area-inset-top));
-    }
-}
-
-/* Indicador de conexión */
-.connection-status {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: var(--warning);
-    color: var(--dark);
-    text-align: center;
-    padding: 8px;
-    font-size: 0.9rem;
-    z-index: 2001;
-    animation: slideDown 0.3s;
-}
-
-@keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-
-    <style>
         :root {
             --primary: #4a6fa5;
             --secondary: #166088;
@@ -1382,6 +1279,106 @@
 
         input:checked + .toggle-slider:before {
             transform: translateX(30px);
+        }
+
+        /* Estilos para la instalación PWA */
+        .update-notification,
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2000;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            padding: 15px;
+            animation: slideUp 0.3s;
+            border-left: 5px solid var(--info);
+            max-width: 350px;
+        }
+
+        .install-prompt {
+            border-left-color: var(--success);
+        }
+
+        .update-content,
+        .install-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .update-content i,
+        .install-content i {
+            font-size: 1.5rem;
+            color: var(--info);
+        }
+
+        .install-content i {
+            color: var(--success);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modo standalone */
+        .app-installed .nav-tabs {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .app-installed header {
+            padding-top: calc(25px + env(safe-area-inset-top));
+        }
+
+        /* Soporte para pantallas notch */
+        @media (display-mode: standalone) {
+            body {
+                padding: 0;
+            }
+            
+            .container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .help-button {
+                top: calc(20px + env(safe-area-inset-top));
+            }
+        }
+
+        /* Indicador de conexión */
+        .connection-status {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--warning);
+            color: var(--dark);
+            text-align: center;
+            padding: 8px;
+            font-size: 0.9rem;
+            z-index: 2001;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -2666,7 +2663,8 @@
                 <button class="close-modal" onclick="hideModal('whitepaperModal')">&times;</button>
             </div>
             <div style="flex: 1; min-height: 0; padding: 10px;">
-                <iframe id="whitepaperIframe" src="whitepaper.html" style="width: 100%; height: 100%; border: none; border-radius: var(--border-radius); background: white;"></iframe>
+                <!-- La función showWhitepaper() definida en el script actualizará el src de este iframe -->
+                <iframe id="whitepaperIframe" src="" style="width: 100%; height: 100%; border: none; border-radius: var(--border-radius); background: white;"></iframe>
             </div>
         </div>
     </div>
@@ -5035,7 +5033,7 @@
         }
 
         // ============================
-        // NUEVA FUNCIÓN: Mostrar Whitepaper en un Modal
+        // NUEVA FUNCIÓN: Mostrar Whitepaper en un Modal (Versión Internacionalizada)
         // ============================
         function showWhitepaper() {
             const whitepaperModal = document.getElementById('whitepaperModal');
@@ -5047,7 +5045,10 @@
             
             const iframe = document.getElementById('whitepaperIframe');
             if (iframe) {
-                iframe.src = 'whitepaper.html';
+                // Selecciona el archivo correcto según el idioma
+                const whitepaperFile = (currentLanguage === 'en') ? 'whitepaper.en.html' : 'whitepaper.html';
+                iframe.src = whitepaperFile;
+                console.log('Cargando whitepaper:', whitepaperFile);
             }
             
             showModal('whitepaperModal');
