@@ -8262,6 +8262,7 @@
             const patient = patients.find(p => p.id === currentTreatmentPlanPatientId);
             if (patient) {
                 patient.hasTreatmentPlan = true;
+                localStorage.setItem('neurotherapy_patients', JSON.stringify(patients)); 
             }
             
             saveAllData();
