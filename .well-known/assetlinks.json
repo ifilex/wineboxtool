@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.wineboxtool.cloud",
+    "sha256_cert_fingerprints": [
+      "AE:CC:23:64:9B:C6:A0:4C:44:0A:8C:BE:F5:56:A6:F9:7D:3F:E2:B4:30:81:62:AC:EA:F1:BE:B0:C3:0C:5C:31"
+    ]
+  }
+}]
