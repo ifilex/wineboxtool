@@ -1419,26 +1419,44 @@
             </div>
 
             <!-- PACIENTES -->
-            <div class="tab-content" id="patients">
-                <h2><i class="fas fa-users"></i> <span data-i18n="patients_management">Gestión de Pacientes</span></h2>
-                
-                <div class="toolbar">
-                    <button class="btn btn-primary" onclick="showModal('newPatientModal')">
-                        <i class="fas fa-plus"></i> <span data-i18n="new_patient">Nuevo Paciente</span>
-                    </button>
-                    <button class="btn btn-info" onclick="showTab('evaluation')">
-                        <i class="fas fa-clipboard-check"></i> <span data-i18n="new_evaluation">Nueva Evaluación</span>
-                    </button>
-                    <button class="btn btn-success" onclick="showTab('patientManager')">
-                        <i class="fas fa-calendar-alt"></i> <span data-i18n="view_calendar">Ver Calendario</span>
-                    </button>
-                    <button class="btn btn-info" onclick="showModal('certificateModal')">
-                        <i class="fas fa-file-certificate"></i> <span data-i18n="certificates">Certificados</span>
-                    </button>
-                </div>
 
-                <div class="patients-list" id="patientsList"></div>
-            </div>
+<div class="tab-content" id="patients">
+    <h2><i class="fas fa-users"></i> <span data-i18n="patients_management">Gestión de Pacientes</span></h2>
+    
+    <!-- NUEVA BARRA DE BÚSQUEDA DENTRO DE PACIENTES -->
+    <div class="toolbar" style="justify-content: space-between; flex-wrap: wrap;">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="showModal('newPatientModal')">
+                <i class="fas fa-plus"></i> <span data-i18n="new_patient">Nuevo Paciente</span>
+            </button>
+            <button class="btn btn-info" onclick="showTab('evaluation')">
+                <i class="fas fa-clipboard-check"></i> <span data-i18n="new_evaluation">Nueva Evaluación</span>
+            </button>
+            <button class="btn btn-success" onclick="showTab('patientManager')">
+                <i class="fas fa-calendar-alt"></i> <span data-i18n="view_calendar">Ver Calendario</span>
+            </button>
+            <button class="btn btn-info" onclick="showModal('certificateModal')">
+                <i class="fas fa-file-certificate"></i> <span data-i18n="certificates">Certificados</span>
+            </button>
+        </div>
+        
+        <!-- BUSCADOR DE PACIENTES -->
+        <div class="search-box" style="min-width: 250px;">
+            <i class="fas fa-search"></i>
+            <input type="text" id="patientManagerSearch" 
+                   data-i18n-placeholder="search_patients_in_manager" 
+                   placeholder="Buscar por nombre, DNI o teléfono..." 
+                   onkeyup="searchPatientsInManager()">
+        </div>
+    </div>
+    
+    <!-- CONTADOR DE RESULTADOS -->
+    <div style="margin: 10px 0; font-size: 0.85rem; color: var(--gray);">
+        <span id="patientSearchResultCount">0</span> <span data-i18n="patients_found">pacientes encontrados</span>
+    </div>
+    
+    <div class="patients-list" id="patientsList"></div>
+</div>
 
             <!-- EVALUACIÓN -->
             <div class="tab-content" id="evaluation">
@@ -4371,8 +4389,8 @@ mixed_profile: "Perfil mixto",
 impulsive_profile: "Perfil impulsivo",
 adaptive_profile: "Perfil adaptativo",
 structured_profile: "Perfil estructurado",
-for_tea: "para TEA",
-for_adhd: "para TDAH",
+for_tea: "para Conductas Relfexivas",
+for_adhd: "para Conductar Impulsivas",
 for_both: "para ambos",
 tea_games_count: "Interés predominante en juegos estructurados",
 adhd_games_count: "Preferencia por juegos dinámicos",
@@ -4394,8 +4412,27 @@ divided_attention_rationale: "Para desarrollar atención dividida y multitarea",
 divided_attention_explanation: "Juegos que requieren manejo simultáneo de múltiples elementos",
 integral_development_rationale: "Para desarrollo cognitivo integral",
 integral_development_explanation: "Juegos que trabajan múltiples áreas cognitivas simultáneamente",
+
 // ==================== TRADUCCIONES FALTANTES PARA TODOS LOS IDIOMAS ====================
 // Añadir dentro de translations.es, translations.en, etc.
+
+games_for_tea: 'Juegos para conductas reflexivas:',
+games_for_adhd: 'Juegos para conductas impulsivas:',
+
+delete: 'Eliminar',
+delete_patient_warning: '⚠️ ¿Está seguro de eliminar este paciente?',
+delete_irreversible: 'Esta acción es irreversible y eliminará TODOS los datos asociados.',
+confirm_delete: 'Confirmar Eliminación',
+search_patients_in_manager: 'Buscar por nombre, DNI o teléfono...',
+patients_found: 'pacientes encontrados',
+payments: 'Pagos',
+
+preference_structured_games: 'Preferencia por juegos con estructura definida',
+preference_dynamic_games: 'Preferencia por juegos dinámicos y de acción',
+preference_mixed_games: 'Preferencia equilibrada entre distintos tipos de juegos',
+preference_balanced_games: 'Perfil versátil con apertura a diversos estilos de juego',
+no_preference: 'Sin preferencia definida',
+evaluating_now: 'Evaluando ahora',
 
 // Para ESPAÑOL (dentro de es: {})
 // ==================== TESTS CLÍNICOS - TRADUCCIONES AL ESPAÑOL ====================
@@ -4584,9 +4621,9 @@ average_emotional_response_label: "Respuesta emocional promedio:",
 frustration_tolerance_label: "Tolerancia a la frustración:",
 challenge_acceptance_label: "Aceptación del desafío:",
 game_preferences_label: "ANÁLISIS DE PREFERENCIAS DE JUEGO",
-games_for_tea_label: "Juegos para TEA:",
-games_for_adhd_label: "Juegos para TDAH:",
-mixed_games_label: "Juegos mixtos:",
+games_for_tea_label: "Juegos para Conductas repetitivas:",
+games_for_adhd_label: "Juegos para Conductas Impulsivas:",
+mixed_games_label: "Juegos para Conductas mixtas:",
 dominant_type_label: "Tipo dominante:",
 total_games_evaluated_label: "Total de juegos evaluados:",
 preferred_games_list_label: "LISTA DE JUEGOS PREFERIDOS",
@@ -4614,6 +4651,22 @@ note_5_label: "Las recomendaciones son sugerencias basadas en el perfil observad
 end_report_label: "FIN DEL INFORME",
 system_name_label: "Sistema WineBox Tool",
 version_label: "Versión 1.0 - Sistema Integral",
+reevaluate_confirm_message: '¿Está seguro que desea realizar una nueva evaluación? Esto agregará datos al historial sin eliminar la evaluación anterior.',
+reevaluate_started: 'Iniciando re-evaluación. Los datos se añadirán al historial existente.',
+accept: 'Aceptar',
+
+reflective_type: "Reflexivo",
+impulsive_type: "Impulsivo",
+mixed_type: "Mixto",
+
+// Para español (dentro de translations.es)
+schedule_conflict_title: 'Conflicto de horario',
+schedule_conflict: '⚠️ CONFLICTO DE HORARIO\n\nYa existe una sesión programada para {patient} en el mismo horario.\n\nFecha: {date}\nHorario: {startTime} - {endTime}\n\n¿Desea programar de todas formas? (solo para terapia de grupo)',
+group_therapy_note: 'Solo marque esta opción si se trata de una TERAPIA DE GRUPO donde varios pacientes asisten simultáneamente.',
+group_therapy_accept: 'Programar como terapia de grupo',
+date_error: 'No puede programar sesiones en fechas pasadas',
+
+
 // ==================== TRADUCCIONES PARA ESPAÑOL ====================
 // Agregar dentro de translations.es = { ... }
 
@@ -4662,8 +4715,8 @@ save: "Guardar",
         attention_interpretation: 'Interpretación atencional',
         positive_emotional_response: 'Respuesta emocional positiva general',
         high_frustration_tolerance: 'Alta tolerancia a la frustración',
-        tea: 'TEA',
-        tdah: 'TDAH',
+        tea: 'REFLEXIVO',
+        tdah: 'IMPULSIVO',
         both: 'Mixto',
         impulsive_profile: 'Perfil impulsivo',
         mixed_profile: 'Perfil mixto',
@@ -5243,8 +5296,8 @@ session_history: "Historial de Sesiones",
         attention_interpretation: 'Attention interpretation',
         positive_emotional_response: 'Overall positive emotional response',
         high_frustration_tolerance: 'High frustration tolerance',
-        tea: 'ASD',
-        tdah: 'ADHD',
+        tea: 'REFLECTIVE',
+        tdah: 'IMPULSIVE',
         both: 'Mixed',
         impulsive_profile: 'Impulsive profile',
         mixed_profile: 'Mixed profile',
@@ -5363,6 +5416,17 @@ work_certificate: "Work Certificate",
 educational_certificate: "Certificate for Educational Institution",
 judicial_certificate: "Certificate for Judicial Use",
 
+// Para inglés (dentro de translations.en)
+schedule_conflict_title: 'Schedule Conflict',
+schedule_conflict: '⚠️ SCHEDULE CONFLICT\n\nA session is already scheduled for {patient} at the same time.\n\nDate: {date}\nTime: {startTime} - {endTime}\n\nDo you still want to schedule? (only for group therapy)',
+group_therapy_note: 'Only check this option if this is GROUP THERAPY where multiple patients attend simultaneously.',
+group_therapy_accept: 'Schedule as group therapy',
+date_error: 'Cannot schedule sessions in past dates',
+
+reflective_type: "Reflective",
+impulsive_type: "Impulsive",
+mixed_type: "Mixed",
+
 // Para ENGLISH (translations.en)
 upgrade_title: '✨ Upgrade Required ✨',
 upgrade_message: 'The "{{feature}}" feature is only available in the PRO version.',
@@ -5385,8 +5449,27 @@ treatment_plans: 'Treatment plans',
 export_data: 'Export data',
 multi_therapist: 'Multi-therapist',
 
+preference_structured_games: 'Preference for games with defined structure',
+preference_dynamic_games: 'Preference for dynamic and action games',
+preference_mixed_games: 'Balanced preference between different types of games',
+preference_balanced_games: 'Versatile profile open to various game styles',
+no_preference: 'No defined preference',
+evaluating_now: 'Evaluating now',
+
 create_therapist: 'Create Therapist',
 therapist_name_placeholder: 'Dr. John Doe',
+
+delete: 'Delete',
+delete_patient_warning: '⚠️ Are you sure you want to delete this patient?',
+delete_irreversible: 'This action is irreversible and will delete ALL associated data.',
+confirm_delete: 'Confirm Deletion',
+search_patients_in_manager: 'Search by name, ID or phone...',
+patients_found: 'patients found',
+payments: 'Payments',
+
+reevaluate_confirm_message: 'Are you sure you want to perform a new evaluation? This will add data to the history without deleting the previous evaluation.',
+reevaluate_started: 'Starting re-evaluation. Data will be added to the existing history.',
+accept: 'Accept',
 
 // ==================== TRADUCCIONES INFORME CONDUCTUAL - INGLÉS ====================
 moderate_level: "moderate",
@@ -5500,8 +5583,8 @@ average_emotional_response_label: "Average emotional response:",
 frustration_tolerance_label: "Frustration tolerance:",
 challenge_acceptance_label: "Challenge acceptance:",
 game_preferences_label: "GAME PREFERENCES ANALYSIS",
-games_for_tea_label: "Games for ASD:",
-games_for_adhd_label: "Games for ADHD:",
+games_for_tea_label: "Games for repetitive behaviors and patterns:",
+games_for_adhd_label: "Games for impulsive behaviors:",
 mixed_games_label: "Mixed games:",
 dominant_type_label: "Dominant type:",
 total_games_evaluated_label: "Total games evaluated:",
@@ -6151,8 +6234,8 @@ certificate_footer: "This document does not constitute a clinical diagnosis or m
         attention_interpretation: 'Aufmerksamkeitsinterpretation',
         positive_emotional_response: 'Positive emotionale Gesamtreaktion',
         high_frustration_tolerance: 'Hohe Frustrationstoleranz',
-        tea: 'ASD',
-        tdah: 'ADHS',
+        tea: 'REFLEXIV',
+        tdah: 'IMPULSIV',
         both: 'Gemischt',
         impulsive_profile: 'Impulsives Profil',
         mixed_profile: 'Gemischtes Profil',
@@ -6207,6 +6290,30 @@ judicial_certificate: "Bescheinigung für gerichtliche Zwecke",
 
 create_therapist: 'Therapeut erstellen',
 therapist_name_placeholder: 'Dr. Max Mustermann',
+
+reevaluate_confirm_message: 'Sind Sie sicher, dass Sie eine neue Bewertung durchführen möchten? Dies fügt dem Verlauf Daten hinzu, ohne die vorherige Bewertung zu löschen.',
+reevaluate_started: 'Reevaluierung wird gestartet. Die Daten werden zum vorhandenen Verlauf hinzugefügt.',
+accept: 'Akzeptieren',
+
+// ALEMÁN (de)
+schedule_conflict_title: 'Terminkonflikt',
+schedule_conflict: '⚠️ TERMINKONFLIKT\n\nEs existiert bereits eine Sitzung für {patient} zur gleichen Zeit.\n\nDatum: {date}\nUhrzeit: {startTime} - {endTime}\n\nMöchten Sie trotzdem planen? (nur für Gruppentherapie)',
+group_therapy_note: 'Aktivieren Sie diese Option nur bei GRUPPENTHERAPIE, bei der mehrere Patienten gleichzeitig teilnehmen.',
+group_therapy_accept: 'Als Gruppentherapie planen',
+date_error: 'Sitzungen können nicht in der Vergangenheit geplant werden',
+
+
+delete: 'Löschen',
+delete_patient_warning: '⚠️ Sind Sie sicher, dass Sie diesen Patienten löschen möchten?',
+delete_irreversible: 'Diese Aktion ist irreversibel und löscht ALLE zugehörigen Daten.',
+confirm_delete: 'Löschen bestätigen',
+search_patients_in_manager: 'Suche nach Name, Ausweis oder Telefon...',
+patients_found: 'Patienten gefunden',
+payments: 'Zahlungen',
+
+reflective_type: "Reflexiv",
+impulsive_type: "Impulsiv",
+mixed_type: "Gemischt",
 
 // ==================== TRADUCCIONES INFORME CONDUCTUAL - ALEMÁN ====================
 moderate_level: "mäßig",
@@ -6380,8 +6487,8 @@ average_emotional_response_label: "Durchschnittliche emotionale Reaktion:",
 frustration_tolerance_label: "Frustrationstoleranz:",
 challenge_acceptance_label: "Herausforderungsakzeptanz:",
 game_preferences_label: "ANALYSE DER SPIELPRÄFERENZEN",
-games_for_tea_label: "Spiele für ASD:",
-games_for_adhd_label: "Spiele für ADHS:",
+games_for_tea_label: "Spiele für sich wiederholende Verhaltensweisen und Muster:",
+games_for_adhd_label: "Spiele für impulsives Verhalten:",
 mixed_games_label: "Gemischte Spiele:",
 dominant_type_label: "Dominanter Typ:",
 total_games_evaluated_label: "Insgesamt bewertete Spiele:",
@@ -6464,6 +6571,13 @@ no_active_therapist: "Kein aktiver Therapeut konfiguriert",
 save_technique_template: "Technikvorlage speichern",
 template_name: "Vorlagenname:",
 template_description: "Beschreibung / Anweisungen:",
+
+preference_structured_games: 'Vorliebe für Spiele mit definierter Struktur',
+preference_dynamic_games: 'Vorliebe für dynamische und Action-Spiele',
+preference_mixed_games: 'Ausgewogene Vorliebe zwischen verschiedenen Spieltypen',
+preference_balanced_games: 'Vielseitiges Profil mit Offenheit für verschiedene Spielstile',
+no_preference: 'Keine definierte Vorliebe',
+evaluating_now: 'Wird jetzt bewertet',
 
 // Behandlungsplan
 treatment_plan: "Behandlungsplan",
@@ -7061,8 +7175,8 @@ certificate_footer: "Dieses Dokument stellt keine klinische Diagnose oder medizi
         attention_interpretation: 'Interprétation attentionnelle',
         positive_emotional_response: 'Réponse émotionnelle positive globale',
         high_frustration_tolerance: 'Haute tolérance à la frustration',
-        tea: 'TSA',
-        tdah: 'TDAH',
+        tea: 'RÉFLÉCHI',
+        tdah: 'IMPULSIF',
         both: 'Mixte',
         impulsive_profile: 'Profil impulsif',
         mixed_profile: 'Profil mixte',
@@ -7149,6 +7263,38 @@ treatment_plans: 'Plans de traitement',
 export_data: 'Exporter les données',
 multi_therapist: 'Multi-thérapeute',
 
+reflective_type: "Réfléchi",
+impulsive_type: "Impulsif",
+mixed_type: "Mixte",
+
+preference_structured_games: 'Préférence pour les jeux à structure définie',
+preference_dynamic_games: 'Préférence pour les jeux dynamiques et d\'action',
+preference_mixed_games: 'Préférence équilibrée entre différents types de jeux',
+preference_balanced_games: 'Profil polyvalent ouvert à divers styles de jeu',
+no_preference: 'Aucune préférence définie',
+evaluating_now: 'Évaluation en cours',
+
+delete: 'Supprimer',
+delete_patient_warning: '⚠️ Êtes-vous sûr de vouloir supprimer ce patient ?',
+delete_irreversible: 'Cette action est irréversible et supprimera TOUTES les données associées.',
+confirm_delete: 'Confirmer la suppression',
+search_patients_in_manager: 'Rechercher par nom, ID ou téléphone...',
+patients_found: 'patients trouvés',
+payments: 'Paiements',
+
+
+// FRANCÉS (fr)
+schedule_conflict_title: 'Conflit d\'horaire',
+schedule_conflict: '⚠️ CONFLIT D\'HORAIRE\n\nUne séance est déjà programmée pour {patient} à la même heure.\n\nDate: {date}\nHoraire: {startTime} - {endTime}\n\nVoulez-vous quand même programmer? (uniquement pour thérapie de groupe)',
+group_therapy_note: 'Cochez cette option uniquement s\'il s\'agit d\'une THÉRAPIE DE GROUPE où plusieurs patients participent simultanément.',
+group_therapy_accept: 'Programmer comme thérapie de groupe',
+date_error: 'Impossible de programmer des séances dans le passé',
+
+
+reevaluate_confirm_message: 'Êtes-vous sûr de vouloir effectuer une nouvelle évaluation ? Cela ajoutera des données à l\'historique sans supprimer l\'évaluation précédente.',
+reevaluate_started: 'Démarrage de la réévaluation. Les données seront ajoutées à l\'historique existant.',
+accept: 'Accepter',
+
 // ==================== TRADUCCIONES INFORME CONDUCTUAL - FRANCÉS ====================
 moderate_level: "modéré",
 low_level: "faible",
@@ -7164,8 +7310,8 @@ mixed_profile: "Profil mixte",
 impulsive_profile: "Profil impulsif",
 adaptive_profile: "Profil adaptatif",
 structured_profile: "Profil structuré",
-for_tea: "pour TSA",
-for_adhd: "pour TDAH",
+for_tea: "pour REFLECHI",
+for_adhd: "pour IMPULSIF",
 for_both: "pour les deux",
 tea_games_count: "Intérêt prédominant pour les jeux structurés",
 adhd_games_count: "Préférence pour les jeux dynamiques",
@@ -7251,8 +7397,8 @@ average_emotional_response_label: "Réponse émotionnelle moyenne:",
 frustration_tolerance_label: "Tolérance à la frustration:",
 challenge_acceptance_label: "Acceptation du défi:",
 game_preferences_label: "ANALYSE DES PRÉFÉRENCES DE JEU",
-games_for_tea_label: "Jeux pour TSA:",
-games_for_adhd_label: "Jeux pour TDAH:",
+games_for_tea_label: "Jeux pour les comportements et schémas répétitifs:",
+games_for_adhd_label: "Jeux pour les comportements impulsifs:",
 mixed_games_label: "Jeux mixtes:",
 dominant_type_label: "Type dominant:",
 total_games_evaluated_label: "Total des jeux évalués:",
@@ -7969,8 +8115,8 @@ behavioral_techniques_templates: "Modèles de Techniques Comportementales",
         attention_interpretation: 'Interpretazione attentiva',
         positive_emotional_response: 'Risposta emotiva positiva generale',
         high_frustration_tolerance: 'Alta tolleranza alla frustrazione',
-        tea: 'ASD',
-        tdah: 'ADHD',
+        tea: 'RIFLESSIVO',
+        tdah: 'IMPULSIVO',
         both: 'Misto',
         impulsive_profile: 'Profilo impulsivo',
         mixed_profile: 'Profilo misto',
@@ -8080,8 +8226,41 @@ work_certificate: "Certificato di lavoro",
 educational_certificate: "Certificato per istituzione educativa",
 judicial_certificate: "Certificato per uso giudiziario",
 
+
+reflective_type: "Riflessivo",
+impulsive_type: "Impulsivo",
+mixed_type: "Misto",
+
+
+// ITALIANO (it)
+schedule_conflict_title: 'Conflitto di orario',
+schedule_conflict: '⚠️ CONFLITTO DI ORARIO\n\nEsiste già una sessione programmata per {patient} allo stesso orario.\n\nData: {date}\nOrario: {startTime} - {endTime}\n\nVuoi programmare comunque? (solo per terapia di gruppo)',
+group_therapy_note: 'Seleziona questa opzione solo se si tratta di TERAPIA DI GRUPPO dove più pazienti partecipano simultaneamente.',
+group_therapy_accept: 'Programma come terapia di gruppo',
+date_error: 'Non è possibile programmare sessioni in date passate',
+
+
 create_therapist: 'Crea Terapeuta',
 therapist_name_placeholder: 'Dott. Mario Rossi',
+
+delete: 'Elimina',
+delete_patient_warning: '⚠️ Sei sicuro di voler eliminare questo paziente?',
+delete_irreversible: 'Questa azione è irreversibile ed eliminerà TUTTI i dati associati.',
+confirm_delete: 'Conferma Eliminazione',
+search_patients_in_manager: 'Cerca per nome, ID o telefono...',
+patients_found: 'pazienti trovati',
+payments: 'Pagamenti',
+
+preference_structured_games: 'Preferenza per giochi con struttura definita',
+preference_dynamic_games: 'Preferenza per giochi dinamici e d\'azione',
+preference_mixed_games: 'Preferenza equilibrata tra diversi tipi di giochi',
+preference_balanced_games: 'Profilo versatile aperto a vari stili di gioco',
+no_preference: 'Nessuna preferenza definita',
+evaluating_now: 'Valutazione in corso',
+
+reevaluate_confirm_message: 'Sei sicuro di voler eseguire una nuova valutazione? Questo aggiungerà dati alla cronologia senza eliminare la valutazione precedente.',
+reevaluate_started: 'Avvio della rivalutazione. I dati verranno aggiunti alla cronologia esistente.',
+accept: 'Accetta',
 
 // Para ITALIANO (translations.it)
 upgrade_title: '✨ Aggiornamento richiesto ✨',
@@ -8217,8 +8396,8 @@ average_emotional_response_label: "Risposta emotiva media:",
 frustration_tolerance_label: "Tolleranza alla frustrazione:",
 challenge_acceptance_label: "Accettazione della sfida:",
 game_preferences_label: "ANALISI DELLE PREFERENZE DI GIOCO",
-games_for_tea_label: "Giochi per ASD:",
-games_for_adhd_label: "Giochi per ADHD:",
+games_for_tea_label: "Giochi per comportamenti e schemi ripetitivi:",
+games_for_adhd_label: "Giochi per comportamenti impulsivi:",
 mixed_games_label: "Giochi misti:",
 dominant_type_label: "Tipo dominante:",
 total_games_evaluated_label: "Totale giochi valutati:",
@@ -8929,6 +9108,17 @@ multi_therapist: 'Multi-terapeuta',
 create_therapist: 'Criar Terapeuta',
 therapist_name_placeholder: 'Dr. João Silva',
 
+// PORTUGUÉS (pt)
+schedule_conflict_title: 'Conflito de horário',
+schedule_conflict: '⚠️ CONFLITO DE HORÁRIO\n\nJá existe uma sessão agendada para {patient} no mesmo horário.\n\nData: {date}\nHorário: {startTime} - {endTime}\n\nDeseja agendar mesmo assim? (apenas para terapia de grupo)',
+group_therapy_note: 'Marque esta opção apenas se for TERAPIA DE GRUPO onde vários pacientes participam simultaneamente.',
+group_therapy_accept: 'Agendar como terapia de grupo',
+date_error: 'Não é possível agendar sessões em datas passadas',
+
+reevaluate_confirm_message: 'Tem certeza de que deseja realizar uma nova avaliação? Isso adicionará dados ao histórico sem excluir a avaliação anterior.',
+reevaluate_started: 'Iniciando reavaliação. Os dados serão adicionados ao histórico existente.',
+accept: 'Aceitar',
+
 // ==================== TRADUCCIONES PARA INFORME CONDUCTUAL - PORTUGUÉS ====================
 report_generated: "Relatório comportamental gerado e baixado",
 no_behavioral_profile: "Nenhum perfil comportamental para este paciente",
@@ -8938,6 +9128,26 @@ name_label: "Nome:",
 birth_date_label: "Data de Nascimento:",
 age_label: "Idade:",
 years_label: "anos",
+
+preference_structured_games: 'Preferência por jogos com estrutura definida',
+preference_dynamic_games: 'Preferência por jogos dinâmicos e de ação',
+preference_mixed_games: 'Preferência equilibrada entre diferentes tipos de jogos',
+preference_balanced_games: 'Perfil versátil aberto a vários estilos de jogo',
+no_preference: 'Nenhuma preferência definida',
+evaluating_now: 'Avaliando agora',
+
+reflective_type: "Reflexivo",
+impulsive_type: "Impulsivo",
+mixed_type: "Misto",
+
+delete: 'Excluir',
+delete_patient_warning: '⚠️ Tem certeza que deseja excluir este paciente?',
+delete_irreversible: 'Esta ação é irreversível e excluirá TODOS os dados associados.',
+confirm_delete: 'Confirmar Exclusão',
+search_patients_in_manager: 'Buscar por nome, documento ou telefone...',
+patients_found: 'pacientes encontrados',
+payments: 'Pagamentos',
+
 // ==================== TRADUCCIONES INFORME CONDUCTUAL - PORTUGUÉS ====================
 moderate_level: "moderado",
 low_level: "baixo",
@@ -8953,8 +9163,8 @@ mixed_profile: "Perfil misto",
 impulsive_profile: "Perfil impulsivo",
 adaptive_profile: "Perfil adaptativo",
 structured_profile: "Perfil estruturado",
-for_tea: "para TEA",
-for_adhd: "para TDAH",
+for_tea: "para RIFLESSIVO",
+for_adhd: "para IMPULSIVO",
 for_both: "para ambos",
 tea_games_count: "Interesse predominante em jogos estruturados",
 adhd_games_count: "Preferência por jogos dinâmicos",
@@ -9002,8 +9212,8 @@ average_emotional_response_label: "Resposta emocional média:",
 frustration_tolerance_label: "Tolerância à frustração:",
 challenge_acceptance_label: "Aceitação do desafio:",
 game_preferences_label: "ANÁLISE DE PREFERÊNCIAS DE JOGO",
-games_for_tea_label: "Jogos para TEA:",
-games_for_adhd_label: "Jogos para TDAH:",
+games_for_tea_label: "Jogos para comportamentos e padrões repetitivos:",
+games_for_adhd_label: "Jogos para comportamentos impulsivos:",
 mixed_games_label: "Jogos mistos:",
 dominant_type_label: "Tipo dominante:",
 total_games_evaluated_label: "Total de jogos avaliados:",
@@ -9206,8 +9416,8 @@ certificate_footer: "Este documento não constitui diagnóstico clínico nem ava
         attention_interpretation: 'Interpretação atencional',
         positive_emotional_response: 'Resposta emocional positiva geral',
         high_frustration_tolerance: 'Alta tolerância à frustração',
-        tea: 'TEA',
-        tdah: 'TDAH',
+        tea: 'REFLEXIVO',
+        tdah: 'IMPULSIVO',
         both: 'Misto',
         impulsive_profile: 'Perfil impulsivo',
         mixed_profile: 'Perfil misto',
@@ -9836,6 +10046,14 @@ treatment_plans: '治疗计划',
 export_data: '导出数据',
 multi_therapist: '多治疗师',
 
+reflective_type: "反思型",
+impulsive_type: "冲动型",
+mixed_type: "混合型",
+
+reevaluate_confirm_message: '您确定要进行新的评估吗？这将向历史记录添加数据，而不会删除之前的评估。',
+reevaluate_started: '开始重新评估。数据将添加到现有历史记录中。',
+accept: '接受',
+
 // ==================== TRADUCCIONES INFORME CONDUCTUAL - CHINO ====================
 moderate_level: "中等",
 low_level: "低",
@@ -9910,6 +10128,31 @@ selective_attention_rationale: '加强选择性和聚焦注意力',
 selective_attention_explanation: '需要专注于特定元素的游戏',
 divided_attention_rationale: '发展分散注意力和多任务处理能力',
 divided_attention_explanation: '需要同时处理多个元素的游戏',
+
+
+// CHINO (zh)
+schedule_conflict_title: '时间冲突',
+schedule_conflict: '⚠️ 时间冲突\n\n同一时间已为 {patient} 安排了疗程。\n\n日期: {date}\n时间: {startTime} - {endTime}\n\n是否仍然要安排？（仅限团体治疗）',
+group_therapy_note: '仅在多名患者同时参加的团体治疗时才勾选此选项。',
+group_therapy_accept: '安排为团体治疗',
+date_error: '不能安排过去日期的疗程',
+
+
+preference_structured_games: '偏好结构明确的游戏',
+preference_dynamic_games: '偏好动态和动作游戏',
+preference_mixed_games: '在不同类型游戏之间均衡偏好',
+preference_balanced_games: '多才多艺的档案，对各种游戏风格开放',
+no_preference: '没有明确的偏好',
+evaluating_now: '正在评估中',
+
+delete: '删除',
+delete_patient_warning: '⚠️ 您确定要删除此患者吗？',
+delete_irreversible: '此操作不可逆，将删除所有相关数据。',
+confirm_delete: '确认删除',
+search_patients_in_manager: '按姓名、证件号码或电话搜索...',
+patients_found: '找到患者',
+payments: '付款',
+
 // ==================== TRADUCCIONES PARA INFORME CONDUCTUAL - CHINO ====================
 report_generated: "行为报告已生成并下载",
 no_behavioral_profile: "没有行为档案",
@@ -9945,8 +10188,8 @@ average_emotional_response_label: "平均情绪反应:",
 frustration_tolerance_label: "挫折耐受性:",
 challenge_acceptance_label: "挑战接受度:",
 game_preferences_label: "游戏偏好分析",
-games_for_tea_label: "孤独症游戏:",
-games_for_adhd_label: "多动症游戏:",
+games_for_tea_label: "针对重复行为和模式的游戏：",
+games_for_adhd_label: "针对冲动行为的游戏：",
 mixed_games_label: "混合游戏:",
 dominant_type_label: "主导类型:",
 total_games_evaluated_label: "评估游戏总数:",
@@ -10117,8 +10360,8 @@ no_treatment_plan: "没有可分享的治疗计划。",
     no_pending_actions: "没有待办事项",
     start_evaluation: "开始评估",
 
-        tea: '孤独症',
-        tdah: '多动症',
+        tea: '反思型',
+        tdah: '反思型',
         both: '混合型',
         impulsive_profile: '冲动型档案',
         mixed_profile: '混合型档案',
@@ -10754,6 +10997,25 @@ impulsivity_low_interpretation: '即時行動よりも反省への傾向。',
 neutral_emotional_response: '中立から肯定的な感情的反応。',
 negative_emotional_response: 'あまり好ましくない感情的反応。',
 
+reevaluate_confirm_message: '新しい評価を実行してもよろしいですか？これにより、以前の評価を削除せずに履歴にデータが追加されます。',
+reevaluate_started: '再評価を開始します。データは既存の履歴に追加されます。',
+accept: '同意する',
+
+delete: '削除',
+delete_patient_warning: '⚠️ この患者を削除してもよろしいですか？',
+delete_irreversible: 'この操作は元に戻せず、関連するすべてのデータが削除されます。',
+confirm_delete: '削除を確認',
+search_patients_in_manager: '名前、ID、電話で検索...',
+patients_found: '件の患者が見つかりました',
+payments: '支払い',
+
+preference_structured_games: '構造化されたゲームの好み',
+preference_dynamic_games: 'ダイナミックでアクション性の高いゲームの好み',
+preference_mixed_games: '異なるタイプのゲーム間のバランスの取れた好み',
+preference_balanced_games: '様々なゲームスタイルに対応可能な多目的プロファイル',
+no_preference: '明確な好みはありません',
+evaluating_now: '評価中',
+
 // Para JAPONÉS (translations.ja)
 upgrade_title: '✨ アップグレードが必要です ✨',
 upgrade_message: '「{{feature}}」機能はPROバージョンでのみ利用可能です。',
@@ -10778,6 +11040,10 @@ multi_therapist: 'マルチセラピスト',
 
 create_therapist: 'セラピストを作成',
 therapist_name_placeholder: '山田太郎医師',
+
+reflective_type: "反省的",
+impulsive_type: "衝動的",
+mixed_type: "混合型",
 
 // ==================== TRADUCCIONES PARA INFORME CONDUCTUAL - JAPONÉS ====================
 report_generated: "行動レポートが生成され、ダウンロードされました",
@@ -10852,8 +11118,8 @@ average_emotional_response_label: "平均感情反応:",
 frustration_tolerance_label: "欲求不満耐性:",
 challenge_acceptance_label: "挑戦の受け入れ:",
 game_preferences_label: "ゲームの好みの分析",
-games_for_tea_label: "自閉症ゲーム:",
-games_for_adhd_label: "多動症ゲーム:",
+games_for_tea_label: "繰り返しの行動とパターンのためのゲーム：",
+games_for_adhd_label: "衝動的な行動のためのゲーム：",
 mixed_games_label: "混合ゲーム:",
 dominant_type_label: "支配的なタイプ:",
 total_games_evaluated_label: "評価されたゲームの総数:",
@@ -10966,6 +11232,14 @@ save_technique_template: "技法テンプレートを保存",
 template_name: "テンプレート名:",
 template_description: "説明 / 手順:",
 
+// JAPONÉS (ja)
+schedule_conflict_title: '時間の衝突',
+schedule_conflict: '⚠️ 時間の衝突\n\n{patient} に対して同じ時間に既にセッションが予約されています。\n\n日付: {date}\n時間: {startTime} - {endTime}\n\nそれでも予約しますか？（グループセラピーのみ）',
+group_therapy_note: '複数の患者が同時に参加するグループセラピーの場合のみ、このオプションをチェックしてください。',
+group_therapy_accept: 'グループセラピーとして予約',
+date_error: '過去の日付にセッションを予約することはできません',
+
+
 // ==================== TRADUCCIONES PARA JAPONÉS ====================
 // Agregar dentro de translations.ja = { ... }
 
@@ -11027,8 +11301,8 @@ judicial_certificate: "司法用証明書",
         attention_interpretation: '注意解釈',
         positive_emotional_response: '全体的な肯定的な感情的反応',
         high_frustration_tolerance: '高い欲求不満耐性',
-        tea: '自閉症',
-        tdah: '多動症',
+        tea: '反省的',
+        tdah: '反思型',
         both: '混合型',
         impulsive_profile: '衝動的プロファイル',
         mixed_profile: '混合プロファイル',
@@ -12159,6 +12433,11 @@ function applyTranslations() {
             el.textContent = t(key);
         }
     });
+
+const patientManagerSearch = document.getElementById('patientManagerSearch');
+if (patientManagerSearch) {
+    patientManagerSearch.placeholder = t('search_patients_in_manager');
+}
     
     // ============ 2. TRADUCIR PLACEHOLDERS ============
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -14822,7 +15101,20 @@ function loadPatientsList() {
     const patientsList = document.getElementById('patientsList');
     const dashboardList = document.getElementById('dashboardPatientsList');
 
-    if (patients.length === 0) {
+    // OBTENER TÉRMINO DE BÚSQUEDA (si existe)
+    const searchTerm = document.getElementById('patientManagerSearch')?.value.toLowerCase() || '';
+
+    // FILTRAR PACIENTES
+    let filteredPatients = patients;
+    if (searchTerm) {
+        filteredPatients = patients.filter(p => 
+            p.name.toLowerCase().includes(searchTerm) ||
+            (p.dni && p.dni.includes(searchTerm)) ||
+            (p.phone && p.phone.includes(searchTerm))
+        );
+    }
+
+    if (filteredPatients.length === 0) {
         const emptyHtml = `<div class="empty-state"><i class="fas fa-user-plus"></i><p>${t('no_patients')}</p></div>`;
         if (patientsList) patientsList.innerHTML = emptyHtml;
         if (dashboardList) dashboardList.innerHTML = emptyHtml;
@@ -14832,7 +15124,7 @@ function loadPatientsList() {
     let html = '';
     let dashboardHtml = '';
 
-    patients.forEach((patient, index) => {
+    filteredPatients.forEach((patient, index) => {
         const age = calculateAge(patient.birthDate);
         const hasEvaluation = evaluations[patient.id] ? true : false;
         const lastSession = getLastSessionDate(patient.id);
@@ -14870,12 +15162,17 @@ function loadPatientsList() {
                     <button class="btn btn-success btn-small" onclick="wbShowInterstitialThen(() => shareWineboxRecommendations('${patient.id}'))">
                         <i class="fab fa-whatsapp"></i> ${t('winebox_share')}
                     </button>
+                    <!-- NUEVO BOTÓN ELIMINAR -->
+                    <button class="btn btn-small btn-danger" onclick="deletePatientWithConfirm('${patient.id}')">
+                        <i class="fas fa-trash-alt"></i> ${t('delete')}
+                    </button>
                 </div>
             </div>
         `;
 
         html += card;
 
+        // Solo mostrar los 4 más recientes en el dashboard
         if (index < 4) {
             dashboardHtml += card;
         }
@@ -14883,7 +15180,14 @@ function loadPatientsList() {
 
     if (patientsList) patientsList.innerHTML = html;
     if (dashboardList) dashboardList.innerHTML = dashboardHtml;
-} 
+    
+    // Actualizar contador de resultados
+    const resultCount = document.getElementById('patientSearchResultCount');
+    if (resultCount) {
+        resultCount.textContent = filteredPatients.length;
+    }
+}
+
 
 function editPatient(id) {
     const patient = patients.find(p => p.id === id);
@@ -15138,6 +15442,84 @@ function deletePatient(id) {
     });
 }
 
+// FUNCIÓN PARA ELIMINAR PACIENTE CON CONFIRMACIÓN (VERSIÓN MEJORADA)
+function deletePatientWithConfirm(patientId) {
+    const patient = patients.find(p => p.id === patientId);
+    if (!patient) return;
+    
+    // Contar datos asociados para mostrar en el mensaje
+    const sessionCount = treatmentSessions[patientId]?.length || 0;
+    const evalCount = evaluations[patientId] ? (Array.isArray(evaluations[patientId]) ? evaluations[patientId].length : 1) : 0;
+    const planCount = treatmentPlans[patientId] ? 1 : 0;
+    const paymentCount = patientPayments[patientId] ? 
+        (patientPayments[patientId].paid?.length || 0) + (patientPayments[patientId].pending?.length || 0) : 0;
+    
+    const message = `
+⚠️ ${t('delete_patient_warning') || '¿Está seguro de eliminar este paciente?'}
+
+📋 ${t('patient')}: ${patient.name}
+📊 ${t('sessions')}: ${sessionCount}
+📝 ${t('evaluations')}: ${evalCount}
+📄 ${t('treatment_plans')}: ${planCount}
+💰 ${t('payments')}: ${paymentCount}
+
+${t('delete_irreversible') || 'Esta acción es irreversible y eliminará TODOS los datos asociados.'}
+    `;
+    
+    // Crear modal de confirmación de forma dinámica y segura
+    const modalId = 'deleteConfirmModal_' + Date.now();
+    const modalHtml = `
+        <div id="${modalId}" class="custom-modal-overlay">
+            <div class="custom-modal" style="max-width: 500px;">
+                <div class="custom-modal-header">
+                    <h3 style="margin:0; color: var(--danger);"><i class="fas fa-exclamation-triangle"></i> ${t('confirm_delete') || 'Confirmar Eliminación'}</h3>
+                    <button onclick="closeCustomModal('${modalId}')" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+                </div>
+                <div class="custom-modal-body">
+                    <pre style="white-space: pre-wrap; font-family: inherit; margin: 0;">${message}</pre>
+                </div>
+                <div class="custom-modal-footer">
+                    <button class="btn btn-secondary" onclick="closeCustomModal('${modalId}')">
+                        <i class="fas fa-times"></i> ${t('cancel') || 'Cancelar'}
+                    </button>
+                    <button class="btn btn-danger" onclick="closeCustomModal('${modalId}'); performDeletePatient('${patientId}');">
+                        <i class="fas fa-trash"></i> ${t('confirm_delete') || 'Eliminar'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById(modalId).style.display = 'flex';
+}
+
+// Función separada para realizar la eliminación
+function performDeletePatient(patientId) {
+    const patient = patients.find(p => p.id === patientId);
+    if (!patient) return;
+    
+    // Eliminar todos los datos del paciente
+    patients = patients.filter(p => p.id !== patientId);
+    delete evaluations[patientId];
+    delete treatmentPlans[patientId];
+    delete treatmentSessions[patientId];
+    delete behavioralProfiles[patientId];
+    delete scheduledSessions[patientId];
+    delete patientPayments[patientId];
+    
+    saveAllData();
+    showNotification(`${t('patient_deleted') || 'Paciente eliminado'}: ${patient.name}`, 'success');
+    loadPatientsList();
+    updateAllSelectors();
+    loadDashboard();
+    loadPendingActions();
+    
+    // Si el paciente estaba seleccionado en alguna pestaña, limpiar
+    if (currentProfilePatientId === patientId) currentProfilePatientId = null;
+    if (currentEvaluationPatientId === patientId) currentEvaluationPatientId = null;
+    if (currentTreatmentPlanPatientId === patientId) currentTreatmentPlanPatientId = null;
+    if (currentSessionPatientId === patientId) currentSessionPatientId = null;
+}
 
         function getLastSessionDate(patientId) {
             const sessions = treatmentSessions[patientId];
@@ -15219,21 +15601,45 @@ function startReevaluation() {
         showNotification('Seleccione un paciente primero', 'warning');
         return;
     }
-    showConfirmModal('¿Está seguro que desea realizar una nueva evaluación? Esto agregará datos al historial sin eliminar la evaluación anterior.', 'Re-evaluación', function() {
-        document.getElementById('evaluationGamesSection').style.display = 'block';
-        document.getElementById('startEvaluationBtn').style.display = 'none';
-        document.getElementById('reevaluateBtn').style.display = 'none';
-        document.getElementById('completeEvaluationBtn').style.display = 'inline-flex';
-        document.getElementById('resultsBtn').style.display = 'none';
-        loadEvaluationGames();
-        showNotification('Iniciando re-evaluación. Los datos se añadirán al historial existente.', 'info');
-    });
+    
+    // Crear modal de confirmación manualmente
+    const modalId = 'reevaluateConfirmModal_' + Date.now();
+    const modalHtml = `
+        <div id="${modalId}" class="custom-modal-overlay">
+            <div class="custom-modal" style="max-width: 450px;">
+                <div class="custom-modal-header">
+                    <h3 style="margin:0; color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> ${t('reevaluate') || 'Re-evaluación'}</h3>
+                    <button onclick="closeCustomModal('${modalId}')" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+                </div>
+                <div class="custom-modal-body">
+                    <p>${t('reevaluate_confirm_message') || '¿Está seguro que desea realizar una nueva evaluación? Esto agregará datos al historial sin eliminar la evaluación anterior.'}</p>
+                </div>
+                <div class="custom-modal-footer">
+                    <button class="btn btn-secondary" onclick="closeCustomModal('${modalId}')">
+                        <i class="fas fa-times"></i> ${t('cancel') || 'Cancelar'}
+                    </button>
+                    <button class="btn btn-warning" onclick="closeCustomModal('${modalId}'); performReevaluation();">
+                        <i class="fas fa-check"></i> ${t('accept') || 'Aceptar'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById(modalId).style.display = 'flex';
 }
 
+// Función separada para ejecutar la re-evaluación
+function performReevaluation() {
+    document.getElementById('evaluationGamesSection').style.display = 'block';
+    document.getElementById('startEvaluationBtn').style.display = 'none';
+    document.getElementById('reevaluateBtn').style.display = 'none';
+    document.getElementById('completeEvaluationBtn').style.display = 'inline-flex';
+    document.getElementById('resultsBtn').style.display = 'none';
+    loadEvaluationGames();
+    showNotification(t('reevaluate_started') || 'Iniciando re-evaluación. Los datos se añadirán al historial existente.', 'info');
+}
 
-
-// ==================== CORREGIR loadEvaluationGames ====================
-// Busca esta función y reemplázala
 
 function loadEvaluationGames() {
     const gamesGrid = document.getElementById('evaluationGamesGrid');
@@ -15243,13 +15649,7 @@ function loadEvaluationGames() {
     
     wineboxGames.forEach((game, index) => {
         const isSelected = evaluationSelectedGames.includes(game.name);
-        const tags = game.patologias.map(p => {
-            const tagClass = p === 'TEA' ? 'tag-tea' : (p === 'TDAH' ? 'tag-tdah' : 'tag-both');
-            const tagText = p === 'TEA' ? t('tea') : (p === 'TDAH' ? t('tdah') : t('both'));
-            return `<span class="tag ${tagClass}">${tagText}</span>`;
-        }).join('');
         
-        // OBTENER ESTÍMULOS TRADUCIDOS COMO ARRAY
         const stimuliArray = getLocalizedStimuli(game);
         const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
         
@@ -15258,7 +15658,6 @@ function loadEvaluationGames() {
                  onclick="toggleEvaluationGameSelection('${game.name}', ${index})">
                 <h4>${game.name}</h4>
                 <p>${getGameJustification(game).substring(0, 100)}...</p>
-                <div class="game-tags">${tags}</div>
                 <div class="estimulos-list">
                     <strong>${t('stimuli')}:</strong> ${stimuliText}...
                 </div>
@@ -15269,7 +15668,6 @@ function loadEvaluationGames() {
     gamesGrid.innerHTML = html;
     updateEvaluationSelectedCounter();
 }
-
 
 
         function toggleEvaluationGameSelection(gameName, index) {
@@ -15385,36 +15783,33 @@ function loadEvaluationGames() {
             updateEvaluationProgress();
         }
 
-        function updateEvaluationProgress() {
-            const progressDiv = document.getElementById('evaluationGamesList');
-            if (!progressDiv) return;
-            let html = '<div class="games-list">';
-            
-            currentEvaluation.games.forEach((game, index) => {
-                const isCurrent = index === currentEvaluation.currentGameIndex;
-                const isCompleted = index < currentEvaluation.currentGameIndex;
-                const gameData = wineboxGames.find(g => g.name === game);
-                
-                html += `
-                    <div class="game-choice ${isCurrent ? 'active' : ''} ${isCompleted ? 'completed' : ''}">
-                        <strong>${game}</strong>
-                        <div style="margin-top: 5px;">
-                            ${gameData ? gameData.patologias.map(p => 
-                                `<span class="tag tag-${p.toLowerCase()}" style="font-size: 0.7rem; margin: 2px;">${p}</span>`
-                            ).join('') : ''}
-                        </div>
-                        <div style="font-size: 0.8rem; color: var(--gray); margin-top: 5px;">
-                            ${isCurrent ? `<i class="fas fa-play"></i> Evaluando ahora` : 
-                              isCompleted ? `<i class="fas fa-check"></i> Completado` : 
-                              `<i class="fas fa-clock"></i> Pendiente`}
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            progressDiv.innerHTML = html;
-        }
+
+function updateEvaluationProgress() {
+    const progressDiv = document.getElementById('evaluationGamesList');
+    if (!progressDiv) return;
+    let html = '<div class="games-list">';
+    
+    currentEvaluation.games.forEach((game, index) => {
+        const isCurrent = index === currentEvaluation.currentGameIndex;
+        const isCompleted = index < currentEvaluation.currentGameIndex;
+        
+        html += `
+            <div class="game-choice ${isCurrent ? 'active' : ''} ${isCompleted ? 'completed' : ''}">
+                <strong>${game}</strong>
+                <!-- ELIMINAR ESTAS LÍNEAS QUE MUESTRAN LAS ETIQUETAS DE PATOLOGÍAS -->
+                <div style="font-size: 0.8rem; color: var(--gray); margin-top: 5px;">
+                    ${isCurrent ? `<i class="fas fa-play"></i> ${t('evaluating_now') || 'Evaluando ahora'}` : 
+                      isCompleted ? `<i class="fas fa-check"></i> ${t('completed') || 'Completado'}` : 
+                      `<i class="fas fa-clock"></i> ${t('pending') || 'Pendiente'}`}
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    progressDiv.innerHTML = html;
+}
+    
 
         function initRatingStars() {
             const feelingStars = document.querySelectorAll('#feelingRating i');
@@ -15916,7 +16311,10 @@ function getImpulsivityInterpretation(percentage) {
                 teaPercentage: total > 0 ? (teaCount / total) * 100 : 0,
                 tdahPercentage: total > 0 ? (tdahCount / total) * 100 : 0,
                 gameTypes: gameTypes,
-                dominantType: teaCount > tdahCount ? "TEA" : tdahCount > teaCount ? "TDAH" : "Mixto"
+// --------------------------------------------------------------------------------
+//	          	     SELECTOR
+// --------------------------------------------------------------------------------
+                dominantType: teaCount > tdahCount ?  t('reflective_type') : tdahCount > teaCount ? t('impulsive_type') : t('mixed_type')
             };
         }
 
@@ -16225,42 +16623,40 @@ function displayBehavioralProfile(profile) {
     if (choicesHistory) {
         let historyHtml = '<div class="games-list">';
         
-        if (profile.preferredGames && profile.preferredGames.length > 0) {
-            profile.preferredGames.forEach((gameName, index) => {
-                const gameData = wineboxGames.find(g => g.name === gameName);
-                const evaluation = evaluations[profile.patientId];
-                const evaluationData = Array.isArray(evaluation) ? evaluation.find(e => e.games && e.games.some(g => g.game === gameName)) : evaluation;
-                const gameEval = evaluationData?.games?.find(g => g.game === gameName);
-                
-                if (gameData) {
-                    // CORRECCIÓN: usar getLocalizedStimuli
-                    const stimuliArray = getLocalizedStimuli(gameData);
-                    const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
-                    
-                    const pathologyTags = gameData.patologias.map(p => {
-                        const tagText = p === 'TEA' ? t('tea') : (p === 'TDAH' ? t('tdah') : t('both'));
-                        return `<span class="tag tag-${p.toLowerCase()}" style="font-size: 0.7rem; margin: 2px;">${tagText}</span>`;
-                    }).join('');
-                    
-                    historyHtml += `
-                        <div class="game-choice">
-                            <strong>${index + 1}. ${gameData.name}</strong>
-                            <div style="margin-top: 8px;">
-                                ${pathologyTags}
-                            </div>
-                            <div style="font-size: 0.8rem; color: var(--gray); margin-top: 5px;">
-                                <strong>${t('stimuli')}:</strong> ${stimuliText}...
-                            </div>
-                            ${gameEval ? `
-                            <div style="font-size: 0.75rem; margin-top: 5px; padding: 5px; background: var(--light-gray); border-radius: 5px;">
-                                <strong>Evaluación:</strong> ${gameEval.feeling}/5 ⭐ | Dificultad: ${gameEval.difficulty}/5
-                            </div>
-                            ` : ''}
-                        </div>
-                    `;
-                }
-            });
-        } else {
+
+// Dentro de displayBehavioralProfile, reemplaza la generación de choicesHistory
+if (profile.preferredGames && profile.preferredGames.length > 0) {
+    profile.preferredGames.forEach((gameName, index) => {
+        const gameData = wineboxGames.find(g => g.name === gameName);
+        const evaluation = evaluations[profile.patientId];
+        const evaluationData = Array.isArray(evaluation) ? evaluation.find(e => e.games && e.games.some(g => g.game === gameName)) : evaluation;
+        const gameEval = evaluationData?.games?.find(g => g.game === gameName);
+        
+        if (gameData) {
+            const stimuliArray = getLocalizedStimuli(gameData);
+            const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
+            
+            // ELIMINAR pathologyTags COMPLETAMENTE
+            historyHtml += `
+                <div class="game-choice">
+                    <strong>${index + 1}. ${gameData.name}</strong>
+                    <!-- NO mostrar etiquetas de patologías -->
+                    <div style="font-size: 0.8rem; color: var(--gray); margin-top: 5px;">
+                        <strong>${t('stimuli')}:</strong> ${stimuliText}...
+                    </div>
+                    ${gameEval ? `
+                    <div style="font-size: 0.75rem; margin-top: 5px; padding: 5px; background: var(--light-gray); border-radius: 5px;">
+                        <strong>${t('evaluation')}:</strong> ${gameEval.feeling}/5 ⭐ | ${t('difficulty_level')}: ${gameEval.difficulty}/5
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+    });
+}
+
+
+else {
             historyHtml += `
                 <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 20px;">
                     <i class="fas fa-gamepad"></i>
@@ -16344,6 +16740,8 @@ function calculatePlanningScore(profile) {
                 }
             }
         }
+
+
 function generateClinicalInferences(profile) {
     const inferences = [];
     
@@ -16385,11 +16783,11 @@ function generateClinicalInferences(profile) {
         }
         
         if (profile.gamePatterns && profile.gamePatterns.teaCount >= 3) {
-            inferences.push(`Interés predominante en juegos estructurados (${profile.gamePatterns.teaCount} TEA juegos)`);
+            inferences.push(`Interés predominante en juegos estructurados (${profile.gamePatterns.teaCount} juegos)`);
         }
         
         if (profile.gamePatterns && profile.gamePatterns.tdahCount >= 3) {
-            inferences.push(`Preferencia por juegos dinámicos (${profile.gamePatterns.tdahCount} TDAH juegos)`);
+            inferences.push(`Preferencia por juegos dinámicos (${profile.gamePatterns.tdahCount} juegos)`);
         }
         
     } catch(e) {
@@ -16399,88 +16797,62 @@ function generateClinicalInferences(profile) {
     return inferences;
 }
 
-// ==================== VERSIÓN CORREGIDA DE generateTherapeuticSuggestions ====================
+
 function generateTherapeuticSuggestions(profile) {
     const suggestions = [];
     
-    try {
-        // ========== SUGERENCIA 1: Basada en nivel de impulsividad ==========
-        if (profile.impulsivity && profile.impulsivity.level === "alto") {
-            suggestions.push({
-                rationale: t('impulse_control_rationale') || "Para desarrollar mayor reflexividad y control de impulsos",
-                games: findGamesForImpulseControl(3),
-                explanation: t('impulse_control_explanation') || "Juegos que fomentan la pausa antes de actuar y el pensamiento anticipatorio"
-            });
-            
-            suggestions.push({
-                rationale: t('sustained_attention_rationale') || "Para entrenar la atención sostenida",
-                games: findGamesForSustainedAttention(2),
-                explanation: t('sustained_attention_explanation') || "Juegos que requieren mantener el foco durante periodos prolongados"
-            });
-        } else if (profile.impulsivity && profile.impulsivity.level === "bajo") {
-            suggestions.push({
-                rationale: t('flexibility_rationale') || "Para desarrollar flexibilidad y adaptación a cambios",
-                games: findGamesForFlexibility(3),
-                explanation: t('flexibility_explanation') || "Juegos que introducen elementos de sorpresa y requieren adaptación rápida"
-            });
-        }
-        
-        // ========== SUGERENCIA 2: Basada en patrón atencional ==========
-        const attentionPattern = profile.attention ? profile.attention.dominantPattern : "";
-        
-        // Detectar "Atención sostenida" en cualquier idioma
-        const isSustainedAttention = attentionPattern === "Atención sostenida" || 
-                                      attentionPattern === "Sustained attention" ||
-                                      attentionPattern === "Anhaltende Aufmerksamkeit" ||
-                                      attentionPattern === "Attention soutenue" ||
-                                      attentionPattern === "Attenzione sostenuta" ||
-                                      attentionPattern === "Atenção sustentada" ||
-                                      attentionPattern === "持续注意" ||
-                                      attentionPattern === "持続的注意";
-        
-        // Detectar "Atención dividida" en cualquier idioma
-        const isDividedAttention = attentionPattern === "Atención dividida" || 
-                                    attentionPattern === "Divided attention" ||
-                                    attentionPattern === "Geteilte Aufmerksamkeit" ||
-                                    attentionPattern === "Attention divisée" ||
-                                    attentionPattern === "Attenzione divisa" ||
-                                    attentionPattern === "Atenção dividida" ||
-                                    attentionPattern === "分散注意" ||
-                                    attentionPattern === "分割された注意";
-        
-        if (isSustainedAttention) {
-            suggestions.push({
-                rationale: t('divided_attention_rationale') || "Para desarrollar atención dividida y multitarea",
-                games: findGamesForDividedAttention(2),
-                explanation: t('divided_attention_explanation') || "Juegos que requieren manejo simultáneo de múltiples elementos"
-            });
-        } else if (isDividedAttention) {
-            suggestions.push({
-                rationale: t('selective_attention_rationale') || "Para fortalecer la atención selectiva y focalizada",
-                games: findGamesForSelectiveAttention(2),
-                explanation: t('selective_attention_explanation') || "Juegos que requieren concentración en elementos específicos"
-            });
-        }
-        
-        // ========== SUGERENCIA 3: Desarrollo integral (SIEMPRE se incluye) ==========
+    // Basado en nivel de impulsividad (NO mostrar TEA/TDAH)
+    if (profile.impulsivity && profile.impulsivity.level === "alto") {
         suggestions.push({
-            rationale: t('integral_development_rationale') || "Para desarrollo cognitivo integral",
-            games: findBalancedGames(profile.preferredGames || [], 3),
-            explanation: t('integral_development_explanation') || "Juegos que trabajan múltiples áreas cognitivas simultáneamente"
+            rationale: t('impulse_control_rationale'),
+            games: findGamesForImpulseControl(3),
+            explanation: t('impulse_control_explanation')
         });
         
-    } catch(e) {
-        console.error('Error en generateTherapeuticSuggestions:', e);
-        // Sugerencia por defecto en caso de error
         suggestions.push({
-            rationale: "Plan de juego recomendado",
-            games: ["Absence", "Doom", "Quake"],
-            explanation: "Juegos recomendados para estimulación cognitiva"
+            rationale: t('sustained_attention_rationale'),
+            games: findGamesForSustainedAttention(2),
+            explanation: t('sustained_attention_explanation')
+        });
+    } else if (profile.impulsivity && profile.impulsivity.level === "bajo") {
+        suggestions.push({
+            rationale: t('flexibility_rationale'),
+            games: findGamesForFlexibility(3),
+            explanation: t('flexibility_explanation')
         });
     }
     
+    // Basado en patrón atencional (NO mostrar TEA/TDAH)
+    const attentionPattern = profile.attention ? profile.attention.dominantPattern : "";
+    
+    if (attentionPattern === t('divided_attention') || 
+        attentionPattern === "Atención dividida" ||
+        attentionPattern === "Divided attention") {
+        suggestions.push({
+            rationale: t('selective_attention_rationale'),
+            games: findGamesForSelectiveAttention(2),
+            explanation: t('selective_attention_explanation')
+        });
+    } else if (attentionPattern === t('sustained_attention') ||
+               attentionPattern === "Atención sostenida" ||
+               attentionPattern === "Sustained attention") {
+        suggestions.push({
+            rationale: t('divided_attention_rationale'),
+            games: findGamesForDividedAttention(2),
+            explanation: t('divided_attention_explanation')
+        });
+    }
+    
+    // Sugerencia de desarrollo integral (SIEMPRE se incluye)
+    suggestions.push({
+        rationale: t('integral_development_rationale'),
+        games: findBalancedGames(profile.preferredGames || [], 3),
+        explanation: t('integral_development_explanation')
+    });
+    
     return suggestions;
 }
+
 
 
 // ==================== FUNCIONES CORREGIDAS PARA ENCONTRAR JUEGOS ====================
@@ -17095,6 +17467,7 @@ function generateBrainMapVisualization(profile) {
 // ==================== VERSIÓN CORREGIDA - RECONOCE 'jp' COMO JAPONÉS ====================
 
 function generateBehavioralReportTXT() {
+
     if (!currentProfilePatientId) {
         showNotification('Seleccione un paciente primero', 'warning');
         return;
@@ -17108,150 +17481,577 @@ function generateBehavioralReportTXT() {
         return;
     }
     
-    // Verificar si el idioma es japonés (acepta 'ja' o 'jp')
-    const savedLang = localStorage.getItem('neurotherapy_language');
-    const usarJapones = (savedLang === 'ja' || savedLang === 'jp');
+    const lang = currentLanguage;
     
-    // Textos en español
-    const es = {
-        header: 'INFORME DE PERFIL CONDUCTUAL - SISTEMA WINEBOX',
-        patient_info: 'INFORMACIÓN DEL PACIENTE',
-        name: 'Nombre:',
-        birth_date: 'Fecha de Nacimiento:',
-        age: 'Edad:',
-        years: 'años',
-        report_date: 'Fecha del informe:',
-        evaluation_date: 'Fecha de evaluación:',
-        evaluation_type: 'Tipo de evaluación:',
-        initial_evaluation: 'Evaluación inicial',
-        reevaluation: 'Re-evaluación',
-        summary: 'RESUMEN DEL PERFIL CONDUCTUAL',
-        dominant_pattern: 'Patrón predominante:',
-        impulsivity_level: 'Nivel de impulsividad:',
-        attention_pattern: 'Patrón atencional:',
-        emotional_response: 'Respuesta emocional promedio:',
-        detailed_analysis: 'ANÁLISIS CONDUCTUAL DETALLADO',
-        impulse_control: 'CONTROL DE IMPULSOS',
-        score: 'Puntuación:',
-        level: 'Nivel:',
-        interpretation: 'Interpretación:',
-        attention_patterns: 'PATRONES ATENCIONALES',
-        attention_distribution: 'Distribución atencional:',
-        sustained_attention: 'Atención sostenida',
-        divided_attention: 'Atención dividida',
-        selective_attention: 'Atención selectiva',
-        alternating_attention: 'Alternancia atencional',
-        emotional_regulation: 'REGULACIÓN EMOCIONAL',
-        average_emotional_response: 'Respuesta emocional promedio:',
-        frustration_tolerance: 'Tolerancia a la frustración:',
-        challenge_acceptance: 'Aceptación del desafío:',
-        game_preferences: 'ANÁLISIS DE PREFERENCIAS DE JUEGO',
-        games_for_tea: 'Juegos para TEA:',
-        games_for_adhd: 'Juegos para TDAH:',
-        mixed_games: 'Juegos mixtos:',
-        dominant_type: 'Tipo dominante:',
-        total_games_evaluated: 'Total de juegos evaluados:',
-        preferred_games_list: 'LISTA DE JUEGOS PREFERIDOS',
-        pathologies: 'Patologías:',
-        main_stimuli: 'Estímulos principales:',
-        clinical_inferences: 'INFERENCIAS CLÍNICAS',
-        therapeutic_recommendations: 'RECOMENDACIONES TERAPÉUTICAS',
-        suggested_games: 'Juegos sugeridos:',
-        explanation: 'Explicación:',
-        follow_up_plan: 'PLAN DE SEGUIMIENTO SUGERIDO',
-        reevaluation_suggestion: 'Re-evaluación en 4-6 semanas',
-        session_recording: 'Registro sistemático de sesiones',
-        progress_monitoring: 'Monitoreo de progreso en áreas identificadas',
-        plan_adjustment: 'Ajuste del plan según respuesta terapéutica',
-        suggested_frequency: 'Frecuencia sugerida:',
-        suggested_duration: 'Duración sugerida:',
-        times_per_week: 'veces por semana',
-        minutes: 'minutos',
-        important_notes: 'NOTAS IMPORTANTES',
-        note_1: 'Este informe se basa en preferencias de juegos y evaluaciones conductuales',
-        note_2: 'No constituye un diagnóstico clínico',
-        note_3: 'Las inferencias son observaciones conductuales que requieren validación clínica',
-        note_4: 'Considerar el contexto completo del paciente',
-        note_5: 'Las recomendaciones son sugerencias basadas en el perfil observado',
-        end_report: 'FIN DEL INFORME',
-        system_name: 'Sistema WineBox Tool',
-        version: 'Versión 1.0 - Sistema Integral',
-        low_level: 'bajo',
-        moderate_level: 'moderado',
-        high_level: 'alto'
+    // Textos traducidos para el informe SIN MENCIONES DE TEA/TDAH
+    const textos = {
+        es: {
+            header: 'INFORME DE PERFIL CONDUCTUAL - SISTEMA WINEBOX',
+            patient_info: 'INFORMACIÓN DEL PACIENTE',
+            name: 'Nombre:',
+            birth_date: 'Fecha de Nacimiento:',
+            age: 'Edad:',
+            years: 'años',
+            report_date: 'Fecha del informe:',
+            evaluation_date: 'Fecha de evaluación:',
+            evaluation_type: 'Tipo de evaluación:',
+            initial_evaluation: 'Evaluación inicial',
+            reevaluation: 'Re-evaluación',
+            summary: 'RESUMEN DEL PERFIL CONDUCTUAL',
+            dominant_pattern: 'Patrón predominante:',
+            impulsivity_level: 'Nivel de impulsividad:',
+            attention_pattern: 'Patrón atencional:',
+            emotional_response: 'Respuesta emocional promedio:',
+            detailed_analysis: 'ANÁLISIS CONDUCTUAL DETALLADO',
+            impulse_control: 'CONTROL DE IMPULSOS',
+            score: 'Puntuación:',
+            level: 'Nivel:',
+            interpretation: 'Interpretación:',
+            attention_patterns: 'PATRONES ATENCIONALES',
+            attention_distribution: 'Distribución atencional:',
+            sustained_attention: 'Atención sostenida',
+            divided_attention: 'Atención dividida',
+            selective_attention: 'Atención selectiva',
+            alternating_attention: 'Alternancia atencional',
+            emotional_regulation: 'REGULACIÓN EMOCIONAL',
+            average_emotional_response: 'Respuesta emocional promedio:',
+            frustration_tolerance: 'Tolerancia a la frustración:',
+            challenge_acceptance: 'Aceptación del desafío:',
+            game_preferences: 'ANÁLISIS DE PREFERENCIAS DE JUEGO',
+            total_games_evaluated: 'Total de juegos evaluados:',
+            preferred_games_list: 'LISTA DE JUEGOS EVALUADOS',
+            main_stimuli: 'Estímulos principales:',
+            clinical_inferences: 'INFERENCIAS CLÍNICAS',
+            therapeutic_recommendations: 'RECOMENDACIONES TERAPÉUTICAS',
+            suggested_games: 'Juegos sugeridos:',
+            explanation: 'Explicación:',
+            follow_up_plan: 'PLAN DE SEGUIMIENTO SUGERIDO',
+            reevaluation_suggestion: 'Re-evaluación en 4-6 semanas',
+            session_recording: 'Registro sistemático de sesiones',
+            progress_monitoring: 'Monitoreo de progreso en áreas identificadas',
+            plan_adjustment: 'Ajuste del plan según respuesta terapéutica',
+            suggested_frequency: 'Frecuencia sugerida:',
+            suggested_duration: 'Duración sugerida:',
+            times_per_week: 'veces por semana',
+            minutes: 'minutos',
+            important_notes: 'NOTAS IMPORTANTES',
+            note_1: 'Este informe se basa en preferencias de juegos y evaluaciones conductuales',
+            note_2: 'No constituye un diagnóstico clínico',
+            note_3: 'Las inferencias son observaciones conductuales que requieren validación clínica',
+            note_4: 'Considerar el contexto completo del paciente',
+            note_5: 'Las recomendaciones son sugerencias basadas en el perfil observado',
+            end_report: 'FIN DEL INFORME',
+            system_name: 'Sistema WineBox Tool',
+            version: 'Versión 1.0 - Sistema Integral',
+            low_level: 'bajo',
+            moderate_level: 'moderado',
+            high_level: 'alto',
+            game_type_distribution: 'Distribución por tipo de juego:',
+            structured_games: 'Juegos de estructura definida',
+            dynamic_games: 'Juegos dinámicos',
+            mixed_games: 'Juegos de estilo mixto',
+            no_data: 'Datos no disponibles'
+        },
+        en: {
+            header: 'BEHAVIORAL PROFILE REPORT - WINEBOX SYSTEM',
+            patient_info: 'PATIENT INFORMATION',
+            name: 'Name:',
+            birth_date: 'Date of Birth:',
+            age: 'Age:',
+            years: 'years',
+            report_date: 'Report date:',
+            evaluation_date: 'Evaluation date:',
+            evaluation_type: 'Evaluation type:',
+            initial_evaluation: 'Initial evaluation',
+            reevaluation: 'Re-evaluation',
+            summary: 'BEHAVIORAL PROFILE SUMMARY',
+            dominant_pattern: 'Dominant pattern:',
+            impulsivity_level: 'Impulsivity level:',
+            attention_pattern: 'Attention pattern:',
+            emotional_response: 'Average emotional response:',
+            detailed_analysis: 'DETAILED BEHAVIORAL ANALYSIS',
+            impulse_control: 'IMPULSE CONTROL',
+            score: 'Score:',
+            level: 'Level:',
+            interpretation: 'Interpretation:',
+            attention_patterns: 'ATTENTION PATTERNS',
+            attention_distribution: 'Attention distribution:',
+            sustained_attention: 'Sustained attention',
+            divided_attention: 'Divided attention',
+            selective_attention: 'Selective attention',
+            alternating_attention: 'Alternating attention',
+            emotional_regulation: 'EMOTIONAL REGULATION',
+            average_emotional_response: 'Average emotional response:',
+            frustration_tolerance: 'Frustration tolerance:',
+            challenge_acceptance: 'Challenge acceptance:',
+            game_preferences: 'GAME PREFERENCES ANALYSIS',
+            total_games_evaluated: 'Total games evaluated:',
+            preferred_games_list: 'LIST OF EVALUATED GAMES',
+            main_stimuli: 'Main stimuli:',
+            clinical_inferences: 'CLINICAL INFERENCES',
+            therapeutic_recommendations: 'THERAPEUTIC RECOMMENDATIONS',
+            suggested_games: 'Suggested games:',
+            explanation: 'Explanation:',
+            follow_up_plan: 'SUGGESTED FOLLOW-UP PLAN',
+            reevaluation_suggestion: 'Re-evaluation in 4-6 weeks',
+            session_recording: 'Systematic recording of sessions',
+            progress_monitoring: 'Progress monitoring in identified areas',
+            plan_adjustment: 'Plan adjustment according to therapeutic response',
+            suggested_frequency: 'Suggested frequency:',
+            suggested_duration: 'Suggested duration:',
+            times_per_week: 'times per week',
+            minutes: 'minutes',
+            important_notes: 'IMPORTANT NOTES',
+            note_1: 'This report is based on game preferences and behavioral evaluations',
+            note_2: 'Does not constitute a clinical diagnosis',
+            note_3: 'Inferences are behavioral observations that require clinical validation',
+            note_4: 'Consider the patient\'s complete context',
+            note_5: 'Recommendations are suggestions based on the observed profile',
+            end_report: 'END OF REPORT',
+            system_name: 'WineBox Tool System',
+            version: 'Version 1.0 - Comprehensive System',
+            low_level: 'low',
+            moderate_level: 'moderate',
+            high_level: 'high',
+            game_type_distribution: 'Game type distribution:',
+            structured_games: 'Structured games',
+            dynamic_games: 'Dynamic games',
+            mixed_games: 'Mixed style games',
+            no_data: 'No data available'
+        },
+de: {
+    header: 'VERHALTENSPROFILBERICHT - WINEBOX SYSTEM',
+    patient_info: 'PATIENTENINFORMATIONEN',
+    name: 'Name:',
+    birth_date: 'Geburtsdatum:',
+    age: 'Alter:',
+    years: 'Jahre',
+    report_date: 'Berichtsdatum:',
+    evaluation_date: 'Bewertungsdatum:',
+    evaluation_type: 'Bewertungstyp:',
+    initial_evaluation: 'Erstbewertung',
+    reevaluation: 'Reevaluierung',
+    summary: 'ZUSAMMENFASSUNG DES VERHALTENSPROFILS',
+    dominant_pattern: 'Dominantes Muster:',
+    impulsivity_level: 'Impulsivitätsgrad:',
+    attention_pattern: 'Aufmerksamkeitsmuster:',
+    emotional_response: 'Durchschnittliche emotionale Reaktion:',
+    detailed_analysis: 'DETAILLIERTE VERHALTENSANALYSE',
+    impulse_control: 'IMPULSKONTROLLE',
+    score: 'Punktzahl:',
+    level: 'Niveau:',
+    interpretation: 'Interpretation:',
+    attention_patterns: 'AUFMERKSAMKEITSMUSTER',
+    attention_distribution: 'Aufmerksamkeitsverteilung:',
+    sustained_attention: 'Anhaltende Aufmerksamkeit',
+    divided_attention: 'Geteilte Aufmerksamkeit',
+    selective_attention: 'Selektive Aufmerksamkeit',
+    alternating_attention: 'Wechselnde Aufmerksamkeit',
+    emotional_regulation: 'EMOTIONSREGULATION',
+    average_emotional_response: 'Durchschnittliche emotionale Reaktion:',
+    frustration_tolerance: 'Frustrationstoleranz:',
+    challenge_acceptance: 'Herausforderungsakzeptanz:',
+    game_preferences: 'ANALYSE DER SPIELPRÄFERENZEN',
+    total_games_evaluated: 'Insgesamt bewertete Spiele:',
+    preferred_games_list: 'LISTE DER BEWERTETEN SPIELE',
+    main_stimuli: 'Hauptreize:',
+    clinical_inferences: 'KLINISCHE SCHLUSSFOLGERUNGEN',
+    therapeutic_recommendations: 'THERAPEUTISCHE EMPFEHLUNGEN',
+    suggested_games: 'Vorgeschlagene Spiele:',
+    explanation: 'Erklärung:',
+    follow_up_plan: 'VORGESCHLAGENER NACHBETREUUNGSPLAN',
+    reevaluation_suggestion: 'Reevaluierung in 4-6 Wochen',
+    session_recording: 'Systematische Aufzeichnung von Sitzungen',
+    progress_monitoring: 'Fortschrittsüberwachung in identifizierten Bereichen',
+    plan_adjustment: 'Anpassung des Plans entsprechend der therapeutischen Reaktion',
+    suggested_frequency: 'Empfohlene Häufigkeit:',
+    suggested_duration: 'Empfohlene Dauer:',
+    times_per_week: 'Mal pro Woche',
+    minutes: 'Minuten',
+    important_notes: 'WICHTIGE HINWEISE',
+    note_1: 'Dieser Bericht basiert auf Spielpräferenzen und Verhaltensbewertungen',
+    note_2: 'Stellt keine klinische Diagnose dar',
+    note_3: 'Schlussfolgerungen sind Verhaltensbeobachtungen, die einer klinischen Validierung bedürfen',
+    note_4: 'Berücksichtigen Sie den vollständigen Kontext des Patienten',
+    note_5: 'Die Empfehlungen sind Vorschläge, die auf dem beobachteten Profil basieren',
+    end_report: 'ENDE DES BERICHTES',
+    system_name: 'WineBox Tool System',
+    version: 'Version 1.0 - Integriertes System',
+    low_level: 'niedrig',
+    moderate_level: 'mäßig',
+    high_level: 'hoch',
+    game_type_distribution: 'Verteilung der Spieltypen:',
+    structured_games: 'Spiele mit definierter Struktur',
+    dynamic_games: 'Dynamische Spiele',
+    mixed_games: 'Spiele mit gemischtem Stil',
+    no_data: 'Keine Daten verfügbar'
+},
+
+fr: {
+    header: 'RAPPORT DE PROFIL COMPORTEMENTAL - SYSTÈME WINEBOX',
+    patient_info: 'INFORMATIONS PATIENT',
+    name: 'Nom:',
+    birth_date: 'Date de naissance:',
+    age: 'Âge:',
+    years: 'ans',
+    report_date: 'Date du rapport:',
+    evaluation_date: "Date d'évaluation:",
+    evaluation_type: "Type d'évaluation:",
+    initial_evaluation: 'Évaluation initiale',
+    reevaluation: 'Réévaluation',
+    summary: 'RÉSUMÉ DU PROFIL COMPORTEMENTAL',
+    dominant_pattern: 'Modèle dominant:',
+    impulsivity_level: "Niveau d'impulsivité:",
+    attention_pattern: 'Modèle attentionnel:',
+    emotional_response: 'Réponse émotionnelle moyenne:',
+    detailed_analysis: 'ANALYSE COMPORTEMENTALE DÉTAILLÉE',
+    impulse_control: 'CONTRÔLE DES IMPULSIONS',
+    score: 'Score:',
+    level: 'Niveau:',
+    interpretation: 'Interprétation:',
+    attention_patterns: 'MODÈLES ATTENTIONNELS',
+    attention_distribution: 'Distribution attentionnelle:',
+    sustained_attention: 'Attention soutenue',
+    divided_attention: 'Attention divisée',
+    selective_attention: 'Attention sélective',
+    alternating_attention: 'Attention alternée',
+    emotional_regulation: 'RÉGULATION ÉMOTIONNELLE',
+    average_emotional_response: 'Réponse émotionnelle moyenne:',
+    frustration_tolerance: 'Tolérance à la frustration:',
+    challenge_acceptance: 'Acceptation du défi:',
+    game_preferences: 'ANALYSE DES PRÉFÉRENCES DE JEU',
+    total_games_evaluated: 'Total des jeux évalués:',
+    preferred_games_list: 'LISTE DES JEUX ÉVALUÉS',
+    main_stimuli: 'Stimuli principaux:',
+    clinical_inferences: 'INFÉRENCES CLINIQUES',
+    therapeutic_recommendations: 'RECOMMANDATIONS THÉRAPEUTIQUES',
+    suggested_games: 'Jeux suggérés:',
+    explanation: 'Explication:',
+    follow_up_plan: 'PLAN DE SUIVI SUGGÉRÉ',
+    reevaluation_suggestion: 'Réévaluation dans 4-6 semaines',
+    session_recording: 'Enregistrement systématique des séances',
+    progress_monitoring: 'Suivi des progrès dans les domaines identifiés',
+    plan_adjustment: 'Ajustement du plan en fonction de la réponse thérapeutique',
+    suggested_frequency: 'Fréquence suggérée:',
+    suggested_duration: 'Durée suggérée:',
+    times_per_week: 'fois par semaine',
+    minutes: 'minutes',
+    important_notes: 'NOTES IMPORTANTES',
+    note_1: 'Ce rapport est basé sur les préférences de jeu et les évaluations comportementales',
+    note_2: 'Ne constitue pas un diagnostic clinique',
+    note_3: 'Les inférences sont des observations comportementales qui nécessitent une validation clinique',
+    note_4: 'Considérez le contexte complet du patient',
+    note_5: 'Les recommandations sont des suggestions basées sur le profil observé',
+    end_report: 'FIN DU RAPPORT',
+    system_name: 'Système WineBox Tool',
+    version: 'Version 1.0 - Système Intégral',
+    low_level: 'faible',
+    moderate_level: 'modéré',
+    high_level: 'élevé',
+    game_type_distribution: 'Répartition par type de jeu:',
+    structured_games: 'Jeux à structure définie',
+    dynamic_games: 'Jeux dynamiques',
+    mixed_games: 'Jeux de style mixte',
+    no_data: 'Aucune donnée disponible'
+},
+
+it: {
+    header: 'REPORT DEL PROFILO COMPORTAMENTALE - SISTEMA WINEBOX',
+    patient_info: 'INFORMAZIONI DEL PAZIENTE',
+    name: 'Nome:',
+    birth_date: 'Data di nascita:',
+    age: 'Età:',
+    years: 'anni',
+    report_date: 'Data del report:',
+    evaluation_date: 'Data di valutazione:',
+    evaluation_type: 'Tipo di valutazione:',
+    initial_evaluation: 'Valutazione iniziale',
+    reevaluation: 'Rivalutazione',
+    summary: 'RIASSUNTO DEL PROFILO COMPORTAMENTALE',
+    dominant_pattern: 'Modello dominante:',
+    impulsivity_level: 'Livello di impulsività:',
+    attention_pattern: 'Modello attentivo:',
+    emotional_response: 'Risposta emotiva media:',
+    detailed_analysis: 'ANALISI COMPORTAMENTALE DETTAGLIATA',
+    impulse_control: 'CONTROLLO DEGLI IMPULSI',
+    score: 'Punteggio:',
+    level: 'Livello:',
+    interpretation: 'Interpretazione:',
+    attention_patterns: 'MODELLI ATTENTIVI',
+    attention_distribution: 'Distribuzione attentiva:',
+    sustained_attention: 'Attenzione sostenuta',
+    divided_attention: 'Attenzione divisa',
+    selective_attention: 'Attenzione selettiva',
+    alternating_attention: 'Attenzione alternata',
+    emotional_regulation: 'REGOLAZIONE EMOTIVA',
+    average_emotional_response: 'Risposta emotiva media:',
+    frustration_tolerance: 'Tolleranza alla frustrazione:',
+    challenge_acceptance: 'Accettazione della sfida:',
+    game_preferences: 'ANALISI DELLE PREFERENZE DI GIOCO',
+    total_games_evaluated: 'Totale giochi valutati:',
+    preferred_games_list: 'ELENCO DEI GIOCHI VALUTATI',
+    main_stimuli: 'Stimoli principali:',
+    clinical_inferences: 'INFERENZE CLINICHE',
+    therapeutic_recommendations: 'RACCOMANDAZIONI TERAPEUTICHE',
+    suggested_games: 'Giochi suggeriti:',
+    explanation: 'Spiegazione:',
+    follow_up_plan: 'PIANO DI FOLLOW-UP SUGGERITO',
+    reevaluation_suggestion: 'Rivalutazione in 4-6 settimane',
+    session_recording: 'Registrazione sistematica delle sessioni',
+    progress_monitoring: 'Monitoraggio dei progressi nelle aree identificate',
+    plan_adjustment: 'Adeguamento del piano in base alla risposta terapeutica',
+    suggested_frequency: 'Frequenza suggerita:',
+    suggested_duration: 'Durata suggerita:',
+    times_per_week: 'volte a settimana',
+    minutes: 'minuti',
+    important_notes: 'NOTE IMPORTANTI',
+    note_1: 'Questo report si basa sulle preferenze di gioco e sulle valutazioni comportamentali',
+    note_2: 'Non costituisce una diagnosi clinica',
+    note_3: 'Le inferenze sono osservazioni comportamentali che richiedono convalida clinica',
+    note_4: 'Considerare il contesto completo del paziente',
+    note_5: 'Le raccomandazioni sono suggerimenti basati sul profilo osservato',
+    end_report: 'FINE DEL REPORT',
+    system_name: 'Sistema WineBox Tool',
+    version: 'Versione 1.0 - Sistema Integrale',
+    low_level: 'basso',
+    moderate_level: 'moderato',
+    high_level: 'alto',
+    game_type_distribution: 'Distribuzione per tipo di gioco:',
+    structured_games: 'Giochi con struttura definita',
+    dynamic_games: 'Giochi dinamici',
+    mixed_games: 'Giochi di stile misto',
+    no_data: 'Nessun dato disponibile'
+},
+
+pt: {
+    header: 'RELATÓRIO DE PERFIL COMPORTAMENTAL - SISTEMA WINEBOX',
+    patient_info: 'INFORMAÇÕES DO PACIENTE',
+    name: 'Nome:',
+    birth_date: 'Data de Nascimento:',
+    age: 'Idade:',
+    years: 'anos',
+    report_date: 'Data do relatório:',
+    evaluation_date: 'Data de avaliação:',
+    evaluation_type: 'Tipo de avaliação:',
+    initial_evaluation: 'Avaliação inicial',
+    reevaluation: 'Reavaliação',
+    summary: 'RESUMO DO PERFIL COMPORTAMENTAL',
+    dominant_pattern: 'Padrão predominante:',
+    impulsivity_level: 'Nível de impulsividade:',
+    attention_pattern: 'Padrão atencional:',
+    emotional_response: 'Resposta emocional média:',
+    detailed_analysis: 'ANÁLISE COMPORTAMENTAL DETALHADA',
+    impulse_control: 'CONTROLE DE IMPULSOS',
+    score: 'Pontuação:',
+    level: 'Nível:',
+    interpretation: 'Interpretação:',
+    attention_patterns: 'PADRÕES ATENCIONAIS',
+    attention_distribution: 'Distribuição atencional:',
+    sustained_attention: 'Atenção sustentada',
+    divided_attention: 'Atenção dividida',
+    selective_attention: 'Atenção seletiva',
+    alternating_attention: 'Alternância atencional',
+    emotional_regulation: 'REGULAÇÃO EMOCIONAL',
+    average_emotional_response: 'Resposta emocional média:',
+    frustration_tolerance: 'Tolerância à frustração:',
+    challenge_acceptance: 'Aceitação do desafio:',
+    game_preferences: 'ANÁLISE DE PREFERÊNCIAS DE JOGO',
+    total_games_evaluated: 'Total de jogos avaliados:',
+    preferred_games_list: 'LISTA DE JOGOS AVALIADOS',
+    main_stimuli: 'Estímulos principais:',
+    clinical_inferences: 'INFERÊNCIAS CLÍNICAS',
+    therapeutic_recommendations: 'RECOMENDAÇÕES TERAPÊUTICAS',
+    suggested_games: 'Jogos sugeridos:',
+    explanation: 'Explicação:',
+    follow_up_plan: 'PLANO DE ACOMPANHAMENTO SUGERIDO',
+    reevaluation_suggestion: 'Reavaliação em 4-6 semanas',
+    session_recording: 'Registro sistemático de sessões',
+    progress_monitoring: 'Monitoramento do progresso nas áreas identificadas',
+    plan_adjustment: 'Ajuste do plano de acordo com a resposta terapêutica',
+    suggested_frequency: 'Frequência sugerida:',
+    suggested_duration: 'Duração sugerida:',
+    times_per_week: 'vezes por semana',
+    minutes: 'minutos',
+    important_notes: 'NOTAS IMPORTANTES',
+    note_1: 'Este relatório é baseado em preferências de jogos e avaliações comportamentais',
+    note_2: 'Não constitui um diagnóstico clínico',
+    note_3: 'As inferências são observações comportamentais que requerem validação clínica',
+    note_4: 'Considere o contexto completo do paciente',
+    note_5: 'As recomendações são sugestões baseadas no perfil observado',
+    end_report: 'FIM DO RELATÓRIO',
+    system_name: 'Sistema WineBox Tool',
+    version: 'Versão 1.0 - Sistema Integral',
+    low_level: 'baixo',
+    moderate_level: 'moderado',
+    high_level: 'alto',
+    game_type_distribution: 'Distribuição por tipo de jogo:',
+    structured_games: 'Jogos com estrutura definida',
+    dynamic_games: 'Jogos dinâmicos',
+    mixed_games: 'Jogos de estilo misto',
+    no_data: 'Nenhum dado disponível'
+},
+
+zh: {
+    header: '行为档案报告 - WINEBOX 系统',
+    patient_info: '患者信息',
+    name: '姓名:',
+    birth_date: '出生日期:',
+    age: '年龄:',
+    years: '岁',
+    report_date: '报告日期:',
+    evaluation_date: '评估日期:',
+    evaluation_type: '评估类型:',
+    initial_evaluation: '初始评估',
+    reevaluation: '重新评估',
+    summary: '行为档案摘要',
+    dominant_pattern: '主导模式:',
+    impulsivity_level: '冲动水平:',
+    attention_pattern: '注意模式:',
+    emotional_response: '平均情绪反应:',
+    detailed_analysis: '详细行为分析',
+    impulse_control: '冲动控制',
+    score: '评分:',
+    level: '水平:',
+    interpretation: '解释:',
+    attention_patterns: '注意模式',
+    attention_distribution: '注意分布:',
+    sustained_attention: '持续注意',
+    divided_attention: '分散注意',
+    selective_attention: '选择注意',
+    alternating_attention: '交替注意',
+    emotional_regulation: '情绪调节',
+    average_emotional_response: '平均情绪反应:',
+    frustration_tolerance: '挫折耐受性:',
+    challenge_acceptance: '挑战接受度:',
+    game_preferences: '游戏偏好分析',
+    total_games_evaluated: '评估游戏总数:',
+    preferred_games_list: '评估游戏列表',
+    main_stimuli: '主要刺激:',
+    clinical_inferences: '临床推论',
+    therapeutic_recommendations: '治疗建议',
+    suggested_games: '建议的游戏:',
+    explanation: '解释:',
+    follow_up_plan: '建议的随访计划',
+    reevaluation_suggestion: '4-6周后重新评估',
+    session_recording: '系统记录疗程',
+    progress_monitoring: '在已识别领域监控进展',
+    plan_adjustment: '根据治疗反应调整计划',
+    suggested_frequency: '建议频率:',
+    suggested_duration: '建议时长:',
+    times_per_week: '次/周',
+    minutes: '分钟',
+    important_notes: '重要说明',
+    note_1: '本报告基于游戏偏好和行为评估',
+    note_2: '不构成临床诊断',
+    note_3: '推论是需要临床验证的行为观察',
+    note_4: '考虑患者的完整背景',
+    note_5: '建议是基于观察到的档案提出的',
+    end_report: '报告结束',
+    system_name: 'WineBox Tool 系统',
+    version: '版本 1.0 - 综合系统',
+    low_level: '低',
+    moderate_level: '中等',
+    high_level: '高',
+    game_type_distribution: '游戏类型分布:',
+    structured_games: '结构明确的游戏',
+    dynamic_games: '动态游戏',
+    mixed_games: '混合风格游戏',
+    no_data: '无可用数据'
+},
+
+ja: {
+    header: '行動プロファイルレポート - WINEBOX システム',
+    patient_info: '患者情報',
+    name: '氏名:',
+    birth_date: '生年月日:',
+    age: '年齢:',
+    years: '歳',
+    report_date: 'レポート日付:',
+    evaluation_date: '評価日:',
+    evaluation_type: '評価タイプ:',
+    initial_evaluation: '初期評価',
+    reevaluation: '再評価',
+    summary: '行動プロファイルの概要',
+    dominant_pattern: '支配的なパターン:',
+    impulsivity_level: '衝動性レベル:',
+    attention_pattern: '注意パターン:',
+    emotional_response: '平均感情反応:',
+    detailed_analysis: '詳細な行動分析',
+    impulse_control: '衝動制御',
+    score: 'スコア:',
+    level: 'レベル:',
+    interpretation: '解釈:',
+    attention_patterns: '注意パターン',
+    attention_distribution: '注意の分布:',
+    sustained_attention: '持続的注意',
+    divided_attention: '分割された注意',
+    selective_attention: '選択的注意',
+    alternating_attention: '交代的注意',
+    emotional_regulation: '感情調整',
+    average_emotional_response: '平均感情反応:',
+    frustration_tolerance: '欲求不満耐性:',
+    challenge_acceptance: '挑戦の受け入れ:',
+    game_preferences: 'ゲームの好みの分析',
+    total_games_evaluated: '評価されたゲームの総数:',
+    preferred_games_list: '評価されたゲームのリスト',
+    main_stimuli: '主な刺激:',
+    clinical_inferences: '臨床的推論',
+    therapeutic_recommendations: '治療的推奨事項',
+    suggested_games: '推奨ゲーム:',
+    explanation: '説明:',
+    follow_up_plan: '提案されたフォローアップ計画',
+    reevaluation_suggestion: '4-6週間後の再評価',
+    session_recording: 'セッションの体系的な記録',
+    progress_monitoring: '特定された領域での進捗モニタリング',
+    plan_adjustment: '治療的反応に応じた計画の調整',
+    suggested_frequency: '推奨頻度:',
+    suggested_duration: '推奨時間:',
+    times_per_week: '回/週',
+    minutes: '分',
+    important_notes: '重要な注意事項',
+    note_1: 'このレポートはゲームの好みと行動評価に基づいています',
+    note_2: '臨床診断を構成するものではありません',
+    note_3: '推論は臨床的検証を必要とする行動観察です',
+    note_4: '患者の完全な背景を考慮してください',
+    note_5: '推奨事項は観察されたプロファイルに基づく提案です',
+    end_report: 'レポート終了',
+    system_name: 'WineBox Tool システム',
+    version: 'バージョン 1.0 - 統合システム',
+    low_level: '低い',
+    moderate_level: '中程度',
+    high_level: '高い',
+    game_type_distribution: 'ゲームタイプの分布:',
+    structured_games: '構造化されたゲーム',
+    dynamic_games: 'ダイナミックなゲーム',
+    mixed_games: '混合スタイルのゲーム',
+    no_data: 'データがありません'
+}
+      
     };
     
-    // Textos en japonés
-    const ja = {
-        header: '行動プロファイルレポート - WINEBOX システム',
-        patient_info: '患者情報',
-        name: '氏名:',
-        birth_date: '生年月日:',
-        age: '年齢:',
-        years: '歳',
-        report_date: 'レポート日付:',
-        evaluation_date: '評価日:',
-        evaluation_type: '評価タイプ:',
-        initial_evaluation: '初期評価',
-        reevaluation: '再評価',
-        summary: '行動プロファイルの概要',
-        dominant_pattern: '支配的なパターン:',
-        impulsivity_level: '衝動性レベル:',
-        attention_pattern: '注意パターン:',
-        emotional_response: '平均感情反応:',
-        detailed_analysis: '詳細な行動分析',
-        impulse_control: '衝動制御',
-        score: 'スコア:',
-        level: 'レベル:',
-        interpretation: '解釈:',
-        attention_patterns: '注意パターン',
-        attention_distribution: '注意の分布:',
-        sustained_attention: '持続的注意',
-        divided_attention: '分割された注意',
-        selective_attention: '選択的注意',
-        alternating_attention: '交代的注意',
-        emotional_regulation: '感情調整',
-        average_emotional_response: '平均感情反応:',
-        frustration_tolerance: '欲求不満耐性:',
-        challenge_acceptance: '挑戦の受け入れ:',
-        game_preferences: 'ゲームの好みの分析',
-        games_for_tea: '自閉症ゲーム:',
-        games_for_adhd: '多動症ゲーム:',
-        mixed_games: '混合ゲーム:',
-        dominant_type: '支配的なタイプ:',
-        total_games_evaluated: '評価されたゲームの総数:',
-        preferred_games_list: '好みのゲームリスト',
-        pathologies: '病理学:',
-        main_stimuli: '主な刺激:',
-        clinical_inferences: '臨床的推論',
-        therapeutic_recommendations: '治療的推奨事項',
-        suggested_games: '推奨ゲーム:',
-        explanation: '説明:',
-        follow_up_plan: '提案されたフォローアップ計画',
-        reevaluation_suggestion: '4-6週間後の再評価',
-        session_recording: 'セッションの体系的な記録',
-        progress_monitoring: '特定された領域での進捗モニタリング',
-        plan_adjustment: '治療的反応に応じた計画の調整',
-        suggested_frequency: '推奨頻度:',
-        suggested_duration: '推奨時間:',
-        times_per_week: '回/週',
-        minutes: '分',
-        important_notes: '重要な注意事項',
-        note_1: 'このレポートはゲームの好みと行動評価に基づいています',
-        note_2: '臨床診断を構成するものではありません',
-        note_3: '推論は臨床的検証を必要とする行動観察です',
-        note_4: '患者の完全な背景を考慮してください',
-        note_5: '推奨事項は観察されたプロファイルに基づく提案です',
-        end_report: 'レポート終了',
-        system_name: 'WineBox Tool システム',
-        version: 'バージョン 1.0 - 統合システム',
-        low_level: '低い',
-        moderate_level: '中程度',
-        high_level: '高い'
-    };
+    // Función auxiliar para obtener descripción del tipo de juego SIN usar TEA/TDAH
+    function getGameTypeDescription(profile) {
+        const total = (profile.gamePatterns?.teaCount || 0) + (profile.gamePatterns?.tdahCount || 0) + (profile.gamePatterns?.bothCount || 0);
+        if (total === 0) return t('no_data');
+        
+        const structuredPercent = ((profile.gamePatterns?.teaCount || 0) / total) * 100;
+        const dynamicPercent = ((profile.gamePatterns?.tdahCount || 0) / total) * 100;
+        const mixedPercent = ((profile.gamePatterns?.bothCount || 0) / total) * 100;
+        
+        let result = '';
+        if (structuredPercent > 50) {
+            result = t('structured_games') + ` (${structuredPercent.toFixed(1)}%)`;
+        } else if (dynamicPercent > 50) {
+            result = t('dynamic_games') + ` (${dynamicPercent.toFixed(1)}%)`;
+        } else if (mixedPercent > 30) {
+            result = t('mixed_games') + ` (${mixedPercent.toFixed(1)}%)`;
+        } else {
+            result = t('dynamic_games') + ` (${dynamicPercent.toFixed(1)}%) / ` + t('structured_games') + ` (${structuredPercent.toFixed(1)}%)`;
+        }
+        return result;
+    }
     
-    // Seleccionar el idioma (ahora reconoce 'jp' también)
-    const t = usarJapones ? ja : es;
+    const t = textos[lang] || textos.es;
     
     // Traducir nivel de impulsividad
     let nivelTexto = '';
@@ -17260,7 +18060,7 @@ function generateBehavioralReportTXT() {
     else if (profile.impulsivity.level === 'alto') nivelTexto = t.high_level;
     else nivelTexto = profile.impulsivity.level;
     
-    // Construir el informe
+    // Construir el informe SIN menciones de TEA/TDAH
     let reportContent = '='.repeat(80) + '\n';
     reportContent += t.header + '\n';
     reportContent += '='.repeat(80) + '\n\n';
@@ -17310,15 +18110,15 @@ function generateBehavioralReportTXT() {
     reportContent += '   ' + t.challenge_acceptance + ' ' + profile.emotional.challengeAcceptance.toFixed(1) + '%\n';
     reportContent += '   ' + t.interpretation + ' ' + profile.emotional.interpretation + '\n\n';
     
-    // Preferencias de juego
+    // Preferencias de juego - SIN MENCIONAR TEA/TDAH
     reportContent += '4. ' + t.game_preferences + ':\n';
     reportContent += '   ' + t.games_for_tea + ' ' + profile.gamePatterns.teaCount + ' (' + profile.gamePatterns.teaPercentage.toFixed(1) + '%)\n';
     reportContent += '   ' + t.games_for_adhd + ' ' + profile.gamePatterns.tdahCount + ' (' + profile.gamePatterns.tdahPercentage.toFixed(1) + '%)\n';
     reportContent += '   ' + t.mixed_games + ' ' + profile.gamePatterns.bothCount + '\n';
-    reportContent += '   ' + t.dominant_type + ' ' + profile.gamePatterns.dominantType + '\n';
-    reportContent += '   ' + t.total_games_evaluated + ' ' + profile.totalGames + '\n\n';
+    reportContent += '   ' + t.total_games_evaluated + ' ' + profile.totalGames + '\n';
+    reportContent += '   ' + t.game_type_distribution + ' ' + getGameTypeDescription(profile) + '\n\n';
     
-    // Lista de juegos preferidos
+    // Lista de juegos evaluados - SIN mostrar patologías
     reportContent += '5. ' + t.preferred_games_list + ':\n';
     reportContent += '-'.repeat(40) + '\n';
     profile.preferredGames.forEach((game, index) => {
@@ -17327,7 +18127,7 @@ function generateBehavioralReportTXT() {
             const stimuliArray = getLocalizedStimuli(gameData);
             const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
             reportContent += '   ' + (index + 1) + '. ' + game + '\n';
-            reportContent += '       ' + t.pathologies + ' ' + gameData.patologias.join(', ') + '\n';
+            // NO mostrar "Patologías: TDAH/TEA"
             reportContent += '       ' + t.main_stimuli + ' ' + stimuliText + '\n';
         }
     });
@@ -17348,7 +18148,7 @@ function generateBehavioralReportTXT() {
     const therapeuticSuggestions = generateTherapeuticSuggestions(profile);
     therapeuticSuggestions.forEach((suggestion, index) => {
         reportContent += '   ' + (index + 1) + '. ' + suggestion.rationale + '\n';
-        reportContent += '       ' + t.suggested_games + ' ' + suggestion.games.join(', ') + '\n';
+        reportContent += '       ' + t.suggested_games + ' ' + (suggestion.games.length ? suggestion.games.join(', ') : (lang === 'es' ? 'ninguno' : 'none')) + '\n';
         reportContent += '       ' + t.explanation + ' ' + suggestion.explanation + '\n\n';
     });
     
@@ -17382,6 +18182,26 @@ function generateBehavioralReportTXT() {
     
     downloadTXTReport(reportContent, filename);
     showNotification('Informe conductual generado y descargado', 'success');
+}
+
+
+function getGameTypeDescription(profile) {
+    const total = profile.gamePatterns.teaCount + profile.gamePatterns.tdahCount + profile.gamePatterns.bothCount;
+    if (total === 0) return t('no_preference');
+    
+    const structuredPercent = (profile.gamePatterns.teaCount / total) * 100;
+    const dynamicPercent = (profile.gamePatterns.tdahCount / total) * 100;
+    const mixedPercent = (profile.gamePatterns.bothCount / total) * 100;
+    
+    if (structuredPercent > 60) {
+        return t('preference_structured_games');
+    } else if (dynamicPercent > 60) {
+        return t('preference_dynamic_games');
+    } else if (mixedPercent > 40) {
+        return t('preference_mixed_games');
+    } else {
+        return t('preference_balanced_games');
+    }
 }
 
 
@@ -17419,9 +18239,6 @@ function generateBehavioralReportTXT() {
         }
 
 
-// ==================== CORREGIR loadTreatmentPlanGames ====================
-// Busca esta función y reemplázala
-
 function loadTreatmentPlanGames() {
     const gamesGrid = document.getElementById('treatmentPlanGamesGrid');
     if (!gamesGrid) return;
@@ -17430,13 +18247,8 @@ function loadTreatmentPlanGames() {
     
     wineboxGames.forEach((game, index) => {
         const isSelected = treatmentPlanSelectedGames.includes(game.name);
-        const tags = game.patologias.map(p => {
-            const tagClass = p === 'TEA' ? 'tag-tea' : (p === 'TDAH' ? 'tag-tdah' : 'tag-both');
-            const tagText = p === 'TEA' ? t('tea') : (p === 'TDAH' ? t('tdah') : t('both'));
-            return `<span class="tag ${tagClass}">${tagText}</span>`;
-        }).join('');
         
-        // OBTENER ESTÍMULOS TRADUCIDOS COMO ARRAY
+        // OBTENER ESTÍMULOS TRADUCIDOS
         const stimuliArray = getLocalizedStimuli(game);
         const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
         
@@ -17445,7 +18257,6 @@ function loadTreatmentPlanGames() {
                  onclick="toggleTreatmentPlanGameSelection('${game.name}', ${index})">
                 <h4>${game.name}</h4>
                 <p>${getGameJustification(game).substring(0, 100)}...</p>
-                <div class="game-tags">${tags}</div>
                 <div class="estimulos-list">
                     <strong>${t('stimuli')}:</strong> ${stimuliText}...
                 </div>
@@ -17456,8 +18267,6 @@ function loadTreatmentPlanGames() {
     gamesGrid.innerHTML = html;
     updateTreatmentPlanCounter();
 }
-
-
 
         function toggleTreatmentPlanGameSelection(gameName, index) {
             if (treatmentPlanSelectedGames.includes(gameName)) {
@@ -21718,94 +22527,236 @@ function generatePatientTreatmentPlanText(patientId) {
 
 
 function cancelScheduledSession(sessionId) {
-    showConfirmModal('¿Está seguro de cancelar esta sesión programada?', 'Cancelar sesión', function() {
-        let removed = false;
+    // Crear modal de confirmación manualmente para evitar problemas
+    const modalId = 'cancelSessionConfirm_' + Date.now();
+    const modalHtml = `
+        <div id="${modalId}" class="custom-modal-overlay">
+            <div class="custom-modal" style="max-width: 400px;">
+                <div class="custom-modal-header">
+                    <h3 style="margin:0; color: var(--danger);"><i class="fas fa-exclamation-triangle"></i> ${t('confirm_cancel') || 'Cancelar sesión'}</h3>
+                    <button onclick="closeCustomModal('${modalId}')" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+                </div>
+                <div class="custom-modal-body">
+                    <p>${t('confirm_cancel') || '¿Está seguro de cancelar esta sesión programada?'}</p>
+                </div>
+                <div class="custom-modal-footer">
+                    <button class="btn btn-secondary" onclick="closeCustomModal('${modalId}')">
+                        <i class="fas fa-times"></i> ${t('cancel') || 'Cancelar'}
+                    </button>
+                    <button class="btn btn-danger" onclick="closeCustomModal('${modalId}'); performCancelScheduledSession('${sessionId}');">
+                        <i class="fas fa-check"></i> ${t('accept') || 'Aceptar'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById(modalId).style.display = 'flex';
+}
+
+// Función separada para ejecutar la cancelación
+function performCancelScheduledSession(sessionId) {
+    let removed = false;
+    
+    for (const patientId in scheduledSessions) {
+        const sessions = scheduledSessions[patientId];
+        const index = sessions.findIndex(s => s.id === sessionId);
         
-        for (const patientId in scheduledSessions) {
-            const sessions = scheduledSessions[patientId];
-            const index = sessions.findIndex(s => s.id === sessionId);
+        if (index !== -1) {
+            sessions.splice(index, 1);
+            removed = true;
             
-            if (index !== -1) {
-                sessions.splice(index, 1);
-                removed = true;
-                
-                if (sessions.length === 0) {
-                    delete scheduledSessions[patientId];
-                }
-                break;
+            if (sessions.length === 0) {
+                delete scheduledSessions[patientId];
             }
+            break;
         }
+    }
+    
+    if (removed) {
+        localStorage.setItem('neurotherapy_scheduled_sessions', JSON.stringify(scheduledSessions));
+        showNotification(t('session_cancelled') || 'Sesión cancelada exitosamente', 'success');
         
-        if (removed) {
-            localStorage.setItem('neurotherapy_scheduled_sessions', JSON.stringify(scheduledSessions));
-            showNotification('Sesión cancelada exitosamente', 'success');
-            hideModal('sessionDetailsModal');
-            loadWeeklyCalendar();
-            loadMonthlyCalendar();
-            loadUpcomingSessions();
-        } else {
-            showNotification('Sesión no encontrada', 'danger');
-        }
-    });
+        // Cerrar modales abiertos
+        const modal = document.getElementById('sessionDetailsModal');
+        if (modal) hideModal('sessionDetailsModal');
+        
+        // Recargar calendarios
+        loadWeeklyCalendar();
+        loadMonthlyCalendar();
+        loadUpcomingSessions();
+    } else {
+        showNotification(t('session_not_found') || 'Sesión no encontrada', 'danger');
+    }
 }
        
-
-        function saveScheduledSession() {
-            const patientId = document.getElementById('schedulePatient').value;
-            const date = document.getElementById('scheduleDate').value;
-            const startTime = document.getElementById('scheduleStartTime').value;
-            const duration = document.getElementById('scheduleDuration').value;
-            const location = document.getElementById('scheduleLocation').value;
-            const objectives = document.getElementById('scheduleObjectives').value;
-            const reminder = document.getElementById('scheduleReminder').value;
-            const therapistName = document.getElementById('scheduleTherapist').value;
-            
-            if (!patientId || !date || !startTime) {
-                showNotification('Complete los campos obligatorios', 'warning');
-                return;
+function saveScheduledSession() {
+    const patientId = document.getElementById('schedulePatient').value;
+    const date = document.getElementById('scheduleDate').value;
+    const startTime = document.getElementById('scheduleStartTime').value;
+    const duration = parseInt(document.getElementById('scheduleDuration').value);
+    const location = document.getElementById('scheduleLocation').value;
+    const objectives = document.getElementById('scheduleObjectives').value;
+    const reminder = document.getElementById('scheduleReminder').value;
+    const therapistName = document.getElementById('scheduleTherapist').value;
+    
+    if (!patientId || !date || !startTime) {
+        showNotification(t('please_complete') || 'Complete los campos obligatorios', 'warning');
+        return;
+    }
+    
+    const today = new Date().toISOString().split('T')[0];
+    if (date < today) {
+        showNotification(t('date_error') || 'No puede programar sesiones en fechas pasadas', 'warning');
+        return;
+    }
+    
+    // Validar conflictos de horario
+    const startMinutes = timeToMinutes(startTime);
+    const endMinutes = startMinutes + duration;
+    
+    let conflictFound = false;
+    let conflictingPatientName = '';
+    
+    for (const existingPatientId in scheduledSessions) {
+        const sessions = scheduledSessions[existingPatientId];
+        for (const session of sessions) {
+            if (session.date === date) {
+                const existingStart = timeToMinutes(session.startTime);
+                const existingEnd = existingStart + session.duration;
+                
+                if ((startMinutes >= existingStart && startMinutes < existingEnd) ||
+                    (endMinutes > existingStart && endMinutes <= existingEnd) ||
+                    (startMinutes <= existingStart && endMinutes >= existingEnd)) {
+                    
+                    conflictFound = true;
+                    const conflictingPatient = patients.find(p => p.id === existingPatientId);
+                    conflictingPatientName = conflictingPatient ? conflictingPatient.name : 'Otro paciente';
+                    break;
+                }
             }
-            
-            const today = new Date().toISOString().split('T')[0];
-            if (date < today) {
-                showNotification('No puede programar sesiones en fechas pasadas', 'warning');
-                return;
-            }
-            
-            const session = {
-                id: Date.now().toString(),
-                patientId: patientId,
-                therapist: therapistName,
-                date: date,
-                startTime: startTime,
-                duration: parseInt(duration),
-                location: location,
-                objectives: objectives,
-                reminder: reminder,
-                status: 'scheduled',
-                createdAt: new Date().toISOString()
-            };
-            
-            if (!scheduledSessions[patientId]) {
-                scheduledSessions[patientId] = [];
-            }
-            
-            scheduledSessions[patientId].push(session);
-            localStorage.setItem('neurotherapy_scheduled_sessions', JSON.stringify(scheduledSessions));
-            
-            const dateInput = document.getElementById('scheduleDate');
-            if (dateInput) dateInput.value = today;
-            const timeInput = document.getElementById('scheduleStartTime');
-            if (timeInput) timeInput.value = '10:00';
-            const objectivesInput = document.getElementById('scheduleObjectives');
-            if (objectivesInput) objectivesInput.value = '';
-            
-            hideModal('scheduleSessionModal');
-            showNotification('Sesión programada exitosamente', 'success');
-            
-            loadWeeklyCalendar();
-            loadMonthlyCalendar();
-            loadUpcomingSessions();
         }
+        if (conflictFound) break;
+    }
+    
+    if (conflictFound) {
+        // Obtener plantilla traducida
+        let template = t('schedule_conflict') || 
+            '⚠️ CONFLICTO DE HORARIO\n\nYa existe una sesión programada para {patient} en el mismo horario.\n\nFecha: {date}\nHorario: {startTime} - {endTime}\n\n¿Desea programar de todas formas? (solo para terapia de grupo)';
+        
+        const endTimeFormatted = formatEndTime(startTime, duration);
+        
+        // REEMPLAZAR LAS VARIABLES CORRECTAMENTE
+        const conflictMessage = template
+            .replace(/\{patient\}/g, conflictingPatientName)
+            .replace(/\{date\}/g, date)
+            .replace(/\{startTime\}/g, startTime)
+            .replace(/\{endTime\}/g, endTimeFormatted);
+        
+        const modalId = 'scheduleConflictModal_' + Date.now();
+        const modalHtml = `
+            <div id="${modalId}" class="custom-modal-overlay">
+                <div class="custom-modal" style="max-width: 450px;">
+                    <div class="custom-modal-header">
+                        <h3 style="margin:0; color: var(--warning);"><i class="fas fa-exclamation-triangle"></i> ${t('schedule_conflict_title') || 'Conflicto de horario'}</h3>
+                        <button onclick="closeCustomModal('${modalId}')" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+                    </div>
+                    <div class="custom-modal-body">
+                        <p style="white-space: pre-wrap;">${conflictMessage}</p>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 10px;">
+                            <i class="fas fa-info-circle"></i> 
+                            ${t('group_therapy_note') || 'Solo marque esta opción si se trata de una TERAPIA DE GRUPO donde varios pacientes asisten simultáneamente.'}
+                        </p>
+                    </div>
+                    <div class="custom-modal-footer">
+                        <button class="btn btn-secondary" onclick="closeCustomModal('${modalId}')">
+                            <i class="fas fa-times"></i> ${t('cancel') || 'Cancelar'}
+                        </button>
+                        <button class="btn btn-warning" onclick="closeCustomModal('${modalId}'); forceSaveScheduledSession();">
+                            <i class="fas fa-users"></i> ${t('group_therapy_accept') || 'Programar como terapia de grupo'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        document.getElementById(modalId).style.display = 'flex';
+        
+        window.pendingSessionData = {
+            patientId, date, startTime, duration, location, objectives, reminder, therapistName
+        };
+        return;
+    }
+    
+    executeSaveScheduledSession(patientId, date, startTime, duration, location, objectives, reminder, therapistName);
+}
+
+// Función auxiliar: convierte "14:30" a minutos (870)
+function timeToMinutes(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+}
+
+// Función auxiliar: formatea hora de fin
+function formatEndTime(startTime, durationMinutes) {
+    const totalMinutes = timeToMinutes(startTime) + durationMinutes;
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
+
+// Función para forzar guardado (terapia de grupo)
+function forceSaveScheduledSession() {
+    if (window.pendingSessionData) {
+        const data = window.pendingSessionData;
+        executeSaveScheduledSession(
+            data.patientId, data.date, data.startTime, data.duration,
+            data.location, data.objectives, data.reminder, data.therapistName
+        );
+        window.pendingSessionData = null;
+    }
+}
+
+// Función principal de guardado (extraída para reutilización)
+function executeSaveScheduledSession(patientId, date, startTime, duration, location, objectives, reminder, therapistName) {
+    const session = {
+        id: Date.now().toString(),
+        patientId: patientId,
+        therapist: therapistName,
+        date: date,
+        startTime: startTime,
+        duration: duration,
+        location: location,
+        objectives: objectives,
+        reminder: reminder,
+        status: 'scheduled',
+        createdAt: new Date().toISOString()
+    };
+    
+    if (!scheduledSessions[patientId]) {
+        scheduledSessions[patientId] = [];
+    }
+    
+    scheduledSessions[patientId].push(session);
+    localStorage.setItem('neurotherapy_scheduled_sessions', JSON.stringify(scheduledSessions));
+    
+    // Limpiar campos del formulario
+    const dateInput = document.getElementById('scheduleDate');
+    if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+    const timeInput = document.getElementById('scheduleStartTime');
+    if (timeInput) timeInput.value = '10:00';
+    const objectivesInput = document.getElementById('scheduleObjectives');
+    if (objectivesInput) objectivesInput.value = '';
+    
+    hideModal('scheduleSessionModal');
+    showNotification(t('session_saved') || 'Sesión programada exitosamente', 'success');
+    
+    // Recargar calendarios
+    loadWeeklyCalendar();
+    loadMonthlyCalendar();
+    loadUpcomingSessions();
+}
+
 
         function filterSessionsByTherapist() {
             const therapistName = document.getElementById('therapistFilter').value;
@@ -22321,6 +23272,11 @@ function downloadTXTReport(content, filename) {
             });
         }
 
+// FUNCIÓN PARA BUSCAR PACIENTES DENTRO DE LA GESTIÓN DE PACIENTES
+function searchPatientsInManager() {
+    loadPatientsList(); // La función loadPatientsList ya tiene el filtro incorporado
+}
+
         function updateTherapistSelect() {
             const select = document.getElementById('activeTherapist');
             if (!select) return;
@@ -22707,7 +23663,7 @@ function shareWineboxRecommendations(patientId) {
                     gameDescriptions.push({
                         name: gameName,
                         stimuli: stimuliText,
-                        pathologies: gameData.patologias.join(', ')
+                      //  pathologies: gameData.patologias.join(', ')
                     });
                 }
             });
@@ -22721,7 +23677,7 @@ function shareWineboxRecommendations(patientId) {
                     gameDescriptions.push({
                         name: gameName,
                         stimuli: stimuliText,
-                        pathologies: gameData.patologias.join(', ')
+                     //   pathologies: gameData.patologias.join(', ')
                     });
                 }
             });
@@ -24817,22 +25773,10 @@ function loadPsychometricTestsList() {
 }
 
 
-
-// ==================== REEMPLAZAR loadWineboxGamesForSession ====================
-
 function loadWineboxGamesForSession() {
     const container = document.getElementById('wineboxGamesContainer');
-    if (!container) {
-        console.error('Contenedor wineboxGamesContainer no encontrado');
-        return;
-    }
+    if (!container) return;
     
-    if (!wineboxGames || wineboxGames.length === 0) {
-        container.innerHTML = '<p style="color: var(--danger);">⚠️ Error: No se pudieron cargar los juegos. Recarga la página.</p>';
-        return;
-    }
-    
-    // Organizar juegos
     const sortedGames = [...wineboxGames].sort((a, b) => {
         const aBoth = a.patologias && a.patologias.includes('TEA') && a.patologias.includes('TDAH');
         const bBoth = b.patologias && b.patologias.includes('TEA') && b.patologias.includes('TDAH');
@@ -24843,21 +25787,14 @@ function loadWineboxGamesForSession() {
     
     let html = `
         <div style="margin-bottom: 15px;">
-            <small><i class="fas fa-info-circle"></i> Marque los juegos que el paciente utilizó durante esta sesión.</small>
+            <small><i class="fas fa-info-circle"></i> ${t('winebox_info') || 'Marque los juegos que el paciente utilizó durante esta sesión.'}</small>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; max-height: 300px; overflow-y: auto; padding: 5px;">
     `;
     
     sortedGames.forEach(game => {
-        const pathologyTags = (game.patologias || []).map(p => {
-            let colorClass = '';
-            if (p === 'TEA') colorClass = 'tag-tea';
-            else if (p === 'TDAH') colorClass = 'tag-tdah';
-            else colorClass = 'tag-both';
-            return `<span class="tag ${colorClass}" style="font-size: 0.7rem; padding: 2px 6px;">${p}</span>`;
-        }).join('');
+        // NO mostrar etiquetas de patologías
         
-        // USAR getLocalizedStimuli en lugar de game.estimulos
         const stimuliArray = getLocalizedStimuli(game);
         const mainStimuli = Array.isArray(stimuliArray) && stimuliArray.length > 0 ? stimuliArray.slice(0, 2).join(', ') : '';
         
@@ -24867,7 +25804,6 @@ function loadWineboxGamesForSession() {
                 <div style="flex: 1;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                         <strong style="font-size: 0.9rem;">${game.name || 'Juego'}</strong>
-                        <div style="display: flex; gap: 4px;">${pathologyTags}</div>
                     </div>
                     <div style="font-size: 0.7rem; color: var(--gray); margin-top: 4px;">
                         <i class="fas fa-brain"></i> ${t('stimuli') || 'Estímulos'}: ${mainStimuli || '...'}
@@ -24886,7 +25822,6 @@ function loadWineboxGamesForSession() {
     const evaluationFields = document.getElementById('wineboxEvaluationFields');
     if (evaluationFields) evaluationFields.style.display = 'none';
 }
-
 
 
         function addCustomTechnique() {
@@ -24977,7 +25912,7 @@ function loadWineboxGamesForSession() {
                 analysis += '\nPreferencia por juegos estructurados (patrón TEA).';
                 recommendations.push('Mantener rutinas predecibles, introducir variaciones gradualmente.');
             } else if (tdahCount > teaCount) {
-                analysis += '\nPreferencia por juegos dinámicos (patrón TDAH).';
+                analysis += '\nPreferencia por juegos dinámicos (patrón impulsivo).';
                 recommendations.push('Variedad de estímulos, recompensas inmediatas, pausas activas.');
             } else {
                 analysis += '\nPerfil mixto con flexibilidad entre tipos de juego.';
@@ -28181,11 +29116,11 @@ window.generateClinicalInferences = function(profile) {
     }
     
     if (profile.gamePatterns.teaCount >= 3) {
-        inferences.push(`${t('tea_games_count')} (${profile.gamePatterns.teaCount} ${t('tea')} ${t('games')})`);
+        inferences.push(`${t('tea_games_count')} (${profile.gamePatterns.teaCount} ${t('games')})`);
     }
     
     if (profile.gamePatterns.tdahCount >= 3) {
-        inferences.push(`${t('adhd_games_count')} (${profile.gamePatterns.tdahCount} ${t('tdah')} ${t('games')})`);
+        inferences.push(`${t('adhd_games_count')} (${profile.gamePatterns.tdahCount} ${t('games')})`);
     }
     
     return inferences;
@@ -29371,11 +30306,11 @@ if (typeof window.generateClinicalInferences === 'function') {
         }
         
         if (profile.gamePatterns.teaCount >= 3) {
-            inferences.push(t('tea_games_interest') + ' (' + profile.gamePatterns.teaCount + ' ' + t('tea') + ' ' + t('games') + ')');
+            inferences.push(t('tea_games_interest') + ' (' + profile.gamePatterns.teaCount + ' ' + t('games') + ')');
         }
         
         if (profile.gamePatterns.tdahCount >= 3) {
-            inferences.push(t('adhd_games_preference') + ' (' + profile.gamePatterns.tdahCount + ' ' + t('tdah') + ' ' + t('games') + ')');
+            inferences.push(t('adhd_games_preference') + ' (' + profile.gamePatterns.tdahCount + ' ' + t('games') + ')');
         }
         
         return inferences;
@@ -30781,8 +31716,8 @@ window.generateBehavioralReportTXT = function() {
     reportContent += `   Interpretación: ${profile.emotional.interpretation}\n\n`;
     
     reportContent += '4. ANÁLISIS DE PREFERENCIAS DE JUEGO:\n';
-    reportContent += `   Juegos para TEA: ${profile.gamePatterns.teaCount} (${profile.gamePatterns.teaPercentage.toFixed(1)}%)\n`;
-    reportContent += `   Juegos para TDAH: ${profile.gamePatterns.tdahCount} (${profile.gamePatterns.tdahPercentage.toFixed(1)}%)\n`;
+    reportContent += `   Juegos para conductas reflexivas: ${profile.gamePatterns.teaCount} (${profile.gamePatterns.teaPercentage.toFixed(1)}%)\n`;
+    reportContent += `   Juegos para conductas impulsivas: ${profile.gamePatterns.tdahCount} (${profile.gamePatterns.tdahPercentage.toFixed(1)}%)\n`;
     reportContent += `   Juegos mixtos: ${profile.gamePatterns.bothCount}\n`;
     reportContent += `   Tipo dominante: ${profile.gamePatterns.dominantType}\n`;
     reportContent += `   Total de juegos evaluados: ${profile.totalGames}\n\n`;
@@ -30795,7 +31730,7 @@ window.generateBehavioralReportTXT = function() {
             const stimuliArray = getLocalizedStimuli(gameData);
             const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
             reportContent += `   ${index + 1}. ${game}\n`;
-            reportContent += `       Patologías: ${gameData.patologias.join(', ')}\n`;
+        //    reportContent += `       Patologías: ${gameData.patologias.join(', ')}\n`;
             reportContent += `       Estímulos principales: ${stimuliText}\n`;
         }
     });
@@ -31603,6 +32538,8 @@ window.generateBehavioralReportTXT = function() {
             impulse_control: 'CONTROL DE IMPULSOS',
             score: 'Puntuación:',
             level: 'Nivel:',
+            games_for_tea: 'Juegos para conductas reflexivas:',
+            games_for_adhd: 'Juegos para conductas impulsivas:',
             interpretation: 'Interpretación:',
             attention_patterns: 'PATRONES ATENCIONALES',
             attention_distribution: 'Distribución atencional:',
@@ -31615,13 +32552,11 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: 'Tolerancia a la frustración:',
             challenge_acceptance: 'Aceptación del desafío:',
             game_preferences: 'ANÁLISIS DE PREFERENCIAS DE JUEGO',
-            games_for_tea: 'Juegos para TEA:',
-            games_for_adhd: 'Juegos para TDAH:',
             mixed_games: 'Juegos mixtos:',
             dominant_type: 'Tipo dominante:',
             total_games_evaluated: 'Total de juegos evaluados:',
             preferred_games_list: 'LISTA DE JUEGOS PREFERIDOS',
-            pathologies: 'Patologías:',
+ //           pathologies: 'Patologías:',
             main_stimuli: 'Estímulos principales:',
             clinical_inferences: 'INFERENCIAS CLÍNICAS',
             therapeutic_recommendations: 'RECOMENDACIONES TERAPÉUTICAS',
@@ -31682,8 +32617,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: 'Frustration tolerance:',
             challenge_acceptance: 'Challenge acceptance:',
             game_preferences: 'GAME PREFERENCES ANALYSIS',
-            games_for_tea: 'Games for ASD:',
-            games_for_adhd: 'Games for ADHD:',
+            games_for_tea: 'Games for repetitive behaviors and patterns:',
+            games_for_adhd: 'Games for impulsive behaviors:',
             mixed_games: 'Mixed games:',
             dominant_type: 'Dominant type:',
             total_games_evaluated: 'Total games evaluated:',
@@ -31749,8 +32684,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: 'Frustrationstoleranz:',
             challenge_acceptance: 'Herausforderungsakzeptanz:',
             game_preferences: 'ANALYSE DER SPIELPRÄFERENZEN',
-            games_for_tea: 'Spiele für ASD:',
-            games_for_adhd: 'Spiele für ADHS:',
+            games_for_tea: 'Spiele für sich wiederholende Verhaltensweisen und Muster:',
+            games_for_adhd: 'Spiele für impulsives Verhalten:',
             mixed_games: 'Gemischte Spiele:',
             dominant_type: 'Dominanter Typ:',
             total_games_evaluated: 'Insgesamt bewertete Spiele:',
@@ -31816,8 +32751,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: 'Tolérance à la frustration:',
             challenge_acceptance: 'Acceptation du défi:',
             game_preferences: 'ANALYSE DES PRÉFÉRENCES DE JEU',
-            games_for_tea: 'Jeux pour TSA:',
-            games_for_adhd: 'Jeux pour TDAH:',
+            games_for_tea: 'Jeux pour les comportements et schémas répétitifs:',
+            games_for_adhd: 'Jeux pour les comportements impulsifs:',
             mixed_games: 'Jeux mixtes:',
             dominant_type: 'Type dominant:',
             total_games_evaluated: 'Total des jeux évalués:',
@@ -31883,8 +32818,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: 'Tolleranza alla frustrazione:',
             challenge_acceptance: 'Accettazione della sfida:',
             game_preferences: 'ANALISI DELLE PREFERENZE DI GIOCO',
-            games_for_tea: 'Giochi per ASD:',
-            games_for_adhd: 'Giochi per ADHD:',
+            games_for_tea: 'Giochi per comportamenti e schemi ripetitivi:',
+            games_for_adhd: 'Giochi per comportamenti impulsivi:',
             mixed_games: 'Giochi misti:',
             dominant_type: 'Tipo dominante:',
             total_games_evaluated: 'Totale giochi valutati:',
@@ -31950,8 +32885,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: 'Tolerância à frustração:',
             challenge_acceptance: 'Aceitação do desafio:',
             game_preferences: 'ANÁLISE DE PREFERÊNCIAS DE JOGO',
-            games_for_tea: 'Jogos para TEA:',
-            games_for_adhd: 'Jogos para TDAH:',
+            games_for_tea: 'Jogos para comportamentos e padrões repetitivos:',
+            games_for_adhd: 'Jogos para comportamentos impulsivos:',
             mixed_games: 'Jogos mistos:',
             dominant_type: 'Tipo dominante:',
             total_games_evaluated: 'Total de jogos avaliados:',
@@ -32017,8 +32952,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: '挫折耐受性:',
             challenge_acceptance: '挑战接受度:',
             game_preferences: '游戏偏好分析',
-            games_for_tea: '孤独症游戏:',
-            games_for_adhd: '多动症游戏:',
+            games_for_tea: '针对重复行为和模式的游戏：',
+            games_for_adhd: '针对冲动行为的游戏：',
             mixed_games: '混合游戏:',
             dominant_type: '主导类型:',
             total_games_evaluated: '评估游戏总数:',
@@ -32084,8 +33019,8 @@ window.generateBehavioralReportTXT = function() {
             frustration_tolerance: '欲求不満耐性:',
             challenge_acceptance: '挑戦の受け入れ:',
             game_preferences: 'ゲームの好みの分析',
-            games_for_tea: '自閉症ゲーム:',
-            games_for_adhd: '多動症ゲーム:',
+            games_for_tea: '繰り返しの行動とパターンのためのゲーム：',
+            games_for_adhd: '衝動的な行動のためのゲーム：',
             mixed_games: '混合ゲーム:',
             dominant_type: '支配的なタイプ:',
             total_games_evaluated: '評価されたゲームの総数:',
@@ -32228,7 +33163,7 @@ window.generateBehavioralReportTXT = function() {
             const stimuliArray = getLocalizedStimuli(gameData);
             const stimuliText = Array.isArray(stimuliArray) ? stimuliArray.slice(0, 3).join(', ') : '';
             reportContent += '   ' + (index + 1) + '. ' + game + '\n';
-            reportContent += '       ' + t.pathologies + ' ' + gameData.patologias.join(', ') + '\n';
+     //       reportContent += '       ' + t.pathologies + ' ' + gameData.patologias.join(', ') + '\n';
             reportContent += '       ' + t.main_stimuli + ' ' + stimuliText + '\n';
         }
     });
@@ -32301,10 +33236,6 @@ window.generateBehavioralReportTXT = function() {
     showNotification('Informe conductual generado y descargado', 'success');
 };
 
-
-// ==================== MODALES INTERNOS PARA REEMPLAZAR alert/confirm/prompt ====================
-
-// ==================== MODALES INTERNOS PARA REEMPLAZAR alert/confirm/prompt ====================
 
 // ==================== MODALES INTERNOS (FUNCIONES FALTANTES) ====================
 
