@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WineBOX Tool - Clinical Architect for Schools</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2e3132",
+                    "on-surface-variant": "#43474f",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f4f5",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "primary": "#001e40",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "secondary": "#ad2c00",
+                    "on-background": "#191c1d",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-container": "#fffbff",
+                    "primary-container": "#003366",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c3c6d1",
+                    "secondary-container": "#d83900",
+                    "background": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "surface": "#f8f9fa",
+                    "on-primary-fixed": "#001b3c",
+                    "on-tertiary-fixed-variant": "#92001c",
+                    "tertiary-fixed-dim": "#ffb3b1",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#3b0900",
+                    "on-tertiary-fixed": "#410007",
+                    "secondary-fixed-dim": "#ffb5a0",
+                    "inverse-primary": "#a7c8ff",
+                    "primary-fixed": "#d5e3ff",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "surface-dim": "#d9dadb",
+                    "surface-container-high": "#e7e8e9",
+                    "on-primary-container": "#799dd6",
+                    "tertiary-fixed": "#ffdad8",
+                    "surface-tint": "#3a5f94",
+                    "on-surface": "#191c1d",
+                    "outline": "#737780",
+                    "surface-bright": "#f8f9fa",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#ff6b6d",
+                    "on-secondary-fixed-variant": "#872000",
+                    "tertiary-container": "#6d0012",
+                    "error": "#ba1a1a",
+                    "tertiary": "#450008",
+                    "secondary-fixed": "#ffdbd1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-secondary/20">
+<!-- Top Navigation Anchor (Shared Component Mapping) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,30,64,0.06)]">
+<div class="flex justify-between items-center px-6 md:px-12 py-5 w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#001e40] text-2xl" data-icon="analytics">analytics</span>
+<span class="text-xl font-extrabold text-[#001e40] dark:text-white tracking-tighter uppercase">WineBOX Tool</span>
+</div>
+<button class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-bold tracking-tight hover:bg-primary/90 transition-all active:scale-95">
+                Request Demo
+            </button>
+</div>
+</header>
+<main class="pt-24 overflow-x-hidden">
+<!-- Hero Section -->
+<section class="relative min-h-[707px] flex items-center px-6 md:px-12 py-16 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-background to-transparent z-10"></div>
+<div class="absolute right-0 top-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-20"></div>
+<img class="absolute right-0 top-0 w-full md:w-3/4 h-full object-cover opacity-20 md:opacity-40" data-alt="Modern clean educational research environment with soft daylight, architectural lines, and professional medical laboratory aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgq2MdoeJkpcQx8z07YATRRgFNUGv2fw8HS3VSAV-WKTt_-bv0WumINBQYhMGrQA7QQSRsPdC6CBz88oMxSJux3nJ-Y79voG-6moeelwmI0TYXHBJX7kseyf6Hi0UvKDRjhMhAgtZkQd3jugfccFi8ULuEWZO-J-FmxOb-S0CzKIWZb6qBZG-v0czWNWzmWkt4Lik2FMBjVw1JlrpPrdgyoW3vzHqO1IFNhrWYTitj6_woB19q7wuXOoN7EYfIzwNvkv2D3ixVt0g"/>
+</div>
+<div class="relative z-20 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary/10 text-secondary rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+<span class="material-symbols-outlined text-sm" data-icon="neurology">neurology</span>
+                    Neuropsicología de Precisión
+                </div>
+<h1 class="text-4xl md:text-6xl font-extrabold text-primary leading-[1.1] tracking-tight mb-8">
+                    ¿Dificultades de conducta en el aula? <br/>
+<span class="text-secondary">Detecte antes. Intervenga mejor.</span>
+</h1>
+<p class="text-lg text-on-surface-variant max-w-xl mb-10 leading-relaxed">
+                    WineBOX Tool transforma la gestión conductual mediante evaluaciones neurocognitivas automatizadas diseñadas para el entorno escolar de alto rendimiento.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-secondary text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-secondary/20 hover:scale-105 transition-transform">
+                        Coordinemos una demo
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Problem: Tonal Depth Section -->
+<section class="bg-surface-container-low py-20 px-6 md:px-12">
+<div class="max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<div>
+<h2 class="text-3xl font-bold text-primary mb-6 tracking-tight">El desafío de la detección tardía</h2>
+<p class="text-on-surface-variant mb-12 text-lg">Cuando el conflicto llega a la dirección, la conducta ya se ha cristalizado. Los métodos tradicionales son lentos, subjetivos y costosos.</p>
+<div class="space-y-4">
+<div class="bg-white p-6 rounded-xl border-l-4 border-error flex gap-6 items-start shadow-sm">
+<span class="material-symbols-outlined text-error text-3xl" data-icon="report_problem">report_problem</span>
+<div>
+<h4 class="font-bold text-primary mb-1">Impulsividad &amp; Control</h4>
+<p class="text-sm text-on-surface-variant">Dificultades no diagnosticadas que derivan en disrupción constante del clima escolar.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border-l-4 border-error flex gap-6 items-start shadow-sm">
+<span class="material-symbols-outlined text-error text-3xl" data-icon="warning">warning</span>
+<div>
+<h4 class="font-bold text-primary mb-1">Carga Administrativa</h4>
+<p class="text-sm text-on-surface-variant">Horas perdidas en informes manuales sin una base clínica estandarizada.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative bg-primary p-12 rounded-3xl overflow-hidden shadow-2xl">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-[12rem]" data-icon="psychology">psychology</span>
+</div>
+<h3 class="text-white text-2xl font-bold mb-6 relative z-10">La Solución: El Arquitecto Clínico</h3>
+<p class="text-on-primary-container text-lg mb-8 relative z-10 leading-relaxed">
+                            Una plataforma de evaluación neurocognitiva que utiliza gamificación y algoritmos de precisión para mapear la flexibilidad cognitiva antes de que se convierta en un problema de convivencia.
+                        </p>
+<div class="flex items-center gap-4 text-white/80 font-medium">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" data-weight="fill">check_circle</span>
+                            Detección temprana proactiva
+                        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Process: Bento Grid Style -->
+<section class="py-24 px-6 md:px-12 bg-background">
+<div class="max-w-[1440px] mx-auto">
+<div class="mb-16">
+<h2 class="text-3xl font-bold text-primary mb-4">Cómo Funciona</h2>
+<div class="h-1 w-20 bg-secondary"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Step 1 -->
+<div class="group bg-white p-10 rounded-2xl shadow-[0_12px_32px_rgba(0,30,64,0.04)] border border-outline-variant/10 hover:border-secondary/20 transition-all">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-8 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="font-bold">01</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Formato Game (5')</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            Los estudiantes participan en una experiencia lúdica breve que mide tiempo de reacción y atención sostenida sin fatiga diagnóstica.
+                        </p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity" data-icon="videogame_asset">videogame_asset</span>
+</div>
+<!-- Step 2 -->
+<div class="group bg-white p-10 rounded-2xl shadow-[0_12px_32px_rgba(0,30,64,0.04)] border border-outline-variant/10 hover:border-secondary/20 transition-all md:translate-y-6">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-8 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="font-bold">02</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Protocolo (15')</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            Evaluación profunda de funciones ejecutivas y flexibilidad cognitiva mediante un flujo de trabajo autónomo.
+                        </p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity" data-icon="rule">rule</span>
+</div>
+<!-- Step 3 -->
+<div class="group bg-white p-10 rounded-2xl shadow-[0_12px_32px_rgba(0,30,64,0.04)] border border-outline-variant/10 hover:border-secondary/20 transition-all md:translate-y-12">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-8 group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="font-bold">03</span>
+</div>
+<h3 class="text-xl font-bold text-primary mb-4">Reporting IA</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            Generación inmediata de perfiles neurocognitivos listos para la toma de decisiones por parte de directivos y psicopedagogos.
+                        </p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity" data-icon="description">description</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust & Compliance: Clinical Precision -->
+<section class="py-20 bg-primary text-white">
+<div class="max-w-[1440px] mx-auto px-6 md:px-12">
+<div class="flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-xl">
+<h2 class="text-3xl font-bold mb-6">Respaldo Clínico Institucional</h2>
+<p class="text-on-primary-container text-lg mb-8">
+                            Nuestros algoritmos están alineados con los estándares internacionales más rigurosos, garantizando validez diagnóstica y ética profesional.
+                        </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3 bg-white/5 p-4 rounded-lg border border-white/10">
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+<span class="text-sm font-bold uppercase tracking-widest">DSM-5 Compliance</span>
+</div>
+<div class="flex items-center gap-3 bg-white/5 p-4 rounded-lg border border-white/10">
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+<span class="text-sm font-bold uppercase tracking-widest">CIE-11 Standards</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/3 flex flex-col gap-6">
+<div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10">
+<div class="text-5xl font-black text-secondary mb-2 tracking-tighter">1.200+</div>
+<div class="text-sm uppercase tracking-widest font-bold text-on-primary-container">Casos Analizados</div>
+<p class="mt-4 text-xs text-white/60 leading-relaxed">Data histórica robusta que permite benchmarking preciso entre grupos de pares y cohortes escolares.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Benefits: Feature List -->
+<section class="py-24 px-6 md:px-12 bg-white">
+<div class="max-w-[1440px] mx-auto">
+<div class="text-center max-w-3xl mx-auto mb-20">
+<h2 class="text-4xl font-extrabold text-primary mb-6 tracking-tight">Beneficios para su Institución</h2>
+<p class="text-on-surface-variant">Optimización de recursos y mejora directa en la calidad educativa.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="p-4">
+<span class="material-symbols-outlined text-secondary mb-4 text-4xl" data-icon="handshake">handshake</span>
+<h4 class="font-bold text-primary mb-2">Reducción de Conflictos</h4>
+<p class="text-sm text-on-surface-variant">Intervenciones preventivas que disminuyen las actas de disciplina en un 40%.</p>
+</div>
+<div class="p-4">
+<span class="material-symbols-outlined text-secondary mb-4 text-4xl" data-icon="forum">forum</span>
+<h4 class="font-bold text-primary mb-2">Mejor Comunicación</h4>
+<p class="text-sm text-on-surface-variant">Evidencia objetiva para reuniones con familias y equipos externos.</p>
+</div>
+<div class="p-4">
+<span class="material-symbols-outlined text-secondary mb-4 text-4xl" data-icon="analytics">analytics</span>
+<h4 class="font-bold text-primary mb-2">Reportes Pro</h4>
+<p class="text-sm text-on-surface-variant">Informes automáticos con lenguaje técnico y clínico impecable.</p>
+</div>
+<div class="p-4 bg-primary/5 rounded-xl border border-primary/10">
+<span class="material-symbols-outlined text-secondary mb-4 text-4xl" data-icon="savings">savings</span>
+<h4 class="font-bold text-primary mb-2">Sin Costos de Estructura</h4>
+<p class="text-sm text-on-surface-variant">Implementación 100% digital sobre hardware existente. Pago por uso o licencia anual.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Closure -->
+<section class="py-24 px-6 md:px-12 bg-surface-container-low relative overflow-hidden">
+<div class="max-w-[1440px] mx-auto text-center relative z-10">
+<div class="inline-block px-4 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8 rounded">Programa Piloto 2024</div>
+<h2 class="text-4xl md:text-5xl font-black text-primary mb-8 leading-tight">Lleve su gestión escolar al <br/><span class="text-secondary italic">siguiente nivel clínico.</span></h2>
+<div class="flex flex-col items-center gap-6">
+<button class="bg-primary text-white px-12 py-5 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 active:scale-95 transition-all">
+                        Coordinemos una demo
+                    </button>
+<p class="text-on-surface-variant text-sm font-medium">Consulte por disponibilidad de implementación piloto en su región.</p>
+</div>
+</div>
+<!-- Neural Sparkline Graphic -->
+<div class="absolute bottom-0 left-0 w-full h-32 opacity-20 pointer-events-none">
+<svg class="w-full h-full preserve-3d" viewbox="0 0 1000 100">
+<path d="M0,50 L50,45 L100,55 L150,30 L200,70 L250,50 L300,40 L350,60 L400,20 L450,50 L500,80 L550,40 L600,60 L650,30 L700,50 L750,45 L800,55 L850,20 L900,50 L950,40 L1000,50" fill="none" stroke="#ad2c00" stroke-width="2"></path>
+</svg>
+</div>
+</section>
+</main>
+<!-- Footer Mapping -->
+<footer class="bg-[#001e40] dark:bg-black text-white px-6 md:px-12 py-16">
+<div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+<div>
+<div class="text-lg font-manrope font-black text-white mb-6 uppercase tracking-widest">WineBOX Tool</div>
+<p class="text-slate-300 text-sm max-w-sm mb-8 leading-relaxed">
+                    Arquitectura clínica para la detección temprana y gestión de funciones ejecutivas en entornos educativos.
+                </p>
+<p class="text-xs text-slate-500 font-inter uppercase tracking-widest">
+                    © 2024 Clinical Precision Framework. Institutional Grade Neuropsychology.
+                </p>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<ul class="space-y-4">
+<li><a class="text-slate-300 text-xs uppercase tracking-widest hover:text-white transition-all" href="#">DSM-5 Compliance</a></li>
+<li><a class="text-slate-300 text-xs uppercase tracking-widest hover:text-white transition-all" href="#">Privacy Protocol</a></li>
+</ul>
+<ul class="space-y-4">
+<li><a class="text-slate-300 text-xs uppercase tracking-widest hover:text-white transition-all" href="#">CIE-11 Standards</a></li>
+<li><a class="text-slate-300 text-xs uppercase tracking-widest hover:text-white transition-all" href="#">Contact Research Team</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</body></html>
