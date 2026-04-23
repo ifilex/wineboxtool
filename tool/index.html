@@ -17294,35 +17294,54 @@ function sharePendingPayments() {
             document.getElementById('resultsBtn').style.display = 'inline-flex';
         }
 
-        function resetEvaluation() {
-            currentEvaluation = {
-                patientId: null,
-                games: [],
-                currentGameIndex: -1,
-                startTime: null,
-                timer: null,
-                seconds: 0,
-                isPlaying: false
-            };
-            
-            evaluationSelectedGames = [];
-            
-            document.getElementById('evaluationGamesSection').style.display = 'none';
-            document.getElementById('timerContainer').style.display = 'none';
-            document.getElementById('currentEvaluation').style.display = 'none';
-            document.getElementById('evaluationProgress').style.display = 'none';
-            document.getElementById('startEvaluationBtn').style.display = 'inline-flex';
-            document.getElementById('reevaluateBtn').style.display = 'none';
-            document.getElementById('completeEvaluationBtn').style.display = 'none';
-            document.getElementById('resultsBtn').style.display = 'none';
+       
+function resetEvaluation() {
+    currentEvaluation = {
+        patientId: null,
+        games: [],
+        currentGameIndex: -1,
+        startTime: null,
+        timer: null,
+        seconds: 0,
+        isPlaying: false
+    };
+    
+    evaluationSelectedGames = [];
+    
+    // Verificar que cada elemento existe antes de acceder a style
+    const gamesSection = document.getElementById('evaluationGamesSection');
+    if (gamesSection) gamesSection.style.display = 'none';
+    
+    const timerContainer = document.getElementById('timerContainer');
+    if (timerContainer) timerContainer.style.display = 'none';
+    
+    const currentEval = document.getElementById('currentEvaluation');
+    if (currentEval) currentEval.style.display = 'none';
+    
+    const evalProgress = document.getElementById('evaluationProgress');
+    if (evalProgress) evalProgress.style.display = 'none';
+    
+    const startBtn = document.getElementById('startEvaluationBtn');
+    if (startBtn) startBtn.style.display = 'inline-flex';
+    
+    const reevaluateBtn = document.getElementById('reevaluateBtn');
+    if (reevaluateBtn) reevaluateBtn.style.display = 'none';
+    
+    const completeBtn = document.getElementById('completeEvaluationBtn');
+    if (completeBtn) completeBtn.style.display = 'none';
+    
+    const resultsBtn = document.getElementById('resultsBtn');
+    if (resultsBtn) resultsBtn.style.display = 'none';
 
-    // === NUEVO: MANTENER SECCIÓN MANUAL VISIBLE ===
+    // === MANTENER SECCIÓN MANUAL VISIBLE ===
     const manualSection = document.getElementById('manualEvaluationSection');
     if (manualSection) manualSection.style.display = 'block';
+    
     const wineboxSection = document.getElementById('wineboxEvaluationSection');
     if (wineboxSection) wineboxSection.style.display = 'none';
+}
 
-        }
+
 
         // ==================== FUNCIONES DE PERFIL CONDUCTUAL ====================
         function loadBehavioralProfile(patientId = null) {
@@ -24670,51 +24689,66 @@ function shareWineboxRecommendations(patientId) {
     }
 }
 
-        function finishWizardAndInstall() {
-            const selectedLang = document.querySelector('input[name="wizardLanguage"]:checked').value;
-            setLanguage(selectedLang);
 
-            const therapistName = document.getElementById('wizardTherapistName').value;
-            if (therapistName) {
-                const newTherapist = {
-                    id: Date.now().toString(),
-                    name: therapistName,
-                    specialty: document.getElementById('wizardTherapistSpecialty').value || '',
-                    license: '',
-                    institution: document.getElementById('wizardTherapistInstitution').value || '',
-                    phone: '',
-                    email: '',
-                    address: '',
-                    schedule: 'Lunes a Viernes 9:00-18:00',
-                    createdAt: new Date().toISOString(),
-                    isDefault: false
-                };
-                therapists.push(newTherapist);
-                activeTherapistId = newTherapist.id;
-                saveAllData();
-            } else if (therapists.length === 0) {
-                createDefaultTherapist();
-            }
-
-            localStorage.setItem('neurotherapy_installed', 'true');
-
-            hideModal('welcomeWizardModal');
-            const containerDiv = document.querySelector('.container');
-            if (containerDiv) {
-                containerDiv.style.opacity = '1';
-                containerDiv.style.pointerEvents = 'auto';
-            }
-
-            initDates();
-            loadTherapists();
-            updateAllSelectors();
-            loadDashboard();
-            initEvents();
-            loadPendingActions();
-            initPatientManager();
-            loadTemplate();
-            showNotification('¡Instalación completada! Bienvenido a ' + t('app_name'), 'success');
+function finishWizardAndInstall() {
+    const selectedLang = document.querySelector('input[name="wizardLanguage"]:checked');
+    if (selectedLang) {
+        const lang = selectedLang.value;
+        // Usar la función principal setLanguage directamente
+        if (typeof setLanguage === 'function') {
+            setLanguage(lang);
+        } else {
+            currentLanguage = lang;
+            localStorage.setItem('neurotherapy_language', lang);
         }
+    }
+
+    const therapistName = document.getElementById('wizardTherapistName')?.value;
+    if (therapistName) {
+        const newTherapist = {
+            id: Date.now().toString(),
+            name: therapistName,
+            specialty: document.getElementById('wizardTherapistSpecialty')?.value || '',
+            license: '',
+            institution: document.getElementById('wizardTherapistInstitution')?.value || '',
+            phone: '',
+            email: '',
+            address: '',
+            schedule: 'Lunes a Viernes 9:00-18:00',
+            createdAt: new Date().toISOString(),
+            isDefault: false
+        };
+        therapists.push(newTherapist);
+        activeTherapistId = newTherapist.id;
+        saveAllData();
+    } else if (therapists.length === 0) {
+        createDefaultTherapist();
+    }
+
+    localStorage.setItem('neurotherapy_installed', 'true');
+
+    // Cerrar el modal
+    const modal = document.getElementById('welcomeWizardModal');
+    if (modal) modal.classList.remove('active');
+    
+    const containerDiv = document.querySelector('.container');
+    if (containerDiv) {
+        containerDiv.style.opacity = '1';
+        containerDiv.style.pointerEvents = 'auto';
+    }
+
+    // Inicializar todo
+    if (typeof initDates === 'function') initDates();
+    if (typeof loadTherapists === 'function') loadTherapists();
+    if (typeof updateAllSelectors === 'function') updateAllSelectors();
+    if (typeof loadDashboard === 'function') loadDashboard();
+    if (typeof initEvents === 'function') initEvents();
+    if (typeof loadPendingActions === 'function') loadPendingActions();
+    if (typeof initPatientManager === 'function') initPatientManager();
+    if (typeof loadTemplate === 'function') loadTemplate();
+    
+    showNotification('¡Instalación completada! Bienvenido a ' + t('app_name'), 'success');
+} 
 
 
 // ==================== HISTORIA CLÍNICA COMPLETAMENTE TRADUCIDA ====================
@@ -26640,14 +26674,32 @@ function loadWineboxGamesForSession() {
 // ==================== INICIALIZACIÓN ====================
 
 
-// Inicialización principal (CORREGIDO)
+function attachUpgradeButton() {
+    // Buscar el contenedor de configuración donde iría el botón de upgrade
+    const upgradeButton = document.querySelector('#configUpgradeBtn');
+    if (upgradeButton) {
+        upgradeButton.onclick = function() {
+            showUpgradeModal();
+        };
+    }
+    
+    // También agregar botón de restauración si existe
+    const restoreButton = document.querySelector('#restorePurchasesBtn');
+    if (restoreButton) {
+        restoreButton.onclick = function() {
+            restorePurchasesFromModal();
+        };
+    }
+}
+
+// ==================== INICIALIZACIÓN PRINCIPAL (CORREGIDA) ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Iniciando WineBox Tool...');
     
     // 1. PRIMERO: Inicializar estado PRO
     initProStatus();
     
-    // 2. SEGUNDO: Actualizar badge (ya se hace dentro de initProStatus, pero por las dudas)
+    // 2. SEGUNDO: Actualizar badge (ya se hace dentro de initProStatus)
     setTimeout(updateVersionBadge, 50);
     
     // 3. Resto de la inicialización original
@@ -26685,13 +26737,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('✅ Bridge de Bubblewrap detectado');
     }
     
-    // 5. Agregar botón de upgrade
-    setTimeout(attachUpgradeButton, 500);
+    // 5. Agregar botón de upgrade (CORREGIDO - verificar que la función existe)
+    setTimeout(function() {
+        if (typeof attachUpgradeButton === 'function') {
+            attachUpgradeButton();
+        } else {
+            console.log('attachUpgradeButton no definida, omitiendo...');
+        }
+    }, 500);
     
     // 6. Forzar actualización del badge después de que todo esté cargado
-    setTimeout(() => {
+    setTimeout(function() {
         updateVersionBadge();
         updateProUI();
+        updateVersionPanel(); // Actualizar panel de versión en configuración
     }, 200);
 });
 
@@ -34382,18 +34441,29 @@ function updateVersionPanel() {
 </script>
 
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            // La ruta DEBE ser absoluta desde la raíz del dominio
+
+
+// ==================== SERVICE WORKER (CORREGIDO) ====================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        // Solo registrar service worker si estamos en HTTPS o localhost
+        const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        
+        if (isSecure) {
             navigator.serviceWorker.register('/tool/sw.js', { scope: '/tool/' })
                 .then(registration => {
                     console.log('Service Worker registrado:', registration.scope);
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Error al registrar Service Worker:', error);
                 });
-        });
-    }
+        } else {
+            console.log('Service Worker no registrado (protocolo no seguro):', location.protocol);
+        }
+    });
+}
+
+
 </script>
 
 </body>
