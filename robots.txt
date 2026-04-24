@@ -1,0 +1,14 @@
+# Instrucciones para todos los robots (Google, Bing, etc.)
+User-agent: *
+
+# Permitir que vean todo el sitio principal
+Allow: /
+
+# Evitar que indexen carpetas privadas o de sistema (si las tienes)
+Disallow: /bin/
+Disallow: /config/
+Disallow: /backups/
+Disallow: /demo/
+
+# Indicar dónde está el mapa del sitio para que lo encuentren rápido
+Sitemap: https://wineboxtool.cloud/sitemap.xml
