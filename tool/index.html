@@ -12832,6 +12832,11 @@ function updateGameGridsLanguage() {
         let currentYear = new Date().getFullYear();
 
 
+async function canPurchase() {
+    // Verifica si el navegador soporta la API de compras de Google Play
+    return !!window.getDigitalGoodsService;
+}
+
 // ==================== CONFIGURACIÓN DE VERSIÓN (LITE / PRO) ====================
 // Cambia esta línea a true para la versión PRO (sin limitaciones, sin publicidad)
 // Cambia a false para la versión LITE (con limitaciones y publicidad)
@@ -13770,151 +13775,40 @@ function showUpgradeModal(featureName) {
 // Procesar compra de un plan (CORREGIDO - CON TODOS LOS IDIOMAS)
 async function processPurchasePlan(planKey, modalId) {
     const plan = PRO_PLANS[planKey];
-    if (!plan) return;
-    
-    const lang = currentLanguage || 'es';
-    
-    // Diccionario completo de mensajes para processPurchase
-    const messages = {
-        es: {
-            notInTWA: '⚠️ Esta función solo está disponible en la aplicación oficial desde Google Play Store.\n\n📱 Descarga la app desde la Play Store para acceder a las compras seguras.',
-            bridgeError: '⚠️ Error de conexión con Google Play. Por favor, asegúrate de tener la última versión de la app.',
-            connecting: 'Conectando con Google Play...',
-            success: '✅ ¡Compra exitosa! Gracias por confiar en WineBox Tool.',
-            fraudDetected: '⚠️ Operación no válida. Por favor, instala la aplicación oficial desde Google Play Store.',
-            cancelled: 'Compra cancelada. Puedes intentarlo nuevamente cuando quieras.',
-            error: '❌ Error al conectar con Google Play. Verifica tu conexión e intenta nuevamente.',
-            unofficialApp: 'App no oficial',
-            errorTitle: 'Error',
-            actionNotAllowed: 'Acción no permitida'
-        },
-        en: {
-            notInTWA: '⚠️ This feature is only available in the official app from Google Play Store.\n\n📱 Download the app from Play Store to make secure purchases.',
-            bridgeError: '⚠️ Connection error with Google Play. Please make sure you have the latest version of the app.',
-            connecting: 'Connecting to Google Play...',
-            success: '✅ Purchase successful! Thank you for trusting WineBox Tool.',
-            fraudDetected: '⚠️ Invalid operation. Please install the official app from Google Play Store.',
-            cancelled: 'Purchase cancelled. You can try again anytime.',
-            error: '❌ Error connecting to Google Play. Check your connection and try again.',
-            unofficialApp: 'Unofficial App',
-            errorTitle: 'Error',
-            actionNotAllowed: 'Action Not Allowed'
-        },
-        de: {
-            notInTWA: '⚠️ Diese Funktion ist nur in der offiziellen App aus dem Google Play Store verfügbar.\n\n📱 Lade die App aus dem Play Store herunter, um sichere Käufe zu tätigen.',
-            bridgeError: '⚠️ Verbindungsfehler mit Google Play. Bitte stelle sicher, dass du die neueste Version der App hast.',
-            connecting: 'Verbinde mit Google Play...',
-            success: '✅ Kauf erfolgreich! Vielen Dank für dein Vertrauen in WineBox Tool.',
-            fraudDetected: '⚠️ Ungültiger Vorgang. Bitte installiere die offizielle App aus dem Google Play Store.',
-            cancelled: 'Kauf abgebrochen. Du kannst es jederzeit erneut versuchen.',
-            error: '❌ Fehler bei der Verbindung zu Google Play. Überprüfe deine Verbindung und versuche es erneut.',
-            unofficialApp: 'Inoffizielle App',
-            errorTitle: 'Fehler',
-            actionNotAllowed: 'Aktion nicht erlaubt'
-        },
-        fr: {
-            notInTWA: '⚠️ Cette fonctionnalité est uniquement disponible dans l\'application officielle du Google Play Store.\n\n📱 Téléchargez l\'application depuis le Play Store pour effectuer des achats sécurisés.',
-            bridgeError: '⚠️ Erreur de connexion avec Google Play. Veuillez vous assurer que vous disposez de la dernière version de l\'application.',
-            connecting: 'Connexion à Google Play...',
-            success: '✅ Achat réussi ! Merci de faire confiance à WineBox Tool.',
-            fraudDetected: '⚠️ Opération non valide. Veuillez installer l\'application officielle depuis Google Play Store.',
-            cancelled: 'Achat annulé. Vous pouvez réessayer à tout moment.',
-            error: '❌ Erreur de connexion à Google Play. Vérifiez votre connexion et réessayez.',
-            unofficialApp: 'Application non officielle',
-            errorTitle: 'Erreur',
-            actionNotAllowed: 'Action non autorisée'
-        },
-        it: {
-            notInTWA: '⚠️ Questa funzione è disponibile solo nell\'app ufficiale del Google Play Store.\n\n📱 Scarica l\'app dal Play Store per effettuare acquisti sicuri.',
-            bridgeError: '⚠️ Errore di connessione con Google Play. Assicurati di avere l\'ultima versione dell\'app.',
-            connecting: 'Connessione a Google Play...',
-            success: '✅ Acquisto riuscito! Grazie per aver scelto WineBox Tool.',
-            fraudDetected: '⚠️ Operazione non valida. Installa l\'app ufficiale dal Google Play Store.',
-            cancelled: 'Acquisto annullato. Puoi riprovare quando vuoi.',
-            error: '❌ Errore di connessione a Google Play. Verifica la connessione e riprova.',
-            unofficialApp: 'App non ufficiale',
-            errorTitle: 'Errore',
-            actionNotAllowed: 'Azione non consentita'
-        },
-        pt: {
-            notInTWA: '⚠️ Esta função está disponível apenas no aplicativo oficial da Google Play Store.\n\n📱 Baixe o aplicativo na Play Store para fazer compras seguras.',
-            bridgeError: '⚠️ Erro de conexão com o Google Play. Certifique-se de ter a versão mais recente do aplicativo.',
-            connecting: 'Conectando ao Google Play...',
-            success: '✅ Compra bem-sucedida! Obrigado por confiar no WineBox Tool.',
-            fraudDetected: '⚠️ Operação inválida. Instale o aplicativo oficial da Google Play Store.',
-            cancelled: 'Compra cancelada. Você pode tentar novamente quando quiser.',
-            error: '❌ Erro ao conectar ao Google Play. Verifique sua conexão e tente novamente.',
-            unofficialApp: 'Aplicativo não oficial',
-            errorTitle: 'Erro',
-            actionNotAllowed: 'Ação não permitida'
-        },
-        zh: {
-            notInTWA: '⚠️ 此功能仅在 Google Play 商店的官方应用中可用。\n\n📱 从 Play 商店下载应用以进行安全购买。',
-            bridgeError: '⚠️ 与 Google Play 连接错误。请确保您拥有最新版本的应用。',
-            connecting: '正在连接到 Google Play...',
-            success: '✅ 购买成功！感谢您信任 WineBox Tool。',
-            fraudDetected: '⚠️ 无效操作。请从 Google Play 商店安装官方应用。',
-            cancelled: '购买已取消。您可以随时重试。',
-            error: '❌ 连接到 Google Play 时出错。请检查您的连接并重试。',
-            unofficialApp: '非官方应用',
-            errorTitle: '错误',
-            actionNotAllowed: '不允许的操作'
-        },
-        ja: {
-            notInTWA: '⚠️ この機能はGoogle Playストアの公式アプリでのみ利用可能です。\n\n📱 安全な購入を行うには、Playストアからアプリをダウンロードしてください。',
-            bridgeError: '⚠️ Google Playとの接続エラー。アプリの最新バージョンがあることを確認してください。',
-            connecting: 'Google Playに接続中...',
-            success: '✅ 購入成功！WineBox Toolをご利用いただきありがとうございます。',
-            fraudDetected: '⚠️ 無効な操作。Google Playストアから公式アプリをインストールしてください。',
-            cancelled: '購入がキャンセルされました。いつでも再度お試しください。',
-            error: '❌ Google Playへの接続エラー。接続を確認して再度お試しください。',
-            unofficialApp: '非公式アプリ',
-            errorTitle: 'エラー',
-            actionNotAllowed: '許可されていない操作'
-        }
-    };
-    
-    const t = messages[lang] || messages.en;
-    
-    // Verificar si estamos en TWA real
-    if (!isInTWA()) {
-        showAlertModal(t.notInTWA, t.unofficialApp);
-        return;
-    }
-    
-    // Verificar que el bridge de Bubblewrap esté disponible
-    if (!window.bubblewrap || typeof window.bubblewrap.purchaseProduct !== 'function') {
-        showAlertModal(t.bridgeError, t.errorTitle);
-        return;
-    }
-    
-    showNotification(t.connecting, 'info');
-    
+    const t = modalTexts[currentLanguage] || modalTexts.en;
+
     try {
-        let result;
-        if (planKey === 'lifetime') {
-            result = await window.bubblewrap.purchaseProduct(plan.id);
-        } else {
-            result = await window.bubblewrap.purchaseSubscription(plan.id);
-        }
+        // 1. Conectar con el servicio de Google Play
+        const service = await window.getDigitalGoodsService('https://play.google.com/billing');
         
-        // Verificar que la compra fue REAL (no simulada)
-        if (result && result.success === true && result.mock !== true) {
-            showNotification(t.success, 'success');
+        // 2. Crear la solicitud de pago
+        const paymentMethodData = [{
+            supportedMethods: 'https://play.google.com/billing',
+            data: { sku: plan.id }
+        }];
+
+        const paymentDetails = {
+            total: { label: 'Total', amount: { currency: 'USD', value: '0' } }
+        };
+
+        const request = new PaymentRequest(paymentMethodData, paymentDetails);
+        const response = await request.show();
+        
+        // 3. Obtener el token de éxito
+        const { purchaseToken } = response.details;
+
+        if (purchaseToken) {
+            // ¡ÉXITO!
+            showNotification(t.purchase_success, 'success');
             activateProFeatures(plan.id, planKey === 'lifetime');
-            closeCustomModal(modalId);
-            setTimeout(() => location.reload(), 1500);
-        } else if (result && result.mock === true) {
-            // Esto NO debería ocurrir - es una simulación no autorizada
-            console.error('Intento de simulación de pago detectado');
-            showAlertModal(t.fraudDetected, t.actionNotAllowed);
+            await response.complete('success');
+            if (modalId) closeCustomModal(modalId);
         } else {
-            // Compra cancelada por el usuario o fallida
-            showNotification(t.cancelled, 'warning');
+            await response.complete('fail');
         }
     } catch (error) {
         console.error('Error en compra:', error);
-        showNotification(t.error, 'danger');
+        showNotification(t.purchase_error, 'danger');
     }
 }
 
@@ -13975,181 +13869,22 @@ function initProStatus() {
 
 // Restaurar compras (CORREGIDO - CON TODOS LOS IDIOMAS)
 async function restorePurchasesFromModal(modalId) {
-    const lang = currentLanguage || 'es';
-    
-    // Diccionario completo de mensajes para restorePurchases
-    const messages = {
-        es: {
-            onlyInApp: '⚠️ Esta función solo está disponible en la aplicación oficial. Descárgala desde Google Play Store.',
-            connectionError: '⚠️ Error de conexión. Asegúrate de tener la última versión de la app.',
-            checking: 'Verificando compras previas con Google Play...',
-            fraudDetected: '⚠️ No se pudo verificar. Instala la app oficial desde Google Play Store.',
-            lifetimeRestored: '✅ Licencia PRO vitalicia restaurada correctamente.',
-            monthlyRestored: '✅ Suscripción PRO mensual activa restaurada.',
-            yearlyRestored: '✅ Suscripción PRO anual activa restaurada.',
-            noPurchases: 'ℹ️ No se encontraron compras previas asociadas a esta cuenta de Google.',
-            error: '❌ Error al conectar con Google Play. Verifica tu conexión a internet.',
-            unofficialApp: 'App no oficial',
-            errorTitle: 'Error',
-            verificationFailed: 'Verificación fallida'
-        },
-        en: {
-            onlyInApp: '⚠️ This feature is only available in the official app. Download it from Google Play Store.',
-            connectionError: '⚠️ Connection error. Make sure you have the latest version of the app.',
-            checking: 'Checking previous purchases with Google Play...',
-            fraudDetected: '⚠️ Unable to verify. Install the official app from Google Play Store.',
-            lifetimeRestored: '✅ PRO Lifetime license restored successfully.',
-            monthlyRestored: '✅ PRO Monthly subscription active and restored.',
-            yearlyRestored: '✅ PRO Yearly subscription active and restored.',
-            noPurchases: 'ℹ️ No previous purchases found associated with this Google account.',
-            error: '❌ Error connecting to Google Play. Check your internet connection.',
-            unofficialApp: 'Unofficial App',
-            errorTitle: 'Error',
-            verificationFailed: 'Verification Failed'
-        },
-        de: {
-            onlyInApp: '⚠️ Diese Funktion ist nur in der offiziellen App verfügbar. Lade sie aus dem Google Play Store herunter.',
-            connectionError: '⚠️ Verbindungsfehler. Stelle sicher, dass du die neueste Version der App hast.',
-            checking: 'Überprüfe frühere Käufe mit Google Play...',
-            fraudDetected: '⚠️ Überprüfung fehlgeschlagen. Installiere die offizielle App aus dem Google Play Store.',
-            lifetimeRestored: '✅ PRO Lifetime-Lizenz erfolgreich wiederhergestellt.',
-            monthlyRestored: '✅ PRO Monatsabonnement aktiv und wiederhergestellt.',
-            yearlyRestored: '✅ PRO Jahresabonnement aktiv und wiederhergestellt.',
-            noPurchases: 'ℹ️ Keine früheren Käufe gefunden, die mit diesem Google-Konto verbunden sind.',
-            error: '❌ Fehler bei der Verbindung zu Google Play. Überprüfe deine Internetverbindung.',
-            unofficialApp: 'Inoffizielle App',
-            errorTitle: 'Fehler',
-            verificationFailed: 'Überprüfung fehlgeschlagen'
-        },
-        fr: {
-            onlyInApp: '⚠️ Cette fonctionnalité est uniquement disponible dans l\'application officielle. Téléchargez-la depuis Google Play Store.',
-            connectionError: '⚠️ Erreur de connexion. Assurez-vous d\'avoir la dernière version de l\'application.',
-            checking: 'Vérification des achats précédents avec Google Play...',
-            fraudDetected: '⚠️ Impossible de vérifier. Installez l\'application officielle depuis Google Play Store.',
-            lifetimeRestored: '✅ Licence PRO à vie restaurée avec succès.',
-            monthlyRestored: '✅ Abonnement PRO mensuel actif et restauré.',
-            yearlyRestored: '✅ Abonnement PRO annuel actif et restauré.',
-            noPurchases: 'ℹ️ Aucun achat antérieur trouvé associé à ce compte Google.',
-            error: '❌ Erreur de connexion à Google Play. Vérifiez votre connexion Internet.',
-            unofficialApp: 'Application non officielle',
-            errorTitle: 'Erreur',
-            verificationFailed: 'Échec de la vérification'
-        },
-        it: {
-            onlyInApp: '⚠️ Questa funzione è disponibile solo nell\'app ufficiale. Scaricala da Google Play Store.',
-            connectionError: '⚠️ Errore di connessione. Assicurati di avere l\'ultima versione dell\'app.',
-            checking: 'Verifica degli acquisti precedenti con Google Play...',
-            fraudDetected: '⚠️ Impossibile verificare. Installa l\'app ufficiale da Google Play Store.',
-            lifetimeRestored: '✅ Licenza PRO a vita ripristinata con successo.',
-            monthlyRestored: '✅ Abbonamento PRO mensile attivo e ripristinato.',
-            yearlyRestored: '✅ Abbonamento PRO annuale attivo e ripristinato.',
-            noPurchases: 'ℹ️ Nessun acquisto precedente trovato associato a questo account Google.',
-            error: '❌ Errore di connessione a Google Play. Verifica la tua connessione Internet.',
-            unofficialApp: 'App non ufficiale',
-            errorTitle: 'Errore',
-            verificationFailed: 'Verifica fallita'
-        },
-        pt: {
-            onlyInApp: '⚠️ Esta função está disponível apenas no aplicativo oficial. Baixe-o na Google Play Store.',
-            connectionError: '⚠️ Erro de conexão. Certifique-se de ter a versão mais recente do aplicativo.',
-            checking: 'Verificando compras anteriores com o Google Play...',
-            fraudDetected: '⚠️ Não foi possível verificar. Instale o aplicativo oficial da Google Play Store.',
-            lifetimeRestored: '✅ Licença PRO Vitalícia restaurada com sucesso.',
-            monthlyRestored: '✅ Assinatura PRO Mensal ativa e restaurada.',
-            yearlyRestored: '✅ Assinatura PRO Anual ativa e restaurada.',
-            noPurchases: 'ℹ️ Nenhuma compra anterior encontrada associada a esta conta do Google.',
-            error: '❌ Erro ao conectar ao Google Play. Verifique sua conexão com a internet.',
-            unofficialApp: 'Aplicativo não oficial',
-            errorTitle: 'Erro',
-            verificationFailed: 'Falha na verificação'
-        },
-        zh: {
-            onlyInApp: '⚠️ 此功能仅可在官方应用中使用。请从 Google Play 商店下载。',
-            connectionError: '⚠️ 连接错误。请确保您拥有最新版本的应用。',
-            checking: '正在与 Google Play 验证之前的购买记录...',
-            fraudDetected: '⚠️ 无法验证。请从 Google Play 商店安装官方应用。',
-            lifetimeRestored: '✅ PRO 终身许可证已成功恢复。',
-            monthlyRestored: '✅ PRO 月度订阅已激活并恢复。',
-            yearlyRestored: '✅ PRO 年度订阅已激活并恢复。',
-            noPurchases: 'ℹ️ 未找到与此 Google 账户关联的购买记录。',
-            error: '❌ 连接到 Google Play 时出错。请检查您的网络连接。',
-            unofficialApp: '非官方应用',
-            errorTitle: '错误',
-            verificationFailed: '验证失败'
-        },
-        ja: {
-            onlyInApp: '⚠️ この機能は公式アプリでのみ利用可能です。Google Playストアからダウンロードしてください。',
-            connectionError: '⚠️ 接続エラー。アプリの最新バージョンがあることを確認してください。',
-            checking: 'Google Playで過去の購入を確認中...',
-            fraudDetected: '⚠️ 検証できませんでした。Google Playストアから公式アプリをインストールしてください。',
-            lifetimeRestored: '✅ PRO永久ライセンスが正常に復元されました。',
-            monthlyRestored: '✅ PRO月額サブスクリプションがアクティブで復元されました。',
-            yearlyRestored: '✅ PRO年額サブスクリプションがアクティブで復元されました。',
-            noPurchases: 'ℹ️ このGoogleアカウントに関連付けられた過去の購入は見つかりませんでした。',
-            error: '❌ Google Playへの接続エラー。インターネット接続を確認してください。',
-            unofficialApp: '非公式アプリ',
-            errorTitle: 'エラー',
-            verificationFailed: '検証失敗'
-        }
-    };
-    
-    const t = messages[lang] || messages.en;
-    
-    if (!isInTWA()) {
-        showAlertModal(t.onlyInApp, t.unofficialApp);
-        return;
-    }
-    
-    if (!window.bubblewrap || typeof window.bubblewrap.checkPurchases !== 'function') {
-        showAlertModal(t.connectionError, t.errorTitle);
-        return;
-    }
-    
-    showNotification(t.checking, 'info');
-    
     try {
-        const result = await window.bubblewrap.checkPurchases({
-            consumableIds: [PRO_PLANS.lifetime.id],
-            subscriptionIds: [PRO_PLANS.monthly.id, PRO_PLANS.yearly.id]
-        });
-        
-        // Verificar que NO sea una simulación
-        if (result && result.mock === true) {
-            showAlertModal(t.fraudDetected, t.verificationFailed);
-            return;
-        }
+        const service = await window.getDigitalGoodsService('https://play.google.com/billing');
+        const purchases = await service.listPurchases();
         
         let found = false;
-        
-        if (result.consumables && result.consumables[PRO_PLANS.lifetime.id] === true) {
-            activateProFeatures(PRO_PLANS.lifetime.id, true);
-            showNotification(t.lifetimeRestored, 'success');
-            found = true;
-        } else if (result.subscriptions) {
-            if (result.subscriptions[PRO_PLANS.monthly.id] === true) {
-                activateProFeatures(PRO_PLANS.monthly.id, false);
-                showNotification(t.monthlyRestored, 'success');
-                found = true;
-            } else if (result.subscriptions[PRO_PLANS.yearly.id] === true) {
-                activateProFeatures(PRO_PLANS.yearly.id, false);
-                showNotification(t.yearlyRestored, 'success');
+        for (const p of purchases) {
+            // p.itemId es el ID del producto (ej: winebox_pro_monthly)
+            if (Object.values(PRO_PLANS).some(plan => plan.id === p.itemId)) {
+                activateProFeatures(p.itemId, p.itemId.includes('lifetime'));
                 found = true;
             }
         }
         
-        if (!found) {
-            showNotification(t.noPurchases, 'info');
-        }
-        
-        if (modalId) closeCustomModal(modalId);
-        
-        if (found) {
-            setTimeout(() => location.reload(), 1500);
-        }
-        
-    } catch (error) {
-        console.error('Error restaurando compras:', error);
-        showNotification(t.error, 'danger');
+        if (!found) showNotification("No se encontraron compras", 'info');
+    } catch (e) {
+        console.error("Error al restaurar", e);
     }
 }
 
