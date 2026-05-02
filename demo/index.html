@@ -996,6 +996,105 @@ hr.divider { border: none; border-top: 1px solid var(--c-border); margin: 20px 0
   </div>
 </div>
 
+
+<!-- Modal de confirmación personalizado para cerrar juego -->
+<div class="confirm-overlay" id="confirmCloseOverlay" style="display:none;">
+  <div class="confirm-card">
+    <div class="confirm-icon">
+      <span class="material-symbols-outlined fill-icon">warning</span>
+    </div>
+    <div class="confirm-title">¿Cerrar el juego?</div>
+    <div class="confirm-message">
+      Si cierras el juego ahora, se guardará el progreso hasta este momento.<br><br>
+      El tiempo restante no se perderá, pero no podrás continuar este juego más tarde.<br><br>
+      <strong>¿Estás seguro de que quieres salir?</strong>
+    </div>
+    <div class="confirm-buttons">
+      <button class="btn btn-primary" id="confirmCancelBtn">
+        <span class="material-symbols-outlined">play_arrow</span> Seguir Jugando
+      </button>
+      <button class="btn btn-danger" id="confirmAcceptBtn">
+        <span class="material-symbols-outlined">exit_to_app</span> Sí, Salir del Juego
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<style>
+/* Estilos para el modal de confirmación */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 30, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.confirm-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: fadeUp 0.25s ease;
+}
+.confirm-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--c-warn-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--c-warn);
+}
+.confirm-icon .material-symbols-outlined {
+  font-size: 36px;
+}
+.confirm-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  color: var(--c-text);
+  margin-bottom: 12px;
+}
+.confirm-message {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--c-text-2);
+  margin-bottom: 28px;
+}
+.confirm-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.confirm-buttons .btn {
+  min-width: 140px;
+  justify-content: center;
+}
+.btn-danger {
+  background: #dc2626;
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+@media (max-width: 500px) {
+  .confirm-card { padding: 28px 20px; }
+  .confirm-buttons .btn { min-width: 120px; font-size: 0.75rem; }
+}
+</style>
+
+
 <script>
 // ═══════════════════════════════════════════════════════════
 //  LISTA COMPLETA DE JUEGOS desde apps-data.js
@@ -1374,6 +1473,10 @@ function resumeEvaluation() {
 // ═══════════════════════════════════════════════════════════
 function playNextGame() {
   if(currentGameIndex >= selectedGameNames.length) {
+    // Al terminar todos los juegos, salir de pantalla completa
+    if(isFullscreen()) {
+      exitFullscreen();
+    }
     finalizeEvaluation();
     return;
   }
@@ -1386,6 +1489,10 @@ function playNextGame() {
   document.getElementById('gameNameLabel').textContent = `Juego ${currentGameIndex+1}/3 · ${game.name}`;
   document.getElementById('gameStudentLabel').textContent = student ? student.name : '';
   document.getElementById('gameWindow').classList.add('open');
+  
+  // Entrar en pantalla completa al abrir el juego
+  const gameWindow = document.getElementById('gameWindow');
+  requestFullscreen(gameWindow);
 
   timeLeft = 300;
   updateTimerDisplay();
@@ -1403,8 +1510,7 @@ function playNextGame() {
   }, 1000);
 
   document.getElementById('closeGameBtn').onclick = () => {
-    clearInterval(timerInterval);
-    endGame(true);
+  showConfirmCloseModal();
   };
 }
 
@@ -1422,8 +1528,207 @@ function endGame(closedEarly) {
   document.getElementById('gameWindow').classList.remove('open');
   document.getElementById('gameFrame').src = '';
   document.getElementById('timerDisplay').classList.remove('urgent');
+
+  // Salir de pantalla completa al cerrar el juego
+  if(isFullscreen()) {
+    exitFullscreen();
+  }
+
   showQuiz();
 }
+
+// Funciones de control de pantalla completa
+function requestFullscreen(element) {
+  const elem = element || document.documentElement;
+  try {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  } catch(e) {
+    console.log("Error al entrar en pantalla completa:", e);
+  }
+}
+
+function exitFullscreen() {
+  try {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  } catch(e) {
+    console.log("Error al salir de pantalla completa:", e);
+  }
+}
+
+function isFullscreen() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+}
+
+// Función para salir de pantalla completa y luego ejecutar una acción
+function exitFullscreenAndThen(callback) {
+  if (isFullscreen()) {
+    // Escuchar cuando se salga de pantalla completa
+    const onFullscreenExit = () => {
+      document.removeEventListener('fullscreenchange', onFullscreenExit);
+      document.removeEventListener('webkitfullscreenchange', onFullscreenExit);
+      document.removeEventListener('msfullscreenchange', onFullscreenExit);
+      setTimeout(callback, 100);
+    };
+    
+    document.addEventListener('fullscreenchange', onFullscreenExit);
+    document.addEventListener('webkitfullscreenchange', onFullscreenExit);
+    document.addEventListener('msfullscreenchange', onFullscreenExit);
+    
+    exitFullscreen();
+  } else {
+    setTimeout(callback, 100);
+  }
+}
+
+
+// Variables para almacenar el estado del cierre pendiente
+let pendingCloseAction = null;
+let isConfirmingClose = false;
+
+function showConfirmCloseModal() {
+  // Si ya estamos confirmando, no hacer nada
+  if (isConfirmingClose) return;
+  
+  isConfirmingClose = true;
+  
+  // Detener el timer mientras mostramos el modal
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  
+  // Salir de pantalla completa antes de mostrar el modal
+  exitFullscreenAndThen(() => {
+    const overlay = document.getElementById('confirmCloseOverlay');
+    overlay.style.display = 'flex';
+    // No reanudar el timer hasta que el usuario decida
+  });
+}
+
+
+function hideConfirmCloseModal() {
+  const overlay = document.getElementById('confirmCloseOverlay');
+  overlay.style.display = 'none';
+  isConfirmingClose = false;
+  
+  // Reanudar el timer si el juego sigue abierto y no hemos cerrado
+  const gameWindow = document.getElementById('gameWindow');
+  if (gameWindow && gameWindow.classList.contains('open') && !timerInterval && timeLeft > 0) {
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+      if (timeLeft <= 60) {
+        document.getElementById('timerDisplay').classList.add('urgent');
+      }
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        endGame(false);
+      }
+    }, 1000);
+    
+    // Volver a entrar en pantalla completa después de reanudar el juego
+    setTimeout(() => {
+      if (gameWindow.classList.contains('open') && !isFullscreen()) {
+        requestFullscreen(gameWindow);
+      }
+    }, 200);
+  }
+}
+
+
+function performCloseGame() {
+  // Limpiar timer si existe
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  
+  hideConfirmCloseModal();
+  
+  // Salir de pantalla completa si es necesario
+  if (isFullscreen()) {
+    exitFullscreen();
+  }
+  
+  // Finalizar el juego
+  endGame(true);
+}
+
+function setupConfirmModal() {
+  const overlay = document.getElementById('confirmCloseOverlay');
+  const cancelBtn = document.getElementById('confirmCancelBtn');
+  const acceptBtn = document.getElementById('confirmAcceptBtn');
+  
+  if (!overlay || !cancelBtn || !acceptBtn) return;
+  
+  // Cancelar: cerrar el modal y continuar el juego
+  cancelBtn.onclick = () => {
+    hideConfirmCloseModal();
+  };
+  
+  // Aceptar: cerrar el modal y finalizar el juego
+  acceptBtn.onclick = () => {
+    performCloseGame();
+  };
+  
+  // Clic en el overlay (fondo) también cierra el modal sin cerrar el juego
+  overlay.onclick = (e) => {
+    if (e.target === overlay) {
+      hideConfirmCloseModal();
+    }
+  };
+  
+  // Manejar tecla ESC para cancelar
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.style.display === 'flex') {
+      hideConfirmCloseModal();
+    }
+  });
+}
+
+
+// Detectar cuando el usuario sale de pantalla completa presionando ESC
+function setupFullscreenExitDetection() {
+  const onFullscreenChange = () => {
+    if (!isFullscreen()) {
+      // El usuario salió de pantalla completa con ESC
+      const gameWindow = document.getElementById('gameWindow');
+      if (gameWindow && gameWindow.classList.contains('open')) {
+        // Pausar el juego y mostrar confirmación
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        // Esperar un momento y mostrar el modal
+        setTimeout(() => {
+          if (gameWindow.classList.contains('open')) {
+            showConfirmCloseModal();
+          }
+        }, 200);
+      }
+    }
+  };
+  
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+  document.addEventListener('msfullscreenchange', onFullscreenChange);
+}
+
+
+// Inicializar el modal al cargar la página (llamar después de cargar el DOM)
 
 // ═══════════════════════════════════════════════════════════
 //  QUIZ
@@ -1797,6 +2102,8 @@ function exportJson() {
 // ═══════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════
+setupConfirmModal();
+setupFullscreenExitDetection();
 renderDashboard();
 </script>
 </body>
