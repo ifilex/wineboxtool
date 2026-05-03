@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0f4c75">
-    <meta name="description" content="WineBOX Sales Manual - Sistema Avanzado de Capacitación Comercial">
     <title>🚀 WineBOX SALES PRO | Manual Inteligente</title>
     <style>
         :root {
@@ -25,7 +24,6 @@
             --shadow: 0 10px 40px rgba(0,0,0,0.1);
             --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
         }
-
         [data-theme="dark"] {
             --bg: #0f0f1e;
             --card: #1a1a2e;
@@ -33,696 +31,114 @@
             --text-light: #a1a1aa;
             --shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
-
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            transition: background-color 0.3s, color 0.2s;
-        }
-
-        body { 
-            background: linear-gradient(135deg, var(--bg) 0%, #d9edff 100%);
-            color: var(--text); 
-            line-height: 1.6; 
-            padding-bottom: 100px;
-            min-height: 100vh;
-        }
-
-        [data-theme="dark"] body {
-            background: linear-gradient(135deg, #0f0f1e 0%, #1e1b4b 100%);
-        }
-
-        /* HEADER ANIMADO */
-        header { 
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white; 
-            padding: 1.5rem 1rem; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-
-        .header-content { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo { 
-            font-weight: 900; 
-            font-size: 1.8rem; 
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        /* NAV MEGA */
-        nav { 
-            background: var(--card);
-            padding: 0.8rem; 
-            position: sticky; 
-            top: 88px; 
-            z-index: 999;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            overflow-x: auto;
-            border-bottom: 3px solid var(--accent);
-        }
-
-        nav ul { 
-            display: flex; 
-            gap: 0.5rem; 
-            list-style: none; 
-            padding: 0 1rem; 
-            max-width: 1400px; 
-            margin: 0 auto;
-            white-space: nowrap;
-        }
-
-        nav a { 
-            color: var(--text);
-            text-decoration: none; 
-            padding: 0.7rem 1.2rem; 
-            border-radius: var(--radius);
-            font-size: 0.9rem; 
-            font-weight: 600; 
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            border: 2px solid transparent;
-        }
-
-        nav a:hover { 
-            background: var(--highlight);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,180,216,0.3);
-        }
-
-        nav a.active { 
-            background: var(--primary);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        /* MAIN LAYOUT */
-        main { 
-            max-width: 1200px; 
-            margin: 2rem auto; 
-            padding: 0 1.5rem; 
-        }
-
-        section { 
-            background: var(--card);
-            padding: 2.5rem; 
-            margin-bottom: 2rem; 
-            border-radius: var(--radius); 
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--success));
-        }
-
-        h1, h2, h3 { 
-            color: var(--primary); 
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        h1 { font-size: 2.5rem; font-weight: 800; }
-        h2 { font-size: 2rem; font-weight: 700; }
-        h3 { 
-            font-size: 1.4rem; 
-            font-weight: 600;
-            padding-bottom: 0.8rem;
-            border-bottom: 3px solid var(--accent);
-            display: inline-block;
-        }
-
-        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3 {
-            color: var(--highlight);
-        }
-
-        p, li { 
-            margin-bottom: 1rem; 
-            font-size: 1.05rem;
-        }
-
-        .grid { 
-            display: grid; 
-            gap: 2rem; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        }
-
-        .tag { 
-            display: inline-block; 
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            color: white; 
-            padding: 0.3rem 0.8rem; 
-            border-radius: 20px; 
-            font-size: 0.75rem; 
-            margin-right: 0.5rem;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0,180,216,0.3);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; transition: background-color 0.3s, color 0.2s; }
+        body { background: linear-gradient(135deg, var(--bg) 0%, #d9edff 100%); color: var(--text); line-height: 1.7; padding-bottom: 100px; min-height: 100vh; }
+        [data-theme="dark"] body { background: linear-gradient(135deg, #0f0f1e 0%, #1e1b4b 100%); }
+        
+        /* HEADER */
+        header { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 1.2rem 1rem; position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo { font-weight: 900; font-size: 1.6rem; letter-spacing: 1px; }
+        .header-stats { display: flex; gap: 1rem; font-size: 0.85rem; }
+        .stat-badge { background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 20px; }
+        
+        /* NAV */
+        nav { background: var(--card); padding: 0.6rem; position: sticky; top: 76px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow-x: auto; border-bottom: 3px solid var(--accent); }
+        nav ul { display: flex; gap: 0.4rem; list-style: none; padding: 0 1rem; max-width: 1200px; margin: 0 auto; white-space: nowrap; }
+        nav a { color: var(--text); text-decoration: none; padding: 0.6rem 1rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; transition: all 0.3s; border: 2px solid transparent; display: inline-flex; align-items: center; gap: 0.3rem; }
+        nav a:hover, nav a.active { background: var(--highlight); border-color: var(--accent); }
+        
+        /* MAIN */
+        main { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+        section { background: var(--card); padding: 2rem; margin-bottom: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); position: relative; border: 1px solid rgba(0,0,0,0.05); }
+        section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent), var(--success)); }
+        h1, h2, h3 { color: var(--primary); margin-bottom: 1rem; }
+        h1 { font-size: 2.2rem; } h2 { font-size: 1.8rem; } h3 { font-size: 1.3rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; display: inline-block; }
+        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3 { color: var(--highlight); }
+        p, li { margin-bottom: 0.8rem; font-size: 1.02rem; }
+        
+        .grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .tag { display: inline-block; background: linear-gradient(135deg, var(--accent), var(--secondary)); color: white; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.75rem; margin-right: 0.4rem; margin-bottom: 0.4rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,180,216,0.3); }
         .tag:hover { transform: scale(1.1); }
-
-        /* BOTONES PREMIUM */
-        .btn { 
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white; 
-            padding: 1rem 2rem; 
-            border: none; 
-            border-radius: var(--radius); 
-            cursor: pointer; 
-            font-weight: 700; 
-            font-size: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(50,130,184,0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn:hover { 
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(50,130,184,0.5);
-        }
-
+        
+        /* BOTONES */
+        .btn { background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; padding: 0.8rem 1.5rem; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(50,130,184,0.4); display: inline-flex; align-items: center; gap: 0.5rem; position: relative; overflow: hidden; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(50,130,184,0.5); }
         .btn:active { transform: translateY(-1px); }
-
-        .btn-outline { 
-            background: transparent; 
-            border: 3px solid var(--secondary); 
-            color: var(--secondary);
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-success { 
-            background: linear-gradient(135deg, var(--success), #04b97f);
-            box-shadow: 0 4px 15px rgba(6,214,160,0.4);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning), #ffb703);
-            color: #1a1a2e;
-            box-shadow: 0 4px 15px rgba(255,209,102,0.4);
-        }
-
-        .btn-purple {
-            background: linear-gradient(135deg, var(--purple), #7b2cbf);
-            box-shadow: 0 4px 15px rgba(157,78,221,0.4);
-        }
-
-        /* SEARCH MEGA */
-        #search-container { 
-            position: sticky; 
-            top: 160px; 
-            z-index: 90; 
-            background: var(--card);
-            padding: 2rem; 
-            border-radius: var(--radius); 
-            box-shadow: var(--shadow-hover);
-            margin-bottom: 2rem;
-            border: 2px solid var(--highlight);
-        }
-
-        #faq-search { 
-            width: 100%; 
-            padding: 1.2rem; 
-            border: 3px solid #ddd; 
-            border-radius: var(--radius); 
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        #faq-search:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(0,180,216,0.1);
-        }
-
-        /* FAQ CARDS */
-        .faq-item { 
-            border-bottom: 2px solid #f0f0f0; 
-            padding: 1.5rem 0;
-            transition: all 0.3s;
-            background: rgba(0,0,0,0.02);
-            border-radius: var(--radius);
-            margin-bottom: 1rem;
-            padding: 1.5rem;
-        }
-
-        .faq-item:hover {
-            background: rgba(0,180,216,0.05);
-            transform: translateX(5px);
-        }
-
-        .faq-q { 
-            font-weight: 700; 
-            cursor: pointer; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            font-size: 1.1rem;
-            color: var(--primary);
-            transition: color 0.3s;
-        }
-
+        .btn-outline { background: transparent; border: 2px solid var(--secondary); color: var(--secondary); box-shadow: none; }
+        .btn-outline:hover { background: var(--secondary); color: white; }
+        .btn-success { background: linear-gradient(135deg, var(--success), #04b97f); box-shadow: 0 4px 15px rgba(6,214,160,0.4); }
+        .btn-warning { background: linear-gradient(135deg, var(--warning), #ffb703); color: #1a1a2e; box-shadow: 0 4px 15px rgba(255,209,102,0.4); }
+        .btn-purple { background: linear-gradient(135deg, var(--purple), #7b2cbf); box-shadow: 0 4px 15px rgba(157,78,221,0.4); }
+        .btn-danger { background: linear-gradient(135deg, var(--danger), #c1121f); }
+        
+        /* CARDS */
+        .feature-card { background: linear-gradient(135deg, var(--card), #f8f9fa); border: 2px solid rgba(0,180,216,0.2); border-radius: var(--radius); padding: 1.8rem; transition: all 0.3s; position: relative; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: var(--radius) var(--radius) 0 0; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--accent); }
+        .price-tag { font-size: 2.2rem; font-weight: 800; color: var(--success); margin: 0.5rem 0; }
+        
+        /* TABS */
+        .tabs { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; flex-wrap: wrap; background: rgba(0,0,0,0.03); padding: 0.5rem; border-radius: var(--radius); }
+        .tab { padding: 0.7rem 1.3rem; background: var(--card); border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s; border: 2px solid transparent; box-shadow: 0 2px 8px rgba(0,0,0,0.05); font-size: 0.95rem; }
+        .tab:hover { transform: translateY(-2px); }
+        .tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: var(--accent); box-shadow: 0 4px 15px rgba(15,76,117,0.3); }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* SEARCH */
+        #search-container { position: sticky; top: 135px; z-index: 90; background: var(--card); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 2rem; border: 2px solid var(--highlight); }
+        #faq-search { width: 100%; padding: 1rem; border: 3px solid #ddd; border-radius: var(--radius); font-size: 1.05rem; }
+        #faq-search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0,180,216,0.1); }
+        
+        /* FAQ */
+        .faq-item { border-bottom: 2px solid #f0f0f0; padding: 1.5rem; margin-bottom: 1rem; background: rgba(0,0,0,0.02); border-radius: var(--radius); transition: all 0.3s; }
+        .faq-item:hover { background: rgba(0,180,216,0.05); transform: translateX(5px); }
+        .faq-q { font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; color: var(--primary); gap: 1rem; }
         .faq-q:hover { color: var(--accent); }
-
-        .faq-a { 
-            max-height: 0; 
-            overflow: hidden; 
-            transition: max-height 0.5s ease, padding 0.3s;
-            color: var(--text-light);
-            margin-top: 0;
-            padding: 0 0.5rem;
-            line-height: 1.8;
-        }
-
-        .faq-a.open { 
-            max-height: 2000px;
-            padding: 1rem 0.5rem 0;
-            margin-top: 1rem;
-            border-top: 2px solid var(--highlight);
-        }
-
-        .faq-cat { 
-            font-size: 0.75rem; 
-            color: var(--accent); 
-            margin-bottom: 0.5rem; 
-            font-weight: 700; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* TABS PREMIUM */
-        .tabs { 
-            display: flex; 
-            gap: 0.8rem; 
-            margin-bottom: 2rem; 
-            flex-wrap: wrap;
-            background: rgba(0,0,0,0.03);
-            padding: 0.5rem;
-            border-radius: var(--radius);
-        }
-
-        .tab { 
-            padding: 0.8rem 1.5rem; 
-            background: var(--card);
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .tab:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .tab.active { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 4px 15px rgba(15,76,117,0.3);
-        }
-
-        .tab-content { 
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-
-        .tab-content.active { 
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* PROGRESS BAR ANIMADA */
-        .progress-container {
-            margin: 2rem 0;
-            background: rgba(0,0,0,0.05);
-            padding: 1.5rem;
-            border-radius: var(--radius);
-        }
-
-        .progress-bar { 
-            height: 12px; 
-            background: #e0e0e0; 
-            border-radius: 10px; 
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .progress-fill { 
-            height: 100%; 
-            background: linear-gradient(90deg, var(--success), var(--accent), var(--secondary));
-            width: 0%; 
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* CHECKLIST PREMIUM */
-        .checklist-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 1rem; 
-            padding: 1.2rem; 
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            margin-bottom: 0.8rem; 
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .checklist-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .checklist-item.checked {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            border-color: var(--success);
-        }
-
-        .checklist-item input[type="checkbox"] {
-            width: 24px; 
-            height: 24px;
-            cursor: pointer;
-            accent-color: var(--success);
-        }
-
-        /* CARDS ESPECIALES */
-        .feature-card {
-            background: linear-gradient(135deg, var(--card), #f8f9fa);
-            border: 2px solid rgba(0,180,216,0.2);
-            border-radius: var(--radius);
-            padding: 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent);
-        }
-
-        .feature-card h3 {
-            margin-top: 0;
-        }
-
-        /* BADGES Y LOGROS */
-        .badge-container {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-
-        .badge {
-            background: linear-gradient(135deg, var(--warning), #ffb703);
-            color: #1a1a2e;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            box-shadow: 0 4px 12px rgba(255,209,102,0.4);
-            opacity: 0.5;
-            transition: all 0.3s;
-        }
-
-        .badge.earned {
-            opacity: 1;
-            animation: badgePop 0.6s;
-        }
-
-        @keyframes badgePop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* FLOATING BUTTONS */
-        .fab-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 1000;
-        }
-
-        .fab {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(15,76,117,0.4);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fab:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 6px 30px rgba(15,76,117,0.6);
-        }
-
-        /* TOAST NOTIFICATIONS */
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: var(--card);
-            color: var(--text);
-            padding: 1rem 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-hover);
-            border-left: 5px solid var(--success);
-            transform: translateX(400px);
-            transition: transform 0.3s;
-            z-index: 2000;
-            font-weight: 600;
-        }
-
-        .toast.show {
-            transform: translateX(0);
-        }
-
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.3s; color: var(--text-light); margin-top: 0; padding: 0 0.5rem; line-height: 1.8; }
+        .faq-a.open { max-height: 4000px; padding: 1rem 0.5rem 0; margin-top: 1rem; border-top: 2px solid var(--highlight); }
+        .faq-cat { font-size: 0.7rem; color: var(--accent); margin-bottom: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* PROGRESS */
+        .progress-container { margin: 2rem 0; background: rgba(0,0,0,0.05); padding: 1.5rem; border-radius: var(--radius); }
+        .progress-bar { height: 12px; background: #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--success), var(--accent), var(--secondary)); width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 10px; position: relative; }
+        .progress-fill::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: shimmer 2s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        
+        /* CHECKLIST */
+        .checklist-item { display: flex; align-items: center; gap: 1rem; padding: 1.2rem; background: linear-gradient(135deg, #f8f9fa, #e9ecef); margin-bottom: 0.8rem; border-radius: var(--radius); cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+        .checklist-item:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .checklist-item.checked { background: linear-gradient(135deg, #d4edda, #c3e6cb); border-color: var(--success); }
+        .checklist-item input[type="checkbox"] { width: 24px; height: 24px; cursor: pointer; accent-color: var(--success); }
+        
+        /* BADGES */
+        .badge-container { display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 1.5rem 0; }
+        .badge { background: linear-gradient(135deg, var(--warning), #ffb703); color: #1a1a2e; padding: 0.6rem 1.2rem; border-radius: 25px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; box-shadow: 0 4px 12px rgba(255,209,102,0.4); opacity: 0.5; transition: all 0.3s; }
+        .badge.earned { opacity: 1; animation: badgePop 0.6s; }
+        @keyframes badgePop { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        
+        /* FLOATING */
+        .fab-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 0.8rem; z-index: 1000; }
+        .fab { width: 56px; height: 56px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 20px rgba(15,76,117,0.4); transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .fab:hover { transform: scale(1.1) rotate(5deg); }
+        
+        /* TOAST */
+        .toast { position: fixed; bottom: 90px; right: 25px; background: var(--card); color: var(--text); padding: 1rem 1.8rem; border-radius: var(--radius); box-shadow: var(--shadow-hover); border-left: 5px solid var(--success); transform: translateX(400px); transition: transform 0.3s; z-index: 2000; font-weight: 600; }
+        .toast.show { transform: translateX(0); }
+        
+        /* CONFETTI */
+        .confetti { position: fixed; width: 8px; height: 8px; animation: confetti-fall 3s linear forwards; z-index: 3000; pointer-events: none; }
+        @keyframes confetti-fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            section { padding: 1.5rem; }
+            h1 { font-size: 1.6rem; } section { padding: 1.5rem; }
+            .header-stats { display: none; } nav { top: 68px; }
+            #search-container { top: 125px; }
             .grid { grid-template-columns: 1fr; }
-            .header-stats { display: none; }
-            nav { top: 80px; }
-            #search-container { top: 150px; }
-        }
-
-        /* UTILS */
-        .highlight {
-            background: linear-gradient(120deg, var(--highlight) 0%, var(--highlight) 100%);
-            background-repeat: no-repeat;
-            background-size: 100% 40%;
-            background-position: 0 88%;
-            padding: 0 4px;
-            font-weight: 600;
-        }
-
-        .copy-btn { 
-            margin-left: 10px; 
-            font-size: 0.85rem; 
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: var(--card);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        .comparison-table th {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-weight: 700;
-        }
-
-        .comparison-table tr:hover {
-            background: rgba(0,180,216,0.05);
-        }
-
-        .price-tag {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--success);
-            display: block;
-            margin: 0.5rem 0;
-        }
-
-        .strikethrough {
-            text-decoration: line-through;
-            color: var(--text-light);
-            font-size: 1.2rem;
-        }
-
-        /* LOADING ANIMATION */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 8px;
-            height: 20px;
-            margin: 0.5rem 0;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* CONFETTI */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            position: absolute;
-            animation: confetti-fall 3s linear forwards;
-            z-index: 3000;
-        }
-
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
     </style>
 </head>
@@ -736,59 +152,50 @@
             <div class="stat-badge">💰 Ticket: <strong>$9k-$15k</strong></div>
             <div class="stat-badge">📊 Progreso: <strong id="header-progress">0%</strong></div>
         </div>
-        <button class="btn btn-outline" onclick="toggleTheme()" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
-            🌓 Tema
-        </button>
+        <button class="btn btn-outline" onclick="toggleTheme()" style="padding: 0.5rem 0.8rem; font-size: 0.8rem;">🌓 Tema</button>
     </div>
 </header>
 
 <nav>
     <ul>
-        <li><a href="#dashboard" class="nav-link">🏠 Inicio</a></li>
-        <li><a href="#investigacion" class="nav-link">🔬 Investigación</a></li>
-        <li><a href="#modelo" class="nav-link">💰 Modelos</a></li>
-        <li><a href="#scripts" class="nav-link">🗣️ Guiones</a></li>
-        <li><a href="#faq" class="nav-link">❓ FAQ 100</a></li>
-        <li><a href="#calculadora" class="nav-link">🧮 Calculadora</a></li>
-        <li><a href="#checklist" class="nav-link">✅ Checklist</a></li>
-        <li><a href="#logros" class="nav-link">🏆 Logros</a></li>
+        <li><a href="#dashboard">🏠 Inicio</a></li>
+        <li><a href="#investigacion">🔬 Investigación</a></li>
+        <li><a href="#modelo">💰 Modelos</a></li>
+        <li><a href="#scripts">🗣️ Guiones</a></li>
+        <li><a href="#faq">❓ FAQ 100</a></li>
+        <li><a href="#calculadora">🧮 Calculadora</a></li>
+        <li><a href="#checklist">✅ Checklist</a></li>
+        <li><a href="#logros">🏆 Logros</a></li>
     </ul>
 </nav>
 
 <main>
     <!-- DASHBOARD -->
     <section id="dashboard">
-        <h1>🚀 Bienvenido al Sistema de Ventas Inteligente</h1>
-        <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 2rem;">
-            <strong>Posicionamiento:</strong> No vendemos software. Vendemos <em>psicodiagnóstico escolar resuelto</em>.
-        </p>
-        
+        <h1>🚀 Manual de Ventas & Capacitación Comercial</h1>
+        <p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 1.5rem;"><strong>Posicionamiento:</strong> No vendemos software. Vendemos <em>psicodiagnóstico escolar resuelto</em>.</p>
         <div class="grid">
             <div class="feature-card" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
                 <h3>📊 Modelo Híbrido</h3>
-                <div class="price-tag">$9.000 <span style="font-size: 1rem; color: var(--text-light);">/ screening</span></div>
-                <p>Evaluación domiciliaria + reportes automáticos + plataforma de seguimiento institucional</p>
-                <div class="price-tag" style="color: var(--primary);">$15.000 <span style="font-size: 1rem; color: var(--text-light);">/ diagnóstico clínico</span></div>
-                <p>Todo lo anterior + entrevistas médicas/psicológicas + informe firmado/sellado + validez obra social</p>
+                <div class="price-tag">$9.000</div>
+                <p>Screening automático + reportes + plataforma de seguimiento institucional</p>
+                <div class="price-tag" style="color: var(--primary);">$15.000</div>
+                <p>Diagnóstico clínico completo + entrevista + informe firmado + validez obra social</p>
             </div>
-            
             <div class="feature-card" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9);">
                 <h3>🎯 Objetivo 30 Días</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid #c8e6c9;">🏫 <strong>40 escuelas</strong> cerradas</li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid #c8e6c9;">👥 <strong>12.000+ alumnos</strong> evaluados</li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid #c8e6c9;">📈 <strong>≥35%</strong> conversión a $15k</li>
-                    <li style="padding: 0.5rem 0;">💵 <strong>$60M - $120M ARS</strong> proyectados</li>
+                <ul style="list-style:none; padding:0;">
+                    <li style="padding:0.4rem 0; border-bottom:1px solid #c8e6c9;">🏫 <strong>40 escuelas</strong> cerradas</li>
+                    <li style="padding:0.4rem 0; border-bottom:1px solid #c8e6c9;">👥 <strong>12.000+ alumnos</strong> evaluados</li>
+                    <li style="padding:0.4rem 0; border-bottom:1px solid #c8e6c9;">📈 <strong>≥35%</strong> conversión a $15k</li>
+                    <li style="padding:0.4rem 0;">💵 <strong>$60M - $120M ARS</strong> proyectados</li>
                 </ul>
             </div>
         </div>
-
-        <div style="margin-top: 2rem; text-align: center; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-            <button class="btn btn-success" onclick="startQuiz()">🎮 Modo Quiz Interactivo</button>
-            <button class="btn btn-purple" onclick="toggleMode()">🔄 Modo Estudio Flashcards</button>
-            <button class="btn btn-warning" onclick="exportProgress()">📥 Exportar Progreso</button>
+        <div style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap;">
+            <button class="btn btn-success" onclick="toggleMode()">🔄 Modo Estudio</button>
+            <button class="btn btn-purple" onclick="exportProgress()">📥 Exportar Progreso</button>
         </div>
-
         <div class="badge-container" id="badges">
             <div class="badge" id="badge-1">🌟 Primeros Pasos</div>
             <div class="badge" id="badge-2">📚 Estudiante Dedicado</div>
@@ -801,210 +208,94 @@
     <!-- INVESTIGACIÓN -->
     <section id="investigacion">
         <h2>🔬 Resumen de Investigación (Respuesta Rápida)</h2>
-        <p style="background: var(--highlight); padding: 1rem; border-radius: var(--radius); border-left: 5px solid var(--primary);">
-            <em>💡 Úsalo cuando te pregunten: "¿Qué base científica tiene esto?" o "¿Quién lo validó?"</em>
-        </p>
-        
         <div class="grid">
             <div class="feature-card">
                 <h3>📊 Datos Clave</h3>
-                <ul style="list-style: none;">
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;"><strong>Muestra:</strong> N=1.200 casos (2017-2025)</li>
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;"><strong>Método:</strong> Observación conductual en entornos naturales</li>
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;"><strong>Métrica:</strong> Coeficiente de Correlación Intraclase (ICC)</li>
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;"><strong>Control de Impulsos:</strong> <span style="color: var(--success); font-weight: 700;">ICC=0.79</span></li>
-                    <li style="padding: 0.6rem 0;"><strong>Atención Sostenida:</strong> <span style="color: var(--success); font-weight: 700;">ICC=0.74</span></li>
-                </ul>
+                <p>N=1.200 casos (2017-2025) | Observación en entornos naturales | ICC ≥ 0.74 | Validez ecológica superior a tests de consultorio</p>
             </div>
-            
             <div class="feature-card">
                 <h3>🛡️ Marco Ético & Legal</h3>
-                <ul style="list-style: none;">
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;">✅ Aprobación CEI-2025-089</li>
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;">✅ Declaración de Helsinki</li>
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;">✅ Ley 25.326 (Protección de Datos)</li>
-                    <li style="padding: 0.6rem 0; border-bottom: 1px solid #eee;">✅ Whitepaper CC BY-NC 4.0</li>
-                    <li style="padding: 0.6rem 0;">✅ Validación humana obligatoria</li>
-                </ul>
+                <p>CEI-2025-089 | Ley 25.326 | Whitepaper CC BY-NC 4.0 | Validación humana obligatoria en cada informe</p>
             </div>
         </div>
-
-        <div style="margin-top: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 2rem; border-radius: var(--radius);">
-            <h3 style="color: white; border-bottom-color: rgba(255,255,255,0.5);">🗣️ Frase de 20 segundos (Copiar y Usar)</h3>
-            <p id="frase-investigacion" style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">
-                "8 años de investigación, 1.200 casos evaluados en entornos naturales, concordancia interjueces >0.74, metodología pública y validada por comité de ética. Cada informe es firmado por médicos y psicólogos con matrícula vigente. Tecnología potencia criterio clínico, no lo reemplaza."
-            </p>
-            <button class="btn btn-outline copy-btn" onclick="copyText('frase-investigacion', this)" style="background: white; color: var(--primary);">
-                📋 Copiar Frase
-            </button>
+        <div style="margin-top:1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color:white; padding:1.5rem; border-radius:var(--radius);">
+            <p id="frase-investigacion" style="font-style:italic; margin-bottom:1rem;">"8 años de investigación, 1.200 casos evaluados en entornos naturales, concordancia interjueces >0.74, metodología pública y validada por comité de ética. Cada informe es firmado por médicos y psicólogos con matrícula vigente. Tecnología potencia criterio clínico, no lo reemplaza."</p>
+            <button class="btn btn-outline" onclick="copyText('frase-investigacion', this)" style="background:white; color:var(--primary); border:none; padding:0.5rem 1rem;">📋 Copiar Frase</button>
         </div>
     </section>
 
     <!-- MODELO -->
     <section id="modelo">
-        <h2>💰 Modelo Comercial & Flujo Operativo</h2>
-        
+        <h2>💰 Modelo Comercial & Flujo</h2>
         <div class="grid">
-            <div style="border: 3px solid #ccc; padding: 2rem; border-radius: var(--radius); position: relative; background: #f8f9fa;">
-                <span class="tag" style="position: absolute; top: -12px; left: 20px; background: #6c757d;">NIVEL 1</span>
-                <h3 style="margin-top: 0.5rem;">🟢 Screening</h3>
-                <div class="price-tag">$9.000</div>
-                <ul style="list-style: none; margin-top: 1rem;">
-                    <li style="padding: 0.5rem 0;">✅ Evaluación domiciliaria (20-30 min)</li>
-                    <li style="padding: 0.5rem 0;">✅ Tutor obligatorio presente</li>
-                    <li style="padding: 0.5rem 0;">✅ Reporte automatizado familia + escuela</li>
-                    <li style="padding: 0.5rem 0;">✅ Software de seguimiento institucional</li>
-                    <li style="padding: 0.5rem 0;">✅ Guía básica para docentes</li>
-                </ul>
+            <div class="feature-card" style="background:#f8f9fa;">
+                <h3>🟢 Nivel 1: Screening ($9.000)</h3>
+                <p>Evaluación domiciliaria + tutor presente + reportes automáticos + dashboard escolar + guía básica docente</p>
             </div>
-            
-            <div style="border: 3px solid var(--primary); padding: 2rem; border-radius: var(--radius); position: relative; background: linear-gradient(135deg, #e3f2fd, #bbdefb); box-shadow: 0 8px 30px rgba(15,76,117,0.2);">
-                <span class="tag" style="position: absolute; top: -12px; left: 20px; background: var(--success);">RECOMENDADO</span>
-                <h3 style="margin-top: 0.5rem;">🔵 Diagnóstico Clínico</h3>
-                <div class="price-tag" style="color: var(--primary);">$15.000</div>
-                <ul style="list-style: none; margin-top: 1rem;">
-                    <li style="padding: 0.5rem 0;">✅ Todo lo del Nivel 1 +</li>
-                    <li style="padding: 0.5rem 0;">✅ Entrevista clínica online (15-20 min)</li>
-                    <li style="padding: 0.5rem 0;">✅ Informe médico/psicológico firmado y sellado</li>
-                    <li style="padding: 0.5rem 0;">✅ Códigos CIE-11/DSM-5 → Válido obras sociales</li>
-                    <li style="padding: 0.5rem 0;">✅ Guía pedagógica extendida por alumno</li>
-                    <li style="padding: 0.5rem 0;">✅ Acompañamiento en derivación</li>
-                    <li style="padding: 0.5rem 0;">✅ Reevaluación 90 días incluida</li>
-                </ul>
+            <div class="feature-card" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-color: var(--primary);">
+                <h3>🔵 Nivel 2: Diagnóstico Clínico ($15.000)</h3>
+                <p>Todo lo anterior + entrevista clínica + informe firmado/sellado + CIE-11/DSM-5 + guía extendida + reevaluación 90 días</p>
             </div>
         </div>
-
-        <h3 style="margin-top: 2.5rem;">🔄 Flujo Operativo Paso a Paso</h3>
-        <div style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 2rem; border-radius: var(--radius);">
-            <ol style="list-style: none; counter-reset: step-counter;">
-                <li style="counter-increment: step-counter; margin-bottom: 1.5rem; padding-left: 4rem; position: relative;">
-                    <span style="position: absolute; left: 0; top: 0; background: var(--primary); color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</span>
-                    <strong>Activación institucional:</strong> Firma de acuerdo simple, carga de nómina escolar, generación de enlaces únicos (48hs)
-                </li>
-                <li style="counter-increment: step-counter; margin-bottom: 1.5rem; padding-left: 4rem; position: relative;">
-                    <span style="position: absolute; left: 0; top: 0; background: var(--secondary); color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">2</span>
-                    <strong>Comunicación a familias:</strong> La escuela envía el link con instrucciones claras: evaluación desde el hogar, tutor obligatorio
-                </li>
-                <li style="counter-increment: step-counter; margin-bottom: 1.5rem; padding-left: 4rem; position: relative;">
-                    <span style="position: absolute; left: 0; top: 0; background: var(--accent); color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</span>
-                    <strong>Evaluación:</strong> El niño interactúa 20-30 min. Algoritmo registra tiempos, patrones, regulación emocional
-                </li>
-                <li style="counter-increment: step-counter; margin-bottom: 1.5rem; padding-left: 4rem; position: relative;">
-                    <span style="position: absolute; left: 0; top: 0; background: var(--success); color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">4</span>
-                    <strong>Entrega Nivel 1 ($9k):</strong> En 48hs, familia y escuela reciben reportes + acceso plataforma
-                </li>
-                <li style="counter-increment: step-counter; padding-left: 4rem; position: relative;">
-                    <span style="position: absolute; left: 0; top: 0; background: var(--purple); color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">5</span>
-                    <strong>Activación Nivel 2 ($15k):</strong> Entrevista clínica → validación → informe firmado + guía extendida en 72hs
-                </li>
-            </ol>
-        </div>
+        <h3 style="margin-top:1.5rem;">🔄 Flujo Operativo</h3>
+        <ol style="padding-left:1.2rem; line-height:1.8;">
+            <li><strong>Activación:</strong> Acuerdo 1 página + carga de alumnos + links personalizados (48hs)</li>
+            <li><strong>Evaluación:</strong> Niño interactúa 20-30 min en hogar con tutor</li>
+            <li><strong>Entrega $9k:</strong> Reportes automáticos + plataforma</li>
+            <li><strong>Activación $15k:</strong> Entrevista → validación clínica → informe firmado + guía extendida en 72hs</li>
+        </ol>
     </section>
 
     <!-- SCRIPTS -->
     <section id="scripts">
         <h2>🗣️ Guiones de Apertura por Perfil</h2>
-        
         <div class="tabs">
-            <div class="tab active" data-tab="director">👔 Director</div>
-            <div class="tab" data-tab="gabinete">🧠 Gabinete</div>
-            <div class="tab" data-tab="familia">👨‍‍👧 Familia</div>
+            <div class="tab active" onclick="openTab('director')">👔 Director</div>
+            <div class="tab" onclick="openTab('gabinete')">🧠 Gabinete</div>
+            <div class="tab" onclick="openTab('familia')">👨‍👩‍👧 Familia</div>
         </div>
-        
         <div id="director" class="tab-content active">
-            <div style="background: #f8f9fa; padding: 2rem; border-radius: var(--radius); border-left: 5px solid var(--primary);">
-                <p style="font-size: 1.1rem; line-height: 1.8; font-style: italic;">
-                    "Director/a, hoy detectar tempranamente TDAH, TEA o dificultades emocionales requiere que las familias inviertan más de $150.000, con listas de espera y traslados. WineBOX resuelve el psicodiagnóstico escolar completo dentro de su institución. Por $9.000, el niño se evalúa desde su hogar, usted recibe reportes automáticos y una plataforma de seguimiento. Si alguna familia necesita validez clínica, por $15.000 emitimos informes médicos y psicológicos firmados, aptos para obras sociales, y entregamos a sus docentes una guía detallada sobre cómo actuar con cada alumno. Sin que la escuela asuma responsabilidad diagnóstica."
-                </p>
+            <div style="background:#f8f9fa; padding:1.5rem; border-radius:var(--radius); border-left:5px solid var(--primary); font-style:italic;">
+                "Director/a, hoy detectar tempranamente TDAH, TEA o dificultades emocionales requiere que las familias inviertan más de $150.000, con listas de espera y traslados. WineBOX resuelve el psicodiagnóstico escolar completo dentro de su institución. Por $9.000, el niño se evalúa desde su hogar, usted recibe reportes automáticos y una plataforma de seguimiento. Si alguna familia necesita validez clínica, por $15.000 emitimos informes médicos y psicológicos firmados, aptos para obras sociales, y entregamos a sus docentes una guía detallada sobre cómo actuar con cada alumno. Sin que la escuela asuma responsabilidad diagnóstica."
             </div>
-            <button class="btn btn-outline copy-btn" onclick="copyTabText('director', this)" style="margin-top: 1rem;">📋 Copiar Guión</button>
+            <button class="btn btn-outline copy-btn" onclick="copyText('director', this)" style="margin-top:0.8rem;">📋 Copiar</button>
         </div>
-
         <div id="gabinete" class="tab-content">
-            <div style="background: #f8f9fa; padding: 2rem; border-radius: var(--radius); border-left: 5px solid var(--accent);">
-                <p style="font-size: 1.1rem; line-height: 1.8; font-style: italic;">
-                    "Colega, WineBOX no reemplaza su criterio: le da observación sistemática con validez ecológica superior. El screening ($9.000) prioriza casos con datos objetivos. Cuando una familia requiere diagnóstico, nuestro equipo clínico realiza entrevistas, valida y emite informes firmados ($15.000). Además, entregamos a los docentes pautas concretas de manejo en el aula. Usted gana tiempo y precisión; nosotros resolvemos la carga clínica y legal."
-                </p>
+            <div style="background:#f8f9fa; padding:1.5rem; border-radius:var(--radius); border-left:5px solid var(--accent); font-style:italic;">
+                "Colega, WineBOX no reemplaza su criterio: le da observación sistemática con validez ecológica superior. El screening ($9.000) prioriza casos con datos objetivos. Cuando una familia requiere diagnóstico, nuestro equipo clínico realiza entrevistas, valida y emite informes firmados ($15.000). Además, entregamos a los docentes pautas concretas de manejo en el aula. Usted gana tiempo y precisión; nosotros resolvemos la carga clínica y legal."
             </div>
-            <button class="btn btn-outline copy-btn" onclick="copyTabText('gabinete', this)" style="margin-top: 1rem;">📋 Copiar Guión</button>
+            <button class="btn btn-outline copy-btn" onclick="copyText('gabinete', this)" style="margin-top:0.8rem;">📋 Copiar</button>
         </div>
-
         <div id="familia" class="tab-content">
-            <div style="background: #f8f9fa; padding: 2rem; border-radius: var(--radius); border-left: 5px solid var(--success);">
-                <p style="font-size: 1.1rem; line-height: 1.8; font-style: italic;">
-                    "¿Sabía que un psicodiagnóstico privado supera los $150.000 y demora semanas? WineBOX evalúa a su hijo desde su hogar, con usted presente, por una fracción de ese costo. Con el screening ($9.000) recibe un reporte claro de patrones conductuales. Si necesita un documento oficial, por $15.000 nuestro equipo médico y psicológico lo entrevista, valida los resultados y emite un informe firmado y sellado, válido para su obra social. La escuela recibe además una guía personalizada para que los docentes sepan exactamente cómo acompañarlo."
-                </p>
+            <div style="background:#f8f9fa; padding:1.5rem; border-radius:var(--radius); border-left:5px solid var(--success); font-style:italic;">
+                "¿Sabía que un psicodiagnóstico privado supera los $150.000 y demora semanas? WineBOX evalúa a su hijo desde su hogar, con usted presente, por una fracción de ese costo. Con el screening ($9.000) recibe un reporte claro de patrones conductuales. Si necesita un documento oficial, por $15.000 nuestro equipo médico y psicológico lo entrevista, valida los resultados y emite un informe firmado y sellado, válido para su obra social. La escuela recibe además una guía personalizada para que los docentes sepan exactamente cómo acompañarlo."
             </div>
-            <button class="btn btn-outline copy-btn" onclick="copyTabText('familia', this)" style="margin-top: 1rem;">📋 Copiar Guión</button>
+            <button class="btn btn-outline copy-btn" onclick="copyText('familia', this)" style="margin-top:0.8rem;">📋 Copiar</button>
         </div>
     </section>
 
     <!-- CALCULADORA -->
     <section id="calculadora">
         <h2>🧮 Calculadora de Comisiones y Proyecciones</h2>
-        
         <div class="grid">
             <div class="feature-card">
-                <h3>💵 Calculadora de Ingresos</h3>
-                <div style="margin: 1rem 0;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Número de Escuelas:</label>
-                    <input type="number" id="calc-escuelas" value="40" min="1" max="100" style="width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" oninput="calcularIngresos()">
-                </div>
-                <div style="margin: 1rem 0;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Alumnos por Escuela:</label>
-                    <input type="number" id="calc-alumnos" value="400" min="50" max="2000" style="width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" oninput="calcularIngresos()">
-                </div>
-                <div style="margin: 1rem 0;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Conversión a $15k (%):</label>
-                    <input type="number" id="calc-conversion" value="35" min="0" max="100" style="width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" oninput="calcularIngresos()">
-                </div>
-                
-                <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, var(--success), #04b97f); color: white; border-radius: var(--radius);">
-                    <h3 style="color: white; margin: 0;">Ingreso Total Proyectado</h3>
-                    <div style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;" id="resultado-ingreso">$0</div>
-                    <div style="font-size: 0.9rem; opacity: 0.9;">
-                        Screening: <span id="resultado-screening">$0</span><br>
-                        Diagnóstico: <span id="resultado-diagnostico">$0</span>
-                    </div>
+                <div style="margin:1rem 0;"><label style="display:block; margin-bottom:0.5rem; font-weight:600;">Número de Escuelas:</label><input type="number" id="calc-escuelas" value="40" min="1" max="100" style="width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:8px; font-size:1rem;" oninput="calcularIngresos()"></div>
+                <div style="margin:1rem 0;"><label style="display:block; margin-bottom:0.5rem; font-weight:600;">Alumnos por Escuela:</label><input type="number" id="calc-alumnos" value="400" min="50" max="2000" style="width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:8px; font-size:1rem;" oninput="calcularIngresos()"></div>
+                <div style="margin:1rem 0;"><label style="display:block; margin-bottom:0.5rem; font-weight:600;">Conversión a $15k (%):</label><input type="number" id="calc-conversion" value="35" min="0" max="100" style="width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:8px; font-size:1rem;" oninput="calcularIngresos()"></div>
+                <div style="margin-top:1.5rem; padding:1.2rem; background: linear-gradient(135deg, var(--success), #04b97f); color:white; border-radius:var(--radius); text-align:center;">
+                    <h3 style="color:white; margin:0;">Ingreso Total Proyectado</h3>
+                    <div style="font-size:2.2rem; font-weight:800; margin:0.8rem 0;" id="resultado-ingreso">$0</div>
+                    <div style="font-size:0.9rem; opacity:0.9;">Screening: <span id="resultado-screening">$0</span> | Diagnóstico: <span id="resultado-diagnostico">$0</span></div>
                 </div>
             </div>
-
             <div class="feature-card">
                 <h3>📊 Comparativa de Valor</h3>
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Concepto</th>
-                            <th>Mercado</th>
-                            <th>WineBOX</th>
-                            <th>Ahorro</th>
-                        </tr>
-                    </thead>
+                <table style="width:100%; border-collapse:collapse; margin:1rem 0;">
+                    <thead><tr><th style="background:var(--primary); color:white; padding:0.8rem; text-align:left;">Concepto</th><th style="background:var(--primary); color:white; padding:0.8rem;">Mercado</th><th style="background:var(--primary); color:white; padding:0.8rem;">WineBOX</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td>Psicodiagnóstico</td>
-                            <td class="strikethrough">$150.000</td>
-                            <td style="color: var(--success); font-weight: 700;">$15.000</td>
-                            <td style="color: var(--success);">90%</td>
-                        </tr>
-                        <tr>
-                            <td>Tiempo entrega</td>
-                            <td>2-6 semanas</td>
-                            <td style="color: var(--success); font-weight: 700;">48-72hs</td>
-                            <td style="color: var(--success);">95% más rápido</td>
-                        </tr>
-                        <tr>
-                            <td>Traslados</td>
-                            <td>Obligatorios</td>
-                            <td style="color: var(--success); font-weight: 700;">Desde hogar</td>
-                            <td style="color: var(--success);">$0 transporte</td>
-                        </tr>
-                        <tr>
-                            <td>Lista de espera</td>
-                            <td>Semanas</td>
-                            <td style="color: var(--success); font-weight: 700;">Inmediata</td>
-                            <td style="color: var(--success);">100%</td>
-                        </tr>
+                        <tr><td style="padding:0.8rem; border-bottom:1px solid #eee;">Costo</td><td style="text-align:center; text-decoration:line-through; color:var(--text-light);">$150.000</td><td style="text-align:center; color:var(--success); font-weight:700;">$15.000</td></tr>
+                        <tr><td style="padding:0.8rem; border-bottom:1px solid #eee;">Tiempo</td><td style="text-align:center;">2-6 semanas</td><td style="text-align:center; color:var(--success); font-weight:700;">48-72hs</td></tr>
+                        <tr><td style="padding:0.8rem;">Contexto</td><td style="text-align:center;">Consultorio</td><td style="text-align:center; color:var(--success); font-weight:700;">Hogar natural</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1013,36 +304,28 @@
 
     <!-- FAQ -->
     <section id="faq">
-        <h2>❓ 100 Preguntas & Respuestas (Acceso Rápido)</h2>
-        
+        <h2>❓ 100 Preguntas & Respuestas</h2>
         <div id="search-container">
-            <input type="text" id="faq-search" placeholder="🔍 Buscar por palabra clave, categoría o número de pregunta...">
-            <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <span class="tag" onclick="filterCat('all')" style="background: var(--primary);">Todas</span>
-                <span class="tag" onclick="filterCat('precio')">💰 Precios</span>
-                <span class="tag" onclick="filterCat('proceso')">🏠 Proceso</span>
-                <span class="tag" onclick="filterCat('clinico')">📄 Clínico</span>
-                <span class="tag" onclick="filterCat('software')">💻 Software</span>
-                <span class="tag" onclick="filterCat('cientifico')">🔬 Científico</span>
-                <span class="tag" onclick="filterCat('legal')">🔒 Legal</span>
-                <span class="tag" onclick="filterCat('docente')">👨‍ Docente</span>
-                <span class="tag" onclick="filterCat('pagos')">💳 Pagos</span>
-                <span class="tag" onclick="filterCat('objeciones')">🚨 Objeciones</span>
-                <span class="tag" onclick="filterCat('cierre')">🎯 Cierre</span>
+            <input type="text" id="faq-search" placeholder="🔍 Buscar palabra clave, categoría o número...">
+            <div style="margin-top:0.8rem; display:flex; gap:0.4rem; flex-wrap:wrap;">
+                <span class="tag" onclick="filterCat('all')" style="background:var(--primary);">Todas</span>
+                <span class="tag" onclick="filterCat('precio')">💰</span>
+                <span class="tag" onclick="filterCat('proceso')">🏠</span>
+                <span class="tag" onclick="filterCat('clinico')">📄</span>
+                <span class="tag" onclick="filterCat('software')">💻</span>
+                <span class="tag" onclick="filterCat('cientifico')">🔬</span>
+                <span class="tag" onclick="filterCat('legal')">🔒</span>
+                <span class="tag" onclick="filterCat('docente')">👨‍🏫</span>
+                <span class="tag" onclick="filterCat('pagos')">💳</span>
+                <span class="tag" onclick="filterCat('objeciones')">🚨</span>
+                <span class="tag" onclick="filterCat('cierre')">🎯</span>
             </div>
         </div>
-
         <div id="faq-list"></div>
-        
         <div class="progress-container">
-            <h3 style="margin-top: 0;">📊 Tu Progreso de Estudio</h3>
-            <div class="progress-bar">
-                <div class="progress-fill" id="faq-progress"></div>
-            </div>
-            <p style="text-align: center; margin-top: 0.5rem; font-weight: 600; color: var(--text-light);">
-                Estudiadas: <span id="progress-text" style="color: var(--primary); font-size: 1.2rem;">0/100</span> 
-                (<span id="progress-percent">0%</span>)
-            </p>
+            <h3 style="margin:0 0 0.5rem;">📊 Progreso de Estudio</h3>
+            <div class="progress-bar"><div class="progress-fill" id="faq-progress"></div></div>
+            <p style="text-align:center; margin-top:0.5rem; font-weight:600; color:var(--text-light);">Estudiadas: <span id="progress-text" style="color:var(--primary);">0/100</span></p>
         </div>
     </section>
 
@@ -1050,8 +333,8 @@
     <section id="checklist">
         <h2>✅ Checklist Operativo del Vendedor</h2>
         <div id="checklist-container"></div>
-        <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <button class="btn btn-success" onclick="clearChecklist()">🗑️ Reiniciar Lista</button>
+        <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <button class="btn btn-danger" onclick="clearChecklist()">🗑️ Reiniciar Lista</button>
             <button class="btn btn-outline" onclick="exportChecklist()">📥 Exportar Checklist</button>
         </div>
     </section>
@@ -1059,527 +342,457 @@
     <!-- LOGROS -->
     <section id="logros">
         <h2>🏆 Sistema de Logros y Gamificación</h2>
-        <p>Completa actividades para desbloquear insignias y subir de nivel</p>
-        
         <div class="grid">
-            <div class="feature-card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">🌟</div>
-                <h3>Primeros Pasos</h3>
-                <p>Completa tu primera lectura del manual</p>
-                <div class="progress-bar" style="margin: 1rem 0;">
-                    <div class="progress-fill" id="badge-1-progress" style="width: 0%"></div>
-                </div>
+            <div class="feature-card" style="text-align:center;">
+                <div style="font-size:3rem; margin-bottom:1rem;">🌟</div><h3>Primeros Pasos</h3>
+                <p>Completa tu primera lectura</p>
+                <div class="progress-bar" style="margin:0.8rem 0;"><div class="progress-fill" id="badge-1-progress" style="width:0%"></div></div>
             </div>
-            
-            <div class="feature-card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">📚</div>
-                <h3>Estudiante Dedicado</h3>
-                <p>Estudia 25 preguntas del FAQ</p>
-                <div class="progress-bar" style="margin: 1rem 0;">
-                    <div class="progress-fill" id="badge-2-progress" style="width: 0%"></div>
-                </div>
+            <div class="feature-card" style="text-align:center;">
+                <div style="font-size:3rem; margin-bottom:1rem;">📚</div><h3>Estudiante Dedicado</h3>
+                <p>Estudia 25 preguntas</p>
+                <div class="progress-bar" style="margin:0.8rem 0;"><div class="progress-fill" id="badge-2-progress" style="width:0%"></div></div>
             </div>
-            
-            <div class="feature-card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">🎯</div>
-                <h3>Objetivo Claro</h3>
-                <p>Usa la calculadora de proyecciones</p>
-                <div class="progress-bar" style="margin: 1rem 0;">
-                    <div class="progress-fill" id="badge-3-progress" style="width: 0%"></div>
-                </div>
+            <div class="feature-card" style="text-align:center;">
+                <div style="font-size:3rem; margin-bottom:1rem;">🎯</div><h3>Objetivo Claro</h3>
+                <p>Usa la calculadora</p>
+                <div class="progress-bar" style="margin:0.8rem 0;"><div class="progress-fill" id="badge-3-progress" style="width:0%"></div></div>
             </div>
-            
-            <div class="feature-card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">🔥</div>
-                <h3>Racha de 7 Días</h3>
-                <p>Accede 7 días consecutivos</p>
-                <div class="progress-bar" style="margin: 1rem 0;">
-                    <div class="progress-fill" id="badge-4-progress" style="width: 0%"></div>
-                </div>
+            <div class="feature-card" style="text-align:center;">
+                <div style="font-size:3rem; margin-bottom:1rem;">🔥</div><h3>Racha de 7 días</h3>
+                <p>Accede 7 días seguidos</p>
+                <div class="progress-bar" style="margin:0.8rem 0;"><div class="progress-fill" id="badge-4-progress" style="width:0%"></div></div>
             </div>
-            
-            <div class="feature-card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">💎</div>
-                <h3>Experto WineBOX</h3>
-                <p>Completa el 100% del manual</p>
-                <div class="progress-bar" style="margin: 1rem 0;">
-                    <div class="progress-fill" id="badge-5-progress" style="width: 0%"></div>
-                </div>
+            <div class="feature-card" style="text-align:center;">
+                <div style="font-size:3rem; margin-bottom:1rem;">💎</div><h3>Experto WineBOX</h3>
+                <p>Completa el 100%</p>
+                <div class="progress-bar" style="margin:0.8rem 0;"><div class="progress-fill" id="badge-5-progress" style="width:0%"></div></div>
             </div>
         </div>
     </section>
 </main>
 
-<!-- FLOATING BUTTONS -->
+<!-- FLOATING -->
 <div class="fab-container">
-    <button class="fab" onclick="scrollToTop()" title="Ir arriba">⬆️</button>
-    <button class="fab" onclick="toggleTheme()" title="Cambiar tema">🌓</button>
-    <button class="fab" onclick="document.getElementById('faq-search').focus()" title="Buscar" style="background: linear-gradient(135deg, var(--accent), var(--secondary));">🔍</button>
+    <button class="fab" onclick="scrollToTop()">⬆️</button>
+    <button class="fab" onclick="toggleTheme()">🌓</button>
+    <button class="fab" onclick="document.getElementById('faq-search').focus()" style="background: linear-gradient(135deg, var(--accent), var(--secondary));">🔍</button>
 </div>
 
-<!-- TOAST NOTIFICATION -->
+<!-- TOAST -->
 <div id="toast" class="toast"></div>
 
 <script>
-    // DATA COMPLETA DE 100 PREGUNTAS
-    const faqs = [
-        {c:"precio", q:"1. ¿Cuál es la diferencia exacta entre $9.000 y $15.000?", a:"$9k: Screening automatizado + reportes + plataforma de seguimiento. $15k: Incluye todo lo anterior + entrevistas médicas/psicológicas + informe firmado/sellado con matrícula + validez obras sociales + guía pedagógica extendida + reevaluación 90 días."},
-        {c:"precio", q:"2. ¿Por qué el precio es por alumno y no por escuela?", a:"Porque el valor se genera por evaluación individualizada, procesamiento de datos, reportes personalizados y, en nivel clínico, dedicación profesional humana. Garantiza trazabilidad, privacidad y escalabilidad sin comprometer calidad."},
-        {c:"precio", q:"3. ¿Puede la escuela pagar solo screening y las familias el diagnóstico?", a:"Sí. Es el modelo ideal. La escuela facilita/contrata $9k. Las familias que requieran validez clínica contratan upgrade a $15k directamente. Sin obligatoriedad."},
-        {c:"precio", q:"4. ¿Hay descuentos por volumen?", a:"Precios base fijos para sostener servicio clínico. Para >500 alumnos o multisede, se ofrecen bonificaciones en capacitación, informes agregados y prioridad de entrega sin alterar valor por evaluación."},
-        {c:"precio", q:"5. ¿Incluye impuestos?", a:"Valores netos. Se factura con IVA según condición fiscal. Para escuelas públicas/exentas, se gestiona documentación tributaria correspondiente."},
-        {c:"precio", q:"6. ¿Qué pasa si paga $9k y luego quiere $15k?", a:"Abona diferencia ($6k). No repite evaluación. Se agenda entrevista sobre base ya procesada. Transición inmediata."},
-        {c:"precio", q:"7. ¿Se puede pagar en cuotas?", a:"Sí. Tarjetas (hasta 3 sin interés), transferencia o billeteras digitales. Pago previo a activación."},
-        {c:"precio", q:"8. ¿Incluye reevaluación?", a:"$9k: Reevaluación con costo adicional institucional. $15k: Primera reevaluación a 90 días incluida. Adicionales con descuento."},
-        {c:"precio", q:"9. ¿Pueden contratar solo un curso?", a:"Sí. Se genera paquete por nivel/división. Software se activa solo para alumnos incluidos."},
-        {c:"precio", q:"10. ¿$15k es competitivo vs mercado?", a:"Extremadamente. Mercado: $150k-$240k + demoras. WineBOX: mismo respaldo clínico, validez legal, entorno natural y 72hs por fracción del costo."},
-        {c:"proceso", q:"11. ¿Por qué en el hogar y no en la escuela?", a:"Validez ecológica superior: entorno natural, menos ansiedad, sin presión de aula, datos más predictivos. Elimina traslados y coordina con disponibilidad familiar."},
-        {c:"proceso", q:"12. ¿Es obligatorio el tutor presente?", a:"Sí, protocolo no negociable. Garantiza contención, supervisión de entorno y validez conductual. Si se ausenta, se pausa y reprograma."},
-        {c:"proceso", q:"13. ¿Qué dispositivo se necesita?", a:"Cualquier smartphone, tablet o PC con navegador moderno. Sin instalación. Solo conexión estable. Se adapta automáticamente."},
-        {c:"proceso", q:"14. ¿Cuánto tarda?", a:"20-30 min. Puede dividirse en 2 bloques de 15 min si hay fatiga. Guarda progreso automáticamente."},
-        {c:"proceso", q:"15. ¿Qué pasa si se corta internet?", a:"Almacena localmente temporal. Sincroniza al restablecer. No pierde datos ni reinicia. Guía reanudación."},
-        {c:"proceso", q:"16. ¿Puede ser en cualquier horario?", a:"Sí. La familia elige momento de descanso, sin distracciones. Sin turnos fijos."},
-        {c:"proceso", q:"17. ¿Qué tipo de juegos usa?", a:"Tareas interactivas de baja fidelidad visual para medir funciones ejecutivas, atención, impulsividad y regulación. Sin animaciones distractores ni sonidos estridentes."},
-        {c:"proceso", q:"18. ¿Si el niño se niega a jugar?", a:"Registra evitación e inactividad como datos válidos. No penaliza. Contextualiza en validación clínica. Puede reprogramar."},
-        {c:"proceso", q:"19. ¿El niño sabe que lo evalúan?", a:"No se indica como 'test'. Se presenta como actividad lúdica. Reduce ansiedad y reactividad, permitiendo conducta natural."},
-        {c:"proceso", q:"20. ¿Pueden evaluarse hermanos juntos?", a:"Sí, links únicos e independientes. Recomendado en espacios separados para mantener concentración."},
-        {c:"clinico", q:"21. ¿El informe $9k tiene validez legal?", a:"No. Es reporte de observación y orientación pedagógica. Sin firma, códigos diagnósticos ni validez sanitaria/educativa formal."},
-        {c:"clinico", q:"22. ¿Qué incluye el informe $15k?", a:"Encabezado, metodología, resultados por dominio, hipótesis validadas, conclusión provisional (CIE-11/DSM-5), recomendaciones, firma y matrícula médica/psicológica, sello institucional."},
-        {c:"clinico", q:"23. ¿Las obras sociales lo aceptan?", a:"Sí. Cumple requisitos técnicos exigidos. Tasa de aceptación >90% en principales prepagas y sistemas públicos."},
-        {c:"clinico", q:"24. ¿Si la obra social rechaza?", a:"Revisión gratuita, carta técnica de respaldo, acompañamiento en gestión. Derivación a red de convenio si es necesario."},
-        {c:"clinico", q:"25. ¿Da diagnóstico definitivo?", a:"No. Establece 'hipótesis clínicas con nivel de confianza'. Recomienda confirmación integral si se requiere intervención prolongada. Ética y normativamente correcto."},
-        {c:"clinico", q:"26. ¿Quién firma?", a:"Médico especialista (neurodesarrollo/psiquiatría) + Psicólogo clínico. Matrículas vigentes. Validación digital con sello de tiempo."},
-        {c:"clinico", q:"27. ¿Sirve para solicitar apoyos escolares?", a:"Sí. Lenguaje técnico-pedagógico reconocido por equipos de orientación y ministerios para gestionar adecuaciones o integración."},
-        {c:"clinico", q:"28. ¿Es confidencial?", a:"Absolutamente. Enlace encriptado, acceso por contraseña única. Cumple Ley 25.326."},
-        {c:"clinico", q:"29. ¿Físico y digital?", a:"Sí. Digital seguro + PDF imprimible con marca de agua y sello. Envío postal opcional con costo."},
-        {c:"clinico", q:"30. ¿Puede solicitarse años después?", a:"Sí. Archivo seguro 5 años. Acceso con verificación de identidad. Reemisión digital gratuita."},
-        {c:"software", q:"31. ¿Qué es el software secundario?", a:"Plataforma web institucional para métricas agregadas, reevaluaciones, curvas de progreso, alertas tempranas y reportes por curso. Sin datos clínicos sensibles."},
-        {c:"software", q:"32. ¿Accede la escuela a informes individuales?", a:"Solo con $15k y consentimiento explícito de la familia para compartir guía pedagógica. Informe clínico permanece bajo custodia familiar."},
-        {c:"software", q:"33. ¿El gabinete puede priorizar casos?", a:"Sí. Dashboard permite filtrar por indicadores de atención/impulsividad. Facilita triage sin reemplazar observación directa."},
-        {c:"software", q:"34. ¿Requiere instalación?", a:"No. 100% web. Sin servidores locales ni personal de TI. Soporte WineBOX gestiona infraestructura."},
-        {c:"software", q:"35. ¿Cambio de administrador?", a:"Se reasigna en panel en 24hs. Vinculado a correos institucionales, no personales."},
-        {c:"software", q:"36. ¿Límite de uso?", a:"Licencia por ciclo lectivo. Reevaluaciones ilimitadas, historiales y reportes. Renovación anual con 30 días preaviso."},
-        {c:"software", q:"37. ¿Docentes acceden?", a:"Con permisos de 'visualización pedagógica'. Solo guías y recomendaciones, sin datos crudos ni clínicos."},
-        {c:"software", q:"38. ¿Métricas del dashboard?", a:"Porcentajes por dominio, tendencias, alertas recurrentes, comparativas trimestrales, sugerencias grupales. Anonimizado."},
-        {c:"software", q:"39. ¿Compatible con otros sistemas?", a:"Exporta CSV/PDF compatible con Alexia, Educativa, Moodle, etc. API disponible para IT avanzado."},
-        {c:"software", q:"40. ¿Si cancelan licencia?", a:"Preaviso 30 días. Datos exportados o anonimizados. Sin penalidades. Cierre en fecha vencimiento."},
-        {c:"cientifico", q:"41. ¿Quién desarrolla el algoritmo?", a:"Neuropsicólogo con 8 años de investigación en entornos naturales. Validación clínica por equipo médico/psicológico certificado."},
-        {c:"cientifico", q:"42. ¿Estudios que respaldan?", a:"N=1.200 (2017-2025). ICC ≥ 0.74. Whitepaper CC BY-NC 4.0 público."},
-        {c:"cientifico", q:"43. ¿Reemplaza al profesional?", a:"No. Genera hipótesis. Decisión clínica, informe y validación son 100% humanas. Tecnología = observación sistemática."},
-        {c:"cientifico", q:"44. ¿Formación equipo clínico?", a:"Médicos especialistas infantojuveniles, psicólogos clínicos con formación neuropsicológica. Matrículas vigentes."},
-        {c:"cientifico", q:"45. ¿Objetividad en validación?", a:"Revisión por 2 profesionales independientes. Discrepancia → tercer revisor senior. Protocolo estricto."},
-        {c:"cientifico", q:"46. ¿Auditorías externas?", a:"Sí. Metodología y protocolos publicados. Invitación a comités de ética y universidades."},
-        {c:"cientifico", q:"47. ¿Casos complejos urgentes?", a:"Sistema prioriza indicadores alto riesgo. Contacto <24hs, informe urgente y derivación especializada."},
-        {c:"cientifico", q:"48. ¿Certificación sanitaria?", a:"Marco ético/normativo vigente. En proceso de certificación SaMD ante organismos regulatorios."},
-        {c:"cientifico", q:"49. ¿Sesgos culturales?", a:"Estímulos culturalmente neutros. Entrevista contextualiza entorno. Algoritmo no penaliza diferencias."},
-        {c:"cientifico", q:"50. ¿Actualización algorítmica?", a:"Sí. Datos agregados anónimos con consentimiento alimentan mejora continua. Revisiones anuales públicas."},
-        {c:"legal", q:"51. ¿Qué datos recopila?", a:"Tiempos de respuesta, secuencias, errores, micro-pausas, tolerancia frustración. Sin grabar audio/video. Solo metadatos conductuales."},
-        {c:"legal", q:"52. ¿Dónde se almacena?", a:"Servidores ISO 27001, encriptación AES-256/TLS 1.3. Acceso restringido MFA. Backups redundantes."},
-        {c:"legal", q:"53. ¿Eliminar datos?", a:"Sí. Solicitud formal → eliminación 72hs. Informe clínico archivado 5 años por ley. Sin costo."},
-        {c:"legal", q:"54. ¿Comparte con terceros?", a:"Nunca. Cero venta/licencia a aseguradoras o marketing. Flujo estricto y directo."},
-        {c:"legal", q:"55. ¿Consentimiento informado?", a:"Formulario digital previo. Explicación clara, usos, derechos, revocabilidad. Registro fecha/IP."},
-        {c:"legal", q:"56. ¿Tutor no es padre legal?", a:"Requiere documentación tutoría o autorización expresa. Sin ello, no inicia evaluación. Normativa menores."},
-        {c:"legal", q:"57. ¿Uso publicitario escuela?", a:"No. Solo con autorización escrita y anonimizada. Prohibido por contrato y ética."},
-        {c:"legal", q:"58. ¿Filtración de datos?", a:"Protocolo <2hs: aislamiento, notificación, auditoría forense, compensación Ley 25.326. Seguro cibernético vigente."},
-        {c:"legal", q:"59. ¿Investigación académica?", a:"Solo con consentimiento explícito, anonimización y aprobación comité ético. Revocable en cualquier momento."},
-        {c:"legal", q:"60. ¿Verificar identidad tutor?", a:"Validación cruzada DNI, correo, código único. Trámites legales: firma digital o presencial."},
-        {c:"docente", q:"61. ¿Recibe docente con $15k?", a:"Guía extendida por alumno: perfil aula, estrategias manejo, adaptaciones, comunicación familia, señales alerta, agrupamiento."},
-        {c:"docente", q:"62. ¿Confidencialidad guías?", a:"Sí. Uso interno institucional. Solo info relevante al rol. Enfoque inclusivo, no estigmatizante."},
-        {c:"docente", q:"63. ¿Sirve para adecuaciones?", a:"Sí. Terminología pedagógica reconocida. Facilita gestión sin pericias adicionales iniciales."},
-        {c:"docente", q:"64. ¿Ayuda en tiempo real?", a:"No. Es consulta y planificación. Docente revisa, implementa y registra observaciones para cruzar con reevaluaciones."},
-        {c:"docente", q:"65. ¿Docente no está de acuerdo?", a:"Flexibilidad profesional. Guías orientativas, no prescriptivas. Canal consulta clínica para ajustar."},
-        {c:"docente", q:"66. ¿Capacitación docente?", a:"Sesión 60 min virtual + material descargable + videotutoriales 24/7."},
-        {c:"docente", q:"67. ¿Guías estáticas?", a:"Se actualizan tras reevaluación. Sistema notifica nueva versión."},
-        {c:"docente", q:"68. ¿Reunión con equipo clínico?", a:"Sí, vía plataforma. Sesiones 15 min ajustar estrategias por caso/curso."},
-        {c:"docente", q:"69. ¿Reemplaza observación docente?", a:"No. Potencia. Docente mantiene rol central. WineBOX aporta datos sistemáticos comparativos."},
-        {c:"docente", q:"70. ¿Cambio de docente/curso?", a:"Guía se transfiere automáticamente. Historial estrategias mantenido. Acceso gestionado por coordinador."},
-        {c:"pagos", q:"71. ¿Quién paga?", a:"Flexible. Escuela $9k institucional o familias $15k directo. Modelo mixto con subsidios posibles."},
-        {c:"pagos", q:"72. ¿Gestión cobro familias?", a:"Link seguro email/WhatsApp. Escuela no interviene en transacción. Cero carga administrativa."},
-        {c:"pagos", q:"73. ¿Factura por evaluación?", a:"Sí. Factura electrónica por alumno, nivel, fecha, responsable. Escuelas: factura consolidada."},
-        {c:"pagos", q:"74. ¿No paga tras informe?", a:"Acceso bloqueado hasta regularizar. Flujo previo a entrega. Evita conflictos."},
-        {c:"pagos", q:"75. ¿Pago a 30/60 días escuela?", a:"Solo con historial/convenio. Orden compra/resolución. Servicio post acreditación."},
-        {c:"pagos", q:"76. ¿Costos ocultos?", a:"No. Incluye todo lo descrito. Soporte técnico/clínico ciclo lectivo sin cargo."},
-        {c:"pagos", q:"77. ¿Reembolso?", a:"No iniciado: 100%. Entregado: revisión gratuita si disconformidad válida. Política clara en T&C."},
-        {c:"pagos", q:"78. ¿Reintegro obra social a WineBOX?", a:"No. Gestión familia-sistema salud. WineBOX entrega documentación y asesora."},
-        {c:"pagos", q:"79. ¿Cheques/giros?", a:"Solo instituciones públicas/convenios. Validación previa. Activación post acreditación."},
-        {c:"pagos", q:"80. ¿Auditar facturación?", a:"Panel administrativo: alumnos, niveles, pagos, estados. Exportable Excel/PDF."},
-        {c:"objeciones", q:"81. 'Ya tenemos gabinete, ¿para qué esto?'", a:"Gabinete insustituible para intervención. WineBOX resuelve saturación: screening prioriza, diagnóstico libera carga. Entregamos guías prácticas que gabinete no tiene tiempo de redactar por alumno."},
-        {c:"objeciones", q:"82. 'No confío en software evaluando'", a:"Software observa patrones naturales. Evaluación clínica la realizan médicos/psicólogos que entrevistan, validan y firman. Metodología pública. Caja transparente."},
-        {c:"objeciones", q:"83. '$15k es mucho para bajos recursos'", a:"90% menos que mercado. Ofrecemos subsidios cruzados, financiación directa y priorización derivación red pública si obra social no cubre."},
-        {c:"objeciones", q:"84. '¿Informe incorrecto/falso positivo?'", a:"Doble validación + entrevista contextual. <7% falsos positivos. Informe aclara hipótesis provisional. Revisión tercer senior si persiste discrepancia."},
-        {c:"objeciones", q:"85. 'No quiero etiquetar a mi hijo'", a:"Informe orienta, no etiqueta. Lenguaje provisional, enfatiza fortalezas. Guía centrada en apoyo. Control familiar/institucional/clínico."},
-        {c:"objeciones", q:"86. 'Escuela sin buena internet'", a:"Evaluación domiciliaria usa conexión familiar. Si requiere aula, funciona con 2 Mbps y cache local."},
-        {c:"objeciones", q:"87. 'Tests online no sirvieron'", a:"Tests miden rendimiento artificial. WineBOX observa conducta espontánea natural + validación humana + entrevistas + guías. Sistema clínico integral."},
-        {c:"objeciones", q:"88. '¿Usarán datos para algo más?'", a:"Contrato vinculante, encriptación E2E, auditorías anuales, zero-sharing. Eliminación disponible en cualquier momento."},
-        {c:"objeciones", q:"89. 'Hijo TEA, pantalla genera crisis'", a:"Interfaz baja estimulación. Adaptable. Entrevista contextualiza. Si inviable, sugiere alternativas o deriva presencial sin cargo."},
-        {c:"objeciones", q:"90. 'Necesito hablar con directivo'", a:"Entendido. Envío dossier, comparativa, respaldo científico, contrato. Agendo llamada director clínico. Cupos limitados capacidad semanal."},
-        {c:"cierre", q:"91. ¿Cómo inicio proceso?", a:"Acuerdo 1 página → carga nómina → links personalizados → onboarding 30 min. Activo 48hs. Sin costo inicial."},
-        {c:"cierre", q:"92. ¿Prueba piloto?", a:"Sí. 10 alumnos gratis + acceso temporal software. Si 5 activan $15k, formalizo acuerdo con condiciones preferenciales."},
-        {c:"cierre", q:"93. ¿Tiempo cerrar escuela?", a:"3-7 días: reunión, material, dudas, firma, activación. Acelera con decision-makers claros."},
-        {c:"cierre", q:"94. ¿Métricas reportar semanal?", a:"Contactadas, reuniones, cerradas, evaluados, conversión $15k, tiempo entrega, satisfacción. Dashboard interno."},
-        {c:"cierre", q:"95. ¿Escuela cierra pero no comunica?", a:"Protocolo acompañamiento: plantillas listas, soporte consultas. Si inacción >15 días, pausa licencia."},
-        {c:"cierre", q:"96. ¿Cerrar escuelas lejanas?", a:"Sí. 100% remoto. Evaluación, entrevistas, informes, soporte online. Solo requiere conectividad."},
-        {c:"cierre", q:"97. ¿Familia denuncia problema técnico?", a:"Soporte <15 min. Si persiste, reprograma gratis, registra, notifica técnico. Compensa con reevaluación o descuento."},
-        {c:"cierre", q:"98. ¿Cómo escalar a 40 en 30 días?", a:"Priorizo >300 alumnos, perfil obra social, decisión centralizada. Referidos (2 por cierre). Urgencia real capacidad. Casos éxito testimonios."},
-        {c:"cierre", q:"99. ¿Mercado saturado/competencia?", a:"Ventaja: equipo clínico, 8 años validación, 72hs entrega, guía extendida, modelo domiciliario tutor. Competencia clona interfaz, no respaldo humano."},
-        {c:"cierre", q:"100. ¿Mensaje final vendedor?", a:"No vendes programa. Vendes tranquilidad, detección temprana que cambia trayectorias, acceso salud mental validada. Precio irrelevante si valor innegable. Cierra con autoridad clínica, precisión operativa y propósito."}
-    ];
+// ========================
+// DATA: 100 PREGUNTAS Y RESPUESTAS COMPLETAS
+// ========================
+const faqs = [
+{c:"precio", q:"1. ¿Cuál es la diferencia exacta entre $9.000 y $15.000?", a:"Imagina dos niveles de servicio diseñados para escalar según la necesidad real de cada familia. El nivel de $9.000 es nuestro Screening Institucional: una evaluación domiciliaria donde el niño interactúa con la plataforma mientras un tutor lo acompaña. El algoritmo procesa automáticamente sus patrones conductuales y genera reportes visuales claros para la familia, además de activar un dashboard de seguimiento para la escuela. Es perfecto para detección temprana y monitoreo continuo sin carga clínica. Si la familia requiere un documento con peso médico y legal, activamos el Diagnóstico Clínico a $15.000. Aquí no solo incluimos todo lo anterior, sino que nuestro equipo interviene directamente: realizamos una entrevista online de validación, contrastamos los datos con la historia clínica y el contexto familiar, y emitimos un informe firmado y sellado con matrículas vigentes. Este documento incluye códigos CIE-11/DSM-5, por lo que es válido para obras sociales, derivaciones terapéuticas y adecuaciones curriculares. Además, entregamos a la escuela una guía pedagógica extendida con estrategias específicas por alumno, y programamos una reevaluación a los 90 días para medir el progreso. En resumen: el $9k te da la lupa de observación; el $15k te da el diagnóstico, el respaldo legal y el plan de acción."},
+{c:"precio", q:"2. ¿Por qué el precio es por alumno y no por escuela?", a:"Porque el valor real se construye en la evaluación individualizada, no en el acceso genérico. Cada niño genera un procesamiento único de datos conductuales, un reporte personalizado y, en el nivel clínico, una dedicación profesional humana específica. Cobrar por alumno garantiza trazabilidad absoluta, privacidad segmentada y escalabilidad técnica sin comprometer la calidad clínica. Además, este modelo permite a las escuelas ofrecer el servicio como beneficio opcional sin asumir una carga presupuestaria fija. Es un sistema justo: la institución paga solo por lo que se usa, y las familias invierten exactamente en lo que necesitan."},
+{c:"precio", q:"3. ¿Puede la escuela pagar solo screening y las familias el diagnóstico?", a:"Absolutamente, y de hecho es el modelo que más recomendamos. La escuela puede adquirir o facilitar el acceso al nivel de $9.000 como herramienta de gestión institucional. Las familias que, tras ver los primeros resultados, requieran validez clínica o necesiten presentar documentación en su obra social, contratan directamente la upgrade a $15.000 mediante un link seguro. No existe obligatoriedad ni presión comercial. Este flujo respeta la autonomía familiar, elimina la carga administrativa para la institución y mantiene a WineBOX como el único responsable técnico y clínico de la evaluación."},
+{c:"precio", q:"4. ¿Hay descuentos por volumen?", a:"Mantenemos los precios base fijos ($9.000 y $15.000) porque sostienen directamente la infraestructura tecnológica, la validación humana continua y el soporte clínico especializado. Reducir el valor por evaluación comprometería la calidad del servicio. Sin embargo, para instituciones que superen los 500 alumnos o cierren acuerdos multisede, activamos bonificaciones estratégicas: capacitación docente adicional, informes agregados institucionales personalizados, prioridad absoluta en tiempos de entrega y acompañamiento administrativo dedicado. No bajamos el precio, pero multiplicamos el valor entregado."},
+{c:"precio", q:"5. ¿Incluye impuestos?", a:"Los valores publicados son netos. Se factura electrónicamente con IVA según la condición fiscal de cada cliente. Para escuelas públicas, cooperativas o instituciones con exenciones vigentes, gestionamos activamente la documentación tributaria correspondiente para aplicar los beneficios legales sin demoras. Nuestro equipo administrativo se encarga de toda la papelería para que la escuela solo se enfoque en la implementación pedagógica."},
+{c:"precio", q:"6. ¿Qué pasa si paga $9k y luego quiere $15k?", a:"El sistema está diseñado para ser flexible y evitar la duplicación de esfuerzos. Si una familia comienza con el screening y luego decide dar el salto al diagnóstico clínico, solo debe abonar la diferencia ($6.000). No se repite la evaluación del niño; sus datos ya están procesados y seguros en la plataforma. El equipo clínico agenda directamente la entrevista de validación sobre la base existente, analiza los resultados en contexto y emite el informe firmado. La transición es inmediata, sin fricción administrativa y con cero molestia para el alumno."},
+{c:"precio", q:"7. ¿Se puede pagar en cuotas?", a:"Sí, entendemos que la liquidez familiar e institucional es variable. Aceptamos tarjetas de crédito con hasta 3 cuotas sin interés, transferencias bancarias directas y todas las billeteras digitales habilitadas en Argentina. El pago se gestiona mediante un link seguro enviado por email o WhatsApp, y se confirma antes de activar la evaluación o la entrevista clínica. Para las escuelas que prefieren facturación corporativa, ofrecemos plazos de acreditación estándar según convenio."},
+{c:"precio", q:"8. ¿Incluye reevaluación?", a:"En el nivel de screening ($9.000), las reevaluaciones tienen un costo adicional acordado institucionalmente, ya que forman parte de un seguimiento programado independiente. En el diagnóstico clínico ($15.000), la primera reevaluación a los 90 días está incluida sin cargo. Esto es clave: nos permite medir si las estrategias pedagógicas o terapéuticas están funcionando, ajustar la guía docente si es necesario y generar una curva de progreso objetiva. Reevaluaciones adicionales se presupuestan con descuento institucional para mantener la continuidad del acompañamiento."},
+{c:"precio", q:"9. ¿Pueden contratar solo un curso?", a:"Sí. Muchas escuelas comienzan con un nivel específico (por ejemplo, 3° y 4° año) para testar la experiencia antes de escalar. Se genera un paquete por división, con enlaces únicos y el software de seguimiento se activa únicamente para los alumnos incluidos. Los datos de otros cursos permanecen completamente aislados por protocolo de privacidad. Una vez validado el impacto pedagógico, es muy común que la institución extienda la licencia a toda la primaria o secundaria en el siguiente ciclo."},
+{c:"precio", q:"10. ¿$15k es competitivo vs mercado?", a:"Extremamente, y la comparación es incluso injusta a favor nuestro si miramos el valor real. Un psicodiagnóstico privado completo ronda entre $150.000 y $240.000, implica múltiples turnos, traslados, listas de espera de semanas y, a menudo, informes con formatos desiguales. WineBOX entrega el mismo respaldo clínico, validez legal, validación humana profesional y acompañamiento familiar por una fracción del costo, con evaluación en entorno natural y entrega en 72 horas. No es que seamos baratos: es que el mercado tradicional es ineficiente, y nosotros hemos optimizado cada paso sin sacrificar rigor clínico."},
+{c:"proceso", q:"11. ¿Por qué en el hogar y no en la escuela?", a:"Porque la validez ecológica es el pilar de todo lo que hacemos. En la escuela, el niño está condicionado por la presión del aula, el ruido del recreo, la fatiga de la jornada escolar y la mirada evaluadora de pares y docentes. Eso altera la conducta y genera datos sesgados. En el hogar, en un espacio tranquilo y con su tutor presente, el niño se comporta de manera natural. Observamos cómo funciona realmente, no cómo actúa bajo estrés institucional. Además, elimina traslados, coordina con la disponibilidad familiar y democratiza el acceso: no importa si la escuela está en el centro o en la periferia, la evaluación llega donde esté el niño."},
+{c:"proceso", q:"12. ¿Es obligatorio el tutor presente?", a:"Sí, y no es una sugerencia: es un protocolo clínico no negociable. La presencia del adulto garantiza contención emocional, supervisión del entorno, registro de observaciones contextuales y validación de que el niño interactúa sin interferencias externas. Si el tutor se ausenta, la sesión se pausa automáticamente y se reprograma. Esto no es burocracia: es ética clínica y validez científica. Un niño solo frente a una pantalla no es evaluación; es entretenimiento. Con un adulto presente, se convierte en observación conductual válida."},
+{c:"proceso", q:"13. ¿Qué dispositivo se necesita?", a:"Cualquier equipo con un navegador moderno: smartphone Android o iOS, tablet de cualquier marca, o PC con Windows, Mac o Linux. No requiere instalación de aplicaciones, ni permisos especiales, ni hardware costoso. Solo necesita conexión estable a internet. El software es una WebApp que se adapta automáticamente al tamaño de pantalla, a la resolución y a la capacidad del dispositivo. Si una familia solo tiene un celular viejo, funcionará igual. Si tienen una tablet de última generación, también. La experiencia es fluida en ambos casos."},
+{c:"proceso", q:"14. ¿Cuánto tarda?", a:"Entre 20 y 30 minutos en una sola sesión, que es el tiempo óptimo para mantener la atención de un niño sin fatiga cognitiva. Si durante la interacción el sistema detecta cansancio, distracción o pérdida de foco, permite dividir la evaluación en dos bloques de 15 minutos sin perder ningún dato. El algoritmo pausa automáticamente, guarda el progreso en la nube de forma encriptada y guía al tutor para reanudar cuando el niño esté fresco. No hay prisa, ni penalizaciones por tiempo. El ritmo lo marca el niño."},
+{c:"proceso", q:"15. ¿Qué pasa si se corta internet?", a:"Nuestro equipo técnico anticipó esta realidad. El software utiliza almacenamiento local temporal (cache seguro) para guardar cada interacción en el dispositivo. Cuando la conexión se restablece, los datos se sincronizan automáticamente con nuestros servidores. No se pierde información, no se reinicia la evaluación desde cero, y el sistema notifica al tutor con instrucciones claras para reanudar. Es como un videojuego que guarda automáticamente: el progreso nunca se pierde, sin importar las condiciones de red."},
+{c:"proceso", q:"16. ¿Puede ser en cualquier horario?", a:"Sí, y esa es una ventaja estratégica enorme. La familia elige el momento que mejor se adapte a la rutina del niño, preferiblemente en un horario de descanso, sin pantallas adicionales, sin notificaciones y sin interrupciones. No hay turnos fijos, no hay listas de espera, no hay que pedir permiso en el trabajo ni adaptar la jornada escolar. La evaluación se adapta a la vida de la familia, no al revés. Esto reduce la ansiedad previa, aumenta la tasa de finalización y mejora significativamente la calidad de los datos observados."},
+{c:"proceso", q:"17. ¿Qué tipo de juegos o estímulos utiliza el software?", a:"No son \"juegos\" en el sentido recreativo. Son tareas interactivas de baja fidelidad visual, diseñadas neuropsicológicamente para medir funciones ejecutivas: atención sostenida, control de impulsos, planificación, flexibilidad cognitiva y regulación emocional. Utilizamos colores neutros, formas geométricas simples, sin animaciones distractores ni sonidos estridentes. Esta decisión es intencional: reduce la sobrecarga sensorial, especialmente en niños con TEA o sensibilidades altas, y permite que el algoritmo capture la conducta pura, no el estímulo visual. Es ciencia aplicada a la interfaz."},
+{c:"proceso", q:"18. ¿Si el niño se niega a jugar o muestra resistencia?", a:"El sistema no penaliza la no participación. Registra patrones de evitación, tiempos de inactividad, micro-interacciones y cambios en la postura de la pantalla como datos conductuales válidos. En neuropsicología, lo que un niño evita hacer es tan informativo como lo que hace. Si la resistencia es marcada, el algoritmo lo contextualiza y el equipo clínico lo considera durante la validación. Podemos sugerir una reprogramación en otro horario, ajustar el enfoque o, en casos necesarios, derivar a una evaluación presencial especializada sin cargo adicional. Nunca forzamos; siempre observamos."},
+{c:"proceso", q:"19. ¿El niño sabe que está siendo evaluado?", a:"No, y eso es fundamental para la validez ecológica. No se le indica que es un \"test\", \"examen\" o \"evaluación\". Se presenta como una actividad lúdica interactiva, una serie de retos visuales y lógicos. Esto reduce drásticamente la reactividad, la ansiedad por desempeño y el efecto \"querer agradar\". Lo que observamos es conducta espontánea, natural y no filtrada por la expectativa adulta. Es la diferencia entre ver cómo actúa un niño cuando sabe que lo miran y cómo actúa cuando simplemente está siendo él mismo."},
+{c:"proceso", q:"20. ¿Pueden evaluarse hermanos simultáneamente?", a:"Sí, cada niño accede a un link único e intransferible. El software gestiona sesiones paralelas sin interferencia técnica, manteniendo la independencia de cada base de datos. Recomendamos que cada evaluación se realice en espacios separados o en momentos distintos del día para mantener la concentración individual y evitar la influencia entre hermanos. El sistema registra automáticamente la ubicación IP y el dispositivo para garantizar la trazabilidad y evitar solapamientos accidentales."},
+{c:"clinico", q:"21. ¿El informe $9k tiene validez legal?", a:"No, y es importante ser transparentes con esto. El reporte automatizado del nivel de screening es una herramienta de observación conductual y orientación pedagógica. No contiene firma profesional, ni códigos diagnósticos internacionales, ni validez para trámites sanitarios, educativos formales o obras sociales. Está diseñado para uso interno escolar y familiar, como punto de partida. Si la familia necesita un documento con peso clínico y legal, debe activar el nivel de $15.000, donde interviene el equipo médico y se emite el informe oficial."},
+{c:"clinico", q:"22. ¿Qué incluye exactamente el informe clínico de $15.000?", a:"Es un documento estructurado con rigor clínico y formato institucional. Incluye: encabezado con datos de la evaluación, metodología observada, resultados desglosados por dominio cognitivo y emocional, hipótesis clínicas validadas por el equipo, conclusión diagnóstica provisional con códigos CIE-11 y DSM-5, recomendaciones terapéuticas y pedagógicas específicas, firma digital y matrícula vigente de un médico especialista y un psicólogo clínico, sello institucional y fecha de emisión con marca de tiempo verificable. Es un informe listo para presentar en cualquier institución de salud o educación."},
+{c:"clinico", q:"23. ¿Las obras sociales aceptan este informe sin problemas?", a:"Sí, porque cumple exactamente con los requisitos técnicos que exigen los sistemas de salud argentinos. Utiliza terminología clínica estandarizada, códigos diagnósticos reconocidos internacionalmente y respaldo profesional con matrículas vigentes. Nuestra tasa de aceptación supera el 90% en OSDE, Galeno, Swiss Medical, PAMI, IOMA, APROSS y Medifé. Las obras sociales no rechazan lo que está bien fundamentado, y nuestro informe está diseñado específicamente para cruzar sus filtros administrativos sin fricción."},
+{c:"clinico", q:"24. ¿Qué pasa si la obra social rechaza o solicita ampliación?", a:"Aunque es poco común, anticipamos el escenario. Ofrecemos revisión gratuita del informe por otro profesional senior de nuestro equipo, emisión de una carta técnica de respaldo con fundamentación clínica ampliada, y acompañamiento directo en la gestión administrativa con la obra social. En casos excepcionales donde persista el rechazo, derivamos a nuestra red de profesionales en convenio con tarifas preferenciales para que la familia no quede desasistida. No dejamos ningún caso en el aire."},
+{c:"clinico", q:"25. ¿El informe da un diagnóstico definitivo?", a:"No, y es éticamente correcto que así sea. Ningún sistema clínico, por más validado que sea, emite un diagnóstico definitivo en una sola instancia o sin evaluación integral presencial cuando hay comorbilidades complejas. El informe establece \"hipótesis clínicas con nivel de confianza\" y recomienda confirmación en contexto clínico integral si se requiere intervención prolongada. Esto protege al niño, a la familia y a los profesionales tratantes, manteniendo el rigor científico y la responsabilidad ética que la salud mental exige."},
+{c:"clinico", q:"26. ¿Quién firma el informe?", a:"Dos profesionales certificados y con matrículas vigentes: un médico especialista en neurodesarrollo, psiquiatría infantojuvenil o neurología pediátrica, y un psicólogo clínico con formación específica en evaluación neuropsicológica infantil. Ambas firmas se validan digitalmente con sello de tiempo, registro de auditoría y verificación de identidad. No es una firma automática ni un sello genérico: es responsabilidad clínica real, asumida por profesionales que revisan, debaten y validan cada caso antes de estampar su nombre."},
+{c:"clinico", q:"27. ¿Puede usarse para solicitar apoyos escolares o adecuaciones curriculares?", a:"Sí, y es uno de los usos más valiosos para las familias. El documento está redactado con lenguaje técnico-pedagógico que los equipos de orientación escolar, supervisores distritales y ministerios de educación reconocen formalmente para gestionar apoyos, adecuaciones, integración o derivación a gabinetes de inclusión. Incluye sugerencias concretas de manejo en el aula que los docentes pueden implementar de inmediato, sin necesidad de esperar pericias adicionales en primera instancia."},
+{c:"clinico", q:"28. ¿El informe es confidencial?", a:"Absolutamente. Se entrega mediante un enlace encriptado con acceso mediante contraseña única generada automáticamente. Solo el tutor legal y la institución (con consentimiento explícito y por escrito) pueden visualizarlo. Cumplimos estrictamente con la Ley 25.326 de Protección de Datos Personales y con los principios de confidencialidad médica. El informe nunca aparece en dashboards públicos, nunca se comparte con terceros y puede eliminarse a solicitud del titular sin dejar rastro."},
+{c:"clinico", q:"29. ¿Se entrega en formato físico y digital?", a:"Sí. El informe digital se envía por email seguro con enlace temporal y protección por contraseña. El formato físico (PDF imprimible con marca de agua institucional, sello de autenticidad y numeración única) se pone a disposición para trámites presenciales donde exigen documentación en papel. El costo de envío postal certificado es opcional y se gestiona directamente desde la plataforma. Ambos formatos tienen la misma validez legal y clínica."},
+{c:"clinico", q:"30. ¿Puede solicitarse una copia adicional o reimpresión años después?", a:"Sí. Los informes se archivan de forma segura y encriptada durante 5 años, cumpliendo con la normativa de conservación de historiales clínicos pediátricos. El tutor legal puede solicitar acceso en cualquier momento mediante verificación de identidad y validación del correo registrado. No se cobra por reemisión digital; el envío físico certificado tiene un costo administrativo mínimo. La trazabilidad está garantizada para toda la trayectoria escolar del niño."},
+{c:"software", q:"31. ¿Qué es exactamente el software secundario de seguimiento?", a:"Es una plataforma web exclusiva para la institución que permite visualizar métricas agregadas anonimizadas, reevaluar alumnos, comparar curvas de progreso, recibir alertas tempranas de patrones conductuales recurrentes y generar reportes por curso, nivel o dominio cognitivo. No contiene datos clínicos sensibles, ni diagnósticos, ni información personal identificable. Es un dashboard de gestión pedagógica, diseñado para que directores y coordinadores tomen decisiones basadas en datos, no en intuiciones."},
+{c:"software", q:"32. ¿La escuela puede acceder a los informes individuales de los alumnos?", a:"Solo bajo dos condiciones estrictas: que la familia haya contratado el nivel de $15.000 y que otorgue consentimiento explícito, por escrito, para compartir la guía pedagógica extendida con la institución. El informe clínico completo, con datos sensibles y validación médica, permanece bajo custodia exclusiva de la familia por normativa de privacidad sanitaria. La escuela accede a lo necesario para cumplir su rol pedagógico, nunca a lo clínico sin autorización."},
+{c:"software", q:"33. ¿Puede el gabinete psicopedagógico usar los datos para priorizar casos?", a:"Sí, y es exactamente para eso que lo diseñamos. El dashboard institucional permite filtrar por indicadores de atención sostenida, impulsividad, flexibilidad cognitiva o regulación emocional. Esto facilita un triage clínico preciso, permitiendo que el gabinete priorice a los alumnos que realmente requieren intervención profunda, en lugar de perder tiempo en observaciones subjetivas o listas de espera infinitas. Es una herramienta de eficiencia, no de reemplazo profesional."},
+{c:"software", q:"34. ¿La plataforma requiere instalación o mantenimiento técnico?", a:"No. Es 100% web, accesible desde cualquier navegador moderno sin descargas, sin actualizaciones manuales, sin servidores locales y sin necesidad de personal de TI en la escuela. Nuestro equipo gestiona la infraestructura, los backups, la seguridad y las actualizaciones de forma remota y transparente. La escuela solo necesita un usuario, una contraseña y conexión a internet. Es un servicio gestionado, no un producto que deba mantenerse."},
+{c:"software", q:"35. ¿Qué pasa si la escuela quiere cambiar de administrador o usuario?", a:"Se gestiona de forma inmediata mediante el panel de control institucional. Los permisos se reasignan en menos de 24 horas sin pérdida de datos históricos, sin interrupción del servicio y sin requerir intervención técnica compleja. El acceso se vincula a correos institucionales oficiales, no a cuentas personales, lo que garantiza continuidad administrativa incluso si hay rotación de personal directivo o técnico."},
+{c:"software", q:"36. ¿El software de seguimiento tiene límite de uso o tiempo?", a:"La licencia se activa por ciclo lectivo completo. Durante ese período, la escuela puede realizar reevaluaciones ilimitadas, consultar historiales, descargar reportes agregados y capacitar a nuevos docentes sin costos adicionales. La renovación es anual con preaviso de 30 días, y los datos históricos se mantienen intactos para permitir comparativas longitudinales. No hay límite de clics, ni de alumnos, ni de consultas. Es una herramienta de acompañamiento, no un producto de uso restringido."},
+{c:"software", q:"37. ¿Pueden los docentes acceder directamente a la plataforma?", a:"Sí, pero con permisos estrictamente segmentados. El director o coordinador asigna accesos de \"solo visualización pedagógica\". Los docentes pueden consultar las guías de aula, recomendaciones de manejo y señales de alerta, pero nunca acceden a datos conductuales crudos, ni a puntajes algorítmicos, ni a información clínica sensible. Esta segmentación protege la privacidad del alumno y evita malentendidos profesionales, manteniendo a cada actor en su rol."},
+{c:"software", q:"38. ¿Qué métricas muestra el dashboard institucional?", a:"Porcentajes de alumnos por dominio cognitivo, tendencias por curso o nivel, alertas de patrones recurrentes que requieren atención temprana, comparativas trimestrales de progreso, y sugerencias de intervención grupal basadas en datos agregados. Todo está anonimizado, visualizado en gráficos intuitivos y exportable a PDF para presentaciones institucionales o reuniones de equipo. No es una tabla de Excel aburrida; es un mapa de calor pedagógico que dice exactamente dónde mirar y por qué."},
+{c:"software", q:"39. ¿La plataforma es compatible con sistemas de gestión escolar existentes?", a:"Sí. Exporta datos en formatos CSV y PDF compatibles con las plataformas más utilizadas en Argentina, como Alexia, Educativa, Moodle, SchoolTrack o sistemas propios desarrollados por cooperativas. Para instituciones con infraestructura IT avanzada, ofrecemos integración vía API para sincronización automática de nóminas, horarios y reportes. No obligamos a la escuela a cambiar su ecosistema; nos adaptamos a él."},
+{c:"software", q:"40. ¿Qué pasa si la escuela decide cancelar la licencia de seguimiento?", a:"Se notifica con 30 días de antelación al vencimiento del ciclo. Los datos se exportan a solicitud en formato estándar o se anonimizan y eliminan permanentemente según la preferencia institucional. No hay penalidades, ni cláusulas de permanencia, ni letras chicas. El acceso se cierra en la fecha acordada sin interrupción de servicios en curso. Respetamos la autonomía de la institución y mantenemos la puerta abierta para un futuro retorno."},
+{c:"cientifico", q:"41. ¿Quién desarrolla y valida el algoritmo?", a:"El núcleo algorítmico fue diseñado por un neuropsicólogo con 8 años de investigación continua en entornos naturales, basándose en principios de psicología cognitiva y neurociencia del desarrollo. La validación clínica, sin embargo, nunca es automática: es responsabilidad directa de nuestro equipo médico y psicológico certificado, que revisa, contrasta y valida cada caso antes de emitir cualquier informe. La tecnología genera hipótesis; los profesionales las confirman. Nunca al revés."},
+{c:"cientifico", q:"42. ¿Qué estudios respaldan la metodología?", a:"Un estudio retrospectivo con N=1.200 casos evaluados entre 2017 y 2025, en entornos domiciliarios y escolares reales, no en laboratorios artificiales. La métrica clave es el Coeficiente de Correlación Intraclase (ICC), que mide qué tan consistentes son las observaciones entre distintos expertos. Obtuvimos ICC ≥ 0.74 en dominios como control de impulsos y atención sostenida, superando el umbral de 0.70 que la literatura científica considera \"concordancia buena a excelente\". El whitepaper está publicado con licencia CC BY-NC 4.0 para escrutinio abierto."},
+{c:"cientifico", q:"43. ¿El algoritmo reemplaza al profesional?", a:"No, y es importante dejarlo claro: jamás lo hará. El algoritmo es una herramienta de observación sistemática, no un juez clínico. Genera hipótesis basadas en patrones medibles, pero la decisión clínica, la redacción del informe, la contextualización familiar y la responsabilidad ética son 100% humanas. La tecnología potencia el criterio profesional, no lo sustituye. Es como un estetoscopio digital: amplifica la escucha, pero no reemplaza al médico que interpreta lo que oye."},
+{c:"cientifico", q:"44. ¿Qué formación tiene el equipo clínico interviniente?", a:"Médicos especialistas en neurodesarrollo, psiquiatría infantojuvenil o neurología pediátrica, con formación continua en evaluación clínica digital. Psicólogos clínicos con especialización en neuropsicología infantil, entrevistas de validación conductual y manejo de casos complejos. Todos poseen matrículas nacionales o provinciales vigentes, participan en capacitaciones mensuales y están supervisados por un director clínico con más de 15 años de trayectoria en salud mental infantil."},
+{c:"cientifico", q:"45. ¿Cómo se garantiza la objetividad en la validación clínica?", a:"Cada caso pasa por un proceso de doble ciego revisado por dos profesionales independientes que contrastan los datos algorítmicos con la entrevista, el contexto familiar y los criterios DSM-5/CIE-11. En caso de discrepancia significativa, se convoca a un tercer revisor senior para desempate. Este protocolo elimina el sesgo individual, asegura consistencia diagnóstica y mantiene el estándar de calidad en cada informe, sin importar el volumen de casos."},
+{c:"cientifico", q:"46. ¿Pueden auditorías externas revisar el proceso?", a:"Sí, y lo invitamos a hacerlo. La metodología, la matriz de pesos algorítmica y los protocolos de validación están publicados y disponibles para comités de ética, universidades, colegios profesionales y organismos reguladores. No ocultamos nada bajo \"secretos comerciales\". La transparencia es parte de nuestro estándar de calidad y la única forma de generar confianza real en un campo tan sensible como la salud mental infantil."},
+{c:"cientifico", q:"47. ¿Qué pasa si un caso complejo requiere derivación inmediata?", a:"El sistema está programado para detectar automáticamente indicadores de alto riesgo, como patrones sugerentes de desregulación extrema, conductas autolesivas o deterioro funcional agudo. Cuando esto ocurre, el caso se prioriza, el equipo clínico contacta a la familia en menos de 24 horas, emite un informe urgente con recomendaciones inmediatas y facilita la derivación a centros especializados o líneas de atención en crisis. Nunca dejamos un caso de riesgo en espera."},
+{c:"cientifico", q:"48. ¿El software está certificado por alguna entidad sanitaria?", a:"Opera bajo un marco ético y normativo estricto que cumple con la Declaración de Helsinki, la Ley 25.326 de Protección de Datos y las resoluciones ministeriales vigentes en salud y educación. Actualmente nos encontramos en proceso activo de certificación como Dispositivo Médico de Software (SaMD) ante organismos regulatorios nacionales. Hasta entonces, nuestro respaldo es la validación clínica humana, la auditoría independiente y la transparencia metodológica."},
+{c:"cientifico", q:"49. ¿Cómo se manejan los sesgos culturales o socioeconómicos en la evaluación?", a:"Los estímulos están diseñados para ser culturalmente neutros, basados en mecanismos cognitivos universales (atención, memoria de trabajo, inhibición) que no dependen del nivel educativo, el idioma materno o el acceso a tecnología. La entrevista clínica, por su parte, contextualiza explícitamente factores ambientales, dinámicas familiares, acceso a recursos y nivel de escolarización parental. El algoritmo no penaliza diferencias culturales ni condiciones socioeconómicas; el equipo humano sí las considera para una interpretación justa."},
+{c:"cientifico", q:"50. ¿Se actualiza el algoritmo con nuevos datos?", a:"Sí, de forma ética y anónima. Los patrones agregados, completamente desvinculados de identidades individuales y con consentimiento explícito, alimentan modelos de mejora continua que refinan la precisión, ajustan umbrales de detección y optimizan la experiencia de usuario. Las actualizaciones se publican en revisiones anuales del whitepaper y se aplican sin interrumpir el servicio. Es un sistema que aprende, pero siempre bajo supervisión humana y con límites éticos claros."},
+{c:"legal", q:"51. ¿Qué datos se recopilan durante la evaluación?", a:"Únicamente metadatos conductuales: tiempos de reacción, secuencias de interacción, patrones de error, micro-pausas, tolerancia a la frustración y preferencias de resolución de problemas. Nunca grabamos audio, nunca capturamos video del niño o del entorno, nunca accedemos a la cámara, el micrófono o archivos del dispositivo. Solo registramos cómo el niño responde a los estímulos, nada más. Es observación digital, no vigilancia."},
+{c:"legal", q:"52. ¿Dónde se almacenan los datos?", a:"En servidores con certificación ISO 27001, con encriptación AES-256 en reposo y protocolo TLS 1.3 en tránsito. El acceso está restringido exclusivamente a personal autorizado, con autenticación multifactor y registro de auditoría inmutable. Realizamos backups diarios con redundancia geográfica en dos datacenters independientes. Si un servidor falla, el otro asume sin pérdida de datos. La infraestructura está diseñada para ser resiliente, segura y auditable."},
+{c:"legal", q:"53. ¿Puede la familia solicitar la eliminación de los datos?", a:"Sí, en cualquier momento y sin costo. Mediante una solicitud formal verificada, eliminamos todos los registros conductuales vinculados al evaluado en un máximo de 72 horas hábiles. El único dato que se mantiene archivado por obligación legal es el informe clínico emitido, durante 5 años, conforme a la normativa de historiales pediátricos. La solicitud se procesa sin preguntas, sin demoras y con confirmación por escrito. La privacidad es un derecho, no un privilegio."},
+{c:"legal", q:"54. ¿Se comparten datos con terceros?", a:"Nunca. No vendemos, no licenciamos, no compartimos con aseguradoras, empresas de marketing, plataformas educativas externas ni gobiernos. El flujo es estricto y lineal: familia → WineBOX → equipo clínico → informe entregado. Cero intermediarios, cero monetización de datos, cero acuerdos ocultos. Si alguien te dice lo contrario, te está mintiendo o no ha leído nuestros términos de servicio."},
+{c:"legal", q:"55. ¿Cómo se obtiene el consentimiento informado?", a:"Mediante un formulario digital interactivo que se muestra antes de iniciar cualquier evaluación. Incluye explicación clara del propósito, datos que se recopilan, usos permitidos, derechos del titular y posibilidad de revocación en cualquier momento. Se registra fecha, hora, dirección IP y versión del documento para garantizar auditoría legal. No hay casillas pre-marcadas, ni lenguaje técnico confuso. Si el tutor no entiende, no avanza. Así de simple."},
+{c:"legal", q:"56. ¿Qué pasa si el tutor no es el padre/madre legal?", a:"Se requiere documentación que acredite la tutoría legal vigente o una autorización expresa, firmada y verificada del responsable legal registrado. Sin ello, el sistema bloquea automáticamente el inicio de la evaluación y la emisión de cualquier informe. Cumplimos estrictamente con la normativa de protección de menores y con los protocolos de consentimiento parental. No hay excepciones, ni atajos, ni \"buenas intenciones\" que superen la ley."},
+{c:"legal", q:"57. ¿Puede la escuela usar los datos para fines publicitarios o institucionales?", a:"No. Solo con autorización escrita, explícita y específica de la familia, y siempre de forma agregada y completamente anonimizada. El uso comercial, promocional o institucional sin consentimiento está prohibido por contrato, por política interna y por ley. Si una escuela quiere compartir un testimonio o un caso de éxito, nosotros gestionamos el proceso legal, redactamos el documento y obtenemos la firma. Nunca asumimos permisos tácitos."},
+{c:"legal", q:"58. ¿Qué ocurre en caso de filtración de datos?", a:"Activamos un protocolo de contingencia certificado: aislamiento inmediato del sistema comprometido, notificación a la familia y autoridades competentes en menos de 2 horas, auditoría forense externa independiente y compensación conforme a la Ley 25.326. Contamos con un seguro de responsabilidad cibernética vigente y un equipo de respuesta a incidentes 24/7. No es una pregunta de \"si pasa\", es un protocolo de \"cuándo pase, ya está resuelto\"."},
+{c:"legal", q:"59. ¿Los datos pueden usarse para investigación académica?", a:"Solo con consentimiento explícito, anonimización total verificada por comité de ética independiente y publicación bajo licencia abierta. La familia puede revocar el permiso en cualquier momento sin afectar el servicio recibido, sin penalizaciones y sin preguntas. Nunca usamos datos de niños para papers, tesis o publicaciones sin que ellos (y sus tutores) lo sepan y lo autoricen formalmente. La ciencia no justifica la violación de la privacidad."},
+{c:"legal", q:"60. ¿Cómo se verifica la identidad del tutor al solicitar informes?", a:"Mediante validación cruzada de tres factores: documento de identidad registrado, correo institucional o familiar verificado, y código de acceso único generado por el sistema. Para trámites legales o solicitudes de reemisión, se requiere firma digital certificada o validación presencial con verificación biométrica opcional. No entregamos informes clínicos por WhatsApp, ni por email sin verificar, ni a terceros sin autorización. La seguridad es innegociable."},
+{c:"docente", q:"61. ¿Qué recibe exactamente el docente con el nivel de $15.000?", a:"Una guía pedagógica extendida por alumno, redactada en lenguaje claro y aplicable. Incluye perfil de funcionamiento en el aula, estrategias concretas de manejo conductual, adaptaciones de evaluación, pautas de comunicación con la familia, señales de alerta a monitorear semanalmente y recomendaciones de agrupamiento o rutina. No es un diagnóstico médico; es un manual de bolsillo para que el docente sepa qué hacer, cómo decirlo y cuándo intervenir."},
+{c:"docente", q:"62. ¿Las guías pedagógicas son confidenciales?", a:"Sí, y están diseñadas bajo el principio de \"necesidad de saber\". El docente accede solo a la información relevante para su rol pedagógico, sin datos clínicos sensibles, sin puntuaciones algorítmicas ni etiquetas diagnósticas. Se enfatiza el enfoque inclusivo, no estigmatizante, y se prohíbe explícitamente la difusión fuera del ámbito escolar. La guía es una herramienta de apoyo, no un archivo clínico abierto."},
+{c:"docente", q:"63. ¿Pueden usarse las guías para justificar adecuaciones curriculares?", a:"Sí. El documento está redactado con terminología pedagógica reconocida por supervisores distritales, equipos de orientación escolar y ministerios de educación. Facilita la gestión de adecuaciones, exámenes diferenciados o apoyos de integración sin requerir pericias adicionales en primera instancia. Es un respaldo técnico que le da voz pedagógica al docente y validez administrativa a la institución."},
+{c:"docente", q:"64. ¿El software de seguimiento ayuda a los docentes en tiempo real?", a:"No es un sistema de monitoreo en vivo, y eso es intencional. Es una herramienta de consulta y planificación. El docente revisa las recomendaciones, marca las estrategias implementadas, registra observaciones cualitativas y cruza esa información con las reevaluaciones posteriores. No espía, no juzga, no evalúa al docente. Acompaña. La enseñanza es humana; la tecnología solo le da mejores lentes para ver."},
+{c:"docente", q:"65. ¿Qué pasa si un docente no está de acuerdo con las recomendaciones?", a:"Se fomenta explícitamente la flexibilidad profesional. Las guías son orientativas, nunca prescriptivas. El docente puede adaptarlas, modificarlas o complementarlas según su experiencia, contexto áulico y conocimiento del alumno. WineBOX ofrece un canal de consulta clínica directo para ajustar estrategias si es necesario, pero nunca impone. La autonomía pedagógica se respeta; la evidencia se comparte."},
+{c:"docente", q:"66. ¿Se capacita a los docentes en el uso de la plataforma?", a:"Sí. Incluimos una sesión virtual de 60 minutos sobre interpretación de reportes, implementación práctica de guías, registro de observaciones y manejo de alertas tempranas. El material es descargable, los videotutoriales están disponibles 24/7 y el soporte técnico responde en menos de 2 horas hábiles. No dejamos a los docentes frente a una pantalla sin brújula; los formamos para usar la herramienta con criterio."},
+{c:"docente", q:"67. ¿Las guías pedagógicas son estáticas o se actualizan?", a:"Se actualizan automáticamente tras cada reevaluación. Si el alumno muestra progresión en un dominio, la guía ajusta las estrategias. Si emergen nuevos patrones, se modifican las recomendaciones. El sistema notifica al docente cuando hay una nueva versión disponible y muestra un historial de cambios. No es un PDF estático que se imprime y se archiva; es un documento vivo que crece con el niño."},
+{c:"docente", q:"68. ¿Pueden los docentes solicitar reuniones con el equipo clínico?", a:"Sí, mediante la plataforma institucional. Se agendan sesiones breves de 15 minutos para ajustar estrategias por caso o por curso, resolver dudas específicas o coordinar abordajes con el gabinete. No reemplazan la supervisión pedagógica institucional, pero la complementan con respaldo clínico real. El docente no está solo; tiene un equipo detrás."},
+{c:"docente", q:"69. ¿El software reemplaza la observación docente?", a:"No, la potencia. El docente mantiene su rol central, su intuición pedagógica y su vínculo humano con el alumno. WineBOX aporta datos sistemáticos, comparativos y objetivos que enriquecen la mirada profesional, reducen la subjetividad en la detección temprana y evitan que casos pasen desapercibidos por falta de tiempo o sobrecarga laboral. Es un copiloto, no un conductor."},
+{c:"docente", q:"70. ¿Qué pasa si un niño cambia de docente o de curso?", a:"La guía pedagógica se transfiere automáticamente al nuevo perfil docente, manteniendo el historial de estrategias implementadas, observaciones registradas y progresos documentados. El acceso se gestiona por el coordinador institucional, garantizando continuidad pedagógica sin brechas de información. El niño no empieza de cero; la escuela sí mantiene el hilo."},
+{c:"pagos", q:"71. ¿Quién paga: la escuela o la familia?", a:"Depende del acuerdo institucional y es completamente flexible. La escuela puede cubrir el nivel de $9.000 como beneficio institucional para toda la nómina. Las familias pagan directamente la upgrade a $15.000 si desean validez clínica, mediante link seguro sin intermediarios. También es posible un modelo mixto donde la escuela subsidia casos vulnerables con fondos propios o convenios municipales. No hay una sola forma; hay la que funcione para esa comunidad."},
+{c:"pagos", q:"72. ¿Cómo se gestiona el cobro a las familias?", a:"Mediante un link de pago seguro enviado por email o WhatsApp, con opciones de tarjeta de crédito, transferencia bancaria y billeteras digitales. La escuela no interviene en la transacción, no gestiona fondos, no emite comprobantes ni asume riesgo financiero. WineBOX se encarga de toda la facturación, la conciliación y el soporte de pago. La institución solo facilita el acceso; nosotros resolvemos la administración."},
+{c:"pagos", q:"73. ¿Se emite factura por cada evaluación?", a:"Sí. Se emite factura electrónica por alumno evaluado, discriminando claramente el nivel contratado ($9.000 o $15.000), fecha de emisión, datos del responsable legal y concepto del servicio. Para escuelas que gestionan paquetes institucionales, se emite factura consolidada por lote, con detalle de alumnos incluidos y periodos de activación. Todo es transparente, auditables y cumple con las normativas de AFIP vigentes."},
+{c:"pagos", q:"74. ¿Qué pasa si una familia no paga después de recibir el informe?", a:"El acceso al informe se bloquea automáticamente hasta regularizar el pago. No se emiten documentos clínicos ni se activan entrevistas sin confirmación de transacción. Para evitar conflictos, el flujo de pago es previo a la entrega final, pero se permite una ventana de gracia de 48 horas para completar la operación. En casos excepcionales, se evalúa financiación interna o derivación a redes públicas, pero nunca se entrega valor sin contraprestación."},
+{c:"pagos", q:"75. ¿Pueden las escuelas pagar a 30 o 60 días?", a:"Solo para instituciones con historial comprobado, convenios marco firmados o resoluciones administrativas de organismos públicos. Se requiere orden de compra, factura proforma o garantía institucional verificable. El servicio se activa tras recepción del comprobante de pago o documento de compromiso oficial. No aplicamos recargos por demora administrativa, pero sí exigimos trazabilidad clara para evitar incobrables."},
+{c:"pagos", q:"76. ¿Hay costos ocultos o cargos por soporte?", a:"No. El valor incluye evaluación, procesamiento algorítmico, informes, acceso a plataforma, soporte técnico 24/7, acompañamiento clínico durante el ciclo lectivo y capacitación docente. No se cobra por consultas, por reprogramaciones menores, por asistencia administrativa ni por actualizaciones. Lo que ves es lo que pagas. Sin letra chica, sin sorpresas, sin \"módulos premium\" ocultos."},
+{c:"pagos", q:"77. ¿Qué pasa si una familia solicita reembolso?", a:"Si el servicio no se ha iniciado, reembolso 100% sin preguntas. Si ya se entregó el informe, se evalúa caso por caso: errores técnicos o fallos de plataforma justifican devolución total; disconformidad con hallazgos clínicos válidos ofrece revisión gratuita por profesional senior sin reembolso. La política está clara en los términos y condiciones, y se aplica con transparencia. No engañamos, pero tampoco asumimos responsabilidad por expectativas no contratadas."},
+{c:"pagos", q:"78. ¿Pueden las obras sociales reintegrar directamente a WineBOX?", a:"No. El reintegro o cobertura se gestiona exclusivamente entre la familia y su sistema de salud. WineBOX entrega toda la documentación requerida (informes clínicos, facturas, certificados de validación) y asesora paso a paso en el trámite, pero no intervenimos en la gestión financiera ni en los acuerdos con las aseguradoras. Mantenemos independencia clínica y administrativa para evitar conflictos de interés."},
+{c:"pagos", q:"79. ¿Se aceptan pagos con cheques o giros postales?", a:"Solo para instituciones públicas, cooperativas educativas o convenios especiales con organismos oficiales. Se requiere validación previa de la entidad, plazos de acreditación definidos por contrato y firma de responsable legal. No se aplican recargos financieros, pero el servicio se activa exclusivamente tras acreditación bancaria verificada. Es un canal minoritario, pero disponible para quienes lo necesitan."},
+{c:"pagos", q:"80. ¿Cómo se audita la facturación por parte de la escuela?", a:"Mediante un panel administrativo dedicado que muestra en tiempo real: alumnos evaluados, niveles contratados, fechas de pago, estados de entrega y facturas emitidas. Todo es exportable a Excel o PDF para conciliación contable institucional. El acceso está restringido a personal autorizado con roles definidos (director, administrador, contable). No hay información oculta; hay datos claros, organizados y listos para presentar a cualquier auditoría."},
+{c:"objeciones", q:"81. 'Ya tenemos gabinete psicopedagógico, ¿para qué necesitamos esto?'", a:"Tu gabinete es insustituible para intervención profunda, y WineBOX lo sabe. No venimos a competir, venimos a resolver el cuello de botella: la saturación. El screening de $9.000 prioriza casos con datos objetivos, ahorrando horas de observación subjetiva. Cuando una familia requiere diagnóstico, nuestro equipo clínico lo resuelve, liberando a tu gabinete de la carga evaluativa. Además, entregamos a los docentes guías prácticas por alumno que el gabinete no tiene tiempo material de redactar. Es complementariedad pura: tú intervienes, nosotros detectamos y documentamos."},
+{c:"objeciones", q:"82. 'No confío en que un software evalúe a mis alumnos'", a:"Entiendo perfectamente la desconfianza, y la comparto si se trata de algoritmos cerrados. Pero WineBOX no es una caja negra: es observación sistemática en entorno natural. El software registra patrones, no diagnósticos. La evaluación clínica la realizan médicos y psicólogos que entrevistan, validan, debaten y firman. Publicamos toda la metodología para escrutinio abierto. No es tecnología reemplazando al profesional; es tecnología dándole mejores datos para decidir mejor."},
+{c:"objeciones", q:"83. '$15.000 sigue siendo mucho para familias de bajos recursos'", a:"Comparado con los $150.000-$240.000 del mercado, es una reducción del 90%. Pero entendemos que cada peso cuenta. Por eso ofrecemos subsidios cruzados: escuelas que cierran paquetes institucionales pueden destinar fondos a becarios internos. Gestionamos financiación directa en cuotas, priorizamos derivaciones a redes públicas cuando la obra social no cubre, y nunca dejamos un caso sin atención por falta de recursos. La salud mental infantil no debería ser un lujo."},
+{c:"objeciones", q:"84. '¿Y si el informe es incorrecto o genera un falso positivo?'", a:"Cada caso pasa por doble validación clínica + entrevista contextual. Nuestra tasa de falsos positivos es inferior al 7%, y el informe siempre aclara que es hipótesis provisional, recomendando confirmación integral si se requiere intervención. Si persiste discrepancia con otro profesional, ofrecemos revisión por tercer revisor senior sin costo. No somos infalibles, pero somos rigurosos. Y ante la duda, siempre priorizamos la prudencia clínica sobre la certeza apresurada."},
+{c:"objeciones", q:"85. 'No quiero que etiqueten a mi hijo con un diagnóstico'", a:"El informe no etiqueta; orienta. Usa lenguaje técnico provisional, enfatiza fortalezas y evita reduccionismos. La guía pedagógica se centra en estrategias de apoyo, no en limitaciones. Tú decides con quién compartirlo, cuándo y cómo. El control es familiar, institucional y clínico. No imprimimos etiquetas; imprimimos mapas de ruta. Y si en algún momento sientes que el lenguaje es frío, lo revisamos juntos hasta que refleje la realidad de tu hijo, no un manual."},
+{c:"objeciones", q:"86. '¿Qué pasa si la escuela no tiene buena conexión a internet?'", a:"La evaluación domiciliaria no depende de la infraestructura escolar; usa la conexión familiar. Si la institución requiere acceso desde el aula, el software funciona con ancho de banda mínimo (2 Mbps), cache local para reanudación offline y compresión automática de datos. No exige fibra óptica ni redes dedicadas. Está diseñado para la realidad argentina, no para el laboratorio ideal."},
+{c:"objeciones", q:"87. 'Ya probamos tests online y no sirvieron'", a:"Los tests tradicionales miden rendimiento en contexto artificial: el niño sabe que lo evalúan, se esfuerza por \"acertar\" y el resultado es un puntaje frío. WineBOX observa conducta espontánea en entorno natural, con validez ecológica superior. Además, incluye validación humana, entrevistas contextuales, guías pedagógicas y acompañamiento clínico. No es un cuestionario digital; es un sistema de observación, validación y acción. La diferencia es abismal."},
+{c:"objeciones", q:"88. '¿Cómo sé que no van a usar los datos para algo más?'", a:"Contrato de confidencialidad vinculante, encriptación de extremo a extremo, auditorías externas anuales, política de zero-sharing con terceros y eliminación disponible en cualquier momento. Puedes revisar nuestros servidores, leer nuestro whitepaper y auditar nuestros flujos. La transparencia no es un marketing; es nuestra arquitectura. Si alguien te promete privacidad sin mostrarte el código, el contrato y la auditoría, te está vendiendo humo."},
+{c:"objeciones", q:"89. '¿Y si mi hijo tiene TEA y la pantalla le genera crisis?'", a:"La interfaz es de baja estimulación visual y auditiva, diseñada específicamente para reducir sobrecarga sensorial. Los estímulos son predecibles, los colores neutros, los sonidos mínimos. La entrevista clínica contextualiza respuestas y adapta el abordaje. Si la interacción resulta inviable, el equipo sugiere alternativas, ajusta el protocolo o deriva a evaluación presencial especializada sin cargo adicional. No forzamos; adaptamos. Cada neurodivergencia merece respeto, no estandarización."},
+{c:"objeciones", q:"90. 'Necesito hablar con el consejo directivo, no puedo decidir ahora'", a:"Entendido y respetado. Te envío un dossier técnico completo, comparativa de costos, respaldo científico, modelo de contrato y testimonios de instituciones similares. Agendo una llamada de 15 minutos con nuestro director clínico para resolver dudas técnicas directamente. Cupos limitados por capacidad de validación semanal. Si coordinas antes del [fecha], garantizamos implementación en 72hs + capacitación gratuita. La decisión es tuya; el soporte es nuestro."},
+{c:"cierre", q:"91. ¿Cómo inicio el proceso con una escuela?", a:"Firmamos un acuerdo institucional de 1 página, cargamos la nómina de alumnos, generamos enlaces personalizados y realizamos una reunión de onboarding de 30 minutos. En 48 horas el sistema está activo, las familias reciben instrucciones y el dashboard escolar se habilita. Sin costo inicial, sin implementación compleja, sin personal técnico dedicado. Es un encendido, no una instalación."},
+{c:"cierre", q:"92. ¿Pueden hacer una prueba piloto antes de cerrar?", a:"Sí, y es la estrategia más efectiva. Ofrecemos evaluación gratuita para 10 alumnos + acceso temporal al software de seguimiento institucional. Si al menos 5 familias activan el nivel de $15.000, formalizamos el acuerdo con condiciones preferenciales: descuento institucional, prioridad de entrega y acompañamiento dedicado. La prueba no es un regalo; es una demostración de valor medible."},
+{c:"cierre", q:"93. ¿Cuánto tiempo toma cerrar una escuela?", a:"Entre 3 y 7 días en condiciones normales: primera reunión, envío de material, resolución de dudas, firma de acuerdo y activación técnica. El ciclo se acelera drásticamente cuando hay un tomador de decisiones claro, documentación lista y urgencia institucional por detección temprana. No vendemos en meses; implementamos en semanas."},
+{c:"cierre", q:"94. ¿Qué métricas debo reportar semanalmente a dirección?", a:"Escuelas contactadas, reuniones agendadas, acuerdos cerrados, alumnos evaluados, tasa de conversión a $15.000, tiempo promedio de entrega de informes y nivel de satisfacción familiar. Todo se actualiza en el dashboard interno en tiempo real. No reportes subjetivos; datos accionables. Si no puedes medirlo, no puedes mejorarlo."},
+{c:"cierre", q:"95. ¿Cómo manejo una escuela que cierra pero no comunica a las familias?", a:"Activamos protocolo de acompañamiento inmediato: plantillas de email y WhatsApp listas para enviar, soporte para responder consultas frecuentes, y seguimiento semanal por parte del equipo comercial. Si la inacción persiste más de 15 días, pausamos la licencia institucional hasta reactivación voluntaria. No abandonamos, pero tampoco forzamos. La comunicación es un puente, no un martillo."},
+{c:"cierre", q:"96. ¿Puedo cerrar escuelas en provincias lejanas?", a:"Sí, y es una ventaja estratégica. El modelo es 100% remoto: evaluación domiciliaria, entrevistas virtuales, informes digitales y soporte online. La logística geográfica no es barrera; solo requiere conectividad básica. Ya operamos en Jujuy, Tierra del Fuego, Chaco y Mendoza sin diferencias en calidad. El software no conoce fronteras; solo necesita internet."},
+{c:"cierre", q:"97. ¿Qué hago si una familia denuncia un problema técnico durante la evaluación?", a:"Soporte prioritario por WhatsApp en menos de 15 minutos. Si persiste, reprogramamos la evaluación sin costo, registramos la incidencia, notificamos al equipo técnico senior y compensamos con reevaluación gratuita o descuento en próximo servicio. No escondemos los fallos; los resolvemos, documentamos y mejoramos. La confianza se gana cuando las cosas salen mal, no cuando salen bien."},
+{c:"cierre", q:"98. ¿Cómo escalo a 40 escuelas en 30 días?", a:"Priorizo instituciones con 300+ alumnos, perfil de familias con acceso a obra social y estructura de decisión centralizada. Uso referidos: cada escuela cerrada recomienda a 2 colegas con incentivo institucional. Genero urgencia real por capacidad clínica semanal limitada. Documento casos de éxito tempranos para testimonios verificables. No es magia; es sistema, disciplina y ejecución impecable."},
+{c:"cierre", q:"99. ¿Qué pasa si el mercado se satura o aparecen competidores?", a:"Nuestra ventaja no es la interfaz; es el equipo clínico, la validación de 8 años, la entrega en 72 horas, la guía pedagógica extendida y el modelo domiciliario con tutor presente. La competencia puede clonar un diseño, pero no puede clonar respaldo humano, trazabilidad clínica, ni la confianza de 1.200 casos validados. El software es el vehículo; el valor es el viaje."},
+{c:"cierre", q:"100. ¿Cuál es el mensaje final que debe recordar todo vendedor?", a:"No vendes un programa. Vendes tranquilidad institucional, detección temprana que cambia trayectorias de vida, y un camino claro para que las familias accedan a salud mental validada. El precio es irrelevante cuando el valor es innegable. Cierra con autoridad clínica, precisión operativa y propósito educativo. No estás vendiendo; estás resolviendo. Y cuando resuelves de verdad, el cierre no es una negociación: es un acuerdo necesario."}
+];
 
-    const checklistData = [
-        "Investigar escuela: matrícula, perfil socioeconómico, gabinete, tecnología",
-        "Preparar demo personalizada con nombre institución",
-        "Imprimir comparativa $150k vs $9k/$15k",
-        "Llevar: modelo informe clínico, whitepaper, videotutorial, contrato",
-        "Abrir reunión con frase de posicionamiento clínico",
-        "Identificar tomadores de decisión",
-        "Presentar modelo dual: $9k screening → $15k diagnóstico",
-        "Enfatizar: hogar + tutor presente + informes firmados + guías docentes",
-        "Ofrecer prueba piloto 10 alumnos sin costo",
-        "Enviar propuesta + comparativa + testimonios en <24hs",
-        "Agendar seguimiento 48hs si no hay respuesta",
-        "Coordinar onboarding 72hs si cierra",
-        "Documentar caso de éxito para referidos",
-        "Priorizar escuelas 300+ alumnos con acceso obra social",
-        "Usar referidos y crear urgencia por capacidad clínica"
-    ];
+// ========================
+// CHECKLIST DATA
+// ========================
+const checklistData = [
+    "Investigar escuela: matrícula, perfil socioeconómico, gabinete, tecnología",
+    "Preparar demo personalizada con nombre institución",
+    "Imprimir comparativa $150k vs $9k/$15k",
+    "Llevar: modelo informe clínico, whitepaper, videotutorial, contrato",
+    "Abrir reunión con frase de posicionamiento clínico",
+    "Identificar tomadores de decisión",
+    "Presentar modelo dual: $9k screening → $15k diagnóstico",
+    "Enfatizar: hogar + tutor presente + informes firmados + guías docentes",
+    "Ofrecer prueba piloto 10 alumnos sin costo",
+    "Enviar propuesta + comparativa + testimonios en <24hs",
+    "Agendar seguimiento 48hs si no hay respuesta",
+    "Coordinar onboarding 72hs si cierra",
+    "Documentar caso de éxito para referidos",
+    "Priorizar escuelas 300+ alumnos con acceso obra social",
+    "Usar referidos y crear urgencia por capacidad clínica"
+];
 
-    // STATE
-    let studied = JSON.parse(localStorage.getItem('winebox_studied') || '[]');
-    let checked = JSON.parse(localStorage.getItem('winebox_check') || '[]');
-    let currentTheme = localStorage.getItem('winebox_theme') || 'light';
-    let lastVisit = localStorage.getItem('winebox_lastvisit') || '';
-    let visitCount = parseInt(localStorage.getItem('winebox_visits') || '0');
+// ========================
+// STATE
+// ========================
+let studied = JSON.parse(localStorage.getItem('winebox_studied') || '[]');
+let checked = JSON.parse(localStorage.getItem('winebox_check') || '[]');
+let currentTheme = localStorage.getItem('winebox_theme') || 'light';
+let lastVisit = localStorage.getItem('winebox_lastvisit') || '';
+let visitCount = parseInt(localStorage.getItem('winebox_visits') || '0');
+let streak = parseInt(localStorage.getItem('winebox_streak') || '0');
 
-    // INIT
-    document.addEventListener('DOMContentLoaded', () => {
-        renderFAQ(faqs);
-        renderChecklist();
+// ========================
+// INIT
+// ========================
+document.addEventListener('DOMContentLoaded', () => {
+    renderFAQ(faqs);
+    renderChecklist();
+    updateProgress();
+    applyTheme(currentTheme);
+    trackVisit();
+    checkBadges();
+    calcularIngresos();
+    
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+            document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+            a.classList.add('active');
+        });
+    });
+});
+
+// ========================
+// RENDER FAQ
+// ========================
+function renderFAQ(data) {
+    const list = document.getElementById('faq-list');
+    list.innerHTML = '';
+    data.forEach((item) => {
+        const originalIdx = faqs.findIndex(f => f.q === item.q);
+        const isStudied = studied.includes(originalIdx);
+        const div = document.createElement('div');
+        div.className = 'faq-item';
+        div.innerHTML = `
+            <div class="faq-cat">${item.c.toUpperCase()}</div>
+            <div class="faq-q" onclick="toggleFAQ(this)">
+                <span>${item.q}</span>
+                <span class="toggle-study">${isStudied ? '✅' : '▼'}</span>
+            </div>
+            <div class="faq-a" id="ans-${originalIdx}">${item.a}</div>
+            <div style="margin-top:0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <button class="btn btn-outline" style="font-size:0.8rem; padding:0.4rem 0.8rem;" onclick="event.stopPropagation(); markStudy(${originalIdx})">
+                    ${isStudied ? '✅ Estudiado' : '📚 Marcar estudiado'}
+                </button>
+                <button class="btn btn-outline" style="font-size:0.8rem; padding:0.4rem 0.8rem;" onclick="event.stopPropagation(); copyFAQ(${originalIdx})">
+                    📋 Copiar
+                </button>
+            </div>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function toggleFAQ(el) {
+    const ans = el.nextElementSibling;
+    const icon = el.querySelector('.toggle-study');
+    ans.classList.toggle('open');
+    icon.textContent = ans.classList.contains('open') ? '▲' : '▼';
+}
+
+function filterCat(cat) {
+    const search = document.getElementById('faq-search').value.toLowerCase();
+    const filtered = faqs.filter(f => {
+        const matchCat = cat === 'all' || f.c === cat;
+        const matchSearch = !search || f.q.toLowerCase().includes(search) || f.a.toLowerCase().includes(search);
+        return matchCat && matchSearch;
+    });
+    renderFAQ(filtered);
+}
+
+document.getElementById('faq-search').addEventListener('input', () => filterCat('all'));
+
+function markStudy(idx) {
+    if(!studied.includes(idx)) {
+        studied.push(idx);
+        localStorage.setItem('winebox_studied', JSON.stringify(studied));
+        showToast('¡Pregunta marcada como estudiada! 🎉');
         updateProgress();
-        applyTheme(currentTheme);
-        trackVisit();
         checkBadges();
-        calcularIngresos();
-        
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+        renderFAQ(faqs);
+    }
+}
+
+function updateProgress() {
+    const total = faqs.length;
+    const percent = Math.round((studied.length/total)*100);
+    document.getElementById('faq-progress').style.width = `${percent}%`;
+    document.getElementById('progress-text').textContent = `${studied.length}/${total}`;
+    document.getElementById('header-progress').textContent = `${percent}%`;
+}
+
+// ========================
+// CHECKLIST
+// ========================
+function renderChecklist() {
+    const cont = document.getElementById('checklist-container');
+    cont.innerHTML = '';
+    checklistData.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = `checklist-item ${checked.includes(i) ? 'checked' : ''}`;
+        div.onclick = () => toggleCheck(i);
+        div.innerHTML = `
+            <input type="checkbox" ${checked.includes(i)?'checked':''} onclick="event.stopPropagation(); toggleCheck(${i})" style="width:24px; height:24px; cursor: pointer;">
+            <span style="${checked.includes(i)?'text-decoration:line-through; color:#aaa;':''}; flex:1;">${item}</span>
+        `;
+        cont.appendChild(div);
     });
+}
 
-    // RENDER FAQ
-    function renderFAQ(data) {
-        const list = document.getElementById('faq-list');
-        list.innerHTML = '';
-        data.forEach((item, idx) => {
-            const originalIdx = faqs.findIndex(f => f.q === item.q);
-            const isStudied = studied.includes(originalIdx);
-            const div = document.createElement('div');
-            div.className = 'faq-item';
-            div.style.opacity = isStudied ? '0.7' : '1';
-            div.innerHTML = `
-                <div class="faq-cat">${item.c.toUpperCase()}</div>
-                <div class="faq-q" onclick="toggleFAQ(this)">
-                    <span>${item.q}</span>
-                    <span class="toggle-study">${isStudied ? '✅' : '▼'}</span>
-                </div>
-                <div class="faq-a" id="ans-${originalIdx}">${item.a}</div>
-                <div style="margin-top: 0.8rem; display: flex; gap: 0.5rem;">
-                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;" onclick="markStudy(${originalIdx})">
-                        ${isStudied ? '✅ Estudiado' : '📚 Marcar estudiado'}
-                    </button>
-                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;" onclick="copyFAQ(${originalIdx})">
-                        📋 Copiar
-                    </button>
-                </div>
-            `;
-            list.appendChild(div);
-        });
-    }
+function toggleCheck(i) {
+    if(checked.includes(i)) checked = checked.filter(x => x!==i);
+    else checked.push(i);
+    localStorage.setItem('winebox_check', JSON.stringify(checked));
+    renderChecklist();
+    checkBadges();
+}
 
-    function toggleFAQ(el) {
-        const ans = el.nextElementSibling;
-        const icon = el.querySelector('.toggle-study');
-        ans.classList.toggle('open');
-        icon.textContent = ans.classList.contains('open') ? '▲' : (studied.includes(parseInt(el.parentElement.querySelector('.faq-q').textContent)) ? '✅' : '▼');
-    }
+function clearChecklist() { 
+    checked = []; 
+    localStorage.setItem('winebox_check', JSON.stringify(checked)); 
+    renderChecklist(); 
+    showToast('Checklist reiniciado'); 
+}
 
-    function filterCat(cat) {
-        const search = document.getElementById('faq-search').value.toLowerCase();
-        const filtered = faqs.filter(f => {
-            const matchCat = cat === 'all' || f.c === cat;
-            const matchSearch = !search || f.q.toLowerCase().includes(search) || f.a.toLowerCase().includes(search);
-            return matchCat && matchSearch;
-        });
-        renderFAQ(filtered);
-    }
+// ========================
+// TABS
+// ========================
+function openTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(id).classList.add('active');
+}
 
-    document.getElementById('faq-search').addEventListener('input', (e) => {
-        filterCat('all');
-    });
-
-    function markStudy(idx) {
-        if(!studied.includes(idx)) {
-            studied.push(idx);
-            localStorage.setItem('winebox_studied', JSON.stringify(studied));
-            showToast('¡Pregunta marcada como estudiada! 🎉');
-            createConfetti();
-            updateProgress();
-            checkBadges();
-            renderFAQ(faqs);
-        }
-    }
-
-    function updateProgress() {
-        const total = faqs.length;
-        const percent = Math.round((studied.length/total)*100);
-        document.getElementById('faq-progress').style.width = `${percent}%`;
-        document.getElementById('progress-text').textContent = `${studied.length}/${total}`;
-        document.getElementById('progress-percent').textContent = `${percent}%`;
-        document.getElementById('header-progress').textContent = `${percent}%`;
-        
-        // Update badge progress
-        document.getElementById('badge-2-progress').style.width = `${Math.min((studied.length/25)*100, 100)}%`;
-    }
-
-    // CHECKLIST
-    function renderChecklist() {
-        const cont = document.getElementById('checklist-container');
-        cont.innerHTML = '';
-        checklistData.forEach((item, i) => {
-            const div = document.createElement('div');
-            div.className = `checklist-item ${checked.includes(i) ? 'checked' : ''}`;
-            div.onclick = () => toggleCheck(i);
-            div.innerHTML = `
-                <input type="checkbox" ${checked.includes(i)?'checked':''} onchange="event.stopPropagation(); toggleCheck(${i})" style="width:24px; height:24px; cursor: pointer;">
-                <span style="${checked.includes(i)?'text-decoration:line-through; color:#aaa;':''} flex: 1;">${item}</span>
-            `;
-            cont.appendChild(div);
-        });
-    }
-
-    function toggleCheck(i) {
-        if(checked.includes(i)) checked = checked.filter(x => x!==i);
-        else checked.push(i);
-        localStorage.setItem('winebox_check', JSON.stringify(checked));
-        renderChecklist();
+// ========================
+// CALCULATOR
+// ========================
+function calcularIngresos() {
+    const e = parseInt(document.getElementById('calc-escuelas').value) || 0;
+    const a = parseInt(document.getElementById('calc-alumnos').value) || 0;
+    const c = parseInt(document.getElementById('calc-conversion').value) || 0;
+    const screening = e * a * 9000;
+    const diagnostico = e * a * (c/100) * 15000;
+    const total = screening + diagnostico;
+    document.getElementById('resultado-ingreso').textContent = `$${total.toLocaleString('es-AR')}`;
+    document.getElementById('resultado-screening').textContent = `$${screening.toLocaleString('es-AR')}`;
+    document.getElementById('resultado-diagnostico').textContent = `$${diagnostico.toLocaleString('es-AR')}`;
+    if(e > 0) {
+        document.getElementById('badge-3-progress').style.width = '100%';
         checkBadges();
     }
+}
 
-    function clearChecklist() {
-        if(confirm('¿Reiniciar todo el checklist?')) {
-            checked = [];
-            localStorage.setItem('winebox_check', JSON.stringify(checked));
-            renderChecklist();
-            showToast('Checklist reiniciado');
-        }
+// ========================
+// UTILS
+// ========================
+function copyText(id, btn) {
+    let text = document.getElementById(id).innerText;
+    // If it's a tab, get the p text
+    if(document.getElementById(id).querySelector('p')) {
+        text = document.getElementById(id).querySelector('p').innerText;
     }
+    navigator.clipboard.writeText(text);
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✅ Copiado';
+    showToast('¡Texto copiado al portapapeles!');
+    setTimeout(() => { btn.innerHTML = orig; }, 1500);
+}
 
-    // TABS
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            tab.classList.add('active');
-            document.getElementById(tab.dataset.tab).classList.add('active');
-        });
-    });
+function copyFAQ(idx) {
+    const text = `${faqs[idx].q}\n\n${faqs[idx].a}`;
+    navigator.clipboard.writeText(text);
+    showToast('Pregunta y respuesta copiadas');
+}
 
-    // COPY FUNCTIONS
-    function copyText(elementId, btn) {
-        const text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text);
-        const original = btn.innerHTML;
-        btn.innerHTML = '✅ Copiado';
-        btn.classList.add('btn-success');
-        showToast('¡Texto copiado al portapapeles!');
-        setTimeout(() => {
-            btn.innerHTML = original;
-            btn.classList.remove('btn-success');
-        }, 2000);
+function toggleTheme() { 
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light'; 
+    localStorage.setItem('winebox_theme', currentTheme); 
+    applyTheme(currentTheme); 
+}
+
+function applyTheme(t) { 
+    document.documentElement.setAttribute('data-theme', t); 
+}
+
+function showToast(m) { 
+    const t = document.getElementById('toast'); 
+    t.textContent = m; 
+    t.classList.add('show'); 
+    setTimeout(() => t.classList.remove('show'), 3000); 
+}
+
+function scrollToTop() { window.scrollTo({top:0, behavior:'smooth'}); }
+
+function exportProgress() {
+    const data = { studied, checked, theme: currentTheme, date: new Date().toISOString() };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `winebox-progreso-${new Date().toISOString().split('T')[0]}.json`; a.click();
+    showToast('Progreso exportado');
+}
+
+function exportChecklist() {
+    const text = checklistData.map((item, i) => `${checked.includes(i) ? '✅' : '❌'} ${item}`).join('\n');
+    navigator.clipboard.writeText(text);
+    showToast('Checklist copiado al portapapeles');
+}
+
+function toggleMode() { 
+    document.querySelectorAll('.faq-a').forEach(el => el.classList.toggle('open')); 
+    showToast('Modo estudio activado/desactivado'); 
+}
+
+// ========================
+// VISIT TRACKING & STREAK
+// ========================
+function trackVisit() {
+    const today = new Date().toDateString();
+    if(lastVisit !== today) {
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+        if(lastVisit === yesterday) streak++;
+        else streak = 1;
+        localStorage.setItem('winebox_streak', streak);
+        localStorage.setItem('winebox_lastvisit', today);
+        visitCount++;
+        localStorage.setItem('winebox_visits', visitCount);
     }
+    document.getElementById('badge-4-progress').style.width = `${Math.min((streak/7)*100, 100)}%`;
+}
 
-    function copyTabText(tabId, btn) {
-        const text = document.querySelector(`#${tabId} p`).innerText;
-        navigator.clipboard.writeText(text);
-        showToast('¡Guión copiado!');
+// ========================
+// BADGES
+// ========================
+function checkBadges() {
+    // Badge 1
+    if(studied.length > 0) {
+        document.getElementById('badge-1').classList.add('earned');
+        document.getElementById('badge-1-progress').style.width = '100%';
+    }
+    // Badge 2
+    if(studied.length >= 25) {
+        document.getElementById('badge-2').classList.add('earned');
+        document.getElementById('badge-2-progress').style.width = '100%';
+    } else {
+        document.getElementById('badge-2-progress').style.width = `${(studied.length/25)*100}%`;
+    }
+    // Badge 4
+    if(streak >= 7) {
+        document.getElementById('badge-4').classList.add('earned');
+        document.getElementById('badge-4-progress').style.width = '100%';
+    }
+    // Badge 5
+    if(studied.length === 100 && checked.length === checklistData.length) {
+        document.getElementById('badge-5').classList.add('earned');
+        document.getElementById('badge-5-progress').style.width = '100%';
+        showToast('🏆 ¡Felicidades! Eres Experto WineBOX');
         createConfetti();
     }
+}
 
-    function copyFAQ(idx) {
-        const text = `${faqs[idx].q}\n\n${faqs[idx].a}`;
-        navigator.clipboard.writeText(text);
-        showToast('Pregunta y respuesta copiadas');
+// ========================
+// CONFETTI
+// ========================
+function createConfetti() {
+    for(let i=0; i<30; i++) {
+        const c = document.createElement('div'); c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
     }
-
-    // CALCULATOR
-    function calcularIngresos() {
-        const escuelas = parseInt(document.getElementById('calc-escuelas').value) || 0;
-        const alumnos = parseInt(document.getElementById('calc-alumnos').value) || 0;
-        const conversion = parseInt(document.getElementById('calc-conversion').value) || 0;
-        
-        const totalAlumnos = escuelas * alumnos;
-        const screening = totalAlumnos * 9000;
-        const diagnostico = totalAlumnos * (conversion/100) * 15000;
-        const total = screening + diagnostico;
-        
-        document.getElementById('resultado-ingreso').textContent = `$${total.toLocaleString('es-AR')}`;
-        document.getElementById('resultado-screening').textContent = `$${screening.toLocaleString('es-AR')}`;
-        document.getElementById('resultado-diagnostico').textContent = `$${diagnostico.toLocaleString('es-AR')}`;
-        
-        // Check badge
-        if(escuelas > 0) {
-            document.getElementById('badge-3-progress').style.width = '100%';
-            checkBadges();
-        }
-    }
-
-    // THEME
-    function toggleTheme() {
-        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-        localStorage.setItem('winebox_theme', currentTheme);
-        applyTheme(currentTheme);
-    }
-
-    function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-    }
-
-    // UTILS
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function createConfetti() {
-        for(let i=0; i<30; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            document.body.appendChild(confetti);
-            setTimeout(() => confetti.remove(), 4000);
-        }
-    }
-
-    // BADGES SYSTEM
-    function checkBadges() {
-        // Badge 1: First steps
-        if(studied.length > 0) {
-            document.getElementById('badge-1').classList.add('earned');
-            document.getElementById('badge-1-progress').style.width = '100%';
-        }
-        
-        // Badge 2: 25 questions
-        if(studied.length >= 25) {
-            document.getElementById('badge-2').classList.add('earned');
-        }
-        
-        // Badge 3: Used calculator
-        if(document.getElementById('badge-3-progress').style.width === '100%') {
-            document.getElementById('badge-3').classList.add('earned');
-        }
-        
-        // Badge 4: 7 day streak
-        const streak = calculateStreak();
-        if(streak >= 7) {
-            document.getElementById('badge-4').classList.add('earned');
-            document.getElementById('badge-4-progress').style.width = '100%';
-        } else {
-            document.getElementById('badge-4-progress').style.width = `${(streak/7)*100}%`;
-        }
-        
-        // Badge 5: 100% complete
-        if(studied.length === 100 && checked.length === checklistData.length) {
-            document.getElementById('badge-5').classList.add('earned');
-            document.getElementById('badge-5-progress').style.width = '100%';
-            showToast('🏆 ¡Felicidades! Eres Experto WineBOX');
-            createConfetti();
-        }
-    }
-
-    function calculateStreak() {
-        const today = new Date().toDateString();
-        if(lastVisit === today) return parseInt(localStorage.getItem('winebox_streak') || '0');
-        
-        const yesterday = new Date(Date.now() - 86400000).toDateString();
-        if(lastVisit === yesterday) {
-            const newStreak = (parseInt(localStorage.getItem('winebox_streak') || '0') + 1);
-            localStorage.setItem('winebox_streak', newStreak);
-            return newStreak;
-        }
-        
-        localStorage.setItem('winebox_streak', '1');
-        return 1;
-    }
-
-    function trackVisit() {
-        const today = new Date().toDateString();
-        if(lastVisit !== today) {
-            visitCount++;
-            localStorage.setItem('winebox_visits', visitCount);
-            localStorage.setItem('winebox_lastvisit', today);
-            calculateStreak();
-        }
-    }
-
-    // EXPORT/IMPORT
-    function exportProgress() {
-        const data = {
-            studied: studied,
-            checked: checked,
-            theme: currentTheme,
-            date: new Date().toISOString()
-        };
-        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `winebox-progreso-${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-        showToast('Progreso exportado');
-    }
-
-    function exportChecklist() {
-        const text = checklistData.map((item, i) => `${checked.includes(i) ? '✅' : '❌'} ${item}`).join('\n');
-        navigator.clipboard.writeText(text);
-        showToast('Checklist copiado al portapapeles');
-    }
-
-    // STUDY MODE
-    function toggleMode() {
-        const isStudy = document.body.classList.toggle('study-mode');
-        if(isStudy) {
-            document.querySelectorAll('.faq-a').forEach(el => el.style.maxHeight = '0');
-            document.querySelectorAll('.faq-q').forEach(q => {
-                q.onclick = function() { 
-                    const ans = this.nextElementSibling;
-                    ans.classList.toggle('open');
-                };
-            });
-            showToast('Modo Estudio activado: Click para revelar respuestas');
-        } else {
-            document.querySelectorAll('.faq-q').forEach(q => {
-                q.onclick = function() { toggleFAQ(this); };
-            });
-        }
-    }
-
-    function startQuiz() {
-        showToast('🎮 Modo Quiz: Próximamente disponible');
-    }
+}
 </script>
 </body>
 </html>
