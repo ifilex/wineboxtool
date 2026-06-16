@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroGestión Escolar Pro</title>
+<style>
+:root {
+  --primary: #1e40af;
+  --primary-dark: #1e3a8a;
+  --primary-light: #dbeafe;
+  --secondary: #059669;
+  --secondary-light: #d1fae5;
+  --accent: #7c3aed;
+  --accent-light: #ede9fe;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --text: #0f172a;
+  --text-light: #475569;
+  --border: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { 
+  background: var(--bg); 
+  color: var(--text); 
+  font-family: var(--font-sans); 
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout */
+.app-shell { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 50;
+  transition: var(--transition);
+}
+.sidebar.collapsed { width: 72px; }
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 24px 32px;
+  transition: var(--transition);
+}
+.sidebar.collapsed + .main-content { margin-left: 72px; }
+
+/* Header */
+.app-header {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+}
+.app-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.app-header h1 .badge {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Navigation */
+.nav-section { margin-bottom: 24px; }
+.nav-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  padding: 8px 12px;
+  margin-bottom: 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.nav-item:hover { background: var(--primary-light); color: var(--primary); }
+.nav-item.active { background: var(--primary); color: white; }
+.nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+.sidebar.collapsed .nav-title, 
+.sidebar.collapsed .nav-item span:not(.icon-only) { display: none; }
+.sidebar.collapsed .nav-item { justify-content: center; padding: 12px; }
+
+/* Cards & Sections */
+.section { display: none; animation: fadeIn 0.3s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+  background: var(--surface-elevated);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.card-header h3 { font-size: 1.25rem; font-weight: 600; color: var(--primary); }
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+  padding: 20px;
+  border-radius: var(--radius);
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.stat-card .value { font-size: 2rem; font-weight: 700; color: var(--text); }
+.stat-card .label { font-size: 0.9rem; color: var(--text-light); margin-top: 4px; }
+
+/* Forms */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--surface);
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+textarea { min-height: 100px; resize: vertical; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+.btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-secondary { background: var(--secondary); }
+.btn-secondary:hover { background: #047857; }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { background: var(--bg); }
+.btn-danger { background: var(--danger); }
+.btn-danger:hover { background: #b91c1c; }
+.btn-sm { padding: 8px 14px; font-size: 0.85rem; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Tables & Lists */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 2px solid var(--border);
+}
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.data-table tr:hover { background: var(--bg); }
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+.list-item:hover { background: var(--bg); }
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+.badge-blue { background: var(--primary-light); color: var(--primary); }
+.badge-green { background: var(--secondary-light); color: var(--secondary); }
+.badge-purple { background: var(--accent-light); color: var(--accent); }
+.badge-warning { background: #fef3c7; color: var(--warning); }
+
+/* Progress & Charts */
+.progress-bar { background: var(--border); height: 8px; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--primary); transition: width 0.4s ease; }
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.domain-box {
+  background: var(--bg);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--primary);
+}
+.domain-box h4 { margin-bottom: 8px; font-size: 0.95rem; }
+
+/* Game Library */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.game-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+.game-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
+.game-card.selected { border-color: var(--secondary); background: var(--secondary-light); }
+.game-card .tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.game-card h4 { margin-bottom: 8px; color: var(--primary); }
+.game-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 10px; }
+.game-card .justification {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-style: italic;
+}
+
+/* Graph Styles for Profile */
+.profile-graph-container {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.profile-bar-chart {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.profile-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+.comparison-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+.comparison-table th, .comparison-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 12px;
+  text-align: left;
+}
+.trend-up { color: var(--secondary); font-weight: bold; }
+.trend-down { color: var(--danger); font-weight: bold; }
+.change-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.change-positive { background: var(--secondary-light); color: var(--secondary); }
+.change-negative { background: #fee2e2; color: var(--danger); }
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.modal.active { display: flex; }
+.modal-content {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: var(--radius);
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.close-modal { cursor: pointer; font-size: 1.5rem; color: var(--text-light); }
+
+/* Print & Share */
+.print-area {
+  background: white;
+  padding: 40px;
+  border-radius: var(--radius);
+  margin: 20px 0;
+  border: 1px solid var(--border);
+}
+.share-bar {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+}
+
+/* Documentation */
+.doc-section { margin-bottom: 32px; }
+.doc-section h3 { color: var(--primary); margin-bottom: 12px; }
+.doc-section p { margin-bottom: 12px; color: var(--text-light); }
+.doc-section ul { margin: 12px 0 12px 24px; color: var(--text-light); }
+.doc-section li { margin-bottom: 6px; }
+.theory-card {
+  background: linear-gradient(135deg, var(--accent-light), var(--primary-light));
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent);
+  margin: 16px 0;
+}
+.theory-card h4 { color: var(--accent); margin-bottom: 8px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-left: 0; }
+  .app-header { position: relative; top: 0; }
+}
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Print Styles */
+@media print {
+  body { background: white; }
+  .sidebar, .app-header, .btn, .no-print, nav { display: none !important; }
+  .main-content { margin: 0; padding: 0; }
+  .section { display: block !important; box-shadow: none; border: none; padding: 0; }
+  .print-area { border: none; padding: 0; margin: 0; box-shadow: none; }
+  .card { break-inside: avoid; }
+  @page { margin: 2cm; }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;padding:0 12px;">
+      <div style="width:36px;height:36px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">🧠</div>
+      <div>
+        <div id="sidebar-title" style="font-weight:700;color:var(--primary);">NeuroGestión Escolar</div>
+        <div id="sidebar-prof" style="font-size:0.8rem;color:var(--text-light);">Sin profesional</div>
+      </div>
+    </div>
+    
+    <nav>
+      <div class="nav-section">
+        <div class="nav-title">Principal</div>
+        <div class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Panel</span>
+        </div>
+        <div class="nav-item" data-tab="estudiantes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Estudiantes</span>
+        </div>
+        <div class="nav-item" data-tab="evaluacion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Evaluación</span>
+        </div>
+        <div class="nav-item" data-tab="perfiles">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>Perfiles Cognitivos</span>
+        </div>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-title">Intervención</div>
+        <div class="nav-item" data-tab="intervencion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Plan de Intervención</span>
+        </div>
+        <div class="nav-item" data-tab="agenda">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Agenda</span>
+        </div>
+        <div class="nav-item" data-tab="informes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Informes</span>
+        </div>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-title">Fundamentación</div>
+        <div class="nav-item" data-tab="biblioteca">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Biblioteca de Juegos</span>
+        </div>
+        <div class="nav-item" data-tab="teoria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Marco Teórico</span>
+        </div>
+        <div class="nav-item" data-tab="ayuda">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Ayuda y Documentación</span>
+        </div>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-title">Sistema</div>
+        <div class="nav-item" data-tab="config">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Configuración</span>
+        </div>
+      </div>
+    </nav>
+    
+    <div style="margin-top:auto;padding:16px;border-top:1px solid var(--border);">
+      <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="icon-only">⇄</span>
+        <span>Contraer menú</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="app-header">
+      <h1>🏫 <span id="app-title">NeuroGestión Escolar</span> <span class="badge">v2.0 Pro</span></h1>
+      <div class="btn-group">
+        <button class="btn btn-outline btn-sm" onclick="openModal('import-modal')">📥 Importar JSON</button>
+        <button class="btn btn-outline btn-sm" onclick="exportAllData()">💾 Respaldo</button>
+        <button class="btn btn-sm" onclick="window.print()">🖨️ Imprimir</button>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="section active">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="value" id="dash-total">0</div><div class="label">Estudiantes</div></div>
+        <div class="stat-card"><div class="value" id="dash-evals">0</div><div class="label">Evaluaciones</div></div>
+        <div class="stat-card"><div class="value" id="dash-re">0</div><div class="label">Re-evaluaciones</div></div>
+        <div class="stat-card"><div class="value" id="dash-agenda">0</div><div class="label">Encuentros</div></div>
+      </div>
+      
+      <div class="card">
+        <h3>📋 Bienvenido al Sistema de Gestión Psicopedagógica</h3>
+        <p style="margin-top:12px;color:var(--text-light);">
+          Este módulo integra la metodología de <strong>baja fidelidad de WineBox</strong> con fundamentos de neuropsicología escolar. 
+          Importe los archivos JSON generados por la aplicación de evaluación neurocognitiva para generar perfiles comparativos, 
+          diseñar intervenciones fundamentadas y gestionar la comunicación con las familias. 
+          <strong>Todo opera localmente</strong>, garantizando privacidad y continuidad del trabajo docente.
+        </p>
+        <div class="theory-card" style="margin-top:16px;">
+          <h4>🔬 Fundamento Científico: Carga Cognitiva y Baja Fidelidad</h4>
+          <p style="margin:0;font-size:0.95rem;">
+            Según la Teoría de la Carga Cognitiva (Sweller, 1988), reducir la carga extrínseca libera la memoria de trabajo para el procesamiento central. 
+            Los entornos de baja fidelidad exigen cierre perceptivo y reclutan circuitos del córtex prefrontal dorsolateral, potenciando planificación y flexibilidad cognitiva.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTUDIANTES -->
+    <div id="estudiantes" class="section">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <h2>Registro de Estudiantes</h2>
+        <div class="btn-group">
+          <button class="btn" onclick="openModal('new-student-modal')">➕ Nuevo Estudiante</button>
+          <button class="btn btn-secondary" onclick="openModal('import-modal')">📥 Importar desde NeuroTest</button>
+        </div>
+      </div>
+      <div class="card">
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Nombre</th><th>DNI</th><th>Tutor</th><th>Evaluaciones</th><th>Último Registro</th><th>Acciones</th></tr></thead>
+            <tbody id="students-table-body"></tbody>
+          </table>
+        </div>
+        <div id="students-empty" style="text-align:center;padding:40px;color:var(--text-light);display:none;">
+          <p>📭 No hay estudiantes registrados.</p>
+          <p style="margin-top:8px;font-size:0.9rem;">Importe un archivo JSON desde la aplicación de evaluación o registre manualmente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVALUACIÓN -->
+    <div id="evaluacion" class="section">
+      <h2>Importación y Análisis de Evaluaciones</h2>
+      <div class="card">
+        <h3>📥 Importar Archivo de Evaluación</h3>
+        <p style="margin:12px 0;color:var(--text-light);">
+          Seleccione el archivo JSON exportado desde NeuroTest Escolar. El sistema mapeará automáticamente los datos, 
+          preservará el historial y generará análisis comparativos cuando existan múltiples evaluaciones del mismo estudiante.
+        </p>
+        <input type="file" id="eval-import-file" accept=".json" style="margin:16px 0;max-width:400px;">
+        <button class="btn" onclick="processEvalImport()">🔄 Procesar e Importar Evaluación</button>
+      </div>
+      
+      <div id="comparison-result" class="card" style="display:none; margin-top:20px;"></div>
+      
+      <div class="card" style="margin-top:20px;">
+        <h3>🔍 Análisis Automático de Dominios</h3>
+        <p style="margin:12px 0;color:var(--text-light);">
+          El algoritmo extrae cuatro dominios cognitivos fundamentales a partir de las interacciones con los juegos de baja fidelidad:
+        </p>
+        <div class="domain-grid">
+          <div class="domain-box"><strong>🎯 Atención Sostenida</strong><p style="font-size:0.9rem;margin-top:6px;">Capacidad de focalización temporal en tareas con estímulos reducidos.</p></div>
+          <div class="domain-box"><strong>🛡️ Control Inhibitorio</strong><p style="font-size:0.9rem;margin-top:6px;">Regulación de impulsos y espera de turnos en entornos estructurados.</p></div>
+          <div class="domain-box"><strong>💭 Regulación Emocional</strong><p style="font-size:0.9rem;margin-top:6px;">Manejo de frustración y tolerancia ante desafíos cognitivos.</p></div>
+          <div class="domain-box"><strong>🔄 Flexibilidad Cognitiva</strong><p style="font-size:0.9rem;margin-top:6px;">Adaptación a cambios de reglas y estrategias en juegos simples.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERFILES COGNITIVOS -->
+    <div id="perfiles" class="section">
+      <h2>Análisis de Perfiles Cognitivos</h2>
+      <div class="card">
+        <div class="form-group">
+          <label>Seleccionar Estudiante para Análisis</label>
+          <select id="profile-select" onchange="renderProfile()"><option value="">-- Elija un estudiante --</option></select>
+        </div>
+        <div id="profile-content"></div>
+      </div>
+    </div>
+
+    <!-- INTERVENCIÓN -->
+    <div id="intervencion" class="section">
+      <h2>Plan de Intervención Escolar Fundamentado</h2>
+      <div class="card">
+        <div class="form-group">
+          <label>Seleccionar Estudiante</label>
+          <select id="intervention-select" onchange="renderIntervention()"><option value="">-- Elija un estudiante --</option></select>
+        </div>
+        <div id="intervention-content"></div>
+      </div>
+    </div>
+
+    <!-- AGENDA -->
+    <div id="agenda" class="section">
+      <h2>Agenda de Encuentros y Seguimiento</h2>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+          <h3>📅 Programar Encuentro</h3>
+          <button class="btn" onclick="openModal('schedule-modal')">➕ Nuevo Encuentro</button>
+        </div>
+        <div id="agenda-list"></div>
+      </div>
+    </div>
+
+    <!-- INFORMES -->
+    <div id="informes" class="section">
+      <h2>Informes y Comunicación Familiar</h2>
+      <div class="card">
+        <div class="form-group">
+          <label>Seleccionar Estudiante para Informe</label>
+          <select id="report-select" onchange="renderReport()"><option value="">-- Elija un estudiante --</option></select>
+        </div>
+        <div id="report-actions" class="share-bar no-print" style="display:none;">
+          <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Imprimir</button>
+          <button class="btn btn-outline btn-sm" onclick="nativeShare()">📤 Compartir (Sistema)</button>
+          <button class="btn btn-outline btn-sm" onclick="shareReport('whatsapp')">💬 WhatsApp</button>
+          <button class="btn btn-outline btn-sm" onclick="shareReport('email')">📧 Correo</button>
+          <button class="btn btn-outline btn-sm" onclick="copyReport()">📋 Copiar Texto</button>
+        </div>
+        <div id="report-content"></div>
+      </div>
+    </div>
+
+    <!-- BIBLIOTECA DE JUEGOS -->
+    <div id="biblioteca" class="section">
+      <h2>🎮 Biblioteca de Juegos Terapéuticos WineBox</h2>
+      <p style="margin-bottom:20px;color:var(--text-light);">
+        Colección curada de software legal (shareware) de baja fidelidad visual, seleccionada por su potencial para estimular funciones ejecutivas 
+        sin sobrecarga sensorial. Cada juego incluye justificación neuropsicológica basada en evidencia.
+      </p>
+      <div class="form-group" style="margin-bottom:20px;">
+        <label>Filtrar por Dominio Cognitivo</label>
+        <select id="game-filter" onchange="renderGameLibrary()">
+          <option value="all">Todos los juegos</option>
+          <option value="atencion">Atención Sostenida</option>
+          <option value="control">Control Inhibitorio</option>
+          <option value="emocion">Regulación Emocional</option>
+          <option value="flexibilidad">Flexibilidad Cognitiva</option>
+        </select>
+      </div>
+      <div id="game-library" class="game-grid"></div>
+    </div>
+
+    <!-- MARCO TEÓRICO -->
+    <div id="teoria" class="section">
+      <h2>📚 Marco Teórico Integrado</h2>
+      
+      <div class="doc-section">
+        <h3>🧠 Aaron T. Beck: Terapia Cognitiva en el Aula</h3>
+        <p>La terapia cognitiva de Beck postula que los pensamientos (cogniciones) median entre los eventos y las respuestas emocionales/conductuales. En el contexto escolar:</p>
+        <ul>
+          <li><strong>Triada Cognitiva:</strong> Visión negativa de sí mismo, del mundo y del futuro. El docente puede intervenir validando logros concretos.</li>
+          <li><strong>Distorsiones Cognitivas:</strong> Catastrofización ("Si fallo esto, soy un fracaso"), generalización excesiva ("Nunca lo voy a entender").</li>
+          <li><strong>Reestructuración Cognitiva:</strong> Enseñar al estudiante a cuestionar evidencias: "¿Qué pruebas tengo de que esto es cierto? ¿Hay otra explicación?"</li>
+          <li><strong>Diálogo Interno Instruccional:</strong> Fomentar frases como "Primero leo, luego pienso, después respondo" para modular impulsividad.</li>
+        </ul>
+        <div class="theory-card">
+          <h4>Aplicación Práctica con Baja Fidelidad</h4>
+          <p>Los juegos de WineBox, al reducir estímulos, permiten que el estudiante observe sus propios pensamientos sin saturación. Esto facilita la metacognición: "Me estoy frustrando, pero puedo respirar y volver a intentarlo".</p>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h3>🌱 Jean Piaget & Lev Vygotsky: Constructivismo y Zona de Desarrollo Próximo</h3>
+        <ul>
+          <li><strong>Piaget:</strong> El aprendizaje es asimilación y acomodación de esquemas. Los juegos simples permiten reestructurar esquemas sin sobrecarga.</li>
+          <li><strong>Vygotsky:</strong> El desarrollo ocurre en la interacción social. El docente actúa como andamio, retirando apoyo gradualmente.</li>
+          <li><strong>ZDP en práctica:</strong> Proponer desafíos ligeramente por encima del nivel actual, con apoyo ajustado.</li>
+        </ul>
+      </div>
+
+      <div class="doc-section">
+        <h3>🔬 Alexander Luria: Funciones Ejecutivas y Corteza Prefrontal</h3>
+        <ul>
+          <li><strong>Memoria de Trabajo:</strong> Externalizar con listas visuales, rutinas predecibles.</li>
+          <li><strong>Control Inhibitorio:</strong> Practicar pausas reflexivas ("semáforo cognitivo").</li>
+          <li><strong>Flexibilidad:</strong> Juegos con reglas cambiantes en entornos de baja complejidad.</li>
+        </ul>
+      </div>
+
+      <div class="doc-section">
+        <h3>⚡ Teoría de la Carga Cognitiva (Sweller, 1988)</h3>
+        <p>La memoria de trabajo tiene capacidad limitada (~4 ítems). WineBox reduce la <em>carga extrínseca</em> (distractores visuales, animaciones innecesarias) para liberar recursos para la <em>carga germane</em> (aprendizaje significativo).</p>
+        <div class="theory-card">
+          <h4>Principios de Diseño de Baja Fidelidad</h4>
+          <ol style="margin-left:20px;margin-top:8px;">
+            <li>Paletas de color de bajo arousal (evitar neón, parpadeos)</li>
+            <li>Interfaces minimalistas: solo lo esencial visible</li>
+            <li>Transiciones suaves, sin efectos sorpresa</li>
+            <li>Feedback claro pero no intrusivo</li>
+            <li>Permitir pausa y reanudación sin penalización</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- AYUDA -->
+    <div id="ayuda" class="section">
+      <h2>❓ Ayuda y Documentación</h2>
+      
+      <div class="card">
+        <h3>🚀 Primeros Pasos</h3>
+        <ol style="margin-left:20px;margin-top:12px;">
+          <li><strong>Configurar institución:</strong> Ve a Configuración → ingresa nombre de la escuela y profesional.</li>
+          <li><strong>Importar evaluaciones:</strong> Desde Evaluación o Estudiantes, carga el JSON de NeuroTest.</li>
+          <li><strong>Analizar perfiles:</strong> Selecciona un estudiante en Perfiles Cognitivos para ver dominios y comparativas.</li>
+          <li><strong>Generar intervención:</strong> En Plan de Intervención, el sistema sugiere estrategias fundamentadas.</li>
+          <li><strong>Comunicar con familias:</strong> Usa Informes para generar documentos compartibles vía WhatsApp, email o impresión.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>🔐 Privacidad y Respaldo</h3>
+        <p>Todos los datos se almacenan localmente en el navegador (<code>localStorage</code>). Para respaldar:</p>
+        <ul style="margin-left:20px;margin-top:8px;">
+          <li>Ve a Configuración → "Exportar JSON Completo"</li>
+          <li>Guarda el archivo en USB, nube segura o envíalo por correo</li>
+          <li>Para restaurar: "Importar Datos" en cualquier dispositivo</li>
+        </ul>
+        <p style="margin-top:12px;font-weight:600;color:var(--warning);">⚠️ Los datos NO se sincronizan automáticamente entre dispositivos. Debe exportar/importar manualmente.</p>
+      </div>
+
+      <div class="card">
+        <h3>🌐 Compartir Informes (Web Share API)</h3>
+        <p>En navegadores compatibles (Chrome, Edge, Safari móvil), el botón 📤 Compartir abre el menú nativo del sistema para enviar por:</p>
+        <ul style="margin-left:20px;margin-top:8px;">
+          <li>WhatsApp, Telegram, Signal</li>
+          <li>Correo electrónico</li>
+          <li>Aplicaciones de notas o documentos</li>
+          <li>Guardado en archivos del dispositivo</li>
+        </ul>
+        <p style="margin-top:12px;font-size:0.9rem;color:var(--text-light);">Si el navegador no soporta Web Share API, se mostrarán alternativas manuales (WhatsApp URL, mailto, copiar texto).</p>
+      </div>
+    </div>
+
+    <!-- CONFIGURACIÓN -->
+    <div id="config" class="section">
+      <h2>⚙️ Configuración del Sistema</h2>
+      <div class="grid-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+        <div class="card">
+          <h3>🏫 Datos Institucionales</h3>
+          <div class="form-group"><label>Nombre de la Institución</label><input type="text" id="cfg-institution" placeholder="Ej: Escuela Primaria N° 42"></div>
+          <div class="form-group"><label>Profesional Activo</label><input type="text" id="cfg-prof" placeholder="Lic. María García"></div>
+          <div class="form-group"><label>Especialidad</label><input type="text" id="cfg-especialidad" placeholder="Psicopedagogía / Neuropsicología"></div>
+          <button class="btn" onclick="saveConfig()">💾 Guardar Configuración</button>
+        </div>
+        <div class="card">
+          <h3>💾 Respaldo y Migración</h3>
+          <p style="margin-bottom:12px;color:var(--text-light);">Exporta toda la base de datos local para migración o respaldo seguro.</p>
+          <button class="btn btn-secondary" style="margin-bottom:10px;width:100%;" onclick="exportAllData()">📤 Exportar JSON Completo</button>
+          <button class="btn btn-outline" style="width:100%;" onclick="document.getElementById('import-all-file').click()">📥 Importar Respaldo</button>
+          <input type="file" id="import-all-file" accept=".json" style="display:none;" onchange="importAllData(this)">
+          <p style="margin-top:16px;font-size:0.85rem;color:var(--text-light);">
+            <strong>Nota:</strong> La importación reemplazará los datos actuales. Se recomienda exportar primero.
+          </p>
+        </div>
+        <div class="card" style="grid-column:1/-1;">
+          <h3>🔧 Opciones Avanzadas</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">
+            <button class="btn btn-outline btn-sm" onclick="clearLocalStorage()">🗑️ Limpiar Datos Locales</button>
+            <button class="btn btn-outline btn-sm" onclick="resetToDefaults()">↩️ Restaurar Valores por Defecto</button>
+            <button class="btn btn-outline btn-sm" onclick="openModal('about-modal')">ℹ️ Acerca de NeuroGestión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODALS -->
+<div id="import-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>📥 Importar Archivo JSON</h3>
+      <span class="close-modal" onclick="closeModal('import-modal')">&times;</span>
+    </div>
+    <p>Seleccione el archivo exportado desde NeuroTest Escolar. El sistema mapeará automáticamente los datos compatibles.</p>
+    <div class="theory-card" style="margin:16px 0;">
+      <h4>✅ Compatibilidad Garantizada</h4>
+      <p style="margin:0;font-size:0.9rem;">El importador reconoce múltiples formatos: <code>nombre</code>, <code>estudiante.nombre</code>, <code>data.nombre</code>, <code>juegos</code>, <code>games</code>, <code>emocion</code>, <code>sentimiento</code>, etc.</p>
+    </div>
+    <input type="file" id="import-file" accept=".json" style="margin:16px 0;">
+    <button class="btn" onclick="processImport()">🔄 Procesar e Importar</button>
+  </div>
+</div>
+
+<div id="new-student-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>➕ Nuevo Estudiante</h3>
+      <span class="close-modal" onclick="closeModal('new-student-modal')">&times;</span>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Nombre Completo *</label><input type="text" id="new-nombre" required></div>
+      <div class="form-group"><label>DNI *</label><input type="text" id="new-dni" required></div>
+      <div class="form-group"><label>Fecha de Nacimiento</label><input type="date" id="new-nacimiento"></div>
+      <div class="form-group"><label>Email/Teléfono Tutor</label><input type="text" id="new-contacto"></div>
+      <div class="form-group"><label>Nombre del Tutor</label><input type="text" id="new-tutor"></div>
+      <div class="form-group"><label>Curso/Grado</label><input type="text" id="new-grado"></div>
+    </div>
+    <div class="form-group"><label>Observaciones Iniciales</label><textarea id="new-obs" placeholder="Notas relevantes para el equipo docente..."></textarea></div>
+    <button class="btn" onclick="saveNewStudent()">💾 Guardar Estudiante</button>
+  </div>
+</div>
+
+<div id="schedule-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>📅 Programar Encuentro</h3>
+      <span class="close-modal" onclick="closeModal('schedule-modal')">&times;</span>
+    </div>
+    <div class="form-group">
+      <label>Estudiante(s) <small style="color:var(--text-light);">(Ctrl/Cmd + clic para múltiple)</small></label>
+      <select id="sched-student" multiple style="height:120px;"></select>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Fecha *</label><input type="date" id="sched-date" required></div>
+      <div class="form-group"><label>Hora de Inicio *</label><input type="time" id="sched-start" required></div>
+      <div class="form-group"><label>Duración</label><select id="sched-dur"><option>30</option><option>45</option><option>60</option><option>90</option></select> min</div>
+    </div>
+    <div class="form-group">
+      <label>Modalidad</label>
+      <select id="sched-mode">
+        <option value="individual">Individual</option>
+        <option value="grupo">Trabajo en Grupo</option>
+        <option value="familiar">Entrevista Familiar</option>
+        <option value="docente">Reunión con Docentes</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Objetivo / Notas</label><textarea id="sched-obj" rows="3" placeholder="Propósito del encuentro, temas a tratar..."></textarea></div>
+    <div class="theory-card">
+      <h4>⚠️ Detección de Superposición</h4>
+      <p style="margin:0;font-size:0.9rem;">Si existe conflicto horario, el sistema sugerirá convertir el encuentro en <strong>Trabajo en Grupo</strong>, fundamentado en Vygotsky: el aprendizaje entre pares potencia la ZDP.</p>
+    </div>
+    <button class="btn" onclick="saveSchedule()">✅ Guardar Encuentro</button>
+  </div>
+</div>
+
+<div id="about-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>ℹ️ Acerca de NeuroGestión Escolar Pro</h3>
+      <span class="close-modal" onclick="closeModal('about-modal')">&times;</span>
+    </div>
+    <div style="line-height:1.8;">
+      <p><strong>Versión:</strong> 2.0 Pro (Offline-First)</p>
+      <p><strong>Desarrollado por:</strong> Equipo de Neuropsicología Escolar</p>
+      <p style="margin-top:16px;"><strong>Fundamentos:</strong></p>
+      <ul style="margin-left:20px;margin-bottom:16px;">
+        <li>Metodología de Baja Fidelidad (WineBox Research)</li>
+        <li>Teoría de la Carga Cognitiva (Sweller, 1988)</li>
+        <li>Terapia Cognitiva (Beck, 1979)</li>
+        <li>Constructivismo (Piaget, Vygotsky)</li>
+        <li>Neuropsicología de Funciones Ejecutivas (Luria)</li>
+      </ul>
+      <p><strong>Tecnología:</strong> HTML5 / CSS3 / Vanilla JS — 100% offline, sin dependencias externas.</p>
+      <p style="margin-top:16px;font-size:0.9rem;color:var(--text-light);">
+        Este software es una herramienta de apoyo psicopedagógico. No reemplaza el juicio clínico profesional ni constituye diagnóstico médico.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================= ESTADO Y ALMACENAMIENTO =================
+const DB_KEY = 'neurogestion_pro_v3_completa';
+let state = {
+  institution: 'Institución Educativa',
+  professional: '',
+  especialidad: '',
+  students: [],
+  appointments: [],
+  config: { theme: 'light', fontSize: 'medium' }
+};
+
+// ================= JUEGOS WINEBOX CON FUNDAMENTACIÓN (COMPLETA) =================
+const wineboxGames = [
+  {
+    id: 'tetris_cf',
+    nombre: 'Tetris Clásico (Baja Fidelidad)',
+    dominio: ['atencion', 'flexibilidad'],
+    descripcion: 'Organización espacial de piezas en caída libre con interfaz minimalista.',
+    justificacion: 'Estimula la memoria de trabajo visoespacial y la planificación secuencial (Luria). La baja fidelidad visual reduce distracciones, permitiendo focalización en la estrategia. Según Sweller, la simplicidad gráfica libera recursos cognitivos para el aprendizaje procedimental.',
+    dificultad: 'Ajustable',
+    tiempoRecomendado: '10-15 min'
+  },
+  {
+    id: 'simon_lowfi',
+    nombre: 'Simon Secuencial (Versión Minimal)',
+    dominio: ['atencion', 'control'],
+    descripcion: 'Repetición de secuencias de colores/sonidos con retroalimentación sutil.',
+    justificacion: 'Entrena la memoria de trabajo auditiva y el control inhibitorio (esperar el turno). La ausencia de efectos visuales excesivos previene la sobrecarga sensorial en estudiantes con TEA/TDAH, favoreciendo la regulación atencional (Barkley).',
+    dificultad: 'Progresiva',
+    tiempoRecomendado: '8-12 min'
+  },
+  {
+    id: 'puzzle_logic',
+    nombre: 'Rompecabezas Lógico',
+    dominio: ['flexibilidad', 'control'],
+    descripcion: 'Resolución de problemas espaciales con piezas que encajan mediante razonamiento.',
+    justificacion: 'Promueve la flexibilidad cognitiva al requerir reestructuración de estrategias cuando una no funciona (Beck: reestructuración cognitiva). La interfaz de baja fidelidad permite al estudiante observar su propio proceso de pensamiento sin interferencias.',
+    dificultad: 'Niveles escalonados',
+    tiempoRecomendado: '15-20 min'
+  },
+  {
+    id: 'memory_calm',
+    nombre: 'Memoria Serena',
+    dominio: ['atencion', 'emocion'],
+    descripcion: 'Juego de memoria con pares, sin animaciones bruscas ni sonidos estridentes.',
+    justificacion: 'Fortalece la atención sostenida y la regulación emocional ante el error. La ausencia de estímulos aversivos reduce la ansiedad de desempeño, permitiendo que el estudiante practique la tolerancia a la frustración en un entorno seguro (Vygotsky: andamiaje emocional).',
+    dificultad: 'Personalizable',
+    tiempoRecomendado: '10 min'
+  },
+  {
+    id: 'maze_planner',
+    nombre: 'Laberinto Planificador',
+    dominio: ['flexibilidad', 'atencion'],
+    descripcion: 'Navegación de laberintos con planificación previa del recorrido.',
+    justificacion: 'Activa la corteza prefrontal dorsolateral para planificación y toma de decisiones. La baja fidelidad visual exige cierre perceptivo, reclutando recursos de inferencia que potencian la autonomía cognitiva (Miller & Cohen, 2001).',
+    dificultad: 'Creciente',
+    tiempoRecomendado: '12-18 min'
+  },
+  {
+    id: 'pattern_calm',
+    nombre: 'Patrones Tranquilos',
+    dominio: ['atencion', 'control'],
+    descripcion: 'Reconocimiento y continuación de patrones visuales simples.',
+    justificacion: 'Desarrolla la atención selectiva y el control de impulsos (esperar para confirmar). La simplicidad del estímulo permite que estudiantes con dificultades atencionales logren éxito, reforzando la autoeficacia (Bandura) sin saturación sensorial.',
+    dificultad: 'Adaptativa',
+    tiempoRecomendado: '8-10 min'
+  }
+];
+
+// ================= INICIALIZACIÓN =================
+function loadState() {
+  const saved = localStorage.getItem(DB_KEY);
+  if (saved) {
+    try {
+      state = JSON.parse(saved);
+      document.getElementById('app-title').textContent = state.institution || 'NeuroGestión Escolar';
+      document.getElementById('sidebar-title').textContent = state.institution || 'NeuroGestión';
+      document.getElementById('sidebar-prof').textContent = state.professional ? `${state.professional}${state.especialidad ? ' - ' + state.especialidad : ''}` : 'Sin profesional';
+      document.getElementById('cfg-institution').value = state.institution;
+      document.getElementById('cfg-prof').value = state.professional;
+      document.getElementById('cfg-especialidad').value = state.especialidad;
+    } catch(e) { console.warn('Error cargando estado:', e); }
+  }
+  renderDashboard();
+  renderStudents();
+  populateSelects();
+  renderAgenda();
+  renderGameLibrary();
+}
+
+function saveState() {
+  localStorage.setItem(DB_KEY, JSON.stringify(state));
+  renderDashboard();
+  renderStudents();
+  populateSelects();
+}
+
+// ================= NAVEGACIÓN =================
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    if (window.innerWidth < 1024) document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+function openModal(id) { 
+  document.getElementById(id).classList.add('active');
+  if(id === 'schedule-modal') populateStudentSelect('sched-student');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+// ================= DASHBOARD =================
+function renderDashboard() {
+  document.getElementById('dash-total').textContent = state.students.length;
+  let evals = 0, reevals = 0;
+  state.students.forEach(s => {
+    if(s.evaluaciones) evals += s.evaluaciones.length;
+    if(s.evaluaciones && s.evaluaciones.length >= 2) reevals++;
+  });
+  document.getElementById('dash-evals').textContent = evals;
+  document.getElementById('dash-re').textContent = reevals;
+  document.getElementById('dash-agenda').textContent = state.appointments.length;
+}
+
+// ================= ESTUDIANTES =================
+function renderStudents() {
+  const tbody = document.getElementById('students-table-body');
+  const empty = document.getElementById('students-empty');
+  
+  if (state.students.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  
+  console.log('Estudiantes a renderizar:', state.students); // Para depuración
+  
+  tbody.innerHTML = state.students.map(s => {
+    const evalCount = s.evaluaciones ? s.evaluaciones.length : 0;
+    const lastEval = s.evaluaciones?.[s.evaluaciones.length-1]?.exportDate;
+    return `
+      <tr>
+        <td><strong>${s.nombre || 'Sin nombre'}</strong><br><small style="color:var(--text-light);">${s.grado || ''}</small></td>
+        <td>${s.dni || 'Sin DNI'}</td>
+        <td>${s.tutor || '-'}</td>
+        <td><span class="badge ${evalCount>=2?'badge-purple':evalCount>0?'badge-blue':'badge-warning'}">${evalCount} eval.</span></td>
+        <td>${lastEval ? new Date(lastEval).toLocaleDateString() : 'Sin datos'}</td>
+        <td class="btn-group">
+          <button class="btn btn-outline btn-sm" onclick="viewStudentProfile('${s.id}')">👁️ Ver</button>
+          <button class="btn btn-sm" onclick="startIntervention('${s.id}')">🎯 Intervención</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function viewStudentProfile(id) {
+  document.getElementById('profile-select').value = id;
+  renderProfile();
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-tab="perfiles"]').classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('perfiles').classList.add('active');
+}
+
+function startIntervention(id) {
+  document.getElementById('intervention-select').value = id;
+  renderIntervention();
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-tab="intervencion"]').classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('intervencion').classList.add('active');
+}
+
+// ================= CÁLCULO DE DOMINIOS MEJORADO PARA NUEVO FORMATO =================
+function calculateDomainFromEval(evaluacion) {
+  if (!evaluacion) return { atencion: 50, control: 50, emocion: 50, flexibilidad: 50 };
+  
+  // Mapear los nuevos campos (attention, planning, emotional, pattern) a los dominios del sistema
+  return {
+    atencion: evaluacion.attention || 50,
+    control: evaluacion.planning || 50,
+    emocion: evaluacion.emotional || 50,
+    flexibilidad: evaluacion.pattern || 50
+  };
+}
+
+// ================= IMPORTACIÓN FLEXIBLE CON ACUMULACIÓN POR exportDate (CORREGIDA) =================
+
+// ================= IMPORTACIÓN FLEXIBLE CON ACUMULACIÓN POR exportDate (CORREGIDA PARA TU JSON) =================
+function importData(raw) {
+  let studentsToProcess = [];
+  
+  // Si es un array de estudiantes
+  if (raw.estudiantes && Array.isArray(raw.estudiantes)) {
+    studentsToProcess = raw.estudiantes;
+  } else {
+    studentsToProcess = [raw];
+  }
+  
+  studentsToProcess.forEach(rawStudent => {
+    // --- CORRECCIÓN: Extraer nombre y DNI de la estructura ANIDADA ---
+    // Tu JSON tiene: { student: { name, dni, birthDate, contact, tutor }, evaluation: { profile: { attention, planning, emotional, pattern, impulsivity } }, exportDate }
+    
+    let name = rawStudent.student?.name || 
+               rawStudent.name || 
+               rawStudent.nombre || 
+               'Sin nombre';
+    
+    let dni = rawStudent.student?.dni || 
+              rawStudent.dni || 
+              rawStudent.DNI || 
+              '00000000';
+    
+    let birthDate = rawStudent.student?.birthDate || rawStudent.nacimiento || '';
+    let contact = rawStudent.student?.contact || rawStudent.contacto || '';
+    let tutor = rawStudent.student?.tutor || rawStudent.tutor || '';
+    
+    // Fecha de exportación
+    const exportDate = rawStudent.exportDate || rawStudent.fecha || rawStudent.timestamp || new Date().toISOString();
+    
+    // Extraer puntuaciones del perfil (están dentro de evaluation.profile)
+    const profile = rawStudent.evaluation?.profile || rawStudent.profile || {};
+    const attention = profile.attention || rawStudent.attention || rawStudent.atencion || 50;
+    const planning = profile.planning || rawStudent.planning || rawStudent.planificacion || 50;
+    const emotional = profile.emotional || rawStudent.emotional || rawStudent.emocion || 50;
+    const pattern = profile.pattern || rawStudent.pattern || rawStudent.patron || 50;
+    const impulsivity = profile.impulsivity || rawStudent.impulsivity || 50;
+    
+    // También guardar el tipo de perfil y sugerencias si existen
+    const patternType = profile.pattern || '';
+    const inferences = profile.inferences || '';
+    const suggestions = profile.suggestions || [];
+    
+    console.log('📥 Importando estudiante:', { name, dni, attention, planning, emotional, pattern, impulsivity, exportDate });
+    
+    // Crear objeto del estudiante
+    const studentData = {
+      id: rawStudent.id || ('est_' + Date.now() + '_' + Math.random().toString(36).substr(2,6)),
+      nombre: name,
+      dni: dni,
+      nacimiento: birthDate,
+      contacto: contact,
+      tutor: tutor,
+      grado: rawStudent.grado || '',
+      observaciones: rawStudent.observaciones || '',
+      patternType: patternType,      // Guardar tipo de perfil (Ej: "Dinámico-Impulsivo")
+      inferences: inferences,        // Guardar inferencias clínicas
+      suggestions: suggestions,      // Guardar sugerencias
+      evaluaciones: []
+    };
+    
+    // Crear evaluación con todos los datos
+    const newEval = {
+      exportDate: exportDate,
+      attention: attention,
+      planning: planning,
+      emotional: emotional,
+      pattern: pattern,
+      impulsivity: impulsivity,
+      games: rawStudent.evaluation?.games || rawStudent.games || [],  // Guardar los juegos también
+      completed: rawStudent.evaluation?.completed || false,
+      date: rawStudent.evaluation?.date || rawStudent.date || exportDate
+    };
+    
+    // Buscar estudiante existente por DNI
+    const existingIndex = state.students.findIndex(s => s.dni === dni);
+    if (existingIndex !== -1) {
+      const existing = state.students[existingIndex];
+      // Actualizar datos demográficos
+      if (studentData.nombre && studentData.nombre !== 'Sin nombre') existing.nombre = studentData.nombre;
+      if (studentData.tutor) existing.tutor = studentData.tutor;
+      if (studentData.grado) existing.grado = studentData.grado;
+      if (studentData.contacto) existing.contacto = studentData.contacto;
+      if (studentData.nacimiento) existing.nacimiento = studentData.nacimiento;
+      if (studentData.patternType) existing.patternType = studentData.patternType;
+      if (studentData.inferences) existing.inferences = studentData.inferences;
+      if (studentData.suggestions.length) existing.suggestions = studentData.suggestions;
+      
+      // Verificar si ya existe evaluación con esta misma fecha
+      const evalExists = existing.evaluaciones.some(e => e.exportDate === exportDate);
+      if (!evalExists) {
+        existing.evaluaciones.push(newEval);
+        existing.evaluaciones.sort((a,b) => new Date(a.exportDate) - new Date(b.exportDate));
+      }
+    } else {
+      studentData.evaluaciones.push(newEval);
+      state.students.push(studentData);
+    }
+  });
+  
+  saveState();
+  populateSelects();
+  renderStudents();
+  alert(`✅ Se importaron ${studentsToProcess.length} estudiante(s) correctamente.`);
+}
+
+// ================= PROCESAR EVALUACIÓN CON COMPARATIVA VISUAL (CORREGIDO PARA TU JSON) =================
+function processEvalImport() {
+  const fileInput = document.getElementById('eval-import-file');
+  if (!fileInput.files.length) return alert('Seleccione un archivo JSON.');
+  
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      
+      // --- CORRECCIÓN: Extraer datos de la estructura ANIDADA ---
+      let name = data.student?.name || data.name || data.nombre || 'Estudiante';
+      let dni = data.student?.dni || data.dni || data.DNI || '00000000';
+      let birthDate = data.student?.birthDate || '';
+      let contact = data.student?.contact || '';
+      let tutor = data.student?.tutor || '';
+      
+      const exportDate = data.exportDate || data.fecha || data.timestamp || new Date().toISOString();
+      
+      // Extraer puntuaciones del perfil
+      const profile = data.evaluation?.profile || data.profile || {};
+      const attention = profile.attention || data.attention || 50;
+      const planning = profile.planning || data.planning || 50;
+      const emotional = profile.emotional || data.emotional || 50;
+      const pattern = profile.pattern || data.pattern || 50;
+      const impulsivity = profile.impulsivity || data.impulsivity || 50;
+      const patternType = profile.pattern || '';
+      const inferences = profile.inferences || '';
+      const suggestions = profile.suggestions || [];
+      
+      console.log('📥 Importando evaluación:', { name, dni, attention, planning, emotional, pattern, impulsivity, exportDate });
+      
+      // Buscar estudiante existente
+      let student = state.students.find(s => s.dni === dni);
+      let comparisonHtml = '';
+      
+      const newScores = { attention, planning, emotional, pattern, impulsivity };
+      
+      if (student && student.evaluaciones && student.evaluaciones.length > 0) {
+        const lastEval = student.evaluaciones[student.evaluaciones.length - 1];
+        const changes = {
+          attention: newScores.attention - (lastEval.attention || 50),
+          planning: newScores.planning - (lastEval.planning || 50),
+          emotional: newScores.emotional - (lastEval.emotional || 50),
+          pattern: newScores.pattern - (lastEval.pattern || 50),
+          impulsivity: newScores.impulsivity - (lastEval.impulsivity || 50)
+        };
+        
+        comparisonHtml = `
+          <h3>📊 Comparativa de Evaluaciones: ${name}</h3>
+          <p><strong>DNI:</strong> ${dni}</p>
+          <p><strong>Tutor:</strong> ${tutor || 'No registrado'}</p>
+          <p><strong>Evaluación anterior:</strong> ${new Date(lastEval.exportDate).toLocaleDateString()}</p>
+          <p><strong>Nueva evaluación:</strong> ${new Date(exportDate).toLocaleDateString()}</p>
+          <table class="comparison-table">
+            <thead><tr><th>Dominio</th><th>Valor Anterior</th><th>Nuevo Valor</th><th>Cambio</th></tr></thead>
+            <tbody>
+              <tr><td>🎯 Atención</td><td>${lastEval.attention || 50}%</td><td>${newScores.attention}%</td><td class="${changes.attention >= 0 ? 'trend-up' : 'trend-down'}">${changes.attention >= 0 ? '▲' : '▼'} ${Math.abs(changes.attention)}%</td></tr>
+              <tr><td>📋 Planificación</td><td>${lastEval.planning || 50}%</td><td>${newScores.planning}%</td><td class="${changes.planning >= 0 ? 'trend-up' : 'trend-down'}">${changes.planning >= 0 ? '▲' : '▼'} ${Math.abs(changes.planning)}%</td></tr>
+              <tr><td>💭 Regulación Emocional</td><td>${lastEval.emotional || 50}%</td><td>${newScores.emotional}%</td><td class="${changes.emotional >= 0 ? 'trend-up' : 'trend-down'}">${changes.emotional >= 0 ? '▲' : '▼'} ${Math.abs(changes.emotional)}%</td></tr>
+              <tr><td>🔄 Reconocimiento Patrones</td><td>${lastEval.pattern || 50}%</td><td>${newScores.pattern}%</td><td class="${changes.pattern >= 0 ? 'trend-up' : 'trend-down'}">${changes.pattern >= 0 ? '▲' : '▼'} ${Math.abs(changes.pattern)}%</td></tr>
+              <tr><td>⚡ Impulsividad</td><td>${lastEval.impulsivity || 50}%</td><td>${newScores.impulsivity}%</td><td class="${changes.impulsivity <= 0 ? 'trend-up' : 'trend-down'}">${changes.impulsivity <= 0 ? '▼' : '▲'} ${Math.abs(changes.impulsivity)}%</td></tr>
+            </tbody>
+           </>
+          <div id="comparison-chart-container" style="margin-top:20px;"></div>
+          <div class="theory-card" style="margin-top:16px;">
+            <h4>🧠 Perfil Detectado: ${patternType}</h4>
+            <p>${inferences}</p>
+            ${suggestions.length ? `<p><strong>Sugerencias:</strong> ${suggestions.join(' ')}</p>` : ''}
+          </div>
+        `;
+        
+        setTimeout(() => {
+          renderComparisonChartWithImpulsivity(
+            [lastEval.attention || 50, lastEval.planning || 50, lastEval.emotional || 50, lastEval.pattern || 50, lastEval.impulsivity || 50],
+            [newScores.attention, newScores.planning, newScores.emotional, newScores.pattern, newScores.impulsivity]
+          );
+        }, 50);
+      } else {
+        comparisonHtml = `
+          <h3>✅ Primera evaluación de ${name}</h3>
+          <p><strong>DNI:</strong> ${dni}</p>
+          <p><strong>Tutor:</strong> ${tutor || 'No registrado'}</p>
+          <p><strong>Fecha de nacimiento:</strong> ${birthDate ? new Date(birthDate).toLocaleDateString() : 'No registrada'}</p>
+          <p><strong>Perfil detectado:</strong> ${patternType}</p>
+          <div class="theory-card" style="margin-top:16px;">
+            <p>${inferences}</p>
+            ${suggestions.length ? `<p><strong>Sugerencias:</strong> ${suggestions.join(' ')}</p>` : ''}
+          </div>
+          <p style="margin-top:16px;">Se han registrado los datos iniciales. Se necesitan al menos 2 evaluaciones para mostrar comparativas de evolución.</p>
+        `;
+      }
+      
+      document.getElementById('comparison-result').innerHTML = comparisonHtml;
+      document.getElementById('comparison-result').style.display = 'block';
+      
+      // Importar los datos
+      importData(data);
+      document.getElementById('eval-import-file').value = '';
+      
+      // Refrescar perfil si está visible
+      if (document.getElementById('perfiles').classList.contains('active')) {
+        renderProfile();
+      }
+      
+      alert(`✅ Evaluación de ${name} (DNI: ${dni}) importada correctamente.\n\nPerfil: ${patternType}\nAtención: ${attention}% | Planificación: ${planning}% | Emocional: ${emotional}% | Patrones: ${pattern}% | Impulsividad: ${impulsivity}%`);
+    } catch (err) {
+      alert('❌ Error al procesar: ' + err.message);
+      console.error(err);
+    }
+  };
+  reader.readAsText(fileInput.files[0]);
+}
+
+// Gráfico comparativo incluyendo impulsividad
+function renderComparisonChartWithImpulsivity(prevVals, currVals) {
+  const container = document.getElementById('comparison-chart-container');
+  if(!container) return;
+  
+  const width = 600, height = 350;
+  const labels = ['Atención', 'Planificación', 'Emocional', 'Patrones', 'Impulsividad'];
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  
+  const barWidth = 45;
+  const startX = 70;
+  
+  for(let i=0; i<labels.length; i++) {
+    const xPrev = startX + i * 105;
+    const xCurr = xPrev + barWidth + 10;
+    // Para impulsividad, valores altos son malos, así que invertimos visualmente
+    const isImpulsivity = labels[i] === 'Impulsividad';
+    const prevValNorm = isImpulsivity ? 100 - prevVals[i] : prevVals[i];
+    const currValNorm = isImpulsivity ? 100 - currVals[i] : currVals[i];
+    const hPrev = (prevValNorm / 100) * 200;
+    const hCurr = (currValNorm / 100) * 200;
+    
+    const rectPrev = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rectPrev.setAttribute("x", xPrev); rectPrev.setAttribute("y", height - 50 - hPrev);
+    rectPrev.setAttribute("width", barWidth); rectPrev.setAttribute("height", hPrev);
+    rectPrev.setAttribute("fill", "#94a3b8");
+    rectPrev.setAttribute("rx", "4");
+    svg.appendChild(rectPrev);
+    
+    const rectCurr = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rectCurr.setAttribute("x", xCurr); rectCurr.setAttribute("y", height - 50 - hCurr);
+    rectCurr.setAttribute("width", barWidth); rectCurr.setAttribute("height", hCurr);
+    rectCurr.setAttribute("fill", isImpulsivity ? "#dc2626" : "#1e40af");
+    rectCurr.setAttribute("rx", "4");
+    svg.appendChild(rectCurr);
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", xPrev + barWidth/2); text.setAttribute("y", height - 25);
+    text.setAttribute("text-anchor", "middle"); text.setAttribute("font-size", "10");
+    text.setAttribute("font-weight", "bold");
+    text.textContent = labels[i];
+    svg.appendChild(text);
+    
+    // Valor anterior
+    const valPrev = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    valPrev.setAttribute("x", xPrev + barWidth/2); valPrev.setAttribute("y", height - 55 - hPrev);
+    valPrev.setAttribute("text-anchor", "middle"); valPrev.setAttribute("font-size", "9");
+    valPrev.setAttribute("fill", "#475569");
+    valPrev.textContent = `${prevVals[i]}%`;
+    svg.appendChild(valPrev);
+    
+    // Valor actual
+    const valCurr = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    valCurr.setAttribute("x", xCurr + barWidth/2); valCurr.setAttribute("y", height - 55 - hCurr);
+    valCurr.setAttribute("text-anchor", "middle"); valCurr.setAttribute("font-size", "9");
+    valCurr.setAttribute("fill", isImpulsivity ? "#dc2626" : "#1e40af");
+    valCurr.textContent = `${currVals[i]}%`;
+    svg.appendChild(valCurr);
+  }
+  
+  container.innerHTML = '';
+  container.appendChild(svg);
+  container.innerHTML += '<div style="margin-top:15px; font-size:0.8rem; display:flex; justify-content:center; gap:20px;"><span>📊 <span style="background:#94a3b8; display:inline-block; width:12px; height:12px; border-radius:2px;"></span> Evaluación anterior</span> <span>📈 <span style="background:#1e40af; display:inline-block; width:12px; height:12px; border-radius:2px;"></span> Nueva evaluación</span> <span>⚠️ <span style="background:#dc2626; display:inline-block; width:12px; height:12px; border-radius:2px;"></span> Impulsividad (menor es mejor)</span></div>';
+}
+
+// ================= RENDER STUDENTS CORREGIDO =================
+function renderStudents() {
+  const tbody = document.getElementById('students-table-body');
+  const empty = document.getElementById('students-empty');
+  
+  if (state.students.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  
+  tbody.innerHTML = state.students.map(s => {
+    const evalCount = s.evaluaciones ? s.evaluaciones.length : 0;
+    const lastEval = s.evaluaciones?.[s.evaluaciones.length-1]?.exportDate;
+    return `
+      <tr>
+        <td><strong>${s.nombre || 'Sin nombre'}</strong><br><small style="color:var(--text-light);">${s.grado || ''}</small>${s.patternType ? `<br><span class="badge badge-purple" style="font-size:0.7rem;">${s.patternType}</span>` : ''}</td>
+        <td>${s.dni || 'Sin DNI'}</td>
+        <td>${s.tutor || '-'}</td>
+        <td><span class="badge ${evalCount>=2?'badge-purple':evalCount>0?'badge-blue':'badge-warning'}">${evalCount} eval.</span></td>
+        <td>${lastEval ? new Date(lastEval).toLocaleDateString() : 'Sin datos'}</td>
+        <td class="btn-group">
+          <button class="btn btn-outline btn-sm" onclick="viewStudentProfile('${s.id}')">👁️ Ver</button>
+          <button class="btn btn-sm" onclick="startIntervention('${s.id}')">🎯 Intervención</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ================= PERFIL COGNITIVO ACTUALIZADO CON IMPULSIVIDAD =================
+function renderProfile() {
+  const id = document.getElementById('profile-select').value;
+  const container = document.getElementById('profile-content');
+  
+  if(!id) { container.innerHTML = '<p style="color:var(--text-light);text-align:center;padding:40px;">Seleccione un estudiante para analizar su perfil cognitivo.</p>'; return; }
+  
+  const s = state.students.find(x => x.id === id);
+  if(!s) return;
+  
+  container.innerHTML = `<h3 style="margin-bottom:20px;">🧠 Perfil Cognitivo: ${s.nombre}</h3>`;
+  
+  if(!s.evaluaciones || s.evaluaciones.length === 0) {
+    container.innerHTML += '<div class="card"><p>⚠️ No hay evaluaciones cargadas para este estudiante.</p><p style="margin-top:10px;"><button class="btn btn-sm" onclick="openModal(\'import-modal\')">📥 Importar evaluación</button></p></div>';
+    return;
+  }
+  
+  const latest = s.evaluaciones[s.evaluaciones.length-1];
+  const domain = {
+    atencion: latest.attention || 50,
+    control: latest.planning || 50,
+    emocion: latest.emotional || 50,
+    flexibilidad: latest.pattern || 50,
+    impulsividad: latest.impulsivity || 50
+  };
+  
+  // GRÁFICO DE BARRAS HORIZONTAL con 5 dominios
+  const width = 550, height = 340;
+  const labels = ['🎯 Atención', '📋 Planificación', '💭 Regulación Emocional', '🔄 Patrones', '⚡ Impulsividad'];
+  const values = [domain.atencion, domain.control, domain.emocion, domain.flexibilidad, domain.impulsividad];
+  const colors = ['#1e40af', '#059669', '#7c3aed', '#f59e0b', '#dc2626'];
+  
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.classList.add("profile-bar-chart");
+  
+  const barHeight = 32;
+  const startY = 25;
+  const maxWidth = 320;
+  
+  for(let i=0; i<labels.length; i++) {
+    const y = startY + i * (barHeight + 12);
+    const barWidth = (values[i] / 100) * maxWidth;
+    
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", 140); rect.setAttribute("y", y);
+    rect.setAttribute("width", barWidth); rect.setAttribute("height", barHeight);
+    rect.setAttribute("fill", colors[i]); rect.setAttribute("rx", "5");
+    svg.appendChild(rect);
+    
+    const textLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textLabel.setAttribute("x", 10); textLabel.setAttribute("y", y + barHeight/2 + 5);
+    textLabel.setAttribute("font-size", "12"); textLabel.setAttribute("font-weight", "bold");
+    textLabel.setAttribute("fill", "#0f172a"); textLabel.textContent = labels[i];
+    svg.appendChild(textLabel);
+    
+    const textValue = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textValue.setAttribute("x", 150 + barWidth); textValue.setAttribute("y", y + barHeight/2 + 5);
+    textValue.setAttribute("font-size", "12"); textValue.setAttribute("font-weight", "bold");
+    textValue.setAttribute("fill", colors[i]); textValue.textContent = `${values[i]}%`;
+    svg.appendChild(textValue);
+  }
+  
+  let html = `<div class="profile-graph-container"><h4>📊 Perfil Actual - Última Evaluación</h4><p><strong>Fecha:</strong> ${new Date(latest.exportDate).toLocaleDateString()}</p>`;
+  container.innerHTML = html;
+  container.appendChild(svg);
+  
+  // Mostrar tipo de perfil si existe
+  if (s.patternType) {
+    container.innerHTML += `<div class="theory-card" style="margin-top:20px;"><h4>🧠 Tipo de Perfil: ${s.patternType}</h4>${s.inferences ? `<p>${s.inferences}</p>` : ''}</div>`;
+  }
+  
+  container.innerHTML += `<div class="profile-legend" style="margin-top:15px;">${labels.map((l,i)=>`<div class="legend-item"><div class="legend-color" style="background:${colors[i]}"></div><span>${l}: ${values[i]}%</span></div>`).join('')}</div></div>`;
+  
+  // Generar narrativa clínica
+  const narrative = generateClinicalNarrative(domain, s.evaluaciones.length);
+  container.innerHTML += `<div class="card" style="margin-top:20px;"><h4>📝 Análisis Clínico Fundamentado</h4><p style="margin-top:12px;line-height:1.8;">${narrative}</p></div>`;
+  
+  // Mostrar sugerencias del JSON si existen
+  if (s.suggestions && s.suggestions.length) {
+    container.innerHTML += `<div class="card" style="margin-top:20px;background:var(--primary-light);"><h4>💡 Sugerencias del Sistema</h4><ul style="margin-left:20px;">${s.suggestions.map(seg => `<li>${seg}</li>`).join('')}</ul></div>`;
+  }
+  
+  // Comparativa si hay ≥2 evaluaciones
+  if(s.evaluaciones.length >= 2) {
+    const prev = s.evaluaciones[s.evaluaciones.length-2];
+    const delta = {
+      atencion: domain.atencion - (prev.attention || 50),
+      control: domain.control - (prev.planning || 50),
+      emocion: domain.emocion - (prev.emotional || 50),
+      flexibilidad: domain.flexibilidad - (prev.pattern || 50),
+      impulsividad: domain.impulsividad - (prev.impulsivity || 50)
+    };
+    
+    container.innerHTML += `
+      <div class="card" style="margin-top:20px;background:linear-gradient(135deg,var(--accent-light),var(--primary-light));border-left:4px solid var(--accent);">
+        <h4>📈 Evolución respecto a evaluación anterior</h4>
+        <p><strong>Fecha anterior:</strong> ${new Date(prev.exportDate).toLocaleDateString()}</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px;">
+          <div><strong>Atención:</strong> ${delta.atencion >= 0 ? '▲' : '▼'} ${Math.abs(delta.atencion)}% (${prev.attention || 50}% → ${domain.atencion}%)</div>
+          <div><strong>Planificación:</strong> ${delta.control >= 0 ? '▲' : '▼'} ${Math.abs(delta.control)}% (${prev.planning || 50}% → ${domain.control}%)</div>
+          <div><strong>Regulación Emocional:</strong> ${delta.emocion >= 0 ? '▲' : '▼'} ${Math.abs(delta.emocion)}% (${prev.emotional || 50}% → ${domain.emocion}%)</div>
+          <div><strong>Patrones:</strong> ${delta.flexibilidad >= 0 ? '▲' : '▼'} ${Math.abs(delta.flexibilidad)}% (${prev.pattern || 50}% → ${domain.flexibilidad}%)</div>
+          <div><strong>Impulsividad:</strong> ${delta.impulsividad <= 0 ? '▼' : '▲'} ${Math.abs(delta.impulsividad)}% (${prev.impulsivity || 50}% → ${domain.impulsividad}%) <span style="font-size:0.8rem;">(menor es mejor)</span></div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function processImport() {
+  const fileInput = document.getElementById('import-file');
+  if (!fileInput.files.length) return alert('Seleccione un archivo JSON primero.');
+  
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      importData(data);
+      closeModal('import-modal');
+      alert('✅ Datos importados correctamente.');
+      renderStudents();
+      populateSelects();
+    } catch (err) {
+      alert('❌ Error al leer el archivo: ' + err.message);
+    }
+  };
+  reader.readAsText(fileInput.files[0]);
+}
+
+// ================= PROCESAR EVALUACIÓN CON COMPARATIVA VISUAL =================
+function processEvalImport() {
+  const fileInput = document.getElementById('eval-import-file');
+  if (!fileInput.files.length) return alert('Seleccione un archivo JSON.');
+  
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      const name = data.name || data.nombre || 'Estudiante';
+      const dni = data.dni || data.DNI || '00000000';
+      const exportDate = data.exportDate || data.fecha || new Date().toISOString();
+      const newScores = {
+        attention: data.attention || data.atencion || 50,
+        planning: data.planning || data.planificacion || 50,
+        emotional: data.emotional || data.emocion || 50,
+        pattern: data.pattern || data.patron || 50
+      };
+      
+      // Buscar estudiante existente
+      let student = state.students.find(s => s.dni === dni);
+      let comparisonHtml = '';
+      
+      if (student && student.evaluaciones && student.evaluaciones.length > 0) {
+        // Buscar la evaluación más reciente con fecha diferente
+        const lastEval = student.evaluaciones[student.evaluaciones.length - 1];
+        const changes = {
+          attention: newScores.attention - (lastEval.attention || 50),
+          planning: newScores.planning - (lastEval.planning || 50),
+          emotional: newScores.emotional - (lastEval.emotional || 50),
+          pattern: newScores.pattern - (lastEval.pattern || 50)
+        };
+        
+        comparisonHtml = `
+          <h3>📊 Comparativa de Evaluaciones: ${name}</h3>
+          <p><strong>Evaluación anterior:</strong> ${new Date(lastEval.exportDate).toLocaleDateString()}</p>
+          <p><strong>Nueva evaluación:</strong> ${new Date(exportDate).toLocaleDateString()}</p>
+          <table class="comparison-table">
+            <thead><tr><th>Dominio</th><th>Valor Anterior</th><th>Nuevo Valor</th><th>Cambio</th></tr></thead>
+            <tbody>
+              <tr><td>🎯 Atención</td><td>${lastEval.attention || 50}%</td><td>${newScores.attention}%</td><td class="${changes.attention >= 0 ? 'trend-up' : 'trend-down'}">${changes.attention >= 0 ? '▲' : '▼'} ${Math.abs(changes.attention)}%</td></tr>
+              <tr><td>📋 Planificación</td><td>${lastEval.planning || 50}%</td><td>${newScores.planning}%</td><td class="${changes.planning >= 0 ? 'trend-up' : 'trend-down'}">${changes.planning >= 0 ? '▲' : '▼'} ${Math.abs(changes.planning)}%</td></tr>
+              <tr><td>💭 Regulación Emocional</td><td>${lastEval.emotional || 50}%</td><td>${newScores.emotional}%</td><td class="${changes.emotional >= 0 ? 'trend-up' : 'trend-down'}">${changes.emotional >= 0 ? '▲' : '▼'} ${Math.abs(changes.emotional)}%</td></tr>
+              <tr><td>🔄 Flexibilidad/Patrones</td><td>${lastEval.pattern || 50}%</td><td>${newScores.pattern}%</td><td class="${changes.pattern >= 0 ? 'trend-up' : 'trend-down'}">${changes.pattern >= 0 ? '▲' : '▼'} ${Math.abs(changes.pattern)}%</td></tr>
+            </tbody>
+          </table>
+          <div id="comparison-chart-container" style="margin-top:20px;"></div>
+        `;
+        
+        // Generar gráfico de barras comparativo
+        setTimeout(() => {
+          renderComparisonChart([lastEval.attention || 50, lastEval.planning || 50, lastEval.emotional || 50, lastEval.pattern || 50], 
+                                [newScores.attention, newScores.planning, newScores.emotional, newScores.pattern]);
+        }, 50);
+      } else {
+        comparisonHtml = `<h3>✅ Primera evaluación de ${name}</h3><p>Se ha registrado la evaluación inicial. Se necesitan al menos 2 evaluaciones para mostrar comparativas de evolución.</p>`;
+      }
+      
+      document.getElementById('comparison-result').innerHTML = comparisonHtml;
+      document.getElementById('comparison-result').style.display = 'block';
+      
+      // Importar los datos
+      importData(data);
+      document.getElementById('eval-import-file').value = '';
+      
+      // Refrescar perfil si está visible
+      if (document.getElementById('perfiles').classList.contains('active')) {
+        renderProfile();
+      }
+      
+      alert(`✅ Evaluación de ${name} importada correctamente.`);
+    } catch (err) {
+      alert('❌ Error al procesar: ' + err.message);
+    }
+  };
+  reader.readAsText(fileInput.files[0]);
+}
+
+function renderComparisonChart(prevVals, currVals) {
+  const container = document.getElementById('comparison-chart-container');
+  if(!container) return;
+  
+  const width = 500, height = 300;
+  const labels = ['Atención', 'Planificación', 'Emocional', 'Patrones'];
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  
+  const barWidth = 50;
+  const startX = 60;
+  
+  for(let i=0; i<labels.length; i++) {
+    const xPrev = startX + i * 110;
+    const xCurr = xPrev + barWidth + 10;
+    const hPrev = (prevVals[i] / 100) * 200;
+    const hCurr = (currVals[i] / 100) * 200;
+    
+    const rectPrev = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rectPrev.setAttribute("x", xPrev); rectPrev.setAttribute("y", height - 40 - hPrev);
+    rectPrev.setAttribute("width", barWidth); rectPrev.setAttribute("height", hPrev);
+    rectPrev.setAttribute("fill", "#94a3b8");
+    svg.appendChild(rectPrev);
+    
+    const rectCurr = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rectCurr.setAttribute("x", xCurr); rectCurr.setAttribute("y", height - 40 - hCurr);
+    rectCurr.setAttribute("width", barWidth); rectCurr.setAttribute("height", hCurr);
+    rectCurr.setAttribute("fill", "#1e40af");
+    svg.appendChild(rectCurr);
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", xPrev + barWidth/2); text.setAttribute("y", height - 20);
+    text.setAttribute("text-anchor", "middle"); text.setAttribute("font-size", "10");
+    text.textContent = labels[i];
+    svg.appendChild(text);
+  }
+  
+  container.innerHTML = '';
+  container.appendChild(svg);
+  container.innerHTML += '<p style="margin-top:10px;font-size:0.8rem;">📊 Barras grises: evaluación anterior | Barras azules: nueva evaluación</p>';
+}
+
+// ================= PERFILES COGNITIVOS (CON GRÁFICO DE BARRAS HORIZONTAL IMPACTANTE) =================
+function renderProfile() {
+  const id = document.getElementById('profile-select').value;
+  const container = document.getElementById('profile-content');
+  
+  if(!id) { container.innerHTML = '<p style="color:var(--text-light);text-align:center;padding:40px;">Seleccione un estudiante para analizar su perfil cognitivo.</p>'; return; }
+  
+  const s = state.students.find(x => x.id === id);
+  if(!s) return;
+  
+  container.innerHTML = `<h3 style="margin-bottom:20px;">🧠 Perfil Cognitivo: ${s.nombre}</h3>`;
+  
+  if(!s.evaluaciones || s.evaluaciones.length === 0) {
+    container.innerHTML += '<div class="card"><p>⚠️ No hay evaluaciones cargadas para este estudiante.</p><p style="margin-top:10px;"><button class="btn btn-sm" onclick="openModal(\'import-modal\')">📥 Importar evaluación</button></p></div>';
+    return;
+  }
+  
+  const latest = s.evaluaciones[s.evaluaciones.length-1];
+  const domain = calculateDomainFromEval(latest);
+  
+  // GRÁFICO DE BARRAS HORIZONTAL IMPACTANTE
+  const width = 500, height = 280;
+  const labels = ['🎯 Atención', '📋 Planificación', '💭 Regulación Emocional', '🔄 Flexibilidad'];
+  const values = [domain.atencion, domain.control, domain.emocion, domain.flexibilidad];
+  const colors = ['#1e40af', '#059669', '#7c3aed', '#f59e0b'];
+  
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.classList.add("profile-bar-chart");
+  
+  const barHeight = 35;
+  const startY = 30;
+  const maxWidth = 300;
+  
+  for(let i=0; i<labels.length; i++) {
+    const y = startY + i * (barHeight + 15);
+    const barWidth = (values[i] / 100) * maxWidth;
+    
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", 120); rect.setAttribute("y", y);
+    rect.setAttribute("width", barWidth); rect.setAttribute("height", barHeight);
+    rect.setAttribute("fill", colors[i]); rect.setAttribute("rx", "5");
+    svg.appendChild(rect);
+    
+    const textLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textLabel.setAttribute("x", 10); textLabel.setAttribute("y", y + barHeight/2 + 5);
+    textLabel.setAttribute("font-size", "13"); textLabel.setAttribute("font-weight", "bold");
+    textLabel.setAttribute("fill", "#0f172a"); textLabel.textContent = labels[i];
+    svg.appendChild(textLabel);
+    
+    const textValue = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textValue.setAttribute("x", 130 + barWidth); textValue.setAttribute("y", y + barHeight/2 + 5);
+    textValue.setAttribute("font-size", "13"); textValue.setAttribute("font-weight", "bold");
+    textValue.setAttribute("fill", colors[i]); textValue.textContent = `${values[i]}%`;
+    svg.appendChild(textValue);
+  }
+  
+  let html = `<div class="profile-graph-container"><h4>📊 Perfil Actual - Última Evaluación</h4><p><strong>Fecha:</strong> ${new Date(latest.exportDate).toLocaleDateString()}</p>`;
+  container.innerHTML = html;
+  container.appendChild(svg);
+  container.innerHTML += `<div class="profile-legend">${labels.map((l,i)=>`<div class="legend-item"><div class="legend-color" style="background:${colors[i]}"></div><span>${l}: ${values[i]}%</span></div>`).join('')}</div></div>`;
+  
+  // Generar narrativa clínica (prosa original)
+  const narrative = generateClinicalNarrative(domain, s.evaluaciones.length);
+  container.innerHTML += `<div class="card" style="margin-top:20px;"><h4>📝 Análisis Clínico Fundamentado</h4><p style="margin-top:12px;line-height:1.8;">${narrative}</p></div>`;
+  
+  // Comparativa si hay ≥2 evaluaciones
+  if(s.evaluaciones.length >= 2) {
+    const prev = s.evaluaciones[s.evaluaciones.length-2];
+    const prevD = calculateDomainFromEval(prev);
+    const delta = {
+      atencion: domain.atencion - prevD.atencion,
+      control: domain.control - prevD.control,
+      emocion: domain.emocion - prevD.emocion,
+      flexibilidad: domain.flexibilidad - prevD.flexibilidad
+    };
+    
+    const trend = Object.values(delta).every(v => v >= 0) ? 'progreso consistente' : 
+                 Object.values(delta).filter(v => v < 0).length <= 1 ? 'tendencia favorable con áreas de oportunidad' : 
+                 'necesidad de ajustar estrategias de intervención';
+    
+    container.innerHTML += `
+      <div class="card" style="margin-top:20px;background:linear-gradient(135deg,var(--accent-light),var(--primary-light));border-left:4px solid var(--accent);">
+        <h4>📈 Comparativa de Re-evaluación</h4>
+        <p style="margin:12px 0;"><strong>Tendencia observada:</strong> ${trend}</p>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;">
+          <div><strong>Atención:</strong> ${delta.atencion >= 0 ? '▲' : '▼'} ${Math.abs(delta.atencion)}% (${prevD.atencion}% → ${domain.atencion}%)</div>
+          <div><strong>Planificación:</strong> ${delta.control >= 0 ? '▲' : '▼'} ${Math.abs(delta.control)}% (${prevD.control}% → ${domain.control}%)</div>
+          <div><strong>Regulación Emocional:</strong> ${delta.emocion >= 0 ? '▲' : '▼'} ${Math.abs(delta.emocion)}% (${prevD.emocion}% → ${domain.emocion}%)</div>
+          <div><strong>Flexibilidad:</strong> ${delta.flexibilidad >= 0 ? '▲' : '▼'} ${Math.abs(delta.flexibilidad)}% (${prevD.flexibilidad}% → ${domain.flexibilidad}%)</div>
+        </div>
+        <p style="margin-top:12px;font-size:0.9rem;color:var(--text-light);">
+          <em>Nota: Las comparativas se realizan entre evaluaciones consecutivas. Para análisis longitudinales, genere un informe desde la sección "Informes".</em>
+        </p>
+      </div>
+    `;
+  } else {
+    container.innerHTML += `<p style="margin:20px 0;color:var(--text-light);">💡 Realice una segunda evaluación para habilitar análisis comparativo y medir evolución.</p>`;
+  }
+}
+
+// ================= NARRATIVA CLÍNICA (PROSA ORIGINAL) =================
+function generateClinicalNarrative(domain, evalCount) {
+  const strengths = [];
+  const opportunities = [];
+  
+  if(domain.atencion >= 70) strengths.push('una capacidad de focalización atencional que permite sostener tareas estructuradas por períodos adecuados a su etapa evolutiva');
+  else if(domain.atencion >= 40) opportunities.push('la atención sostenida, que puede fortalecerse mediante fragmentación de consignas y señales visuales externas');
+  else opportunities.push('la atención, requiriendo estrategias de externalización de la memoria de trabajo y reducción de distractores ambientales');
+  
+  if(domain.control >= 70) strengths.push('un adecuado control inhibitorio que facilita la espera de turnos y la reflexión antes de actuar');
+  else if(domain.control >= 40) opportunities.push('el control de impulsos, beneficiándose de pausas reflexivas guiadas ("semáforo cognitivo")');
+  else opportunities.push('la regulación de respuestas impulsivas, priorizando la práctica deliberada de inhibición en entornos de baja demanda sensorial');
+  
+  if(domain.emocion >= 70) strengths.push('una regulación emocional que le permite manejar la frustración y recuperarse ante desafíos');
+  else if(domain.emocion >= 40) opportunities.push('la tolerancia a la frustración, trabajando la validación emocional y técnicas de anclaje sensorial');
+  else opportunities.push('la gestión del malestar, requiriendo co-regulación adulta antes de esperar autorregulación autónoma');
+  
+  if(domain.flexibilidad >= 70) strengths.push('flexibilidad cognitiva para adaptar estrategias cuando las condiciones cambian');
+  else if(domain.flexibilidad >= 40) opportunities.push('la flexibilidad mental, mediante juegos con reglas progresivamente variables');
+  else opportunities.push('la adaptación a cambios, comenzando con transiciones predecibles y apoyos visuales');
+  
+  const intro = evalCount >= 2 ? 
+    `El análisis comparativo de las evaluaciones realizadas revela un perfil cognitivo que se encuentra en ${domain.atencion+domain.control+domain.emocion+domain.flexibilidad >= 240 ? 'proceso de consolidación favorable' : 'fase de desarrollo con áreas de oportunidad identificadas'}. ` :
+    `El perfil cognitivo actual sugiere un funcionamiento que ${domain.atencion+domain.control+domain.emocion+domain.flexibilidad >= 240 ? 'presenta fortalezas significativas' : 'requiere acompañamiento estratégico en dominios específicos'}. `;
+  
+  const body = strengths.length > 0 ? `Se observan como fortalezas: ${strengths.join('; ')}. ` : '';
+  const rec = opportunities.length > 0 ? `Como áreas de intervención prioritaria se sugieren: ${opportunities.join('; ')}. Estas recomendaciones se fundamentan en la Teoría de la Carga Cognitiva (Sweller), que indica que reducir la complejidad extrínseca libera recursos para el aprendizaje significativo. ` : '';
+  const closing = `La intervención escolar debe priorizar entornos de baja fidelidad visual para minimizar la sobrecarga sensorial, permitiendo que los recursos cognitivos se destinen a la construcción de estrategias metacognitivas (Beck) y al desarrollo de la autonomía en el aprendizaje (Vygotsky).`;
+  
+  return intro + body + rec + closing;
+}
+
+// ================= SELECTS =================
+function populateSelects() {
+  ['profile-select','intervention-select','report-select'].forEach(id => {
+    const sel = document.getElementById(id);
+    if(sel) {
+      sel.innerHTML = '<option value="">-- Seleccione --</option>';
+      state.students.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id; opt.textContent = s.nombre;
+        sel.appendChild(opt);
+      });
+    }
+  });
+}
+
+function populateStudentSelect(id) {
+  const sel = document.getElementById(id);
+  if(sel) {
+    sel.innerHTML = '';
+    state.students.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.id; opt.textContent = s.nombre;
+      sel.appendChild(opt);
+    });
+  }
+}
+
+// ================= INTERVENCIÓN =================
+function renderIntervention() {
+  const id = document.getElementById('intervention-select').value;
+  const container = document.getElementById('intervention-content');
+  
+  if(!id) { container.innerHTML = '<p style="color:var(--text-light);text-align:center;padding:40px;">Seleccione un estudiante para generar su plan de intervención.</p>'; return; }
+  
+  const s = state.students.find(x => x.id === id);
+  const domain = calculateDomainFromEval(s.evaluaciones?.[s.evaluaciones.length-1] || {});
+  
+  const strategies = [];
+  
+  if(domain.atencion < 60) {
+    strategies.push({
+      title: '🎯 Fragmentación y Señalización Visual',
+      theory: 'Piaget / Sweller',
+      text: 'Desde el constructivismo piagetiano, el pensamiento en etapa concreta requiere anclajes perceptivos. Divida las consignas en pasos numerados (máx. 3) con íconos o colores. Según la Teoría de la Carga Cognitiva, esto reduce la carga extrínseca, liberando memoria de trabajo para el procesamiento central. Use un temporizador visual externo (ej. Time Timer) para externalizar la percepción del tiempo, disminuyendo la ansiedad por duración incierta.'
+    });
+  }
+  if(domain.control < 60) {
+    strategies.push({
+      title: '🛡️ Pausa Reflexiva y Autocuestionamiento',
+      theory: 'Beck / Meichenbaum',
+      text: 'Implemente la técnica del "semáforo cognitivo" (Beck/Meichenbaum): Antes de responder o actuar, el estudiante verbaliza: 1) 🔴 ¿Qué veo? (hechos), 2) 🟡 ¿Qué pienso? (interpretación), 3) 🟢 ¿Qué haré? (acción). Esta externalización del diálogo interno fortalece la corteza prefrontal y modula la respuesta impulsiva. En entornos de baja fidelidad, esta práctica se facilita al reducir distractores que compiten por recursos atencionales.'
+    });
+  }
+  if(domain.emocion < 60) {
+    strategies.push({
+      title: '💭 Regulación Afectiva y Validación',
+      theory: 'Vygotsky / Linehan',
+      text: 'La frustración es un indicador de discrepancia entre expectativa y resultado. Valide la emoción sin juzgar: "Es comprensible que te sientas así; esto es desafiante". Enseñe técnicas de respiración diafragmática y anclaje sensorial (5-4-3-2-1: 5 cosas que veo, 4 que toco...). Vygotsky enfatiza que la co-regulación precede a la autorregulación: el adulto modela primero, luego retira el apoyo gradualmente (andamiaje).'
+    });
+  }
+  if(domain.flexibilidad < 60) {
+    strategies.push({
+      title: '🔄 Refuerzo Intermitente y Micro-logros',
+      theory: 'Bandura / Skinner',
+      text: 'Establezca metas alcanzables a corto plazo ("hoy completamos 2 pasos"). Celebre el esfuerzo, no solo el resultado. Según la teoría del aprendizaje social de Bandura, el modelado de pares y la retroalimentación específica ("Me gustó cómo esperaste tu turno") aumentan la autoeficacia percibida, motor de la perseverancia. Los juegos de baja fidelidad permiten ajustar la dificultad sin saturación, facilitando experiencias de éxito escalonadas.'
+    });
+  }
+  
+  if(strategies.length === 0) {
+    strategies.push({
+      title: '✨ Mantenimiento y Enriquecimiento',
+      theory: 'Vygotsky / Csikszentmihalyi',
+      text: 'El perfil muestra un funcionamiento equilibrado. Proponga actividades de extensión: liderazgo entre pares, resolución de problemas abiertos, creación de reglas para juegos. Según el concepto de "flow" (Csikszentmihalyi), el desafío óptimo (ni muy fácil ni muy difícil) maximiza la motivación intrínseca. La baja fidelidad permite enfocar la complejidad en la estrategia, no en la interfaz.'
+    });
+  }
+  
+  let html = `<div class="print-area" id="intervention-print">
+    <div style="text-align:center;border-bottom:2px solid var(--primary);padding-bottom:15px;margin-bottom:20px;">
+      <h2 style="color:var(--primary);">${state.institution}</h2>
+      <p style="font-size:0.9rem;color:var(--text-light);">Gabinete Psicopedagógico / Departamento de Orientación</p>
+      <p style="margin-top:8px;"><strong>Plan de Intervención Escolar Fundamentado</strong></p>
+    </div>
+    <p><strong>Estudiante:</strong> ${s.nombre} | <strong>DNI:</strong> ${s.dni}${s.grado ? ' | <strong>Grado:</strong> ' + s.grado : ''}</p>
+    <p><strong>Tutor/a:</strong> ${s.tutor || 'No registrado'} | <strong>Fecha:</strong> ${new Date().toLocaleDateString()}</p>
+    
+    <h3 style="margin:25px 0 15px;">🎯 Objetivos Generales</h3>
+    <ul style="margin-left:20px;margin-bottom:20px;">
+      <li>Potenciar funciones ejecutivas mediante entornos de baja complejidad sensorial</li>
+      <li>Fomentar la metacognición: que el estudiante observe y regule su propio pensamiento</li>
+      <li>Transferir estrategias aprendidas en juegos a situaciones áulicas cotidianas</li>
+      <li>Fortalecer la comunicación escuela-familia con lenguaje claro y fundamentado</li>
+    </ul>`;
+  
+  strategies.forEach((str, i) => {
+    html += `
+      <div class="card" style="margin:20px 0;">
+        <h4 style="color:var(--primary);margin-bottom:10px;">${i+1}. ${str.title}</h4>
+        <p style="margin-bottom:12px;"><strong>Fundamentación teórica:</strong> ${str.theory}</p>
+        <p style="line-height:1.7;">${str.text}</p>
+        <div style="margin-top:12px;padding:10px;background:var(--bg);border-radius:8px;font-size:0.9rem;">
+          <strong>Indicadores de éxito:</strong> 
+          <ul style="margin-left:20px;margin-top:6px;">
+            <li>Reducción de redirecciones verbales necesarias</li>
+            <li>Incremento en la autonomía para iniciar tareas</li>
+            <li>Uso espontáneo de estrategias de autorregulación</li>
+          </ul>
+        </div>
+      </div>`;
+  });
+  
+  html += `
+    <div class="card" style="background:#fef3c7;border:1px solid #f59e0b;margin-top:25px;">
+      <h4 style="color:var(--warning);">⚠️ Indicadores de Derivación</h4>
+      <p style="margin:0;">Considere derivación al equipo de orientación o salud mental si se observan: 
+      aislamiento social prolongado (>2 semanas), regresión conductual significativa, 
+      dificultades que interfieran directamente con el aprendizaje instrumental (lectura/cálculo) 
+      tras 6-8 semanas de intervención sistemática, o signos de malestar emocional persistente.</p>
+    </div>
+    
+    <div style="margin-top:40px;border-top:1px solid #ccc;padding-top:20px;">
+      <p><strong>Firma y Sello del Profesional</strong></p>
+      <p style="margin-top:30px;">${state.professional || 'Nombre del Psicopedagogo/a'}<br>
+      ${state.especialidad || 'Especialidad'}<br>
+      ${state.institution}</p>
+    </div>
+  </div>`;
+  
+  container.innerHTML = html;
+}
+
+// ================= AGENDA =================
+function saveSchedule() {
+  const sel = document.getElementById('sched-student');
+  const selectedStudents = Array.from(sel.selectedOptions).map(o => o.value);
+  const date = document.getElementById('sched-date').value;
+  const start = document.getElementById('sched-start').value;
+  const dur = parseInt(document.getElementById('sched-dur').value);
+  const mode = document.getElementById('sched-mode').value;
+  const obj = document.getElementById('sched-obj').value;
+
+  if(!date || !start || selectedStudents.length === 0) 
+    return alert('Complete fecha, hora y al menos un estudiante.');
+
+  const newStart = new Date(`${date}T${start}`).getTime();
+  const newEnd = newStart + dur * 60000;
+  
+  const overlap = state.appointments.find(app => {
+    if(app.fecha !== date) return false;
+    const appStart = new Date(`${app.fecha}T${app.hora}`).getTime();
+    const appEnd = appStart + app.duracion * 60000;
+    return (newStart < appEnd && newEnd > appStart);
+  });
+
+  if(overlap && mode === 'individual') {
+    if(!confirm('⚠️ Existe un encuentro programado en ese horario.\n\n¿Desea convertir este encuentro en TRABAJO EN GRUPO?\n\nFundamentación: Vygotsky señala que el aprendizaje entre pares potencia la Zona de Desarrollo Próximo, permitiendo que estudiantes con distintos niveles se apoyen mutuamente.')) 
+      return;
+  }
+
+  const newApp = {
+    id: 'enc_' + Date.now(),
+    estudiantes: selectedStudents,
+    fecha: date,
+    hora: start,
+    duracion: dur,
+    modo: (mode === 'grupo' || overlap) ? 'grupo' : mode,
+    objetivo: obj,
+    creado: new Date().toISOString()
+  };
+  
+  state.appointments.push(newApp);
+  saveState();
+  closeModal('schedule-modal');
+  renderAgenda();
+  alert('✅ Encuentro programado correctamente.');
+}
+
+function renderAgenda() {
+  const list = document.getElementById('agenda-list');
+  list.innerHTML = '';
+  
+  if(state.appointments.length === 0) { 
+    list.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:30px;">📭 No hay encuentros programados.</p>'; 
+    return; 
+  }
+  
+  const sorted = [...state.appointments].sort((a,b) => 
+    new Date(a.fecha+'T'+a.hora) - new Date(b.fecha+'T'+b.hora)
+  );
+  
+  sorted.forEach(app => {
+    const studNames = app.estudiantes
+      .map(id => state.students.find(s => s.id === id)?.nombre)
+      .filter(Boolean)
+      .join(', ');
+    
+    const isGroup = app.modo === 'grupo';
+    const badgeClass = isGroup ? 'badge-purple' : 'badge-blue';
+    const badgeText = isGroup ? '👥 Grupo' : '👤 Individual';
+    
+    list.innerHTML += `
+      <div class="list-item" style="border-left:4px solid ${isGroup?'var(--accent)':'var(--primary)'};">
+        <div>
+          <strong>${new Date(app.fecha).toLocaleDateString('es-ES', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}</strong> 
+          <span style="color:var(--text-light);margin:0 8px;">•</span>
+          <strong>${app.hora}</strong> (${app.duracion} min)
+          <br><small style="color:var(--text-light);">${studNames}</small>
+          ${app.objetivo ? `<br><em style="color:var(--text-light);">🎯 ${app.objetivo}</em>` : ''}
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="badge ${badgeClass}">${badgeText}</span>
+          <button class="btn btn-danger btn-sm" onclick="deleteAppt('${app.id}')">🗑️</button>
+        </div>
+      </div>`;
+  });
+}
+
+function deleteAppt(id) {
+  if(confirm('¿Eliminar este encuentro?')) {
+    state.appointments = state.appointments.filter(a => a.id !== id);
+    saveState();
+    renderAgenda();
+  }
+}
+
+// ================= INFORMES Y COMPARTIR =================
+function renderReport() {
+  const id = document.getElementById('report-select').value;
+  document.getElementById('report-actions').style.display = id ? 'flex' : 'none';
+  const container = document.getElementById('report-content');
+  
+  if(!id) { container.innerHTML = ''; return; }
+  
+  const s = state.students.find(x => x.id === id);
+  const domain = calculateDomainFromEval(s.evaluaciones?.[s.evaluaciones.length-1] || {});
+  
+  const avg = (domain.atencion + domain.control + domain.emocion + domain.flexibilidad) / 4;
+  const status = avg >= 70 ? 'favorable' : (avg >= 40 ? 'en proceso de consolidación' : 'requiere acompañamiento sostenido');
+  
+  const html = `
+    <div class="print-area" id="report-printable">
+      <div style="text-align:center;border-bottom:2px solid var(--primary);padding-bottom:15px;margin-bottom:25px;">
+        <h2 style="color:var(--primary);font-size:1.8rem;">${state.institution}</h2>
+        <p style="font-size:1rem;color:var(--text-light);">Departamento de Orientación Psicopedagógica</p>
+        <p style="margin-top:10px;font-weight:600;">INFORME DE SEGUIMIENTO NEUROCOGNITIVO Y SUGERENCIAS ÁULICAS</p>
+      </div>
+      
+      <table style="width:100%;margin-bottom:25px;font-size:0.95rem;">
+        <tr><td style="padding:4px 0;"><strong>Estudiante:</strong></td><td>${s.nombre}</td></tr>
+        <tr><td style="padding:4px 0;"><strong>DNI:</strong></td><td>${s.dni}</td></tr>
+        <tr><td style="padding:4px 0;"><strong>Tutor/a Responsable:</strong></td><td>${s.tutor || 'No registrado'}</td></tr>
+        <tr><td style="padding:4px 0;"><strong>Grado/Curso:</strong></td><td>${s.grado || '-'}</td></tr>
+        <tr><td style="padding:4px 0;"><strong>Fecha del Informe:</strong></td><td>${new Date().toLocaleDateString('es-ES', {year:'numeric',month:'long',day:'numeric'})}</td></tr>
+        <tr><td style="padding:4px 0;"><strong>Profesional:</strong></td><td>${state.professional || '-'}${state.especialidad ? ' - ' + state.especialidad : ''}</td></tr>
+      </table>
+      
+      <h3 style="margin:25px 0 15px;color:var(--primary);">📊 Síntesis del Perfil Actual</h3>
+      <p style="line-height:1.8;">
+        El análisis de las interacciones con entornos de baja fidelidad revela un funcionamiento cognitivo que se encuentra <em>${status}</em>. 
+        Los dominios evaluados muestran la siguiente distribución relativa:
+      </p>
+      <ul style="margin:12px 0 20px 24px;line-height:1.8;">
+        <li><strong>Atención y Focalización:</strong> ${domain.atencion}% — ${domain.atencion>=70?'Adecuada para tareas estructuradas':domain.atencion>=40?'Requiere apoyos visuales y fragmentación':'Necesita externalización de la atención con señales externas'}</li>
+        <li><strong>Planificación y Control:</strong> ${domain.control}% — ${domain.control>=70?'Buena capacidad de espera y reflexión':domain.control>=40?'Beneficia de pausas guiadas':'Requiere práctica deliberada de inhibición'}</li>
+        <li><strong>Gestión del Malestar/Frustración:</strong> ${domain.emocion}% — ${domain.emocion>=70?'Recuperación rápida ante desafíos':domain.emocion>=40?'Necesita validación emocional previa':'Requiere co-regulación adulta constante'}</li>
+        <li><strong>Flexibilidad y Adaptación:</strong> ${domain.flexibilidad}% — ${domain.flexibilidad>=70?'Flexible ante variaciones de reglas':domain.flexibilidad>=40?'Se beneficia de transiciones predecibles':'Necesita apoyos visuales para cambios'}</li>
+      </ul>
+      
+      <h3 style="margin:25px 0 15px;color:var(--primary);">🎯 Sugerencias para el Contexto Áulico</h3>
+      <div style="background:var(--bg);padding:16px;border-radius:8px;margin-bottom:20px;">
+        <p style="margin:0;font-weight:600;">Principio rector:</p>
+        <p style="margin:8px 0 0;">"Menos estímulos visuales = Más recursos para pensar" (Teoría de la Carga Cognitiva, Sweller 1988)</p>
+      </div>
+      <ul style="margin-left:20px;line-height:1.8;">
+        <li><strong>Organización del espacio:</strong> Ubicar al estudiante en zona de baja distracción visual, con materiales esenciales a la vista.</li>
+        <li><strong>Comunicación de consignas:</strong> Verbal + visual (ícono o palabra clave), máximo 3 pasos por instrucción.</li>
+        <li><strong>Gestión del tiempo:</strong> Usar temporizador visual externo para externalizar la percepción de duración.</li>
+        <li><strong>Manejo de frustración:</strong> Validar la emoción ("Es normal sentirse así"), luego redirigir a estrategia concreta.</li>
+        <li><strong>Refuerzo:</strong> Celebrar el esfuerzo y la estrategia, no solo el resultado final.</li>
+      </ul>
+      
+      <h3 style="margin:25px 0 15px;color:var(--primary);">📝 Observaciones y Derivaciones</h3>
+      <p style="line-height:1.8;">
+        Se recomienda continuar con el plan de intervención diseñado en el sistema. 
+        La comunicación fluida entre el equipo docente y la familia es el pilar fundamental para sostener los avances. 
+        <strong>Nota importante:</strong> Este informe no constituye diagnóstico clínico, sino una herramienta pedagógica para ajustar la enseñanza a la neurodiversidad del aula, 
+        fundamentada en evidencia neuropsicológica y psicopedagógica.
+      </p>
+      
+      <div style="margin-top:50px;border-top:1px solid #ccc;padding-top:25px;">
+        <p><strong>Firma y Sello del Profesional</strong></p>
+        <p style="margin-top:40px;font-size:1.1rem;">${state.professional || 'Nombre del Psicopedagogo/a'}</p>
+        <p style="margin-top:5px;color:var(--text-light);">${state.especialidad || 'Especialidad'} — ${state.institution}</p>
+      </div>
+    </div>
+  `;
+  
+  container.innerHTML = html;
+}
+
+function nativeShare() {
+  const text = document.getElementById('report-printable')?.innerText || 
+               document.getElementById('intervention-print')?.innerText ||
+               document.getElementById('report-content')?.innerText;
+  
+  if (!text) return alert('No hay contenido para compartir.');
+  
+  const title = `${state.institution} - Informe ${document.getElementById('report-select').options[document.getElementById('report-select').selectedIndex]?.text || ''}`;
+  
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      text: text
+    }).catch(err => console.log('Share canceled:', err));
+  } else {
+    alert('Tu navegador no soporta compartir nativo. Usa los botones de WhatsApp, Correo o Copiar Texto.');
+  }
+}
+
+function shareReport(type) {
+  const printable = document.getElementById('report-printable') || document.getElementById('intervention-print');
+  const text = printable?.innerText || document.getElementById('report-content')?.innerText;
+  
+  if (!text) return alert('No hay contenido para compartir.');
+  
+  if (type === 'whatsapp') {
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+  } else if (type === 'email') {
+    window.location.href = `mailto:?subject=${encodeURIComponent(state.institution + ' - Informe')}&body=${encodeURIComponent(text)}`;
+  }
+}
+
+function copyReport() {
+  const text = document.getElementById('report-printable')?.innerText || 
+               document.getElementById('intervention-print')?.innerText ||
+               document.getElementById('report-content')?.innerText;
+  
+  if (!text) return alert('No hay contenido para copiar.');
+  
+  navigator.clipboard.writeText(text).then(() => {
+    alert('✅ Texto copiado al portapapeles.');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('✅ Texto copiado al portapapeles.');
+  });
+}
+
+// ================= BIBLIOTECA DE JUEGOS =================
+function renderGameLibrary() {
+  const filter = document.getElementById('game-filter').value;
+  const container = document.getElementById('game-library');
+  
+  const games = filter === 'all' ? wineboxGames : 
+                wineboxGames.filter(g => g.dominio.includes(filter));
+  
+  container.innerHTML = games.map(game => `
+    <div class="game-card" onclick="showGameDetails('${game.id}')">
+      ${game.dominio.length > 1 ? `<span class="tag">Multi-dominio</span>` : ''}
+      <h4>${game.nombre}</h4>
+      <p>${game.descripcion}</p>
+      <div style="margin:8px 0;">
+        <span class="badge badge-blue">${game.dominio.map(d => d.charAt(0).toUpperCase() + d.slice(1)).join(' • ')}</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-light);"><strong>Tiempo:</strong> ${game.tiempoRecomendado}</p>
+      <div class="justification">"${game.justificacion}"</div>
+    </div>
+  `).join('');
+}
+
+function showGameDetails(id) {
+  const game = wineboxGames.find(g => g.id === id);
+  if(!game) return;
+  alert(`${game.nombre}\n\n${game.descripcion}\n\n🔬 Fundamentación:\n${game.justificacion}\n\n⏱️ Tiempo recomendado: ${game.tiempoRecomendado}\n🎯 Dominios: ${game.dominio.join(', ')}`);
+}
+
+// ================= CONFIGURACIÓN =================
+function saveConfig() {
+  state.institution = document.getElementById('cfg-institution').value || 'Institución Educativa';
+  state.professional = document.getElementById('cfg-prof').value || '';
+  state.especialidad = document.getElementById('cfg-especialidad').value || '';
+  
+  document.getElementById('app-title').textContent = state.institution;
+  document.getElementById('sidebar-title').textContent = state.institution;
+  document.getElementById('sidebar-prof').textContent = state.professional ? `${state.professional}${state.especialidad ? ' - ' + state.especialidad : ''}` : 'Sin profesional';
+  
+  saveState();
+  alert('✅ Configuración guardada.');
+}
+
+function exportAllData() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+  const downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href", dataStr);
+  downloadAnchorNode.setAttribute("download", `respaldo_${state.institution.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.json`);
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+  alert('✅ Respaldo exportado.');
+}
+
+function importAllData(input) {
+  const file = input.files[0];
+  if(!file) return;
+  
+  if(!confirm('⚠️ La importación reemplazará los datos actuales. ¿Desea continuar?')) {
+    input.value = '';
+    return;
+  }
+  
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      state = JSON.parse(e.target.result);
+      saveState();
+      loadState();
+      alert('✅ Datos importados correctamente.');
+    } catch(err) {
+      alert('❌ Error al importar: ' + err.message);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function clearLocalStorage() {
+  if(confirm('⚠️ ¿Está seguro de eliminar TODOS los datos locales?')) {
+    localStorage.removeItem(DB_KEY);
+    location.reload();
+  }
+}
+
+function resetToDefaults() {
+  if(confirm('¿Restaurar valores por defecto?')) {
+    state.config = { theme: 'light', fontSize: 'medium' };
+    saveState();
+    alert('✅ Configuración restaurada.');
+  }
+}
+
+// ================= NUEVO ESTUDIANTE =================
+function saveNewStudent() {
+  const nombre = document.getElementById('new-nombre').value.trim();
+  const dni = document.getElementById('new-dni').value.trim();
+  
+  if(!nombre || !dni) return alert('Nombre y DNI son obligatorios.');
+  
+  if(state.students.some(s => s.dni === dni)) {
+    return alert('⚠️ Ya existe un estudiante con este DNI.');
+  }
+  
+  const newStudent = {
+    id: 'est_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
+    nombre,
+    dni,
+    nacimiento: document.getElementById('new-nacimiento').value,
+    contacto: document.getElementById('new-contacto').value,
+    tutor: document.getElementById('new-tutor').value,
+    grado: document.getElementById('new-grado').value,
+    observaciones: document.getElementById('new-obs').value,
+    evaluaciones: []
+  };
+  
+  state.students.push(newStudent);
+  saveState();
+  closeModal('new-student-modal');
+  
+  ['new-nombre','new-dni','new-nacimiento','new-contacto','new-tutor','new-grado','new-obs'].forEach(id => 
+    document.getElementById(id).value = ''
+  );
+  
+  renderStudents();
+  populateSelects();
+  alert('✅ Estudiante registrado correctamente.');
+}
+
+// ================= INICIALIZACIÓN FINAL =================
+window.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) modal.classList.remove('active');
+    });
+  });
+  
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+      document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+    }
+  });
+});
+</script>
+</body>
+</html>
