@@ -6,7 +6,6 @@
     <title>WineBOX Tool — Screening Cognitivo Escolar | Argentina</title>
     <meta name="description" content="Evaluación psicométrica de 15 min para niños 6-18 años. Informe médico pericial con matrícula profesional vigente. Desde $9 por alumno. Cumple Ley 26.206.">
     <style>
-        /* ===== RESET & VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -24,12 +23,8 @@
             --text-light: #64748b;
             --border: #e2e8f0;
             --success: #10b981;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
         }
 
         body {
@@ -40,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== HEADER ===== */
+        /* Header */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -49,7 +44,7 @@
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
         }
 
         nav {
@@ -100,9 +95,6 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
         }
 
         .nav-cta:hover {
@@ -110,7 +102,7 @@
             transform: translateY(-2px);
         }
 
-        /* ===== HERO ===== */
+        /* Hero */
         .hero {
             padding: 8rem 2rem 4rem;
             max-width: 1200px;
@@ -150,7 +142,6 @@
             border-radius: 16px;
             margin-bottom: 2rem;
             border: 2px solid #bfdbfe;
-            flex-wrap: wrap;
         }
 
         .price-tag {
@@ -234,7 +225,7 @@
             font-weight: 800;
         }
 
-        /* ===== HERO VISUAL ===== */
+        /* Hero Visual - Abstract representation instead of screenshot */
         .hero-visual {
             position: relative;
         }
@@ -325,9 +316,7 @@
         }
 
         @keyframes fillBar {
-            from {
-                width: 0;
-            }
+            from { width: 0; }
         }
 
         .skill-value {
@@ -364,7 +353,7 @@
             gap: 0.5rem;
         }
 
-        /* ===== SECCIONES GENERALES ===== */
+        /* How it works */
         .section {
             padding: 5rem 2rem;
             max-width: 1200px;
@@ -390,7 +379,6 @@
             margin: 0 auto;
         }
 
-        /* ===== CÓMO FUNCIONA ===== */
         .steps {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -448,7 +436,7 @@
             font-weight: 800;
         }
 
-        /* ===== PRECIOS ===== */
+        /* Pricing */
         .pricing {
             background: linear-gradient(135deg, #f0f9ff 0%, var(--bg) 100%);
         }
@@ -548,7 +536,7 @@
             justify-content: center;
         }
 
-        /* ===== RESULTADOS ===== */
+        /* Results */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -581,7 +569,7 @@
             font-size: 1rem;
         }
 
-        /* ===== FAQ ===== */
+        /* FAQ */
         .faq {
             background: var(--bg);
         }
@@ -636,7 +624,7 @@
             transform: rotate(45deg);
         }
 
-        /* ===== FINAL CTA ===== */
+        /* Final CTA */
         .final-cta {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -665,7 +653,7 @@
             padding: 1.2rem 3rem;
         }
 
-        /* ===== FOOTER ===== */
+        /* Footer */
         footer {
             background: var(--text);
             color: var(--text-light);
@@ -678,16 +666,11 @@
         }
 
         footer a {
-            color: #60a5fa;
+            color: var(--primary);
             text-decoration: none;
-            cursor: pointer;
         }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== WHATSAPP FLOAT ===== */
+        /* WhatsApp Float */
         .whatsapp-float {
             position: fixed;
             bottom: 2rem;
@@ -712,7 +695,7 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
         }
 
-        /* ===== MODAL PRINCIPAL (Demo) ===== */
+        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -720,13 +703,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.5);
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(6px);
-            padding: 1rem;
-            overflow-y: auto;
+            backdrop-filter: blur(5px);
         }
 
         .modal-overlay.active {
@@ -736,244 +717,92 @@
         .modal {
             background: var(--white);
             border-radius: 24px;
-            padding: 2rem 2rem 2.5rem;
-            max-width: 520px;
-            width: 100%;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
             position: relative;
             animation: modalIn 0.3s ease;
-            max-height: 98vh;
-            overflow-y: auto;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            margin: auto;
         }
 
         @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.92) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-close {
             position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: var(--bg);
+            top: 1rem;
+            right: 1rem;
+            background: none;
             border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-light);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .modal-close:hover {
-            background: var(--border);
-            color: var(--text);
         }
 
         .modal h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: var(--text);
-            padding-right: 2rem;
         }
 
-        .modal .modal-subtitle {
+        .modal p {
             color: var(--text-light);
-            margin-bottom: 1.75rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            margin-bottom: 2rem;
         }
 
-        .modal .form-group {
-            margin-bottom: 1.2rem;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .modal .form-group label {
+        .form-group label {
             display: block;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text);
+            font-size: 0.9rem;
         }
 
-        .modal .form-group label .required {
-            color: #ef4444;
-        }
-
-        .modal .form-group input,
-        .modal .form-group select,
-        .modal .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 0.7rem 1rem;
+            padding: 0.75rem 1rem;
             border: 2px solid var(--border);
             border-radius: 12px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
+            transition: border-color 0.3s;
             font-family: inherit;
-            background: var(--white);
-            color: var(--text);
         }
 
-        .modal .form-group input:focus,
-        .modal .form-group select:focus,
-        .modal .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 95, 158, 0.12);
         }
 
-        .modal .form-group textarea {
+        .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
         }
 
-        .modal .form-group select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            padding-right: 2.5rem;
-        }
-
-        .modal .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .modal .form-submit {
+        .form-submit {
             width: 100%;
             background: var(--accent);
             color: white;
             border: none;
-            padding: 0.9rem;
+            padding: 1rem;
             border-radius: 12px;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 0.5rem;
         }
 
-        .modal .form-submit:hover {
+        .form-submit:hover {
             background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(232, 106, 60, 0.3);
         }
 
-        .modal .form-submit:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .modal .form-footer {
-            margin-top: 1.25rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        .modal .form-footer a {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .modal .form-footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Success state */
-        .modal .success-message {
-            display: none;
-            text-align: center;
-            padding: 2rem 0.5rem;
-        }
-
-        .modal .success-message .icon-big {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .modal .success-message h4 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .modal .success-message p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* ===== MODAL LEGAL (Términos y Privacidad) ===== */
-        .modal-legal .modal {
-            max-width: 720px;
-            padding: 2.5rem;
-        }
-
-        .modal-legal .modal h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-right: 2.5rem;
-        }
-
-        .modal-legal .modal .legal-content {
-            font-size: 0.95rem;
-            color: var(--text);
-            line-height: 1.8;
-            max-height: 65vh;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .modal-legal .modal .legal-content h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .modal-legal .modal .legal-content h4:first-of-type {
-            margin-top: 0;
-        }
-
-        .modal-legal .modal .legal-content p {
-            margin-bottom: 0.75rem;
-        }
-
-        .modal-legal .modal .legal-content ul {
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .modal-legal .modal .legal-content ul li {
-            margin-bottom: 0.25rem;
-        }
-
-        .modal-legal .modal .legal-content strong {
-            color: var(--primary-dark);
-        }
-
-        /* ===== RESPONSIVE ===== */
+        /* Responsive */
         @media (max-width: 968px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -988,10 +817,6 @@
             .hero-subtitle {
                 margin-left: auto;
                 margin-right: auto;
-            }
-
-            .hero-price {
-                justify-content: center;
             }
 
             .cta-group {
@@ -1027,132 +852,7 @@
             }
         }
 
-        @media (max-width: 600px) {
-            .modal {
-                padding: 1.5rem 1.25rem 2rem;
-                border-radius: 20px;
-                max-height: 96vh;
-            }
-
-            .modal h3 {
-                font-size: 1.3rem;
-                padding-right: 1.5rem;
-            }
-
-            .modal .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .modal .modal-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .modal .form-group {
-                margin-bottom: 1rem;
-            }
-
-            .modal .form-group input,
-            .modal .form-group select,
-            .modal .form-group textarea {
-                padding: 0.6rem 0.85rem;
-                font-size: 0.9rem;
-            }
-
-            .modal .form-submit {
-                padding: 0.8rem;
-                font-size: 1rem;
-            }
-
-            .modal-legal .modal {
-                padding: 1.5rem 1.25rem;
-            }
-
-            .modal-legal .modal h3 {
-                font-size: 1.4rem;
-            }
-
-            .modal-legal .modal .legal-content {
-                font-size: 0.9rem;
-                max-height: 55vh;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .modal {
-                padding: 1.25rem 1rem 1.5rem;
-            }
-
-            .modal h3 {
-                font-size: 1.15rem;
-            }
-
-            .modal-close {
-                top: 0.5rem;
-                right: 0.5rem;
-                width: 34px;
-                height: 34px;
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .price-tag {
-                font-size: 2rem;
-            }
-
-            .hero-price {
-                padding: 0.75rem 1.25rem;
-                gap: 0.75rem;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.95rem;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .cta-group {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .section {
-                padding: 3rem 1rem;
-            }
-
-            .section-header h2 {
-                font-size: 1.8rem;
-            }
-
-            .section-header p {
-                font-size: 1rem;
-            }
-
-            .pricing-card {
-                padding: 2rem 1.25rem;
-            }
-
-            .pricing-card .price .amount {
-                font-size: 2.5rem;
-            }
-
-            .final-cta h2 {
-                font-size: 1.8rem;
-            }
-
-            .final-cta p {
-                font-size: 1rem;
-            }
-        }
-
-        /* ===== ANIMACIONES ===== */
+        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -1167,7 +867,7 @@
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
+    <!-- Header -->
     <header>
         <nav>
             <a href="#" class="logo">
@@ -1179,19 +879,19 @@
                 <li><a href="#faq">Preguntas</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-            <button class="nav-cta" onclick="openModal()">Solicitar Demo</button>
+            <a href="#" class="nav-cta" onclick="openModal(); return false;">Solicitar Demo</a>
         </nav>
     </header>
 
-    <!-- ===== HERO ===== -->
+    <!-- Hero -->
     <section class="hero">
         <div class="hero-content fade-in">
             <h1>Detectá problemas de aprendizaje en <span>15 minutos</span></h1>
             <p class="hero-subtitle">
-                Evaluación psicométrica validada para niños de 6 a 18 años.
+                Evaluación psicométrica validada para niños de 6 a 18 años. 
                 Informe médico pericial con matrícula profesional vigente.
             </p>
-
+            
             <div class="hero-price">
                 <div>
                     <div class="price-tag">$9</div>
@@ -1205,10 +905,10 @@
             </div>
 
             <div class="cta-group">
-                <button class="btn-primary" onclick="openModal()">
+                <a href="#" class="btn-primary" onclick="openModal(); return false;">
                     <span>📋</span> Solicitar Demo Gratuita
-                </button>
-                <a href="https://wa.me/5491159104383" class="btn-secondary" target="_blank">
+                </a>
+                <a href="https://wa.me/549XXXXXXXXXX" class="btn-secondary" target="_blank">
                     <span>💬</span> Consultar por WhatsApp
                 </a>
             </div>
@@ -1275,13 +975,13 @@
         </div>
     </section>
 
-    <!-- ===== CÓMO FUNCIONA ===== -->
+    <!-- How it works -->
     <section class="section" id="como-funciona">
         <div class="section-header fade-in">
             <h2>¿Cómo funciona?</h2>
             <p>De la evaluación al informe médico en 4 pasos simples</p>
         </div>
-
+        
         <div class="steps">
             <div class="step fade-in">
                 <div class="step-number">1</div>
@@ -1289,21 +989,21 @@
                 <p>15 minutos de juegos cognitivos en la plataforma. Sin instalación, funciona en cualquier navegador.</p>
                 <div class="step-arrow">→</div>
             </div>
-
+            
             <div class="step fade-in">
                 <div class="step-number">2</div>
                 <h3>IA + equipo médico analiza</h3>
                 <p>Algoritmo propio detecta marcadores de alerta. Revisión médica para validar resultados.</p>
                 <div class="step-arrow">→</div>
             </div>
-
+            
             <div class="step fade-in">
                 <div class="step-number">3</div>
                 <h3>Videollamada de confirmación</h3>
                 <p>Si hay alertas, videollamada con neuropsicólogo + evaluación proyectiva con dibujos del niño.</p>
                 <div class="step-arrow">→</div>
             </div>
-
+            
             <div class="step fade-in">
                 <div class="step-number">4</div>
                 <h3>Informe a la escuela y padres</h3>
@@ -1312,13 +1012,13 @@
         </div>
     </section>
 
-    <!-- ===== PRECIOS ===== -->
+    <!-- Pricing -->
     <section class="section pricing" id="precios">
         <div class="section-header fade-in">
             <h2>Planes para tu escuela</h2>
             <p>Transparentes, sin sorpresas. Empezá con una demo gratuita.</p>
         </div>
-
+        
         <div class="pricing-cards">
             <div class="pricing-card fade-in">
                 <h3>Screening Básico</h3>
@@ -1335,9 +1035,9 @@
                     <li>Historia clínica para obra social</li>
                     <li>Soporte por WhatsApp</li>
                 </ul>
-                <button class="btn btn-primary" onclick="openModal()">Solicitar Demo</button>
+                <a href="#" class="btn btn-primary" onclick="openModal(); return false;">Solicitar Demo</a>
             </div>
-
+            
             <div class="pricing-card featured fade-in">
                 <div class="featured-badge">Más elegido</div>
                 <h3>WineBOX School</h3>
@@ -1355,18 +1055,18 @@
                     <li>Dashboard para directivos</li>
                     <li>Capacitación del equipo escolar</li>
                 </ul>
-                <button class="btn btn-primary" onclick="openModal()">Solicitar Demo</button>
+                <a href="#" class="btn btn-primary" onclick="openModal(); return false;">Solicitar Demo</a>
             </div>
         </div>
     </section>
 
-    <!-- ===== RESULTADOS ===== -->
+    <!-- Results -->
     <section class="section">
         <div class="section-header fade-in">
             <h2>Resultados que logramos</h2>
             <p>Escuelas que confían en WineBOX Tool</p>
         </div>
-
+        
         <div class="results-grid">
             <div class="result-card fade-in">
                 <div class="result-number">1,200+</div>
@@ -1383,13 +1083,13 @@
         </div>
     </section>
 
-    <!-- ===== FAQ ===== -->
+    <!-- FAQ -->
     <section class="section faq" id="faq">
         <div class="section-header fade-in">
             <h2>Preguntas frecuentes</h2>
             <p>Todo lo que necesitás saber antes de empezar</p>
         </div>
-
+        
         <div class="faq-list">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
@@ -1400,7 +1100,7 @@
                     No. WineBOX Tool es un <strong>screening cognitivo</strong>: detecta si el niño presenta marcadores que ameritan una evaluación especializada. Es más rápido, más accesible, y el informe tiene validez legal para escolaridad e inclusión. Si detectamos alertas, derivamos con toda la documentación necesaria.
                 </div>
             </div>
-
+            
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>¿Necesitamos tener un médico en la escuela?</span>
@@ -1410,7 +1110,7 @@
                     No. Nuestro equipo médico (neuropsicólogos y neuropediatras con matrícula profesional vigente en Argentina) firma todos los informes. La escuela solo necesita un espacio y conexión a internet.
                 </div>
             </div>
-
+            
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>¿Los informes sirven para presentar en obra social?</span>
@@ -1420,7 +1120,7 @@
                     Sí. Generamos historia clínica con formato para derivación, firmada por médico matriculado. Las obras sociales y prepagas argentinas aceptan este documento para autorizar evaluaciones especializadas.
                 </div>
             </div>
-
+            
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>¿Cumple con la Ley 26.206 de Inclusión Educativa?</span>
@@ -1430,7 +1130,7 @@
                     Sí. Nuestros informes tienen validez legal para certificar necesidades educativas especiales, adaptaciones curriculares y seguimiento del alumno dentro del marco de la ley argentina de inclusión.
                 </div>
             </div>
-
+            
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>¿Y si no tenemos gabinete psicopedagógico?</span>
@@ -1440,7 +1140,7 @@
                     El plan <strong>WineBOX School</strong> incluye todo el software de automatización. No necesitás contratar personal extra. Nosotros capacitamos a un docente o preceptor de tu escuela para que administre la plataforma.
                 </div>
             </div>
-
+            
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>¿Cómo empiezo? ¿Hay contrato de permanencia?</span>
@@ -1453,373 +1153,163 @@
         </div>
     </section>
 
-    <!-- ===== FINAL CTA ===== -->
+    <!-- Final CTA -->
     <section class="final-cta" id="contacto">
         <h2>¿Lista para transformar la evaluación psicológica de tu escuela?</h2>
         <p>Demo gratuita: evaluamos 10 alumnos de tu escuela sin costo. Sin compromiso.</p>
-        <button class="btn-primary" onclick="openModal()">
+        <a href="#" class="btn-primary" onclick="openModal(); return false;">
             <span>📋</span> Solicitar Demo Gratuita
-        </button>
+        </a>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- Footer -->
     <footer>
         <p><strong>WineBOX Tool</strong> — Screening cognitivo escolar validado en Argentina</p>
         <p>Neuropsicología · Neuropediatría · Ciencia aplicada a la educación</p>
         <p style="margin-top: 1rem; font-size: 0.9rem;">
-            <a href="https://winebox.cloud" target="_blank">Acceder a la plataforma</a> •
-            <a onclick="openLegalModal('terms')">Términos de servicio</a> •
-            <a onclick="openLegalModal('privacy')">Privacidad</a>
+            <a href="https://winebox.cloud" target="_blank">Acceder a la plataforma</a> • 
+            <a href="#">Términos de servicio</a> • 
+            <a href="#">Privacidad</a>
         </p>
         <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
             © 2026 WineBOX Project. Buenos Aires, Argentina.
         </p>
     </footer>
 
-    <!-- ===== WHATSAPP FLOAT ===== -->
+    <!-- WhatsApp Float -->
     <a href="https://wa.me/5491159104383" class="whatsapp-float" target="_blank" title="Consultar por WhatsApp">
         💬
     </a>
 
-    <!-- ===== MODAL: SOLICITAR DEMO ===== -->
-    <div class="modal-overlay" id="modalDemo">
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
         <div class="modal">
-            <button class="modal-close" onclick="closeModal('modalDemo')" aria-label="Cerrar">✕</button>
-
-            <!-- Formulario -->
-            <div id="modalForm">
-                <h3>Solicitar Demo Gratuita</h3>
-                <p class="modal-subtitle">Completá el formulario y te contactamos en menos de 24 horas para coordinar la demo en tu escuela.</p>
-
-                <form id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modalNombre">Nombre completo <span class="required">*</span></label>
-                            <input type="text" id="modalNombre" name="nombre" required placeholder="Ej: María González">
-                        </div>
-                        <div class="form-group">
-                            <label for="modalCargo">Tu cargo <span class="required">*</span></label>
-                            <select id="modalCargo" name="cargo" required>
-                                <option value="">Seleccioná</option>
-                                <option value="director">Director/a</option>
-                                <option value="psicologo">Psicólogo/a escolar</option>
-                                <option value="coordinador">Coordinador/a pedagógico/a</option>
-                                <option value="preceptor">Preceptor/a</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="modalEscuela">Nombre de la escuela <span class="required">*</span></label>
-                        <input type="text" id="modalEscuela" name="escuela" required placeholder="Ej: Colegio San Martín">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="modalEmail">Email <span class="required">*</span></label>
-                            <input type="email" id="modalEmail" name="email" required placeholder="tu@escuela.edu.ar">
-                        </div>
-                        <div class="form-group">
-                            <label for="modalTelefono">Teléfono (WhatsApp) <span class="required">*</span></label>
-                            <input type="tel" id="modalTelefono" name="telefono" required placeholder="Ej: 11 1234-5678">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="modalMensaje">¿Algo que quieras contarnos? (opcional)</label>
-                        <textarea id="modalMensaje" name="mensaje" placeholder="Cantidad de alumnos, zona, consultas específicas..."></textarea>
-                    </div>
-
-                    <button type="submit" class="form-submit" id="submitBtn">📩 Enviar solicitud de demo</button>
-
-                    <div class="form-footer">
-                        O escribinos directo por <a href="https://wa.me/5491159104383" target="_blank">WhatsApp</a>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Mensaje de éxito -->
-            <div class="success-message" id="modalSuccess">
-                <span class="icon-big">✅</span>
-                <h4>¡Solicitud enviada!</h4>
-                <p>Recibirás una respuesta en menos de 24 horas hábiles. Te contactaremos al email o WhatsApp que nos indicaste.</p>
-                <button class="btn-primary" style="margin-top: 1.5rem; width: 100%; justify-content: center;" onclick="closeModal('modalDemo')">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== MODAL: TÉRMINOS Y PRIVACIDAD ===== -->
-    <div class="modal-overlay modal-legal" id="modalLegal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('modalLegal')" aria-label="Cerrar">✕</button>
-            <h3 id="legalTitle">Términos de Servicio</h3>
-            <div class="legal-content" id="legalContent">
-                <!-- El contenido se carga dinámicamente con JavaScript -->
-            </div>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Solicitar Demo Gratuita</h3>
+            <p>Completá el formulario y te contactamos en menos de 24 horas para coordinar la demo en tu escuela.</p>
+            
+            <form action="mailto:tu-email@wineboxtool.cloud" method="post" enctype="text/plain">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: María González">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@escuela.edu.ar">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono (WhatsApp) *</label>
+                    <input type="tel" id="telefono" name="telefono" required placeholder="Ej: 11 1234-5678">
+                </div>
+                
+                <div class="form-group">
+                    <label for="escuela">Nombre de la escuela *</label>
+                    <input type="text" id="escuela" name="escuela" required placeholder="Ej: Colegio San Martín">
+                </div>
+                
+                <div class="form-group">
+                    <label for="cargo">Tu cargo *</label>
+                    <select id="cargo" name="cargo" required>
+                        <option value="">Seleccioná tu cargo</option>
+                        <option value="director">Director/a</option>
+                        <option value="psicologo">Psicólogo/a escolar</option>
+                        <option value="coordinador">Coordinador/a pedagógico/a</option>
+                        <option value="preceptor">Preceptor/a</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mensaje">¿Algo que quieras contarnos? (opcional)</label>
+                    <textarea id="mensaje" name="mensaje" placeholder="Cantidad de alumnos, zona, etc."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">Enviar solicitud de demo</button>
+            </form>
+            
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-light); text-align: center;">
+                O escribinos directo por <a href="https://wa.me/549XXXXXXXXXX" target="_blank" style="color: var(--primary);">WhatsApp</a>
+            </p>
         </div>
     </div>
 
     <script>
-        // ===== CONFIGURACIÓN =====
-        const GOOGLE_SCRIPT_URL =
-            'https://script.google.com/macros/s/AKfycby_Po72MB4tSn-vFekRgpbNGNgZ7qbQntNMy_dIEBeNHAqNUmo5shUvLIy9Ew7FG77K/exec';
-
-        // ===== CONTENIDO LEGAL =====
-        const legalContent = {
-            terms: {
-                title: 'Términos de Servicio',
-                html: `
-                    <h4>1. Aceptación de los Términos</h4>
-                    <p>Al utilizar la plataforma WineBOX Tool (en adelante, "la Plataforma"), el usuario y la institución educativa (en adelante, "el Usuario") aceptan quedar vinculados por estos Términos de Servicio y por la Política de Privacidad. Si no está de acuerdo con alguna parte de los términos, no debe utilizar la Plataforma.</p>
-
-                    <h4>2. Descripción del Servicio</h4>
-                    <p>WineBOX Tool es una plataforma de evaluación psicométrica, seguimiento clínico y neuroestimulación cognitiva. Ofrece:</p>
-                    <ul>
-                        <li><strong>Evaluaciones</strong>: Screening cognitivo basado en juegos de baja fidelidad visual para niños de 6 a 18 años.</li>
-                        <li><strong>Informes Clínicos</strong>: Generación de informes con validez legal, firmados por profesionales de la salud con matrícula vigente.</li>
-                        <li><strong>Neuroestimulación</strong>: Planes de estimulación cognitiva personalizados.</li>
-                        <li><strong>Herramientas para Escuelas</strong>: Dashboards, seguimiento evolutivo y automatización para gabinetes psicopedagógicos.</li>
-                    </ul>
-                    <p>El servicio se proporciona "tal cual" y "según disponibilidad". WineBOX no garantiza que el servicio sea ininterrumpido o libre de errores.</p>
-
-                    <h4>3. Uso Aceptable</h4>
-                    <p>El Usuario se compromete a:</p>
-                    <ul>
-                        <li>Utilizar la Plataforma exclusivamente para fines educativos y clínicos legítimos.</li>
-                        <li>Proporcionar información veraz y precisa durante el registro y la evaluación.</li>
-                        <li>Obtener el consentimiento informado de los padres o tutores de los niños evaluados, conforme a la legislación aplicable.</li>
-                        <li>No utilizar la Plataforma para actividades ilegales, dañinas o que vulneren los derechos de terceros.</li>
-                    </ul>
-
-                    <h4>4. Propiedad Intelectual</h4>
-                    <ul>
-                        <li>El código fuente, el diseño de la interfaz, la metodología NeuroTerapia y el contenido generado por la Plataforma (a excepción de los informes personalizados) son propiedad de WineBOX Tool y están protegidos por las leyes de propiedad intelectual.</li>
-                        <li>El software, los emuladores (DOSBox, WINE) y los juegos shareware incluidos en la plataforma se utilizan bajo sus respectivas licencias. WineBOX no promueve el uso de software ilegal o abandonware.</li>
-                        <li>Los informes personalizados generados para un Usuario son de su propiedad y pueden ser utilizados para los fines clínicos y educativos para los que fueron solicitados.</li>
-                    </ul>
-
-                    <h4>5. Limitación de Responsabilidad</h4>
-                    <ul>
-                        <li>WineBOX Tool es una <strong>herramienta de apoyo y screening</strong>, no reemplaza una evaluación neuropsicológica completa ni constituye un diagnóstico definitivo. La interpretación clínica final recae en el profesional de la salud que firma el informe.</li>
-                        <li>WineBOX Tool no se hace responsable por el uso indebido de la información contenida en los informes, ni por decisiones pedagógicas o terapéuticas basadas únicamente en los resultados de la plataforma.</li>
-                        <li>En ningún caso, WineBOX Tool será responsable por daños indirectos, incidentales o consecuentes.</li>
-                    </ul>
-
-                    <h4>6. Modificaciones</h4>
-                    <p>WineBOX se reserva el derecho de modificar estos términos en cualquier momento. Las modificaciones serán publicadas en la plataforma y entrarán en vigor a partir de su publicación.</p>
-
-                    <h4>7. Ley Aplicable y Jurisdicción</h4>
-                    <p>Estos términos se rigen por las leyes de la República Argentina. Cualquier controversia será sometida a la jurisdicción de los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires.</p>
-                `
-            },
-            privacy: {
-                title: 'Política de Privacidad',
-                html: `
-                    <h4>1. Responsable del Tratamiento</h4>
-                    <p>El responsable del tratamiento de los datos personales es el equipo de WineBOX Tool. Puede contactarnos a través de <strong>ifilex@gmail.com</strong>.</p>
-
-                    <h4>2. Datos que Recopilamos</h4>
-                    <ul>
-                        <li><strong>Datos de contacto y escolares</strong>: Nombre, email, teléfono, nombre de la escuela, cargo del solicitante.</li>
-                        <li><strong>Datos del niño evaluado</strong>: Edad, resultados de las evaluaciones psicométricas, patrones de interacción con la plataforma.</li>
-                        <li><strong>Datos de uso</strong>: Información sobre cómo se utiliza la plataforma (páginas visitadas, tiempo de uso) para mejorar nuestros servicios.</li>
-                    </ul>
-
-                    <h4>3. Finalidad del Tratamiento</h4>
-                    <p>Los datos se utilizan para:</p>
-                    <ul>
-                        <li>Gestionar la solicitud de información y la contratación del servicio.</li>
-                        <li>Realizar las evaluaciones psicométricas y generar los informes clínicos.</li>
-                        <li>Mejorar la plataforma y el algoritmo de neuroestimulación.</li>
-                        <li>Cumplir con obligaciones legales.</li>
-                    </ul>
-
-                    <h4>4. Base Legal del Tratamiento</h4>
-                    <p>El tratamiento de sus datos se basa en:</p>
-                    <ul>
-                        <li>La ejecución de un contrato o la aplicación de medidas precontractuales.</li>
-                        <li>El consentimiento explícito (para datos de salud o de niños).</li>
-                        <li>El interés legítimo de WineBOX para mejorar sus servicios.</li>
-                    </ul>
-
-                    <h4>5. Seguridad y Confidencialidad</h4>
-                    <p>WineBOX implementa medidas de seguridad técnicas y organizativas para proteger sus datos, incluyendo el cifrado de las comunicaciones y el almacenamiento seguro. La plataforma se ejecuta en un entorno de navegador con sandboxing, y no se accede a archivos del sistema sin permiso.</p>
-
-                    <h4>6. Compartición de Datos</h4>
-                    <ul>
-                        <li>Sus datos no serán vendidos, alquilados ni cedidos a terceros para fines de marketing sin su consentimiento.</li>
-                        <li>Podemos compartir datos con:
-                            <ul>
-                                <li><strong>Profesionales de la salud</strong> (neuropsicólogos, neuropediatras) que forman parte de nuestro equipo para la generación de informes.</li>
-                                <li><strong>Proveedores de servicios tecnológicos</strong> (hosting, infraestructura) que actúan como encargados del tratamiento.</li>
-                            </ul>
-                        </li>
-                        <li>Todos los terceros que procesan datos en nuestro nombre están sujetos a acuerdos de confidencialidad y cumplen con la normativa aplicable.</li>
-                    </ul>
-
-                    <h4>7. Derechos de los Usuarios</h4>
-                    <p>Usted, y los padres/tutores del niño evaluado, tienen derecho a:</p>
-                    <ul>
-                        <li>Acceder, rectificar y suprimir sus datos.</li>
-                        <li>Limitar u oponerse al tratamiento de sus datos.</li>
-                        <li>Solicitar la portabilidad de sus datos.</li>
-                        <li>Retirar su consentimiento en cualquier momento.</li>
-                    </ul>
-                    <p>Para ejercer estos derechos, puede enviar un correo a <strong>ifilex@gmail.com</strong>.</p>
-
-                    <h4>8. Conservación de Datos</h4>
-                    <p>Conservaremos sus datos durante el tiempo necesario para cumplir con las finalidades descritas y para cumplir con obligaciones legales. Los informes clínicos se conservarán conforme a los plazos establecidos por la normativa sanitaria argentina.</p>
-
-                    <h4>9. Cambios en la Política de Privacidad</h4>
-                    <p>WineBOX puede actualizar esta política. Los cambios serán publicados en la plataforma y, si son significativos, se lo notificaremos directamente.</p>
-                `
-            }
-        };
-
-        // ===== FUNCIONES DE MODAL =====
+        // Modal
         function openModal() {
-            const modal = document.getElementById('modalDemo');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            document.getElementById('contactForm').reset();
-            document.getElementById('modalForm').style.display = 'block';
-            document.getElementById('modalSuccess').style.display = 'none';
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = false;
-            btn.innerHTML = '📩 Enviar solicitud de demo';
-        }
-
-        function openLegalModal(type) {
-            const modal = document.getElementById('modalLegal');
-            const content = legalContent[type];
-            if (!content) return;
-
-            document.getElementById('legalTitle').textContent = content.title;
-            document.getElementById('legalContent').innerHTML = content.html;
-            modal.classList.add('active');
+            document.getElementById('modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.remove('active');
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        // Cerrar modales al hacer clic fuera
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // FAQ
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            
+            // Open clicked if wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
 
-        // Cerrar con ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(m => {
-                    m.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            }
+        // Form validation enhancement
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const btn = this.querySelector('.form-submit');
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+            
+            // Note: mailto: forms open the user's email client.
+            // For production, replace with a proper backend endpoint or service like Formspree.
+            setTimeout(() => {
+                btn.textContent = '✓ Solicitud enviada';
+                btn.style.background = 'var(--success)';
+            }, 1000);
         });
-
-        // ===== ENVÍO A GOOGLE SCRIPTS =====
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-
-            const formData = {
-                nombre: document.getElementById('modalNombre').value.trim(),
-                cargo: document.getElementById('modalCargo').value,
-                institucion: document.getElementById('modalEscuela').value.trim(),
-                email: document.getElementById('modalEmail').value.trim(),
-                telefono: document.getElementById('modalTelefono').value.trim(),
-                mensaje: document.getElementById('modalMensaje').value.trim(),
-                origen: window.location.origin,
-                timestamp: new Date().toISOString()
-            };
-
-            if (!formData.nombre || !formData.email || !formData.institucion || !formData.cargo) {
-                alert('⚠️ Por favor, complete todos los campos requeridos.');
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ Enviando...';
-
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                // Backup local
-                let backups = JSON.parse(localStorage.getItem('winebox_backups') || '[]');
-                backups.push({ ...formData, fecha_envio: new Date().toISOString(), exito: true });
-                localStorage.setItem('winebox_backups', JSON.stringify(backups));
-
-                document.getElementById('modalForm').style.display = 'none';
-                document.getElementById('modalSuccess').style.display = 'block';
-
-            } catch (error) {
-                console.error('Error:', error);
-                let backups = JSON.parse(localStorage.getItem('winebox_backups') || '[]');
-                backups.push({ ...formData, fecha_intento: new Date().toISOString(), error: error.message,
-                    pendiente: true });
-                localStorage.setItem('winebox_backups', JSON.stringify(backups));
-
-                document.getElementById('modalForm').style.display = 'none';
-                document.getElementById('modalSuccess').style.display = 'block';
-
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }
-        });
-
-        // ===== FAQ =====
-        function toggleFaq(element) {
-            const item = element.parentElement;
-            const isActive = item.classList.contains('active');
-            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-            if (!isActive) item.classList.add('active');
-        }
-
-        // ===== SCROLL ANIMATIONS =====
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, observerOptions);
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // ===== SMOOTH SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-
-        // ===== DEBUG: VER BACKUPS =====
-        function verBackups() {
-            const backups = JSON.parse(localStorage.getItem('winebox_backups') || '[]');
-            console.table(backups);
-            alert(`📦 ${backups.length} backups guardados localmente. Revisa la consola (F12)`);
-        }
-        console.log('✅ WineBOX Tool - Listo para publicar');
-        console.log('📦 Para ver backups, ejecuta verBackups() en la consola');
     </script>
 </body>
 </html>

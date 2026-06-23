@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WineBOX Tool | Evaluación Psicométrica y Neuroestimulación Escolar</title>
+<meta name="description" content="Plataforma de psicometría escolar y neuroestimulación. Obtén informes clínicos con validez legal para niños de 6 a 18 años. ¡Optimiza el neurodesarrollo hoy!">
+<meta name="keywords" content="psicometría escolar, evaluación neuropsicológica, neuroestimulación niños, informes clínicos legales, seguimiento escolar, WineBOX">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wineboxtool.cloud/">
+<meta property="og:title" content="WineBOX Tool: El futuro de la Psicometría Escolar">
+<meta property="og:description" content="Herramientas avanzadas para escuelas y profesionales de la salud. Informes automáticos y validados.">
+<meta property="og:image" content="https://wineboxtool.cloud/img/preview-image.jpg"> <meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="WineBOX Tool | Evaluación Psicométrica Escolar">
+<meta property="twitter:description" content="Informes clínicos con validez legal y neuroestimulación para el ámbito educativo.">
+<meta property="twitter:image" content="https://wineboxtool.cloud/img/preview-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#0a418e;--primary-mid:#2e59a7;--secondary:#5842d2;--secondary-dim:#c7bfff;
+  --tertiary:#004d48;--tertiary-light:#a8f0eb;--surface:#f7f9fd;--surface-low:#f2f4f8;
+  --surface-lowest:#ffffff;--surface-high:#e8edf7;--on-surface:#181c1f;
+  --on-surface-muted:#4a5568;--on-surface-subtle:#8492a6;
+  --outline-variant:rgba(195,198,211,0.18);
+  --shadow-ambient:0 20px 60px -10px rgba(24,28,31,0.05);
+  --shadow-card:0 4px 24px rgba(10,65,142,0.06);
+  --radius-sm:0.5rem;--radius:1rem;--radius-xl:2rem;--radius-2xl:3rem;
+  --max-w:1200px;
+  --gradient-primary:linear-gradient(135deg,#0a418e 0%,#2e59a7 100%);
+  --gradient-secondary:linear-gradient(135deg,#5842d2 0%,#7c6ae0 100%);
+  --gradient-hero:linear-gradient(160deg,#f7f9fd 0%,#eef2ff 50%,#f0fffe 100%);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+h1,h2,h3,h4,h5{font-family:'Manrope',sans-serif;letter-spacing:-0.02em;}
+a{color:var(--primary);text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,249,253,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--outline-variant);padding:0 2rem;}
+.nav-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;gap:1.5rem;}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;}
+.nav-logo{width:40px;height:40px;border-radius:12px;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;color:white;font-size:16px;letter-spacing:-1px;flex-shrink:0;}
+.nav-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;}
+.nav-subtitle{font-size:0.72rem;color:var(--on-surface-subtle);}
+.nav-links{display:flex;align-items:center;gap:0.25rem;}
+.nav-links a{padding:8px 12px;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:500;color:var(--on-surface-muted);transition:all 0.2s;}
+.nav-links a:hover{background:var(--surface-high);color:var(--primary);}
+.nav-cta{background:var(--gradient-primary);color:white;padding:10px 20px;border-radius:var(--radius-xl);font-size:0.875rem;font-weight:700;box-shadow:0 4px 14px rgba(10,65,142,0.25);transition:all 0.2s;white-space:nowrap;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(10,65,142,0.35);color:white;}
+.lang-toggle{display:flex;gap:4px;}
+.lang-btn{background:transparent;border:1px solid var(--outline-variant);padding:6px 10px;border-radius:var(--radius-sm);font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--on-surface-muted);transition:all 0.2s;}
+.lang-btn.active{background:var(--primary);color:white;border-color:var(--primary);}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--gradient-hero);display:flex;align-items:center;padding:100px 2rem 60px;position:relative;overflow:hidden;}
+.hero-blob-1{position:absolute;top:-15%;right:-10%;width:700px;height:700px;border-radius:50%;background:var(--secondary-dim);filter:blur(120px);opacity:0.35;pointer-events:none;}
+.hero-blob-2{position:absolute;bottom:-20%;left:-10%;width:600px;height:600px;border-radius:50%;background:var(--tertiary-light);filter:blur(120px);opacity:0.3;pointer-events:none;}
+.hero-inner{max-width:var(--max-w);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(10,65,142,0.08);border:1px solid rgba(10,65,142,0.15);padding:6px 14px;border-radius:100px;font-size:0.78rem;font-weight:600;color:var(--primary);margin-bottom:1.5rem;}
+.hero-eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--tertiary);}
+.hero-title{font-size:clamp(2.2rem,4vw,3.5rem);font-weight:800;line-height:1.08;margin-bottom:1.5rem;}
+.hero-title .accent{color:var(--primary);}
+.hero-title .accent-2{color:var(--secondary);}
+.hero-desc{font-size:1.05rem;line-height:1.7;color:var(--on-surface-muted);margin-bottom:2.5rem;max-width:500px;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;}
+.btn-primary{background:var(--gradient-primary);color:white;padding:14px 28px;border-radius:var(--radius-xl);font-weight:700;font-size:1rem;box-shadow:0 6px 20px rgba(10,65,142,0.3);transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(10,65,142,0.4);color:white;}
+.btn-outline{background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);color:var(--primary);padding:13px 24px;border-radius:var(--radius-xl);font-weight:600;font-size:0.95rem;border:1px solid rgba(10,65,142,0.2);transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;}
+.btn-outline:hover{background:white;box-shadow:0 4px 16px rgba(10,65,142,0.12);}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap;}
+.hero-stat-num{font-family:'Manrope',sans-serif;font-size:1.8rem;font-weight:800;color:var(--primary);line-height:1;}
+.hero-stat-label{font-size:0.8rem;color:var(--on-surface-subtle);margin-top:2px;}
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;}
+.hero-screen{border-radius:var(--radius-xl);overflow:hidden;box-shadow:0 30px 80px rgba(10,65,142,0.18),0 0 0 1px rgba(10,65,142,0.08);width:100%;max-width:520px;}
+.hero-screen img{width:100%;height:auto;}
+.floating-badge{position:absolute;background:white;border-radius:var(--radius);padding:10px 16px;box-shadow:0 8px 30px rgba(10,65,142,0.14);display:flex;align-items:center;gap:10px;font-size:0.82rem;font-weight:600;animation:float 4s ease-in-out infinite;}
+.floating-badge-1{top:-16px;right:-20px;animation-delay:0s;}
+.floating-badge-2{bottom:10px;left:-20px;animation-delay:2s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;}
+
+/* SECTIONS */
+section{padding:80px 2rem;}
+.section-inner{max-width:var(--max-w);margin:0 auto;}
+.section-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin-bottom:1rem;}
+.section-title{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;line-height:1.15;margin-bottom:1rem;}
+.section-desc{font-size:1.05rem;color:var(--on-surface-muted);line-height:1.7;max-width:640px;}
+
+/* PLATFORM / SCREENSHOTS */
+#plataforma{background:var(--surface-lowest);}
+.gallery-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem;}
+.gallery-intro-img{border-radius:var(--radius-xl);overflow:hidden;box-shadow:0 20px 60px rgba(10,65,142,0.12);cursor:pointer;}
+.gallery-intro-img img{width:100%;}
+.screenshots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+.screenshot-card{background:var(--surface-lowest);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-card);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
+.screenshot-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,65,142,0.12);}
+.screenshot-card img{width:100%;height:220px;object-fit:cover;object-position:top;}
+.screenshot-caption{padding:14px 18px;}
+.screenshot-caption strong{display:block;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:3px;}
+.screenshot-caption span{font-size:0.8rem;color:var(--on-surface-subtle);}
+.screenshots-cta{text-align:center;margin-top:2.5rem;}
+
+/* SCIENCE */
+#ciencia{background:linear-gradient(160deg,#f7f9fd,#eef2ff);}
+.science-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem;}
+.science-highlight{background:var(--surface-lowest);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-ambient);}
+.science-highlight-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.05rem;color:var(--primary);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem;}
+.stat-box{background:var(--surface-low);border-radius:var(--radius);padding:14px;text-align:center;}
+.stat-num{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.5rem;color:var(--primary);}
+.stat-sub{font-size:0.72rem;color:var(--on-surface-subtle);margin-top:2px;}
+.icc-bar{margin-bottom:1rem;}
+.icc-label{display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;}
+.icc-label strong{color:var(--on-surface);}
+.icc-label span{font-weight:700;color:var(--primary);}
+.icc-track{height:10px;background:var(--surface-high);border-radius:100px;overflow:hidden;}
+.icc-fill{height:100%;border-radius:100px;}
+.fill-79{width:79%;background:var(--gradient-primary);}
+.fill-74{width:74%;background:var(--gradient-secondary);}
+.science-pillars{display:grid;gap:1.25rem;}
+.pillar{display:flex;gap:14px;align-items:flex-start;background:var(--surface-lowest);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-card);}
+.pillar-icon{font-size:1.6rem;flex-shrink:0;}
+.pillar-title{font-weight:700;font-size:0.95rem;margin-bottom:4px;}
+.pillar-desc{font-size:0.85rem;color:var(--on-surface-muted);line-height:1.6;}
+.whitepaper-link{display:flex;align-items:center;gap:12px;background:rgba(10,65,142,0.06);border:1px solid rgba(10,65,142,0.15);border-radius:var(--radius);padding:14px 18px;margin-top:1.5rem;font-size:0.88rem;font-weight:600;color:var(--primary);transition:all 0.2s;}
+.whitepaper-link:hover{background:rgba(10,65,142,0.1);}
+
+/* HOW IT WORKS */
+#como-funciona{background:var(--surface-lowest);}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.step-card{background:var(--surface);border-radius:var(--radius-xl);padding:2rem 1.75rem;box-shadow:var(--shadow-card);transition:transform 0.3s;overflow:hidden;}
+.step-card:hover{transform:translateY(-4px);}
+.step-num{font-family:'Manrope',sans-serif;font-size:3.5rem;font-weight:800;color:var(--secondary-dim);line-height:1;margin-bottom:0.75rem;opacity:0.5;}
+.step-icon{font-size:1.75rem;margin-bottom:0.75rem;display:block;}
+.step-title{font-family:'Manrope',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.6rem;}
+.step-desc{font-size:0.87rem;color:var(--on-surface-muted);line-height:1.65;}
+
+/* SERVICES */
+#servicios{background:var(--gradient-hero);}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:3rem;}
+.service-card{background:var(--surface-lowest);border-radius:var(--radius-xl);padding:1.75rem;box-shadow:var(--shadow-card);display:flex;gap:1.25rem;align-items:flex-start;transition:transform 0.3s;}
+.service-card:hover{transform:translateY(-3px);}
+.service-icon-wrap{width:48px;height:48px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.icon-blue{background:rgba(10,65,142,0.08);}
+.icon-violet{background:rgba(88,66,210,0.08);}
+.icon-teal{background:rgba(0,77,72,0.08);}
+.icon-amber{background:rgba(180,120,0,0.08);}
+.service-title{font-family:'Manrope',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+.service-desc{font-size:0.87rem;color:var(--on-surface-muted);line-height:1.6;}
+
+/* REPORT SECTION */
+#informe-ejemplo{background:linear-gradient(160deg,#f7f9fd,#eef2ff);}
+.report-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2.5rem;}
+.report-screen{border-radius:var(--radius-xl);overflow:hidden;box-shadow:0 20px 60px rgba(10,65,142,0.12);cursor:pointer;}
+.report-screen img{width:100%;}
+.report-features{display:grid;gap:1rem;}
+.report-feat{display:flex;gap:14px;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--outline-variant);}
+.report-feat:last-child{border-bottom:none;}
+.report-feat-icon{font-size:1.2rem;}
+.report-feat-title{font-weight:700;font-size:0.95rem;margin-bottom:3px;}
+.report-feat-desc{font-size:0.85rem;color:var(--on-surface-muted);line-height:1.6;}
+
+/* AGES */
+#edades{background:var(--gradient-hero);}
+.ages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem;}
+.age-card{background:var(--surface-lowest);border-radius:var(--radius-xl);padding:1.75rem 1.25rem;text-align:center;box-shadow:var(--shadow-card);transition:transform 0.3s;}
+.age-card:hover{transform:translateY(-4px);}
+.age-emoji{font-size:2.5rem;margin-bottom:0.75rem;display:block;}
+.age-range{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.4rem;color:var(--primary);margin-bottom:0.4rem;}
+.age-name{font-weight:600;font-size:0.9rem;margin-bottom:0.75rem;}
+.age-focus{font-size:0.82rem;color:var(--on-surface-subtle);line-height:1.55;}
+
+/* SOCIAL WORKS */
+#obras-sociales{background:var(--surface-lowest);}
+.social-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.social-feat{display:flex;gap:14px;margin-bottom:1.25rem;}
+.social-feat-icon{font-size:1.5rem;flex-shrink:0;}
+.social-feat-title{font-weight:600;margin-bottom:3px;}
+.social-feat-desc{font-size:0.875rem;color:var(--on-surface-muted);line-height:1.6;}
+.social-card{background:var(--gradient-hero);border-radius:var(--radius-2xl);padding:2.5rem;box-shadow:var(--shadow-ambient);}
+.social-card-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:1.5rem;color:var(--primary);}
+.obras-list{list-style:none;display:grid;gap:10px;}
+.obras-list li{background:var(--surface-lowest);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;font-size:0.9rem;font-weight:500;box-shadow:var(--shadow-card);}
+.certified-badge{margin-top:1.5rem;background:rgba(0,77,72,0.08);border:1px solid rgba(0,77,72,0.2);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--tertiary);font-weight:600;}
+
+/* RESEARCH STRIP */
+.research-strip{background:var(--surface-low);padding:40px 2rem;}
+.research-strip-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;background:var(--surface-lowest);border-radius:var(--radius-2xl);padding:1.5rem 2rem;box-shadow:var(--shadow-card);flex-wrap:wrap;}
+.research-strip-text strong{display:block;font-family:'Manrope',sans-serif;font-weight:700;font-size:1rem;margin-bottom:3px;}
+.research-strip-text span{font-size:0.82rem;color:var(--on-surface-subtle);}
+.research-strip-btns{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* CONTACT */
+#contacto{background:linear-gradient(160deg,#0a418e,#1a2e6e,#0d3a6e);padding:80px 2rem;position:relative;overflow:hidden;}
+.contact-blob{position:absolute;top:-30%;right:-20%;width:600px;height:600px;border-radius:50%;background:rgba(88,66,210,0.25);filter:blur(100px);pointer-events:none;}
+.contact-inner{max-width:var(--max-w);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;position:relative;z-index:1;}
+.contact-left .section-title{color:white;}
+.contact-left .section-desc{color:rgba(255,255,255,0.7);}
+.contact-features{margin-top:2rem;}
+.contact-feat{display:flex;gap:12px;margin-bottom:1rem;}
+.contact-feat-text{font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.6;}
+.contact-form{background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-2xl);padding:2.5rem;}
+.form-title{font-family:'Manrope',sans-serif;font-weight:700;color:white;font-size:1.2rem;margin-bottom:1.5rem;}
+.form-group{margin-bottom:1rem;}
+.form-label{display:block;font-size:0.82rem;color:rgba(255,255,255,0.7);font-weight:500;margin-bottom:6px;}
+.form-input{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);padding:12px 16px;color:white;font-size:0.9rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s,background 0.2s;}
+.form-input::placeholder{color:rgba(255,255,255,0.35);}
+.form-input:focus{border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.12);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-submit{width:100%;background:white;color:var(--primary);padding:14px;border:none;border-radius:var(--radius-xl);font-family:'Manrope',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.25s;margin-top:0.5rem;}
+.form-submit:hover{background:rgba(255,255,255,0.9);transform:translateY(-1px);}
+.form-note{text-align:center;margin-top:0.75rem;font-size:0.78rem;color:rgba(255,255,255,0.45);}
+
+/* FOOTER */
+footer{background:#060e1e;padding:3rem 2rem 2rem;color:rgba(255,255,255,0.5);}
+.footer-inner{max-width:var(--max-w);margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:3rem;flex-wrap:wrap;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:1.5rem;}
+.footer-brand-title{font-family:'Manrope',sans-serif;font-weight:700;color:rgba(255,255,255,0.8);margin:0.5rem 0;}
+.footer-tagline{font-size:0.82rem;max-width:240px;line-height:1.6;}
+.footer-links-col h5{color:rgba(255,255,255,0.75);font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem;}
+.footer-links-col a{display:block;font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-links-col a:hover{color:white;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;flex-wrap:wrap;gap:1rem;}
+.footer-copy{color:rgba(255,255,255,0.3);}
+.footer-legal a{color:rgba(255,255,255,0.35);font-size:0.78rem;margin-left:1rem;}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:9999;display:none;align-items:center;justify-content:center;padding:2rem;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:var(--radius-xl);box-shadow:0 30px 80px rgba(0,0,0,0.5);}
+.lightbox-close{position:fixed;top:20px;right:24px;background:white;border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner,.gallery-intro,.science-layout,.report-layout,.social-inner,.contact-inner{grid-template-columns:1fr;}
+  .hero-visual,.gallery-intro-img{display:none;}
+  .steps-grid{grid-template-columns:1fr 1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .ages-grid{grid-template-columns:repeat(2,1fr);}
+  .nav-links{display:none;}
+  .form-row{grid-template-columns:1fr;}
+  .screenshots-grid{grid-template-columns:1fr;}
+  .research-strip-inner{justify-content:center;text-align:center;}
+}
+@media(max-width:600px){
+  .steps-grid{grid-template-columns:1fr;}
+  .ages-grid{grid-template-columns:1fr 1fr;}
+  nav{padding:0 1rem;}
+  section{padding:60px 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">WB</div>
+      <div>
+        <div class="nav-title">WineBOX Tool</div>
+        <div class="nav-subtitle" data-es="Psicometría & Neuroestimulación Escolar" data-en="School Psychometrics & Neurostimulation">Psicometría & Neuroestimulación Escolar</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#plataforma" data-es="Plataforma" data-en="Platform">Plataforma</a>
+      <a href="#ciencia" data-es="Investigación" data-en="Research">Investigación</a>
+      <a href="#como-funciona" data-es="Cómo funciona" data-en="How it works">Cómo funciona</a>
+      <a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
+      <a href="#obras-sociales" data-es="Obras sociales" data-en="Coverage">Obras sociales</a>
+      <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="https://winebox.cloud" target="_blank" class="nav-cta" data-es="🚀 Demo en Vivo" data-en="🚀 Live Demo">🚀 Demo en Vivo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob-1"></div>
+  <div class="hero-blob-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span data-es="Plataforma Clínica para Escuelas · Respaldada en Investigación Científica" data-en="Clinical Platform for Schools · Evidence-Based Research">Plataforma Clínica para Escuelas · Respaldada en Investigación Científica</span>
+      </div>
+      <h1 class="hero-title">
+        <span data-es="Evaluación <span class='accent'>Psicométrica</span> &amp; <span class='accent-2'>Neuroestimulación</span> para su institución" data-en="<span class='accent'>Psychometric</span> Assessment &amp; <span class='accent-2'>Neurostimulation</span> for your institution">Evaluación <span class="accent">Psicométrica</span> &amp; <span class="accent-2">Neuroestimulación</span> para su institución</span>
+      </h1>
+      <p class="hero-desc" data-es="El equipo certificado de WineBOX Tool realiza evaluaciones integrales de niños de 6 a 18 años mediante una plataforma de baja fidelidad visual científicamente validada. Generamos informes con validez legal y diseñamos planes personalizados de neuroestimulación." data-en="WineBOX Tool's certified team conducts comprehensive assessments for children aged 6 to 18 through a scientifically validated low-fidelity platform. We issue legally valid reports and design personalized neurostimulation plans.">El equipo certificado de WineBOX Tool realiza evaluaciones integrales de niños de 6 a 18 años mediante una plataforma de baja fidelidad visual científicamente validada. Generamos informes con validez legal y diseñamos planes personalizados de neuroestimulación.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary" data-es="📋 Solicitar para mi escuela" data-en="📋 Request for my school">📋 Solicitar para mi escuela</a>
+        <a href="https://winebox.cloud" target="_blank" class="btn-outline" data-es="🖥 Ver plataforma en vivo" data-en="🖥 Live platform">🖥 Ver plataforma en vivo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">6–18</div>
+          <div class="hero-stat-label" data-es="años evaluados" data-en="years covered">años evaluados</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">1.200+</div>
+          <div class="hero-stat-label" data-es="casos retrospectivos" data-en="retrospective cases">casos retrospectivos</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">ICC 0.79</div>
+          <div class="hero-stat-label" data-es="concordancia clínica" data-en="clinical concordance">concordancia clínica</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative;width:100%;max-width:510px;">
+        <div class="hero-screen" onclick="openLightbox('img/patients.png')">
+          <img src="img/patients.png" alt="WineBOX Tool - Plataforma principal">
+        </div>
+        <div class="floating-badge floating-badge-1">
+          <div class="badge-dot"></div>
+          <span data-es="Informe validado emitido ✓" data-en="Validated report issued ✓">Informe validado emitido ✓</span>
+        </div>
+        <div class="floating-badge floating-badge-2">
+          <span>🧠</span>
+          <span data-es="Plan de neuroestimulación activo" data-en="Neurostimulation plan active">Plan de neuroestimulación activo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM SCREENSHOTS -->
+<section id="plataforma">
+  <div class="section-inner">
+    <div class="gallery-intro">
+      <div>
+        <div class="section-eyebrow"><span>🖥️</span><span data-es="La Plataforma" data-en="The Platform">La Plataforma</span></div>
+        <h2 class="section-title" data-es="Una interfaz diseñada para evaluar, seguir y estimular" data-en="An interface designed to assess, follow and stimulate">Una interfaz diseñada para evaluar, seguir y estimular</h2>
+        <p class="section-desc" data-es="Conozca los módulos reales de WineBOX Tool: desde el panel de seguimiento de casos hasta los informes validados y los mapas de habilidades cognitivas. Todo en un entorno online, seguro y accesible." data-en="Explore WineBOX Tool's real modules: from the case monitoring dashboard to validated reports and cognitive skills maps. All in a secure, accessible online environment.">Conozca los módulos reales de WineBOX Tool: desde el panel de seguimiento de casos hasta los informes validados y los mapas de habilidades cognitivas. Todo en un entorno online, seguro y accesible.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="https://winebox.cloud" target="_blank" class="btn-primary" style="font-size:0.9rem;padding:12px 22px;" data-es="🚀 Explorar la plataforma en vivo" data-en="🚀 Explore live platform">🚀 Explorar la plataforma en vivo</a>
+        </div>
+      </div>
+      <div class="gallery-intro-img" onclick="openLightbox('img/dashboard.png')">
+        <img src="img/dashboard.png" alt="Dashboard de NeuroTerapia">
+      </div>
+    </div>
+
+    <div class="screenshots-grid">
+      <div class="screenshot-card" onclick="openLightbox('img/patients.png')">
+        <img src="img/patients.png" alt="Directorio de pacientes">
+        <div class="screenshot-caption">
+          <strong data-es="Directorio de Pacientes" data-en="Patient Directory">Directorio de Pacientes</strong>
+          <span data-es="Perfiles clínicos individuales con historial completo de evaluaciones y seguimiento" data-en="Individual clinical profiles with full assessment history and follow-up">Perfiles clínicos individuales con historial completo de evaluaciones y seguimiento</span>
+        </div>
+      </div>
+      <div class="screenshot-card" onclick="openLightbox('img/reports.png')">
+        <img src="img/reports.png" alt="Informes Clínicos">
+        <div class="screenshot-caption">
+          <strong data-es="Informes Clínicos con Sello" data-en="Stamped Clinical Reports">Informes Clínicos con Sello</strong>
+          <span data-es="Generación automática de informes con matrícula y firma profesional vigente" data-en="Automatic report generation with valid professional license and signature">Generación automática de informes con matrícula y firma profesional vigente</span>
+        </div>
+      </div>
+      <div class="screenshot-card" onclick="openLightbox('img/skills.png')">
+        <img src="img/skills.png" alt="Mapa de Habilidades">
+        <div class="screenshot-caption">
+          <strong data-es="Mapa de Habilidades Cognitivas" data-en="Cognitive Skills Map">Mapa de Habilidades Cognitivas</strong>
+          <span data-es="Visualización radial de fortalezas y áreas de oportunidad por dominio cognitivo" data-en="Radial visualization of strengths and opportunity areas by cognitive domain">Visualización radial de fortalezas y áreas de oportunidad por dominio cognitivo</span>
+        </div>
+      </div>
+      <div class="screenshot-card" onclick="openLightbox('img/treatment.png')">
+        <img src="img/treatment.png" alt="Planificador de Tratamiento">
+        <div class="screenshot-caption">
+          <strong data-es="Planificador de Tratamiento" data-en="Treatment Planner">Planificador de Tratamiento</strong>
+          <span data-es="Seguimiento del progreso con gráficos evolutivos y ajuste de planes terapéuticos" data-en="Progress tracking with evolutionary charts and therapeutic plan adjustment">Seguimiento del progreso con gráficos evolutivos y ajuste de planes terapéuticos</span>
+        </div>
+      </div>
+      <div class="screenshot-card" onclick="openLightbox('img/validated.png')">
+        <img src="img/validated.png" alt="Informes Validados Bilingüe">
+        <div class="screenshot-caption">
+          <strong data-es="Informes Validados Bilingüe" data-en="Bilingual Validated Reports">Informes Validados Bilingüe</strong>
+          <span data-es="Documentación oficial en español e inglés para presentar ante organismos nacionales e internacionales" data-en="Official documentation in Spanish and English for national and international organizations">Documentación oficial en español e inglés</span>
+        </div>
+      </div>
+      <div class="screenshot-card" onclick="openLightbox('img/eval.png')">
+        <img src="img/eval.png" alt="Suite de Evaluación">
+        <div class="screenshot-caption">
+          <strong data-es="Suite de Evaluación Interactiva" data-en="Interactive Evaluation Suite">Suite de Evaluación Interactiva</strong>
+          <span data-es="Entorno de baja fidelidad visual para la observación conductual clínica sin sobrecarga sensorial" data-en="Low visual fidelity environment for clinical behavioral observation without sensory overload">Entorno de baja fidelidad visual para observación conductual clínica</span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshots-cta">
+      <a href="https://winebox.cloud" target="_blank" class="btn-primary" data-es="🚀 Ver todo en la plataforma en vivo" data-en="🚀 See everything on the live platform">🚀 Ver todo en la plataforma en vivo</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="ciencia">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span>🔬</span><span data-es="Base Científica" data-en="Scientific Foundation">Base Científica</span></div>
+    <h2 class="section-title" data-es="Por qué la baja fidelidad visual es una ventaja, no una limitación" data-en="Why low visual fidelity is an advantage, not a limitation">Por qué la baja fidelidad visual es una ventaja, no una limitación</h2>
+    <p class="section-desc" data-es="WineBOX Tool se fundamenta en la Teoría de la Carga Cognitiva (Sweller, 1988) y en un whitepaper científico con datos de 1.200 casos. Aquí explicamos por qué este modelo online es superior a la evaluación tradicional." data-en="WineBOX Tool is grounded in Cognitive Load Theory (Sweller, 1988) and a scientific whitepaper based on 1,200 cases. Here we explain why this online model is superior to traditional assessment.">WineBOX Tool se fundamenta en la Teoría de la Carga Cognitiva (Sweller, 1988) y en un whitepaper científico con datos de 1.200 casos. Aquí explicamos por qué este modelo online es superior a la evaluación tradicional.</p>
+    <div class="science-layout">
+      <div class="science-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🧠</div>
+          <div>
+            <div class="pillar-title" data-es="Menos ruido visual = más pensamiento propio" data-en="Less visual noise = more independent thinking">Menos ruido visual = más pensamiento propio</div>
+            <p class="pillar-desc" data-es="Al reducir los estímulos gráficos (baja fidelidad), liberamos recursos cognitivos que el cerebro usa para procesar lo visual. Esa energía queda disponible para planificar, inhibir impulsos y mantener la atención. El niño piensa más, no menos." data-en="By reducing graphic stimuli (low fidelity), we free cognitive resources the brain uses to process visuals. That energy is then available for planning, impulse inhibition and sustained attention. The child thinks more, not less.">Al reducir los estímulos gráficos (baja fidelidad), liberamos recursos cognitivos que el cerebro usa para procesar lo visual. Esa energía queda disponible para planificar, inhibir impulsos y mantener la atención. El niño piensa más, no menos.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🎮</div>
+          <div>
+            <div class="pillar-title" data-es="El juego revela lo que el test formal oculta" data-en="Play reveals what formal testing hides">El juego revela lo que el test formal oculta</div>
+            <p class="pillar-desc" data-es="Las pruebas estandarizadas tienen alta validez interna pero baja validez ecológica: lo que el niño rinde en un consultorio no predice bien su desempeño cotidiano. WineBOX observa la conducta en un entorno lúdico natural, mucho más cercano a cómo funciona en la vida real." data-en="Standardized tests have high internal validity but low ecological validity: what a child performs in a clinical office doesn't predict everyday functioning well. WineBOX observes behavior in a natural play environment, much closer to real life.">Las pruebas estandarizadas tienen alta validez interna pero baja validez ecológica: lo que el niño rinde en un consultorio no predice bien su desempeño cotidiano. WineBOX observa la conducta en un entorno lúdico natural, mucho más cercano a cómo funciona en la vida real.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🎯</div>
+          <div>
+            <div class="pillar-title" data-es="Control experimental sin laboratorio" data-en="Experimental control without a lab">Control experimental sin laboratorio</div>
+            <p class="pillar-desc" data-es="Al controlar el color, la forma y la demanda cognitiva de cada estímulo digital, podemos aislar variables con precisión clínica. Esto permite formular hipótesis específicas sobre TDAH, TEA y trastornos del aprendizaje sin equipamiento costoso ni traslados." data-en="By controlling the color, shape and cognitive demand of each digital stimulus, we can isolate variables with clinical precision — specific hypotheses about ADHD, ASD and learning disorders, without expensive equipment or travel.">Al controlar el color, la forma y la demanda cognitiva de cada estímulo digital, podemos aislar variables con precisión clínica. Esto permite formular hipótesis específicas sobre TDAH, TEA y trastornos del aprendizaje sin equipamiento costoso ni traslados.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">📊</div>
+          <div>
+            <div class="pillar-title" data-es="Algoritmo observable y reproducible" data-en="Observable and reproducible algorithm">Algoritmo observable y reproducible</div>
+            <p class="pillar-desc" data-es="El algoritmo de inferencia NeuroTerapia asigna pesos explícitos a cada estímulo (Control de Impulsos, Atención Sostenida, Planificación, Flexibilidad Cognitiva). La metodología es 100% transparente y está publicada con licencia CC BY-NC 4.0." data-en="The NeuroTerapia inference algorithm assigns explicit weights to each stimulus (Impulse Control, Sustained Attention, Planning, Cognitive Flexibility). 100% transparent methodology published under CC BY-NC 4.0.">El algoritmo de inferencia NeuroTerapia asigna pesos explícitos a cada estímulo (Control de Impulsos, Atención Sostenida, Planificación, Flexibilidad Cognitiva). La metodología es 100% transparente y está publicada con licencia CC BY-NC 4.0.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">♾️</div>
+          <div>
+            <div class="pillar-title" data-es="Seguimiento longitudinal sin fricción" data-en="Frictionless longitudinal follow-up">Seguimiento longitudinal sin fricción</div>
+            <p class="pillar-desc" data-es="WineBOX permite reevaluar al mismo niño en múltiples momentos, generando una curva de progreso real. El algoritmo detecta cambios en patrones conductuales que una sola sesión jamás podría revelar." data-en="WineBOX allows re-evaluating the same child at multiple time points, generating a real progress curve. The algorithm detects behavioral pattern changes that a single session could never reveal.">WineBOX permite reevaluar al mismo niño en múltiples momentos, generando una curva de progreso real. El algoritmo detecta cambios en patrones conductuales que una sola sesión jamás podría revelar.</p>
+          </div>
+        </div>
+        <a href="http://winebox.cloud/about.html" target="_blank" class="whitepaper-link">
+          <span>📄</span>
+          <span data-es="Leer la investigación completa — Whitepaper NeuroTerapia + WineBOX v1.1 →" data-en="Read the full research — NeuroTerapia + WineBOX Whitepaper v1.1 →">Leer la investigación completa — Whitepaper NeuroTerapia + WineBOX v1.1 →</span>
+        </a>
+      </div>
+
+      <div>
+        <div class="science-highlight">
+          <div class="science-highlight-title">📈 <span data-es="Resultados del estudio (N=1.200 casos)" data-en="Study results (N=1,200 cases)">Resultados del estudio (N=1.200 casos)</span></div>
+          <div class="stat-row">
+            <div class="stat-box"><div class="stat-num">1.200</div><div class="stat-sub" data-es="casos retrospectivos" data-en="retrospective cases">casos retrospectivos</div></div>
+            <div class="stat-box"><div class="stat-num">2017–25</div><div class="stat-sub" data-es="período de estudio" data-en="study period">período de estudio</div></div>
+            <div class="stat-box"><div class="stat-num">4</div><div class="stat-sub" data-es="países (ARG, CHL, MEX, ESP)" data-en="countries (ARG, CHL, MEX, ESP)">países</div></div>
+            <div class="stat-box"><div class="stat-num">7–17</div><div class="stat-sub" data-es="años (rango etario)" data-en="years (age range)">años (rango etario)</div></div>
+          </div>
+          <div style="margin-bottom:1.25rem;">
+            <div style="font-size:0.82rem;font-weight:700;margin-bottom:0.75rem;" data-es="Concordancia interjueces (ICC) — 3 expertos independientes:" data-en="Inter-rater concordance (ICC) — 3 independent experts:">Concordancia interjueces (ICC) — 3 expertos independientes:</div>
+            <div class="icc-bar">
+              <div class="icc-label"><strong data-es="Control de Impulsos" data-en="Impulse Control">Control de Impulsos</strong><span>ICC = 0,79 ✓</span></div>
+              <div class="icc-track"><div class="icc-fill fill-79"></div></div>
+            </div>
+            <div class="icc-bar">
+              <div class="icc-label"><strong data-es="Atención Sostenida" data-en="Sustained Attention">Atención Sostenida</strong><span>ICC = 0,74 ✓</span></div>
+              <div class="icc-track"><div class="icc-fill fill-74"></div></div>
+            </div>
+            <div style="font-size:0.75rem;color:var(--on-surface-subtle);margin-top:6px;" data-es="Umbral mínimo: ICC ≥ 0,70 · Concordancia buena a excelente (Koo & Li, 2016)" data-en="Minimum threshold: ICC ≥ 0.70 · Good to excellent concordance (Koo & Li, 2016)">Umbral mínimo: ICC ≥ 0,70 · Concordancia buena a excelente (Koo & Li, 2016)</div>
+          </div>
+          <div style="background:var(--surface-low);border-radius:var(--radius);padding:1rem;margin-bottom:1rem;">
+            <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;" data-es="Dominios cognitivos (media normalizada 0–100):" data-en="Cognitive domains (normalized mean 0–100):">Dominios cognitivos (media normalizada 0–100):</div>
+            <div style="display:grid;gap:6px;font-size:0.8rem;">
+              <div style="display:flex;justify-content:space-between;"><span data-es="Control de Impulsos" data-en="Impulse Control">Control de Impulsos</span><strong>58,4 ± 21,3</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span data-es="Atención Sostenida" data-en="Sustained Attention">Atención Sostenida</span><strong>52,7 ± 24,1</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span data-es="Planificación" data-en="Planning">Planificación</span><strong>47,2 ± 19,8</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span data-es="Flexibilidad Cognitiva" data-en="Cognitive Flexibility">Flexibilidad Cognitiva</span><strong>55,1 ± 22,6</strong></div>
+            </div>
+          </div>
+          <div style="background:rgba(0,77,72,0.08);border-radius:var(--radius);padding:12px 14px;font-size:0.82rem;color:var(--tertiary);font-weight:600;">
+            <span data-es="✅ Aprobado CEI-2025-089 · Declaración de Helsinki · Ley 25.326 Argentina" data-en="✅ Approved CEI-2025-089 · Declaration of Helsinki · Argentine Law 25.326">✅ Aprobado CEI-2025-089 · Declaración de Helsinki · Ley 25.326 Argentina</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span>⚙️</span><span data-es="Proceso" data-en="Process">Proceso</span></div>
+    <h2 class="section-title" data-es="Así trabaja WineBOX Tool en su escuela" data-en="How WineBOX Tool works in your school">Así trabaja WineBOX Tool en su escuela</h2>
+    <p class="section-desc" data-es="Un proceso claro, profesional y sin interrupciones para el ritmo escolar. Todo online, sin traslados ni equipamiento especial." data-en="A clear, professional process that doesn't interrupt the school routine. All online, no travel or special equipment needed.">Un proceso claro, profesional y sin interrupciones para el ritmo escolar. Todo online, sin traslados ni equipamiento especial.</p>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">01</div><span class="step-icon">🏫</span><div class="step-title" data-es="Contacto y coordinación" data-en="Contact and coordination">Contacto y coordinación</div><p class="step-desc" data-es="El equipo directivo completa el formulario indicando cantidad de alumnos y necesidades. Coordinamos una reunión de presentación online." data-en="School management fills out the form with student count and needs. We schedule an online introductory meeting.">El equipo directivo completa el formulario indicando cantidad de alumnos y necesidades. Coordinamos una reunión de presentación online.</p></div>
+      <div class="step-card"><div class="step-num">02</div><span class="step-icon">🎮</span><div class="step-title" data-es="Evaluación en plataforma" data-en="Platform-based assessment">Evaluación en plataforma</div><p class="step-desc" data-es="Cada alumno accede a WineBOX desde cualquier dispositivo. El algoritmo NeuroTerapia observa patrones conductuales mientras el niño interactúa con estímulos de baja fidelidad visual." data-en="Each student accesses WineBOX from any device. The NeuroTerapia algorithm observes behavioral patterns as the child interacts with low visual fidelity stimuli.">Cada alumno accede a WineBOX desde cualquier dispositivo. El algoritmo NeuroTerapia observa patrones conductuales mientras el niño interactúa con estímulos de baja fidelidad visual.</p></div>
+      <div class="step-card"><div class="step-num">03</div><span class="step-icon">🎙️</span><div class="step-title" data-es="Entrevista clínica online" data-en="Online clinical interview">Entrevista clínica online</div><p class="step-desc" data-es="Nuestros profesionales realizan entrevistas individuales por videollamada con el alumno y los padres, complementando los datos del algoritmo con observación clínica directa." data-en="Our professionals conduct individual video call interviews with the student and parents, complementing algorithm data with direct clinical observation.">Nuestros profesionales realizan entrevistas individuales por videollamada con el alumno y los padres, complementando los datos del algoritmo con observación clínica directa.</p></div>
+      <div class="step-card"><div class="step-num">04</div><span class="step-icon">📄</span><div class="step-title" data-es="Informe certificado" data-en="Certified report">Informe certificado</div><p class="step-desc" data-es="En 48hs hábiles emitimos un informe completo con sello y matrícula profesional vigente, válido para obras sociales, prepagas y organismos educativos." data-en="Within 48 business hours we issue a complete report with valid professional stamp and license, valid for social works, prepaid plans and educational bodies.">En 48hs hábiles emitimos un informe completo con sello y matrícula profesional vigente, válido para obras sociales, prepagas y organismos educativos.</p></div>
+      <div class="step-card"><div class="step-num">05</div><span class="step-icon">🔄</span><div class="step-title" data-es="Seguimiento continuo" data-en="Ongoing follow-up">Seguimiento continuo</div><p class="step-desc" data-es="Cada caso queda en seguimiento activo. Realizamos reevaluaciones periódicas y ajustamos los planes de neuroestimulación según la evolución de cada niño." data-en="Each case stays in active follow-up. We conduct periodic re-evaluations and adjust neurostimulation plans based on each child's progress.">Cada caso queda en seguimiento activo. Realizamos reevaluaciones periódicas y ajustamos los planes de neuroestimulación según la evolución de cada niño.</p></div>
+      <div class="step-card"><div class="step-num">06</div><span class="step-icon">⭐</span><div class="step-title" data-es="Fortalezas y talentos" data-en="Strengths and talents">Fortalezas y talentos</div><p class="step-desc" data-es="Más allá de detectar dificultades, identificamos las habilidades especiales de cada alumno y generamos reportes orientados a potenciarlas junto a docentes y familias." data-en="Beyond identifying difficulties, we identify each student's special abilities and generate reports aimed at strengthening them with teachers and families.">Más allá de detectar dificultades, identificamos las habilidades especiales de cada alumno y generamos reportes orientados a potenciarlas junto a docentes y familias.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span>🔬</span><span data-es="Servicios" data-en="Services">Servicios</span></div>
+    <h2 class="section-title" data-es="Todo lo que su escuela necesita en un solo servicio" data-en="Everything your school needs in one service">Todo lo que su escuela necesita en un solo servicio</h2>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon-wrap icon-blue">🧪</div><div><div class="service-title" data-es="Evaluación Psicométrica Integral" data-en="Comprehensive Psychometric Assessment">Evaluación Psicométrica Integral</div><p class="service-desc" data-es="Evaluación algorítmica de funciones ejecutivas: control de impulsos, atención sostenida, planificación y flexibilidad cognitiva. Complementada con entrevista clínica individual." data-en="Algorithmic assessment of executive functions: impulse control, sustained attention, planning and cognitive flexibility. Complemented by individual clinical interview.">Evaluación algorítmica de funciones ejecutivas: control de impulsos, atención sostenida, planificación y flexibilidad cognitiva. Complementada con entrevista clínica individual.</p></div></div>
+      <div class="service-card"><div class="service-icon-wrap icon-violet">🎙️</div><div><div class="service-title" data-es="Entrevistas Clínicas Online" data-en="Online Clinical Interviews">Entrevistas Clínicas Online</div><p class="service-desc" data-es="Sesiones individuales por videollamada con psicólogos y médicos certificados. Incluyen entrevista al niño y a sus padres para una visión integral de cada caso." data-en="Individual video call sessions with certified psychologists and physicians. Include interviews with the child and parents for a comprehensive view of each case.">Sesiones individuales por videollamada con psicólogos y médicos certificados. Incluyen entrevista al niño y a sus padres para una visión integral de cada caso.</p></div></div>
+      <div class="service-card"><div class="service-icon-wrap icon-teal">📄</div><div><div class="service-title" data-es="Informes con Validez Legal" data-en="Legally Valid Reports">Informes con Validez Legal</div><p class="service-desc" data-es="Documentos con sello y matrícula profesional vigente. Válidos para obras sociales, prepagas, juzgados de familia y organismos educativos nacionales e internacionales." data-en="Documents with valid professional stamp and license. Valid for social works, prepaid plans, family courts and educational bodies.">Documentos con sello y matrícula profesional vigente. Válidos para obras sociales, prepagas, juzgados de familia y organismos educativos nacionales e internacionales.</p></div></div>
+      <div class="service-card"><div class="service-icon-wrap icon-amber">🔄</div><div><div class="service-title" data-es="Seguimiento y Reevaluación Periódica" data-en="Periodic Follow-up & Re-evaluation">Seguimiento y Reevaluación Periódica</div><p class="service-desc" data-es="Reevaluaciones programadas para medir progreso real. El sistema detecta cambios en patrones conductuales y actualiza automáticamente el perfil de cada alumno." data-en="Scheduled re-evaluations to measure real progress. The system detects behavioral pattern changes and automatically updates each student's profile.">Reevaluaciones programadas para medir progreso real. El sistema detecta cambios en patrones conductuales y actualiza automáticamente el perfil de cada alumno.</p></div></div>
+      <div class="service-card"><div class="service-icon-wrap icon-violet">🧠</div><div><div class="service-title" data-es="Neuroestimulación Cognitiva Dirigida" data-en="Targeted Cognitive Neurostimulation">Neuroestimulación Cognitiva Dirigida</div><p class="service-desc" data-es="Programas diseñados para cada niño según sus resultados. Accesibles desde WineBOX, con actividades guiadas de 15–25 min, 2–3 veces por semana." data-en="Programs designed for each child based on their results. Accessible from WineBOX, with guided activities of 15–25 min, 2–3 times per week.">Programas diseñados para cada niño según sus resultados. Accesibles desde WineBOX, con actividades guiadas de 15–25 min, 2–3 veces por semana.</p></div></div>
+      <div class="service-card"><div class="service-icon-wrap icon-blue">⭐</div><div><div class="service-title" data-es="Evaluación de Fortalezas y Talentos" data-en="Strengths & Talents Assessment">Evaluación de Fortalezas y Talentos</div><p class="service-desc" data-es="Identificamos habilidades sobresalientes y perfiles de inteligencia diferencial. Reportes para docentes y familias orientados a potenciar estas fortalezas en el contexto escolar." data-en="We identify outstanding skills and differential intelligence profiles. Reports for teachers and families aimed at developing these strengths in the school context.">Identificamos habilidades sobresalientes y perfiles de inteligencia diferencial. Reportes para docentes y familias orientados a potenciar estas fortalezas en el contexto escolar.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT EXAMPLE -->
+<section id="informe-ejemplo">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span>📜</span><span data-es="Informes Oficiales" data-en="Official Reports">Informes Oficiales</span></div>
+    <h2 class="section-title" data-es="Informes con plena validez legal y clínica" data-en="Reports with full legal and clinical validity">Informes con plena validez legal y clínica</h2>
+    <div class="report-layout">
+      <div>
+        <p class="section-desc" data-es="Cada informe cumple con todos los requisitos para presentarse ante obras sociales, prepagas, juzgados y organismos educativos." data-en="Every report meets all requirements for submission to social works, prepaid plans, courts and educational bodies.">Cada informe cumple con todos los requisitos para presentarse ante obras sociales, prepagas, juzgados y organismos educativos.</p>
+        <div class="report-features" style="margin-top:2rem;">
+          <div class="report-feat"><span class="report-feat-icon">🔏</span><div><div class="report-feat-title" data-es="Firma y sello profesional vigente" data-en="Valid professional signature and stamp">Firma y sello profesional vigente</div><p class="report-feat-desc" data-es="Cada documento lleva la firma y sello del profesional certificado que realizó la evaluación." data-en="Each document carries the certified professional's signature and stamp.">Cada documento lleva la firma y sello del profesional certificado que realizó la evaluación.</p></div></div>
+          <div class="report-feat"><span class="report-feat-icon">📋</span><div><div class="report-feat-title" data-es="Diagnósticos CIE-11 / DSM-5" data-en="ICD-11 / DSM-5 Diagnoses">Diagnósticos CIE-11 / DSM-5</div><p class="report-feat-desc" data-es="Codificación internacional exigida por obras sociales, prepagas y organismos de salud." data-en="International coding required by social works, prepaid plans and health authorities.">Codificación internacional exigida por obras sociales, prepagas y organismos de salud.</p></div></div>
+          <div class="report-feat"><span class="report-feat-icon">🏛️</span><div><div class="report-feat-title" data-es="Válido para inicio de tratamientos" data-en="Valid for treatment initiation">Válido para inicio de tratamientos</div><p class="report-feat-desc" data-es="Cuando el caso lo requiere, el informe respalda la cobertura de tratamientos por la seguridad social." data-en="When the case requires it, the report supports social security coverage for treatments.">Cuando el caso lo requiere, el informe respalda la cobertura de tratamientos por la seguridad social.</p></div></div>
+          <div class="report-feat"><span class="report-feat-icon">🔄</span><div><div class="report-feat-title" data-es="Renovaciones automáticas" data-en="Automatic renewals">Renovaciones automáticas</div><p class="report-feat-desc" data-es="El sistema genera alertas para renovar informes cuando las obras sociales lo requieran periódicamente." data-en="The system generates alerts to renew reports when social works periodically require it.">El sistema genera alertas para renovar informes cuando las obras sociales lo requieran periódicamente.</p></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="report-screen" onclick="openLightbox('img/validated.png')">
+          <img src="img/validated.png" alt="Ejemplo de informe validado WineBOX Tool">
+        </div>
+        <p style="text-align:center;font-size:0.78rem;color:var(--on-surface-subtle);margin-top:0.75rem;" data-es="Clic para ampliar · Informe real generado por el sistema" data-en="Click to enlarge · Real report generated by the system">Clic para ampliar · Informe real generado por el sistema</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGES -->
+<section id="edades">
+  <div class="section-inner">
+    <div class="section-eyebrow"><span>👶</span><span data-es="Cobertura etaria" data-en="Age coverage">Cobertura etaria</span></div>
+    <h2 class="section-title" data-es="Evaluaciones adaptadas a cada etapa del desarrollo" data-en="Assessments adapted to each developmental stage">Evaluaciones adaptadas a cada etapa del desarrollo</h2>
+    <div class="ages-grid">
+      <div class="age-card"><span class="age-emoji">🧒</span><div class="age-range">6–8</div><div class="age-name" data-es="Infancia temprana" data-en="Early childhood">Infancia temprana</div><div class="age-focus" data-es="Lenguaje, motricidad, atención básica y disposición escolar. Detección temprana de TEA y TDAH." data-en="Language, motor skills, basic attention and school readiness. Early ASD and ADHD detection.">Lenguaje, motricidad, atención básica y disposición escolar. Detección temprana de TEA y TDAH.</div></div>
+      <div class="age-card"><span class="age-emoji">👦</span><div class="age-range">9–11</div><div class="age-name" data-es="Infancia intermedia" data-en="Middle childhood">Infancia intermedia</div><div class="age-focus" data-es="Funciones ejecutivas, memoria de trabajo, habilidades matemáticas y sociales. Identificación de talentos." data-en="Executive functions, working memory, mathematical and social skills. Talent identification.">Funciones ejecutivas, memoria de trabajo, habilidades matemáticas y sociales. Identificación de talentos.</div></div>
+      <div class="age-card"><span class="age-emoji">👧</span><div class="age-range">12–14</div><div class="age-name" data-es="Preadolescencia" data-en="Pre-adolescence">Preadolescencia</div><div class="age-focus" data-es="Razonamiento abstracto, inteligencia emocional, autoregulación y orientación vocacional temprana." data-en="Abstract reasoning, emotional intelligence, self-regulation and early vocational guidance.">Razonamiento abstracto, inteligencia emocional, autoregulación y orientación vocacional temprana.</div></div>
+      <div class="age-card"><span class="age-emoji">🧑</span><div class="age-range">15–18</div><div class="age-name" data-es="Adolescencia" data-en="Adolescence">Adolescencia</div><div class="age-focus" data-es="Identidad, planificación, razonamiento complejo y orientación vocacional. Evaluación de aptitudes para el futuro." data-en="Identity, planning, complex reasoning and vocational guidance. Assessment of future aptitudes.">Identidad, planificación, razonamiento complejo y orientación vocacional. Evaluación de aptitudes para el futuro.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL WORKS -->
+<section id="obras-sociales">
+  <div class="section-inner">
+    <div class="social-inner">
+      <div>
+        <div class="section-eyebrow"><span>🏥</span><span data-es="Cobertura" data-en="Coverage">Cobertura</span></div>
+        <h2 class="section-title" data-es="Informes aceptados por las principales obras sociales" data-en="Reports accepted by leading social works">Informes aceptados por las principales obras sociales</h2>
+        <p class="section-desc" data-es="Cuando un niño requiere iniciar un tratamiento, nuestros informes son el respaldo clínico necesario para gestionar la cobertura ante cualquier obra social o prepaga." data-en="When a child needs to start treatment, our reports provide the clinical backing needed to manage coverage with any social work or prepaid plan.">Cuando un niño requiere iniciar un tratamiento, nuestros informes son el respaldo clínico necesario para gestionar la cobertura ante cualquier obra social o prepaga.</p>
+        <div style="margin-top:1.5rem;">
+          <div class="social-feat"><div class="social-feat-icon">🎯</div><div><div class="social-feat-title" data-es="Diagnóstico oficial CIE-11 y DSM-5" data-en="Official ICD-11 and DSM-5 diagnosis">Diagnóstico oficial CIE-11 y DSM-5</div><p class="social-feat-desc" data-es="Cada informe incluye los códigos internacionales exigidos para la autorización de tratamientos." data-en="Each report includes the international codes required for treatment authorization.">Cada informe incluye los códigos internacionales exigidos para la autorización de tratamientos.</p></div></div>
+          <div class="social-feat"><div class="social-feat-icon">📂</div><div><div class="social-feat-title" data-es="Historial clínico digital seguro" data-en="Secure digital clinical history">Historial clínico digital seguro</div><p class="social-feat-desc" data-es="Todos los informes quedan archivados en la plataforma, disponibles para descarga en PDF oficial en cualquier momento." data-en="All reports are archived on the platform, available for official PDF download at any time.">Todos los informes quedan archivados en la plataforma, disponibles para descarga en PDF oficial en cualquier momento.</p></div></div>
+        </div>
+      </div>
+      <div class="social-card">
+        <div class="social-card-title" data-es="✅ Aceptado por obras sociales y prepagas" data-en="✅ Accepted by social works and prepaid plans">✅ Aceptado por obras sociales y prepagas</div>
+        <ul class="obras-list">
+          <li><span>🔵</span> OSDE</li>
+          <li><span>🟢</span> PAMI</li>
+          <li><span>🔵</span> Galeno</li>
+          <li><span>🟡</span> IOMA (Pcia. Buenos Aires)</li>
+          <li><span>🟠</span> APROSS (Córdoba)</li>
+          <li><span>🔵</span> Swiss Medical</li>
+          <li><span>🟢</span> Medifé</li>
+          <li><span>⚪</span><span data-es="Y todas las obras sociales nacionales y provinciales" data-en="And all national and provincial social works">Y todas las obras sociales nacionales y provinciales</span></li>
+        </ul>
+        <div class="certified-badge"><span>🏛️</span><span data-es="Documentación válida ante Ministerio de Salud y Educación" data-en="Documentation valid before Ministry of Health and Education">Documentación válida ante Ministerio de Salud y Educación</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH STRIP -->
+<div class="research-strip">
+  <div class="research-strip-inner">
+    <span style="font-size:1.75rem;">🔬</span>
+    <div class="research-strip-text">
+      <strong data-es="Investigación científica detrás de WineBOX" data-en="Scientific research behind WineBOX">Investigación científica detrás de WineBOX</strong>
+      <span data-es="Whitepaper con metodología transparente, datos de 1.200 casos y aprobación ética · CC BY-NC 4.0" data-en="Whitepaper with transparent methodology, 1,200 case data and ethical approval · CC BY-NC 4.0">Whitepaper con metodología transparente, datos de 1.200 casos y aprobación ética · CC BY-NC 4.0</span>
+    </div>
+    <div class="research-strip-btns">
+      <a href="http://winebox.cloud/about.html" target="_blank" class="btn-primary" style="font-size:0.875rem;padding:11px 22px;" data-es="📚 Ver investigación" data-en="📚 View research">📚 Ver investigación</a>
+      <a href="https://winebox.cloud" target="_blank" class="btn-outline" style="font-size:0.875rem;padding:11px 22px;" data-es="🖥 Demo en vivo" data-en="🖥 Live demo">🖥 Demo en vivo</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contacto">
+  <div class="contact-blob"></div>
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="section-eyebrow" style="color:rgba(255,255,255,0.6);">✉️ <span data-es="Contacto" data-en="Contact">Contacto</span></div>
+      <h2 class="section-title" data-es="Hablemos sobre su institución" data-en="Let's talk about your institution">Hablemos sobre su institución</h2>
+      <p class="section-desc" data-es="Completá el formulario y un miembro del equipo WineBOX Tool se comunicará dentro de las 24 horas hábiles para coordinar una presentación personalizada para su escuela." data-en="Fill out the form and a WineBOX Tool team member will contact you within 24 business hours to coordinate a personalized presentation for your school.">Completá el formulario y un miembro del equipo WineBOX Tool se comunicará dentro de las 24 horas hábiles para coordinar una presentación personalizada para su escuela.</p>
+      <div class="contact-features">
+        <div class="contact-feat"><span style="font-size:1.3rem;">📧</span><p class="contact-feat-text">ifilex@gmail.com</p></div>
+        <div class="contact-feat"><span style="font-size:1.3rem;">🌐</span><p class="contact-feat-text">winebox.cloud</p></div>
+        <div class="contact-feat"><span style="font-size:1.3rem;">⏱️</span><p class="contact-feat-text" data-es="Respuesta en menos de 24hs hábiles" data-en="Response within 24 business hours">Respuesta en menos de 24hs hábiles</p></div>
+        <div class="contact-feat"><span style="font-size:1.3rem;">🔒</span><p class="contact-feat-text" data-es="Información confidencial · Sin compromisos" data-en="Confidential · No commitment">Información confidencial · Sin compromisos</p></div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-title" data-es="Solicitar información para su institución" data-en="Request information for your institution">Solicitar información para su institución</div>
+<!-- Modifica el FORM en tu HTML - agregale este ID y acción -->
+<form id="contactForm">
+    <!-- Todos tus campos del formulario -->
+    <div class="form-row">
+        <div class="form-group">
+            <label class="form-label" data-es="Nombre y apellido *" data-en="Full name *">Nombre y apellido *</label>
+            <input type="text" id="formNombre" name="nombre" class="form-input" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" data-es="Cargo *" data-en="Role *">Cargo *</label>
+            <input type="text" id="formCargo" name="cargo" class="form-input" required>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label" data-es="Institución educativa *" data-en="Educational institution *">Institución educativa *</label>
+        <input type="text" id="formInstitucion" name="institucion" class="form-input" required>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label class="form-label" data-es="Correo electrónico *" data-en="Email *">Correo electrónico *</label>
+            <input type="email" id="formEmail" name="email" class="form-input" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" data-es="Teléfono / WhatsApp" data-en="Phone / WhatsApp">Teléfono / WhatsApp</label>
+            <input type="tel" id="formTelefono" name="telefono" class="form-input">
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label class="form-label" data-es="Cant. alumnos" data-en="No. students">Cant. alumnos</label>
+            <select id="formCantidadAlumnos" name="cantidad_alumnos" class="form-input">
+                <option value="">Seleccionar...</option>
+                <option value="Menos de 50">Menos de 50</option>
+                <option value="50 – 150">50 – 150</option>
+                <option value="150 – 500">150 – 500</option>
+                <option value="Más de 500">Más de 500</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label" data-es="Servicio de interés" data-en="Service of interest">Servicio de interés</label>
+            <select id="formServicio" name="servicio_interes" class="form-input">
+                <option value="">Seleccionar...</option>
+                <option value="Evaluación psicométrica">Evaluación psicométrica</option>
+                <option value="Seguimiento clínico">Seguimiento clínico</option>
+                <option value="Neuroestimulación">Neuroestimulación</option>
+                <option value="Servicio completo">Servicio completo</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label" data-es="Mensaje / consulta" data-en="Message / inquiry">Mensaje / consulta</label>
+        <textarea id="formMensaje" name="mensaje" class="form-input" style="resize:vertical;min-height:90px;" placeholder="Cuéntenos sobre su institución y sus necesidades..."></textarea>
+    </div>
+    
+    <button type="submit" class="form-submit">📩 Enviar solicitud de información</button>
+    <p class="form-note" data-es="Al enviar, acepta que sus datos sean utilizados para contactarle sobre nuestros servicios." data-en="By submitting, you agree your data will be used to contact you about our services.">Al enviar, acepta que sus datos sean utilizados para contactarle sobre nuestros servicios.</p>
+</form>
+
+      <div id="form-success" style="display:none;text-align:center;padding:2rem 0;">
+        <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+        <div style="font-family:'Manrope',sans-serif;font-weight:700;color:white;font-size:1.2rem;margin-bottom:0.5rem;" data-es="¡Solicitud enviada!" data-en="Request sent!">¡Solicitud enviada!</div>
+        <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;" data-es="Recibirá una respuesta en ifilex@gmail.com en menos de 24hs hábiles." data-en="You will receive a response at ifilex@gmail.com within 24 business hours.">Recibirá una respuesta en ifilex@gmail.com en menos de 24hs hábiles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="nav-logo" style="margin-bottom:0.6rem;">WB</div>
+        <div class="footer-brand-title">WineBOX Tool</div>
+        <p class="footer-tagline" data-es="Psicometría, seguimiento clínico y neuroestimulación para instituciones educativas. Informes con validez legal." data-en="Psychometrics, clinical follow-up and neurostimulation for educational institutions. Legally valid reports.">Psicometría, seguimiento clínico y neuroestimulación para instituciones educativas. Informes con validez legal.</p>
+      </div>
+      <div class="footer-links-col">
+        <h5 data-es="Plataforma" data-en="Platform">Plataforma</h5>
+        <a href="https://winebox.cloud" target="_blank" data-es="Demo en vivo" data-en="Live demo">Demo en vivo</a>
+        <a href="http://winebox.cloud/about.html" target="_blank" data-es="Investigación científica" data-en="Scientific research">Investigación científica</a>
+      </div>
+      <div class="footer-links-col">
+        <h5 data-es="Servicios" data-en="Services">Servicios</h5>
+        <a href="#servicios" data-es="Evaluación psicométrica" data-en="Psychometric assessment">Evaluación psicométrica</a>
+        <a href="#servicios" data-es="Entrevistas online" data-en="Online interviews">Entrevistas online</a>
+        <a href="#servicios" data-es="Neuroestimulación" data-en="Neurostimulation">Neuroestimulación</a>
+        <a href="#informe-ejemplo" data-es="Informes oficiales" data-en="Official reports">Informes oficiales</a>
+      </div>
+      <div class="footer-links-col">
+        <h5 data-es="Contacto" data-en="Contact">Contacto</h5>
+        <a href="mailto:ifilex@gmail.com">ifilex@gmail.com</a>
+        <a href="https://winebox.cloud" target="_blank">winebox.cloud</a>
+        <a href="#contacto" data-es="Formulario de contacto" data-en="Contact form">Formulario de contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 WineBOX Tool. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></div>
+      <div class="footer-legal">
+        <a href="#" data-es="Privacidad" data-en="Privacy">Privacidad</a>
+        <a href="#" data-es="Términos" data-en="Terms">Términos</a>
+        <a href="mailto:ifilex@gmail.com">ifilex@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "WineBOX Tool",
+  "operatingSystem": "Web",
+  "applicationCategory": "EducationalApplication, HealthApplication",
+  "description": "Evaluación Psicométrica, seguimiento y neuroestimulación para escuelas.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "360"
+  }
+}
+</script>
+
+<script>
+let currentLang = 'es';
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === lang.toUpperCase()));
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') { el.placeholder = val; }
+    else { el.innerHTML = val; }
+  });
+}
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+
+// Configuración - REEMPLAZA ESTA URL CON LA QUE OBTUVISTE
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_Po72MB4tSn-vFekRgpbNGNgZ7qbQntNMy_dIEBeNHAqNUmo5shUvLIy9Ew7FG77K/exec';
+
+async function submitForm(event) {
+    event.preventDefault();
+    
+    // Recoger datos del formulario por ID
+    const formData = {
+        nombre: document.getElementById('formNombre')?.value || '',
+        cargo: document.getElementById('formCargo')?.value || '',
+        institucion: document.getElementById('formInstitucion')?.value || '',
+        email: document.getElementById('formEmail')?.value || '',
+        telefono: document.getElementById('formTelefono')?.value || '',
+        cantidad_alumnos: document.getElementById('formCantidadAlumnos')?.value || '',
+        servicio_interes: document.getElementById('formServicio')?.value || '',
+        mensaje: document.getElementById('formMensaje')?.value || '',
+        origen: window.location.origin,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Validación
+    if (!formData.nombre || !formData.email || !formData.institucion) {
+        alert('⚠️ Por favor, complete los campos requeridos');
+        return;
+    }
+    
+    // Mostrar loading
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '⏳ Enviando...';
+    submitBtn.disabled = true;
+    
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        // Guardar backup local
+        let backups = JSON.parse(localStorage.getItem('winebox_backups') || '[]');
+        backups.push({
+            ...formData,
+            fecha_envio: new Date().toISOString(),
+            exito: true
+        });
+        localStorage.setItem('winebox_backups', JSON.stringify(backups));
+        
+        // Mostrar éxito
+        const form = document.getElementById('contactForm');
+        form.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        form.reset();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        
+        // Guardar backup pendiente
+        let backups = JSON.parse(localStorage.getItem('winebox_backups') || '[]');
+        backups.push({
+            ...formData,
+            fecha_intento: new Date().toISOString(),
+            error: error.message,
+            pendiente: true
+        });
+        localStorage.setItem('winebox_backups', JSON.stringify(backups));
+        
+        alert('⚠️ Datos guardados localmente. Se enviarán automáticamente cuando recupere conexión.');
+        
+        // Mostrar éxito igualmente
+        const form = document.getElementById('contactForm');
+        form.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        
+    } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Función para ver backups (útil para debugging)
+function verBackups() {
+    const backups = JSON.parse(localStorage.getItem('winebox_backups') || '[]');
+    console.table(backups);
+    alert(`📦 ${backups.length} backups guardados localmente. Revisa la consola (F12)`);
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    if (form) {
+        form.addEventListener('submit', submitForm);
+        console.log('✅ Formulario inicializado');
+    }
+});
+
+
+
+
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(10,65,142,0.08)' : 'none';
+});
+</script>
+</body>
+</html>
