@@ -1,0 +1,16 @@
+{
+  "name": "Winebox Manager",
+  "short_name": "Winebox",
+  "description": "Prototipo de ayuda de ventas offline/online para el equipo comercial de Winebox",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0D0D",
+  "theme_color": "#722f37",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuANP8LX4m7p2ttOoCfXY2KDXQikzksfye-ynp41c2WiCCcXByUUdOqoc81unhBudyqu9NEsx73nScl2BUsTueaTPjKhnjs6WyM7X5QkCY0TqM0936TdjyHzVvmX_qjQD32jImYQb4sRpH92lotgtNENQdnwPwmO6I3eymmf1c1_I0dvxN7VAyyl10yV8zfs4Ru1vbLCtElrw-hXFQ67kT6gfP0IkGpNBCbeIc5XoiZQdUDb5i9DiUDe",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
