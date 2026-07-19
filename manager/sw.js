@@ -1,18 +1,8 @@
 const CACHE_NAME = 'winebox-manager-v1';
 
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/src/main.tsx',
-  '/src/App.tsx',
-  '/src/index.css',
-  '/src/types.ts',
-  '/src/data.ts',
-  '/src/components/DashboardView.tsx',
-  '/src/components/SchoolsView.tsx',
-  '/src/components/MapView.tsx',
-  '/src/components/AgendaView.tsx',
-  '/src/components/ContractsView.tsx'
+  '/manager/',
+  '/manager/index.html'
 ];
 
 self.addEventListener('install', (event) => {

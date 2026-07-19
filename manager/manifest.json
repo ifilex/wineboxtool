@@ -2,7 +2,7 @@
   "name": "Winebox Manager",
   "short_name": "Winebox",
   "description": "Prototipo de ayuda de ventas offline/online para el equipo comercial de Winebox",
-  "start_url": "/",
+  "start_url": "/manager",
   "display": "standalone",
   "background_color": "#0D0D0D",
   "theme_color": "#722f37",
