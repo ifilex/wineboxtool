@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método WineBOX · Protocolo de Estimulación y Rehabilitación Cognitiva (Edición A4)</title>
+    <meta name="author" content="Lic. Emanuel Chanampa">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #1e293b;
+            --accent-color: #2980b9;
+            --accent-dark: #143250;
+            --gutter-margin: 28mm;
+            --outer-margin: 18mm;
+            --font-main: 'Lora', 'Georgia', serif;
+            --font-ui: 'Inter', system-ui, sans-serif;
+        }
+
+        /* A4 PAGE SPECIFICATION: EXACT 210mm x 297mm */
+        @page {
+            size: 210mm 297mm;
+            margin: 0mm !important;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #e2e8f0;
+            color: var(--text-color);
+            line-height: 1.5;
+            font-size: 9.5pt;
+            margin: 0;
+            padding: 0;
+        }
+
+        .screen-toolbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            background: #143250;
+            color: white;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-family: var(--font-ui);
+            font-size: 13px;
+        }
+
+        .screen-toolbar a {
+            color: #bae6fd;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .screen-toolbar a:hover {
+            text-decoration: underline;
+        }
+
+        .screen-toolbar select {
+            background: #1f4268;
+            color: white;
+            border: 1px solid #3b82f6;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .screen-toolbar button {
+            background: #2980b9;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+
+        .screen-toolbar button:hover {
+            background: #1f618d;
+        }
+
+        @media print {
+            .screen-toolbar { display: none !important; }
+            html, body {
+                width: 210mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+            }
+            .book-container {
+                padding: 0 !important;
+                gap: 0 !important;
+            }
+            .a4-page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 210mm !important;
+                min-height: 297mm !important;
+                height: auto !important;
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+        }
+
+        .book-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0;
+            gap: 24px;
+        }
+
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: var(--bg-color);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            page-break-after: always;
+            break-after: page;
+        }
+
+        /* 28mm gutter for binding: Odd (right) pages have extra padding left, Even (left) pages on right */
+        .a4-page.odd-page {
+            padding: 16mm 16mm 16mm 26mm;
+        }
+
+        .a4-page.even-page {
+            padding: 16mm 26mm 16mm 16mm;
+        }
+
+        .page-header {
+            font-family: var(--font-ui);
+            font-size: 7.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .page-footer {
+            font-family: var(--font-ui);
+            font-size: 7.5pt;
+            color: #64748b;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 4px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--accent-dark);
+            margin-top: 0;
+            line-height: 1.2;
+        }
+
+        p {
+            margin: 0 0 8px 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 8px 0;
+        }
+
+        .clinical-box {
+            background: #f8fafc;
+            border-left: 3.5px solid var(--accent-color);
+            padding: 8px 12px;
+            border-radius: 0 6px 6px 0;
+            margin: 8px 0;
+            font-size: 8.5pt;
+        }
+
+        .empathy-box {
+            background: #fef9e7;
+            border-left: 3.5px solid #f39c12;
+            padding: 8px 12px;
+            border-radius: 0 6px 6px 0;
+            margin: 8px 0;
+            font-style: italic;
+            font-size: 8.5pt;
+            color: #5d4037;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-ui);
+            font-size: 8pt;
+            margin: 8px 0;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 7px;
+            text-align: left;
+        }
+
+        th {
+            background: #1a5276;
+            color: white;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 2.5px 0;
+            border-bottom: 1px dotted #cbd5e1;
+            font-family: var(--font-ui);
+            font-size: 8.5pt;
+        }
+
+        .toc-item a {
+            font-weight: 600;
+            color: #143250;
+        }
+
+        .toc-sub {
+            padding-left: 12px;
+            font-size: 7.5pt;
+            color: #475569;
+            border-bottom: 1px dotted #e2e8f0;
+        }
+
+        .toc-page {
+            font-family: monospace;
+            font-weight: bold;
+            color: #2980b9;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="screen-toolbar">
+        <div>
+            <strong>Método WineBOX · Edición A4</strong>
+            <span style="opacity:0.8; margin-left:8px;">(Lic. Emanuel Chanampa · 56 Páginas)</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <select id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="pt">🇧🇷 Português</option>
+                <option value="it">🇮🇹 Italiano</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+            </select>
+            <a href="#indice-1" id="toolbarTocLink">📑 Índice</a>
+            <a href="/">← App</a>
+            <button onclick="window.print()">
+                🖨️ Imprimir / Guardar PDF (Ctrl+P)
+            </button>
+        </div>
+    </div>
+
+    <div id="bookContainer" class="book-container">
+        <!-- Generado dinámicamente con JavaScript en el idioma seleccionado -->
+    </div>
+
+    <!-- Data script: Carga los datos de traducción -->
+    <script type="module">
+        import { getEditorialTexts } from '/src/data/editorialTranslations.ts';
+        import { getLocalizedExercises, getLocalizedDomains, getLocalizedTableOfContents, UI_TRANSLATIONS } from '/src/data/translations.ts';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentLang = urlParams.get('lang') || 'es';
+        if (!['es', 'en', 'pt', 'it', 'fr', 'de'].includes(currentLang)) {
+            currentLang = 'es';
+        }
+
+        document.getElementById('langSelect').value = currentLang;
+
+        window.changeLanguage = function(newLang) {
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLang);
+            window.location.href = url.toString();
+        };
+
+        function renderAllPages(lang) {
+            const container = document.getElementById('bookContainer');
+            container.innerHTML = '';
+
+            const ed = getEditorialTexts(lang);
+            const exercises = getLocalizedExercises(lang);
+            const domains = getLocalizedDomains(lang);
+            const toc = getLocalizedTableOfContents(lang);
+            const ui = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.es;
+
+            // ==========================================
+            // PÁGINA 1: PORTADA
+            // ==========================================
+            const p1 = document.createElement('div');
+            p1.id = 'portada';
+            p1.className = 'a4-page';
+            p1.style.cssText = 'padding:0; background: linear-gradient(180deg, #f8f6f0 0%, #dde8f0 40%, #112a46 100%); text-align:center; justify-content:space-between; overflow:hidden;';
+            p1.innerHTML = `
+                <div style="padding: 16mm 16mm 0 16mm;">
+                    <div style="font-family: var(--font-ui); font-size: 8.5pt; text-transform: uppercase; letter-spacing: 2px; color: #1a5276; font-weight: bold; margin-bottom: 6px;">
+                        ${ed.cover.badge}
+                    </div>
+                    <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 32pt; margin: 0 0 6px 0; color: #143250;">
+                        ${ed.cover.title}
+                    </h1>
+                    <div style="width: 60px; height: 3px; background: #2980b9; margin: 0 auto 10px auto; border-radius: 2px;"></div>
+                    <div style="font-size: 11pt; font-style: italic; color: #334155; max-width: 500px; margin: 0 auto; line-height: 1.4;">
+                        ${ed.cover.subtitle}
+                    </div>
+                </div>
+                <div style="padding: 10px 20px;">
+                    <img src="/cover.jpg" alt="Cover" style="max-width: 78%; max-height: 135mm; object-fit: contain; margin: 0 auto; border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.2);">
+                </div>
+                <div style="padding: 0 16mm 16mm 16mm; color: white;">
+                    <div style="font-size: 18pt; font-weight: bold; font-family: var(--font-ui); margin-bottom: 2px;">
+                        ${ed.cover.authorName}
+                    </div>
+                    <div style="font-size: 9pt; opacity: 0.9; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; color: #bae6fd;">
+                        ${ed.cover.authorMatricula}
+                    </div>
+                    <div style="font-size: 8pt; opacity: 0.75; font-family: var(--font-ui); margin-top: 8px;">
+                        ${ed.cover.editionBadge}
+                    </div>
+                </div>
+            `;
+            container.appendChild(p1);
+
+            // ==========================================
+            // PÁGINA 2: PORTADILLA
+            // ==========================================
+            const p2 = document.createElement('div');
+            p2.id = 'portadilla';
+            p2.className = 'a4-page even-page';
+            p2.style.cssText = 'text-align: center; justify-content: space-between; padding: 28mm 20mm;';
+            p2.innerHTML = `
+                <div style="margin-top: 20mm;">
+                    <h2 style="font-size: 26pt; font-family: 'Playfair Display', Georgia, serif; margin-bottom: 8px; color: #143250;">
+                        ${ed.halfTitle.title}
+                    </h2>
+                    <p style="font-style: italic; color: #64748b; font-size: 12pt; margin-bottom: 20mm;">
+                        ${ed.halfTitle.subtitle}
+                    </p>
+                </div>
+                <div style="border-top: 1px solid #cbd5e1; padding-top: 15mm; max-width: 440px; margin: 0 auto; font-family: var(--font-ui); font-size: 9pt; color: #64748b; line-height: 1.8;">
+                    <strong style="color: #1e293b; font-size: 10pt;">${ed.halfTitle.authorName}</strong><br>
+                    ${ed.halfTitle.authorRole}<br>
+                    ${ed.halfTitle.projectLead}<br>
+                    ${ed.halfTitle.officialPlatform}<br>
+                    ${ed.halfTitle.copyright}
+                </div>
+                <div class="page-footer">
+                    <span>${ed.runningFooter}</span>
+                    <span class="toc-page">2 / 56</span>
+                </div>
+            `;
+            container.appendChild(p2);
+
+            // Helper to build page shell
+            function createShell(pageNum, id, title, innerContent) {
+                const p = document.createElement('div');
+                p.id = id;
+                p.className = `a4-page ${pageNum % 2 === 0 ? 'even-page' : 'odd-page'}`;
+                p.innerHTML = `
+                    <div class="page-header">
+                        <span>${ed.runningHeader}</span>
+                        <span>${title}</span>
+                    </div>
+                    <div class="page-content">${innerContent}</div>
+                    <div class="page-footer">
+                        <span>${ed.runningFooter}</span>
+                        <span class="toc-page">${pageNum} / 56</span>
+                    </div>
+                `;
+                return p;
+            }
+
+            // ==========================================
+            // PÁGINA 3: ÍNDICE I
+            // ==========================================
+            let toc1Html = `
+                <div style="text-align: center; border-bottom: 2px solid #1a5276; padding-bottom: 8px; margin-bottom: 12px;">
+                    <span style="font-family: var(--font-ui); font-size: 8.5pt; font-weight: bold; color: #2980b9; text-transform: uppercase;">
+                        ${ui.tocTitle}
+                    </span>
+                    <h2 style="font-size: 18pt; margin: 2px 0;">${toc[2]?.title || 'Índice General (I)'}</h2>
+                    <p style="font-size: 8.5pt; color: #64748b; margin: 0;">Págs 1 - 23</p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:3px;">
+            `;
+            toc.slice(0, 10).forEach(item => {
+                toc1Html += `<div class="toc-item"><a href="#${item.id}">${item.title}</a><span class="toc-page">Pág. ${item.pageEstimate}</span></div>`;
+                if (item.subItems) {
+                    item.subItems.forEach(sub => {
+                        toc1Html += `<div class="toc-sub"><a href="#${sub.id}">${sub.title}</a><span class="toc-page">Pág. ${sub.pageEstimate}</span></div>`;
+                    });
+                }
+            });
+            toc1Html += `</div>`;
+            container.appendChild(createShell(3, 'indice-1', toc[2]?.title || 'Índice General', toc1Html));
+
+            // ==========================================
+            // PÁGINA 4: ÍNDICE II
+            // ==========================================
+            let toc2Html = `
+                <div style="text-align: center; border-bottom: 2px solid #1a5276; padding-bottom: 8px; margin-bottom: 12px;">
+                    <span style="font-family: var(--font-ui); font-size: 8.5pt; font-weight: bold; color: #2980b9; text-transform: uppercase;">
+                        ${ui.tocTitle}
+                    </span>
+                    <h2 style="font-size: 18pt; margin: 2px 0;">${toc[3]?.title || 'Índice General (II)'}</h2>
+                    <p style="font-size: 8.5pt; color: #64748b; margin: 0;">Págs 24 - 56</p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:3px;">
+            `;
+            toc.slice(10).forEach(item => {
+                toc2Html += `<div class="toc-item"><a href="#${item.id}">${item.title}</a><span class="toc-page">Pág. ${item.pageEstimate}</span></div>`;
+                if (item.subItems) {
+                    item.subItems.forEach(sub => {
+                        toc2Html += `<div class="toc-sub"><a href="#${sub.id}">${sub.title}</a><span class="toc-page">Pág. ${sub.pageEstimate}</span></div>`;
+                    });
+                }
+            });
+            toc2Html += `</div>`;
+            container.appendChild(createShell(4, 'indice-2', toc[3]?.title || 'Índice General', toc2Html));
+
+            // ==========================================
+            // PÁGINA 5: SOBRE EL AUTOR
+            // ==========================================
+            const p5Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 8px; margin-bottom: 12px;">
+                    <span style="font-size:8pt; font-family:var(--font-ui); text-transform:uppercase; color:#2980b9; font-weight:bold;">
+                        ${ed.aboutAuthor.chapterTag}
+                    </span>
+                    <h2 style="font-size: 20pt; margin: 4px 0 0 0;">${ed.aboutAuthor.heading}</h2>
+                </div>
+                <div class="card" style="margin-bottom:12px;">
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                        <div style="width:48px; height:48px; border-radius:50%; background:#143250; color:white; display:flex; align-items:center; justify-content:center; font-size:18pt; font-weight:bold; font-family:'Playfair Display', serif;">EC</div>
+                        <div>
+                            <h3 style="font-size:14pt; margin:0;">${ed.aboutAuthor.authorName}</h3>
+                            <div style="font-size:9pt; color:#2980b9; font-family:var(--font-ui);">${ed.aboutAuthor.authorRole}</div>
+                        </div>
+                    </div>
+                    <p style="font-size:9pt; line-height:1.6;">${ed.aboutAuthor.bioParagraph}</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:#f8fafc; padding:8px; border-radius:6px; font-size:8.5pt; font-family:var(--font-ui); margin-top:8px;">
+                        <div><strong>${ed.aboutAuthor.matNacLabel}</strong> ${ed.aboutAuthor.matNacVal}</div>
+                        <div><strong>${ed.aboutAuthor.matProvLabel}</strong> ${ed.aboutAuthor.matProvVal}</div>
+                        <div><strong>${ed.aboutAuthor.specialtyLabel}</strong> ${ed.aboutAuthor.specialtyVal}</div>
+                        <div><strong>${ed.aboutAuthor.approachLabel}</strong> ${ed.aboutAuthor.approachVal}</div>
+                    </div>
+                </div>
+                <div class="clinical-box" style="font-style:italic;">
+                    ${ed.aboutAuthor.quote}
+                </div>
+            `;
+            container.appendChild(createShell(5, 'sobre-autor', ed.aboutAuthor.heading, p5Html));
+
+            // ==========================================
+            // PÁGINA 6: AVISOS LEGALES
+            // ==========================================
+            const p6Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.legalNotices.heading}</h2>
+                </div>
+                <div class="card"><h4 style="margin:0 0 4px 0; font-size:10pt;">${ed.legalNotices.item1Title}</h4><p style="font-size:8.5pt; margin:0;">${ed.legalNotices.item1Text}</p></div>
+                <div class="card"><h4 style="margin:0 0 4px 0; font-size:10pt;">${ed.legalNotices.item2Title}</h4><p style="font-size:8.5pt; margin:0;">${ed.legalNotices.item2Text}</p></div>
+                <div class="card"><h4 style="margin:0 0 4px 0; font-size:10pt;">${ed.legalNotices.item3Title}</h4><p style="font-size:8.5pt; margin:0;">${ed.legalNotices.item3Text}</p></div>
+                <div class="card"><h4 style="margin:0 0 4px 0; font-size:10pt;">${ed.legalNotices.item4Title}</h4><p style="font-size:8.5pt; margin:0;">${ed.legalNotices.item4Text}</p></div>
+            `;
+            container.appendChild(createShell(6, 'avisos-legales', ed.legalNotices.heading, p6Html));
+
+            // ==========================================
+            // PÁGINA 7: ADVERTENCIA CLÍNICA
+            // ==========================================
+            const p7Html = `
+                <div style="border-bottom: 2px solid #c0392b; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; color:#c0392b; margin: 0;">${ed.clinicalWarning.heading}</h2>
+                </div>
+                <div style="background:#fef2f2; border:1px solid #f87171; border-radius:8px; padding:12px; margin-bottom:12px;">
+                    <strong style="color:#b91c1c; font-size:10.5pt; font-family:var(--font-ui);">${ed.clinicalWarning.warningTitle}</strong>
+                    <p style="font-size:9pt; margin:6px 0;">${ed.clinicalWarning.p1}</p>
+                    <p style="font-size:9pt; margin:6px 0;">${ed.clinicalWarning.p2}</p>
+                </div>
+                <div class="card">
+                    <h4 style="margin:0 0 8px 0; font-size:10pt; color:#143250;">${ed.clinicalWarning.alertSignalsTitle}</h4>
+                    <ul style="font-size:8.5pt; padding-left:18px; margin:0;">
+                        ${ed.clinicalWarning.signals.map(s => `<li style="margin-bottom:4px;">${s}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            container.appendChild(createShell(7, 'advertencia-clinica', ed.clinicalWarning.heading, p7Html));
+
+            // ==========================================
+            // PÁGINA 8: NOTA PRELIMINAR
+            // ==========================================
+            const p8Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.preliminaryNote.heading}</h2>
+                </div>
+                <p style="font-size:9pt; line-height:1.6; margin-bottom:12px;">${ed.preliminaryNote.intro}</p>
+                <div class="card" style="border-left:4px solid #10b981; margin-bottom:8px;">
+                    <strong style="font-size:9pt; color:#065f46;">${ed.preliminaryNote.level1Title}</strong>
+                    <p style="font-size:8.5pt; margin:4px 0 0 0;">${ed.preliminaryNote.level1Text}</p>
+                </div>
+                <div class="card" style="border-left:4px solid #0284c7; margin-bottom:8px;">
+                    <strong style="font-size:9pt; color:#0369a1;">${ed.preliminaryNote.level2Title}</strong>
+                    <p style="font-size:8.5pt; margin:4px 0 0 0;">${ed.preliminaryNote.level2Text}</p>
+                </div>
+                <div class="card" style="border-left:4px solid #8b5cf6;">
+                    <strong style="font-size:9pt; color:#6d28d9;">${ed.preliminaryNote.level3Title}</strong>
+                    <p style="font-size:8.5pt; margin:4px 0 0 0;">${ed.preliminaryNote.level3Text}</p>
+                </div>
+            `;
+            container.appendChild(createShell(8, 'nota-preliminar', ed.preliminaryNote.heading, p8Html));
+
+            // ==========================================
+            // PÁGINA 9: FUNDAMENTOS 1.1 & 1.2
+            // ==========================================
+            const p9Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.foundations.heading}</h2>
+                </div>
+                <h3 style="font-size:12pt; border-left:3px solid #2980b9; padding-left:8px; margin:10px 0 4px 0;">${ed.foundations.sec11Title}</h3>
+                <p style="font-size:9pt; line-height:1.6;">${ed.foundations.sec11Text}</p>
+                <h3 style="font-size:12pt; border-left:3px solid #2980b9; padding-left:8px; margin:16px 0 4px 0;">${ed.foundations.sec12Title}</h3>
+                <p style="font-size:9pt; line-height:1.6;">${ed.foundations.sec12Text}</p>
+            `;
+            container.appendChild(createShell(9, 'fundamentos-1-1', ed.foundations.heading, p9Html));
+
+            // ==========================================
+            // PÁGINA 10: FUNDAMENTOS 1.3 & 1.4
+            // ==========================================
+            const p10Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.foundations.sec13Title}</h2>
+                </div>
+                <p style="font-size:9pt; line-height:1.6;">${ed.foundations.sec13Text}</p>
+                <h3 style="font-size:12pt; border-left:3px solid #2980b9; padding-left:8px; margin:16px 0 4px 0;">${ed.foundations.sec14Title}</h3>
+                <p style="font-size:9pt; line-height:1.6;">${ed.foundations.sec14Text}</p>
+            `;
+            container.appendChild(createShell(10, 'fundamentos-1-3', ed.foundations.heading, p10Html));
+
+            // ==========================================
+            // PÁGINA 11: FUNDAMENTOS 1.5
+            // ==========================================
+            const p11Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.foundations.sec15Title}</h2>
+                </div>
+                <p style="font-size:9pt; line-height:1.6;">${ed.foundations.sec15Text}</p>
+            `;
+            container.appendChild(createShell(11, 'fundamentos-1-5', ed.foundations.heading, p11Html));
+
+            // ==========================================
+            // PÁGINA 12: RECONEXIÓN
+            // ==========================================
+            const p12Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.reconnection.heading}</h2>
+                </div>
+                <div class="empathy-box" style="margin-bottom:12px;">${ed.reconnection.quoteIntro}</div>
+                <p style="font-size:9pt; line-height:1.6;">${ed.reconnection.p1}</p>
+                <p style="font-size:9pt; line-height:1.6;">${ed.reconnection.p2}</p>
+                <p style="font-size:9pt; line-height:1.6;">${ed.reconnection.p3}</p>
+                <div class="card" style="margin-top:10px;">
+                    <strong style="font-size:9pt; color:#143250;">${ed.reconnection.guidelinesTitle}</strong>
+                    <ul style="font-size:8.5pt; padding-left:18px; margin:4px 0 0 0;">
+                        ${ed.reconnection.guidelines.map(g => `<li style="margin-bottom:3px;">${g}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            container.appendChild(createShell(12, 'mensaje-humano', ed.reconnection.heading, p12Html));
+
+            // ==========================================
+            // PÁGINA 13: PROTOCOLO 3.1 & FASES
+            // ==========================================
+            let p13Phases = '';
+            ed.protocol.phases.forEach((ph, i) => {
+                p13Phases += `<tr><td><strong>${ph.name}</strong></td><td>${ph.weeks}</td><td>${ph.focus}</td><td>${domains[i]?.exercisesRange || ''}</td></tr>`;
+            });
+            const p13Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.protocol.heading}</h2>
+                </div>
+                <h3 style="font-size:12pt; border-left:3px solid #2980b9; padding-left:8px; margin:6px 0 4px 0;">${ed.protocol.sec31Title}</h3>
+                <p style="font-size:9pt; line-height:1.6;">${ed.protocol.sec31Text}</p>
+                <table>
+                    <thead><tr><th>Fase</th><th>Semanas</th><th>Dominio</th><th>Ejercicios</th></tr></thead>
+                    <tbody>${p13Phases}</tbody>
+                </table>
+            `;
+            container.appendChild(createShell(13, 'protocolo-aplicacion', ed.protocol.heading, p13Html));
+
+            // ==========================================
+            // PÁGINA 14: PROTOCOLO 3.2 & 3.3
+            // ==========================================
+            let stepsHtml = '';
+            ed.protocol.sessionSteps.forEach(s => {
+                stepsHtml += `<div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:6px 8px;"><strong>${s.time}</strong><div style="font-size:8pt; color:#475569;">${s.activity}</div></div>`;
+            });
+            const p14Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.protocol.sec32Title}</h2>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:14px;">
+                    ${stepsHtml}
+                </div>
+                <h3 style="font-size:12pt; border-left:3px solid #2980b9; padding-left:8px; margin:10px 0 4px 0;">${ed.protocol.sec33Title}</h3>
+                <p style="font-size:9pt; line-height:1.6;">${ed.protocol.sec33Text}</p>
+            `;
+            container.appendChild(createShell(14, 'protocolo-3-2', ed.protocol.heading, p14Html));
+
+            // ==========================================
+            // PÁGINA 15: PROTOCOLO 3.4 & 3.5
+            // ==========================================
+            const p15Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 18pt; margin: 0;">${ed.protocol.sec34Title}</h2>
+                </div>
+                <p style="font-size:9pt; line-height:1.6;">${ed.protocol.sec34Text}</p>
+                <h3 style="font-size:12pt; border-left:3px solid #2980b9; padding-left:8px; margin:16px 0 4px 0;">${ed.protocol.sec35Title}</h3>
+                <p style="font-size:9pt; line-height:1.6;">${ed.protocol.sec35Text}</p>
+            `;
+            container.appendChild(createShell(15, 'protocolo-3-4', ed.protocol.heading, p15Html));
+
+            // ==========================================
+            // FUNCTION TO RENDER DOMAIN INTRO PAGE
+            // ==========================================
+            function createDomainIntro(pageNum, domIndex) {
+                const dom = domains[domIndex];
+                const color = dom.color || '#1a5276';
+                const p = document.createElement('div');
+                p.id = dom.id;
+                p.className = `a4-page ${pageNum % 2 === 0 ? 'even-page' : 'odd-page'}`;
+                p.innerHTML = `
+                    <div class="page-header"><span>${ed.runningHeader}</span><span>${dom.title}</span></div>
+                    <div class="page-content" style="justify-content:center;">
+                        <div style="border:2px solid ${color}; background:#f8fafc; border-radius:12px; padding:24px; text-align:center;">
+                            <div style="display:inline-block; background:${color}; color:white; padding:4px 12px; border-radius:20px; font-size:9pt; font-family:var(--font-ui); font-weight:bold; margin-bottom:12px;">
+                                ${dom.weeks} · ${dom.exercisesRange}
+                            </div>
+                            <h2 style="font-size:24pt; margin:0 0 12px 0; color:${color};">${dom.title}</h2>
+                            <p style="font-size:10pt; font-style:italic; line-height:1.6; color:#334155; max-width:500px; margin:0 auto;">
+                                "${dom.description}"
+                            </p>
+                        </div>
+                    </div>
+                    <div class="page-footer"><span>${ed.runningFooter}</span><span class="toc-page">${pageNum} / 56</span></div>
+                `;
+                return p;
+            }
+
+            // ==========================================
+            // FUNCTION TO RENDER EXERCISE PAGE
+            // ==========================================
+            function createExPage(ex, pageNum, domColor) {
+                const p = document.createElement('div');
+                p.id = `ejercicio-${ex.id}`;
+                p.className = `a4-page ${pageNum % 2 === 0 ? 'even-page' : 'odd-page'}`;
+                p.innerHTML = `
+                    <div class="page-header">
+                        <span>${ed.runningHeader}</span>
+                        <span>${ui.exerciseTitle} ${ex.id} · ${ex.game}</span>
+                    </div>
+                    <div class="page-content" style="justify-content:space-between;">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #cbd5e1; padding-bottom:6px; margin-bottom:10px;">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <span style="background:${domColor}; color:white; padding:2px 8px; border-radius:4px; font-family:monospace; font-weight:bold; font-size:10pt;">#${ex.id}</span>
+                                    <h3 style="font-size:14pt; margin:0;">${ex.title}</h3>
+                                </div>
+                                <span style="font-size:8pt; font-family:var(--font-ui); color:#64748b; font-weight:bold;">⏱ ${ex.duration} | 🎮 ${ex.game}</span>
+                            </div>
+                            <div style="margin-bottom:8px; font-family:var(--font-ui); font-size:8pt;">
+                                <span style="color:#64748b; font-weight:bold;">Funciones:</span>
+                                <span style="background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px; margin-left:4px;">${ex.cognitiveFunctions}</span>
+                            </div>
+                            <div class="clinical-box">
+                                <strong style="color:${domColor}; font-family:var(--font-ui); font-size:8pt; text-transform:uppercase;">🔬 ${ui.clinicalRationaleLabel}:</strong>
+                                <p style="margin:4px 0 0 0; font-size:8.5pt;">${ex.clinicalRationale}</p>
+                            </div>
+                            <div class="empathy-box">
+                                <strong style="color:#b45309; font-family:var(--font-ui); font-size:8pt; text-transform:uppercase; display:block; margin-bottom:2px;">❤️ ${ui.patientGuideLabel}:</strong>
+                                <p style="margin:0; font-size:8.5pt;">${ex.patientGuide}</p>
+                            </div>
+                            <div class="clinical-box" style="background:#f1f5f9; border-left-color:#64748b;">
+                                <strong style="color:#334155; font-family:var(--font-ui); font-size:8pt; text-transform:uppercase;">🔍 ${ui.therapistNotesLabel}:</strong>
+                                <p style="margin:4px 0 0 0; font-size:8.5pt;">${ex.therapistNotes}</p>
+                            </div>
+                        </div>
+                        <div style="font-family:var(--font-ui); font-size:7.5pt; color:#64748b; text-align:right; border-top:1px dotted #cbd5e1; padding-top:4px;">
+                            Plataforma WineBOX: <a href="https://winebox.cloud/#${ex.game.toLowerCase().replace(/[^a-z0-9]/g, '')}">winebox.cloud</a>
+                        </div>
+                    </div>
+                    <div class="page-footer">
+                        <span>${ed.runningFooter}</span>
+                        <span class="toc-page">${pageNum} / 56</span>
+                    </div>
+                `;
+                return p;
+            }
+
+            // DOMINIO 1: Pág 16
+            container.appendChild(createDomainIntro(16, 0));
+            // Ejercicios 1 a 7: Págs 17 a 23
+            exercises.slice(0, 7).forEach((ex, i) => container.appendChild(createExPage(ex, 17 + i, '#1a5276')));
+
+            // DOMINIO 2: Pág 24
+            container.appendChild(createDomainIntro(24, 1));
+            // Ejercicios 8 a 14: Págs 25 a 31
+            exercises.slice(7, 14).forEach((ex, i) => container.appendChild(createExPage(ex, 25 + i, '#8e44ad')));
+
+            // DOMINIO 3: Pág 32
+            container.appendChild(createDomainIntro(32, 2));
+            // Ejercicios 15 a 21: Págs 33 a 39
+            exercises.slice(14, 21).forEach((ex, i) => container.appendChild(createExPage(ex, 33 + i, '#b9770e')));
+
+            // DOMINIO 4: Pág 40
+            container.appendChild(createDomainIntro(40, 3));
+            // Ejercicios 22 a 30: Págs 41 a 49
+            exercises.slice(21, 30).forEach((ex, i) => container.appendChild(createExPage(ex, 41 + i, '#196f3d')));
+
+            // ==========================================
+            // PÁGINA 50: FICHA CLÍNICA
+            // ==========================================
+            let rowsHtml = '';
+            ed.clinicalSheet.sampleRows.forEach(r => {
+                rowsHtml += `<tr><td><strong>${r.day}</strong></td><td>${r.game}</td><td>${r.time}</td><td>${r.passed}</td><td>${r.obs}</td></tr>`;
+            });
+            const p50Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 16pt; margin: 0;">${ed.clinicalSheet.heading}</h2>
+                    <p style="font-size: 8.5pt; color: #64748b; margin: 0;">${ed.clinicalSheet.subtitle}</p>
+                </div>
+                <table>
+                    <thead><tr><th>${ed.clinicalSheet.tableHeaders.day}</th><th>${ed.clinicalSheet.tableHeaders.game}</th><th>${ed.clinicalSheet.tableHeaders.time}</th><th>${ed.clinicalSheet.tableHeaders.passed}</th><th>${ed.clinicalSheet.tableHeaders.obs}</th></tr></thead>
+                    <tbody>${rowsHtml}</tbody>
+                </table>
+                <div class="card" style="margin-top:12px;">
+                    <strong>${ed.clinicalSheet.fatigueTitle}</strong>
+                    <div style="display:flex; justify-content:space-between; font-size:8pt; margin-top:4px;">
+                        <span>1 - 3: ${ed.clinicalSheet.fatigueScaleLow}</span>
+                        <span>7 - 10: ${ed.clinicalSheet.fatigueScaleHigh}</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(createShell(50, 'registro-clinico', ed.clinicalSheet.heading, p50Html));
+
+            // ==========================================
+            // PÁGINA 51: MEDIDAS CUANTITATIVAS
+            // ==========================================
+            const p51Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 16pt; margin: 0;">${ed.outcomeMeasures.heading}</h2>
+                    <p style="font-size: 8.5pt; color: #64748b; margin: 0;">${ed.outcomeMeasures.subtitle}</p>
+                </div>
+                <div class="card" style="margin-bottom:8px;">
+                    <strong style="color:#1a5276; font-size:9.5pt;">${ed.outcomeMeasures.metricA.title}</strong>
+                    <p style="font-size:8.5pt; margin:3px 0 6px 0;">${ed.outcomeMeasures.metricA.desc}</p>
+                    <div style="font-family:monospace; font-size:8pt; background:#f8fafc; padding:6px; border-radius:4px;">${ed.outcomeMeasures.metricA.template}</div>
+                </div>
+                <div class="card" style="margin-bottom:8px;">
+                    <strong style="color:#8e44ad; font-size:9.5pt;">${ed.outcomeMeasures.metricB.title}</strong>
+                    <p style="font-size:8.5pt; margin:3px 0 6px 0;">${ed.outcomeMeasures.metricB.desc}</p>
+                    <div style="font-family:monospace; font-size:8pt; background:#f8fafc; padding:6px; border-radius:4px;">${ed.outcomeMeasures.metricB.template}</div>
+                </div>
+                <div class="card">
+                    <strong style="color:#196f3d; font-size:9.5pt;">${ed.outcomeMeasures.metricC.title}</strong>
+                    <p style="font-size:8.5pt; margin:3px 0 6px 0;">${ed.outcomeMeasures.metricC.desc}</p>
+                    <div style="font-family:monospace; font-size:8pt; background:#f8fafc; padding:6px; border-radius:4px;">${ed.outcomeMeasures.metricC.template}</div>
+                </div>
+            `;
+            container.appendChild(createShell(51, 'medidas-resultado', ed.outcomeMeasures.heading, p51Html));
+
+            // ==========================================
+            // PÁGINA 52: CONCLUSIÓN
+            // ==========================================
+            let decalogueHtml = '';
+            ed.conclusion.decalogueItems.forEach(item => {
+                decalogueHtml += `<li style="margin-bottom:3px;">${item}</li>`;
+            });
+            const p52Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 16pt; margin: 0;">${ed.conclusion.heading}</h2>
+                </div>
+                <div class="empathy-box" style="margin-bottom:12px; font-size:9pt; line-height:1.6;">
+                    ${ed.conclusion.letterText}
+                </div>
+                <div class="card">
+                    <strong style="font-size:9.5pt; color:#143250;">${ed.conclusion.decalogueTitle}</strong>
+                    <ol style="font-size:8pt; padding-left:18px; margin:6px 0 0 0;">${decalogueHtml}</ol>
+                </div>
+            `;
+            container.appendChild(createShell(52, 'conclusion', ed.conclusion.heading, p52Html));
+
+            // ==========================================
+            // PÁGINA 53: REFERENCIAS
+            // ==========================================
+            let refsHtml = '';
+            ed.references.list.forEach(r => {
+                refsHtml += `<li style="margin-bottom:4px;">${r}</li>`;
+            });
+            const p53Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 16pt; margin: 0;">${ed.references.heading}</h2>
+                    <p style="font-size: 8.5pt; color: #64748b; margin: 0;">${ed.references.subtitle}</p>
+                </div>
+                <ul style="font-size:7.5pt; line-height:1.5; padding-left:18px; margin:0;">${refsHtml}</ul>
+            `;
+            container.appendChild(createShell(53, 'referencias', ed.references.heading, p53Html));
+
+            // ==========================================
+            // PÁGINA 54: ANEXOS A Y B
+            // ==========================================
+            let glossHtml = '';
+            ed.annexesAB.glossaryItems.forEach(g => {
+                glossHtml += `<p style="margin:2px 0;"><strong>${g.term}</strong> ${g.def}</p>`;
+            });
+            const p54Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 16pt; margin: 0;">${ed.annexesAB.heading}</h2>
+                </div>
+                <div class="card" style="margin-bottom:10px;">
+                    <strong style="font-size:9pt; color:#143250;">${ed.annexesAB.glossaryTitle}</strong>
+                    <div style="font-size:8pt; margin-top:4px;">${glossHtml}</div>
+                </div>
+                <div class="card">
+                    <strong style="font-size:9pt; color:#143250;">${ed.annexesAB.consentTitle}</strong>
+                    <p style="font-size:8pt; margin:4px 0 10px 0;">${ed.annexesAB.consentText}</p>
+                    <div style="display:flex; justify-content:space-between; font-size:7.5pt; font-family:var(--font-ui);">
+                        <span>${ed.annexesAB.signatureLabel}</span>
+                        <span>${ed.annexesAB.dateLabel}</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(createShell(54, 'anexos-ab', ed.annexesAB.heading, p54Html));
+
+            // ==========================================
+            // PÁGINA 55: ANEXOS C Y D
+            // ==========================================
+            let screenRows = '';
+            ed.annexesCD.screeningRows.forEach(sr => {
+                screenRows += `<tr><td><strong>${sr.condition}</strong></td><td>${sr.question}</td><td>${sr.action}</td></tr>`;
+            });
+            const p55Html = `
+                <div style="border-bottom: 2px solid #1a5276; padding-bottom: 6px; margin-bottom: 12px;">
+                    <h2 style="font-size: 16pt; margin: 0;">${ed.annexesCD.heading}</h2>
+                </div>
+                <div class="card" style="margin-bottom:10px;">
+                    <strong style="font-size:9pt; color:#143250;">${ed.annexesCD.screeningTitle}</strong>
+                    <table>
+                        <thead><tr><th>${ed.annexesCD.screeningHeaders.condition}</th><th>${ed.annexesCD.screeningHeaders.question}</th><th>${ed.annexesCD.screeningHeaders.action}</th></tr></thead>
+                        <tbody>${screenRows}</tbody>
+                    </table>
+                </div>
+                <div class="card">
+                    <strong style="font-size:9pt; color:#143250;">${ed.annexesCD.longitudinalTitle}</strong>
+                    <p style="font-size:8pt; margin:4px 0 0 0;">${ed.annexesCD.longitudinalText}</p>
+                </div>
+            `;
+            container.appendChild(createShell(55, 'anexos-cd', ed.annexesCD.heading, p55Html));
+
+            // ==========================================
+            // PÁGINA 56: COLOFÓN
+            // ==========================================
+            const p56 = document.createElement('div');
+            p56.id = 'contraportada';
+            p56.className = 'a4-page even-page';
+            p56.style.cssText = 'text-align: center; justify-content: space-between; padding: 30mm 20mm; background: linear-gradient(180deg, #fdfbf7 0%, #edf2f7 100%);';
+            p56.innerHTML = `
+                <div style="margin-top:20mm;">
+                    <div style="width:50px; height:4px; background:#2980b9; margin:0 auto 16px auto; border-radius:2px;"></div>
+                    <h2 style="font-size: 24pt; font-family: 'Playfair Display', Georgia, serif; color:#143250; margin-bottom:10px;">
+                        ${ed.colophon.title}
+                    </h2>
+                    <p style="font-style:italic; color:#64748b; font-size:11pt; max-width:440px; margin:0 auto 20mm auto; line-height:1.5;">
+                        ${ed.colophon.subtitle}
+                    </p>
+                    <div style="max-width:460px; margin:0 auto; font-size:9pt; color:#475569; line-height:1.8;">
+                        ${ed.colophon.description}
+                    </div>
+                </div>
+                <div style="border-top:1px solid #cbd5e1; padding-top:15mm; font-family:var(--font-ui); font-size:8.5pt; color:#64748b;">
+                    <strong style="color:#143250;">${ed.colophon.authorLine}</strong><br>
+                    ${ed.colophon.credentialsLine}<br>
+                    ${ed.colophon.platformLabel}<br>
+                    ${ed.colophon.locationLine}
+                </div>
+                <div class="page-footer">
+                    <span>${ed.runningFooter}</span>
+                    <span class="toc-page">56 / 56</span>
+                </div>
+            `;
+            container.appendChild(p56);
+        }
+
+        // Render initially
+        renderAllPages(currentLang);
+
+        // Auto-print support if requested via URL param ?autoprint=1
+        if (urlParams.get('autoprint') === '1') {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    window.print();
+                }, 600);
+            });
+        }
+    </script>
+</body>
+</html>
