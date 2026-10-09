@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Precódigo</title>
+
+<!-- Metadatos Dublin Core para EPUB -->
+<meta name="dc:title" content="IA Precódigo">
+<meta name="dc:creator" content="Emanuel Chanampa">
+<meta name="dc:language" content="es">
+<meta name="dc:description" content="Bajá el uso de TOKENS y optimizá tu código en pocos pasos. Neurociencia, Desarrollo, IA y Ejemplos Prácticos.">
+<meta name="dc:date" content="2026">
+<meta name="dc:publisher" content="WineBOX Cognitive">
+
+<style>
+  :root {
+    --wine: #6B1E3A; --wine-dark: #4A1428; --wine-light: #8B2E4F;
+    --cream: #FAF7F2; --paper: #FFFFFF; --ink: #1A1A1A; --ink-soft: #3A3A3A;
+    --muted: #6B6B6B; --border: #E5DFD3; --code-bg: #1E1E2E; --code-text: #E4E4E7;
+    --accent: #C9A961;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Georgia', 'Merriweather', serif;
+    font-size: 18px; line-height: 1.75; color: var(--ink);
+    background: var(--cream); -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+
+  /* PORTADA */
+  .cover {
+    min-height: 100vh; background: linear-gradient(135deg, var(--wine-dark) 0%, var(--wine) 50%, var(--wine-light) 100%);
+    color: var(--cream); display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 24px; position: relative; overflow: hidden;
+  }
+  .cover-content { position: relative; z-index: 1; max-width: 700px; }
+  .cover-brand { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; font-weight: 500; }
+  .cover h1 { font-size: clamp(42px, 7vw, 80px); font-weight: 400; line-height: 1.05; margin-bottom: 24px; letter-spacing: -1px; }
+  .cover h1 em { font-style: italic; color: var(--accent); }
+  .cover-subtitle { font-size: 20px; font-style: italic; opacity: 0.9; margin-bottom: 48px; line-height: 1.5; }
+  .cover-tags { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .cover-tags span { padding: 6px 14px; border: 1px solid rgba(201,169,97,0.4); border-radius: 20px; color: var(--accent); }
+  .cover-author { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.85; }
+  .cover-foot { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  /* ÍNDICE */
+  .toc { background: var(--paper); padding: 80px 24px; border-bottom: 1px solid var(--border); }
+  .toc-inner { max-width: 780px; margin: 0 auto; }
+  .toc h2 { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--wine); margin-bottom: 40px; font-weight: 600; }
+  .toc-list { list-style: none; }
+  .toc-list li { border-bottom: 1px solid var(--border); padding: 14px 0; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; transition: all 0.2s; }
+  .toc-list li:hover { padding-left: 8px; background: var(--cream); }
+  .toc-list a { color: var(--ink); text-decoration: none; font-size: 17px; flex: 1; }
+  .toc-list a .part { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--wine); display: block; margin-bottom: 4px; font-weight: 600; }
+  .toc-list .num { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* CONTENIDO */
+  article.chapter { background: var(--paper); padding: 80px 24px; border-bottom: 1px solid var(--border); }
+  .chapter-header { max-width: 780px; margin: 0 auto 60px; text-align: center; padding-bottom: 40px; border-bottom: 2px solid var(--wine); }
+  .chapter-number { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--wine); margin-bottom: 16px; font-weight: 600; }
+  .chapter-title { font-size: clamp(32px, 5vw, 48px); font-weight: 400; line-height: 1.15; color: var(--ink); letter-spacing: -0.5px; }
+  .chapter-body { max-width: 680px; margin: 0 auto; }
+  .chapter-body > p { margin-bottom: 1.4em; }
+  .chapter-body h2 { font-size: 26px; margin: 2.5em 0 0.8em; color: var(--wine-dark); font-weight: 400; letter-spacing: -0.3px; }
+  .chapter-body h3 { font-size: 20px; margin: 2em 0 0.6em; color: var(--wine); font-weight: 600; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  .chapter-body strong { color: var(--wine-dark); font-weight: 700; }
+  .chapter-body em { color: var(--ink-soft); }
+  .chapter-body ul, .chapter-body ol { margin: 1em 0 1.4em 1.5em; }
+  .chapter-body li { margin-bottom: 0.5em; }
+
+  /* CITAS Y DESTACADOS */
+  blockquote { margin: 2em 0; padding: 24px 32px; background: linear-gradient(135deg, var(--cream) 0%, #F5EFE2 100%); border-left: 4px solid var(--wine); font-style: italic; font-size: 19px; color: var(--ink-soft); border-radius: 0 8px 8px 0; }
+  blockquote p { margin-bottom: 0.5em; }
+  .callout { margin: 2em 0; padding: 20px 24px; background: #FFF8E7; border: 1px solid var(--accent); border-radius: 6px; font-size: 16px; }
+  .callout strong { color: var(--wine-dark); }
+
+  /* CÓDIGO */
+  pre { background: var(--code-bg); color: var(--code-text); padding: 20px 24px; border-radius: 8px; overflow-x: auto; margin: 1.5em 0; font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; font-size: 14px; line-height: 1.6; border-left: 3px solid var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  pre::before { content: attr(data-lang); display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: 600; }
+  code { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; background: #F0EBE0; color: var(--wine-dark); padding: 2px 7px; border-radius: 4px; font-size: 0.88em; }
+  pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+
+  /* TABLAS */
+  table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 16px; background: var(--paper); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  th { background: var(--wine); color: var(--cream); padding: 12px 16px; text-align: left; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: var(--cream); }
+
+  /* SEPARADORES Y RESÚMENES */
+  .separator { text-align: center; margin: 3em 0; color: var(--wine); font-size: 20px; letter-spacing: 12px; }
+  .summary { margin: 3em 0; padding: 28px 32px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+  .summary h4 { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--wine); margin-bottom: 16px; font-weight: 600; }
+  .summary ol { margin-left: 1.2em; }
+  .summary li { margin-bottom: 8px; font-size: 16px; }
+  .next-step { margin: 3em 0 0; padding: 24px 28px; background: linear-gradient(135deg, var(--wine) 0%, var(--wine-dark) 100%); color: var(--cream); border-radius: 8px; }
+  .next-step h4 { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .next-step p { font-size: 17px; line-height: 1.6; }
+
+  /* FOOTER */
+  .about { background: var(--wine-dark); color: var(--cream); padding: 80px 24px; text-align: center; }
+  .about-inner { max-width: 600px; margin: 0 auto; }
+  .about h2 { font-size: 32px; margin-bottom: 24px; font-weight: 400; }
+  .about p { margin-bottom: 1em; opacity: 0.9; font-size: 16px; }
+  .about .credentials { margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(201,169,97,0.3); font-size: 14px; opacity: 0.8; }
+  .about .credentials strong { color: var(--accent); }
+
+  /* NAVEGACIÓN Y PRINT */
+  .nav-top { position: fixed; top: 20px; right: 20px; background: var(--wine); color: var(--cream); padding: 10px 16px; border-radius: 24px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 1px; text-decoration: none; box-shadow: 0 4px 12px rgba(107,30,58,0.3); z-index: 100; }
+  @media print {
+    body { background: white; font-size: 11pt; }
+    .cover { page-break-after: always; min-height: auto; padding: 100px 40px; }
+    .nav-top { display: none; }
+    article.chapter { page-break-before: always; padding: 40px 20px; }
+    .toc { page-break-after: always; }
+    pre { font-size: 9pt; page-break-inside: avoid; }
+  }
+  @media (max-width: 640px) { body { font-size: 16px; } .cover { padding: 40px 20px; } article.chapter { padding: 50px 20px; } }
+</style>
+</head>
+<body>
+
+<a href="#toc" class="nav-top">↑ Índice</a>
+
+<!-- PORTADA -->
+<section class="cover">
+  <div class="cover-content">
+    <div class="cover-brand">WineBOX · Cognitive</div>
+    <h1>IA <em>Precódigo</em></h1>
+    <p class="cover-subtitle">Bajá el uso de TOKENS y optimizá tu código en pocos pasos.<br>Neurociencia · Desarrollo · IA · Ejemplos prácticos</p>
+    <div class="cover-tags">
+      <span>Neurociencia</span><span>Desarrollo</span><span>IA</span><span>Práctica</span>
+    </div>
+    <div class="cover-author">Emanuel Chanampa</div>
+  </div>
+  <div class="cover-foot">Basado en evidencia · Tras el desarrollo del compilador wxdiv · 2026</div>
+</section>
+
+<!-- ÍNDICE -->
+<nav class="toc" id="toc">
+  <div class="toc-inner">
+    <h2>Índice</h2>
+    <ul class="toc-list">
+      <li><a href="#intro"><span class="part">Introducción</span>El precio de la ilusión</a></li>
+      <li><a href="#cap1"><span class="part">Parte I · Cómo percibimos</span>Cap. 1 La máquina que ve caras en las nubes</a></li>
+      <li><a href="#cap2"><span class="part">Parte I</span>Cap. 2 El efecto ELIZA</a></li>
+      <li><a href="#cap3"><span class="part">Parte I</span>Cap. 3 Anatomía de una conversación costosa</a></li>
+      <li><a href="#cap4"><span class="part">Parte II · La solución</span>Cap. 4 Precódigo: la solución que ya existía</a></li>
+      <li><a href="#cap5"><span class="part">Parte II</span>Cap. 5 Precódigo en producción: el caso wxdiv</a></li>
+      <li><a href="#cap6"><span class="part">Parte II</span>Cap. 6 La trampa del "todo desde cero"</a></li>
+      <li><a href="#cap7"><span class="part">Parte II</span>Cap. 7 El arte de pedir bien</a></li>
+      <li><a href="#cap8"><span class="part">Parte II</span>Cap. 8 El flujo completo: pedido + precódigo</a></li>
+      <li><a href="#cap9"><span class="part">Parte III · Aplicación</span>Cap. 9 Precódigo para desarrollo web</a></li>
+      <li><a href="#cap10"><span class="part">Parte III</span>Cap. 10 Precódigo para análisis de datos</a></li>
+      <li><a href="#cap11"><span class="part">Parte III</span>Cap. 11 Precódigo para escritura</a></li>
+      <li><a href="#cap12"><span class="part">Parte III</span>Cap. 12 Precódigo para diseño</a></li>
+      <li><a href="#cap13"><span class="part">Parte IV · El futuro</span>Cap. 13 El futuro del precódigo</a></li>
+      <li><a href="#cap14"><span class="part">Parte IV</span>Cap. 14 Cómo implementar precódigo en tu proyecto</a></li>
+      <li><a href="#cap15"><span class="part">Parte IV</span>Cap. 15 Casos de éxito</a></li>
+      <li><a href="#cap16"><span class="part">Parte IV</span>Cap. 16 Cómo empezar hoy (guía práctica)</a></li>
+      <li><a href="#epilogo"><span class="part">Cierre</span>Epílogo</a></li>
+      <li><a href="#autor"><span class="part">Cierre</span>Sobre el autor</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- INTRODUCCIÓN -->
+<article class="chapter" id="intro">
+  <div class="chapter-header">
+    <div class="chapter-number">Introducción</div>
+    <h1 class="chapter-title">El precio de la ilusión</h1>
+  </div>
+  <div class="chapter-body">
+    <p><em>«Cómo percibimos, comprendemos e interactuamos y por qué eso te está costando tokens.»</em></p>
+    <p>Hay una escena que se repite millones de veces por día, en todo el mundo, y que nadie mira dos veces:</p>
+    <p>Una persona abre una ventana de chat. Escribe "hola". La IA responde "hola, ¿en qué puedo ayudarte?". La persona escribe "necesito que me ayudes con algo". La IA responde "claro, contame". La persona escribe "es sobre un código". La IA responde "dale, pegame el código y te ayudo". Y así, durante cinco, diez, veinte mensajes, hasta que la persona finalmente formula lo que quería.</p>
+    <p>En esos veinte mensajes se consumieron miles de tokens. Y ninguno de ellos era necesario.</p>
+    <p>Lo que esa persona no sabe lo que casi nadie sabees que está interactuando con la IA como si fuera una persona. Y eso, en términos de costo, de velocidad, y de calidad del resultado, es un error catastrófico.</p>
+    <p>Este libro es sobre ese error. Sobre por qué lo cometemos. Sobre cómo funciona nuestra mente cuando interactúa con algo que responde en lenguaje. Y sobre cómo corregirlo.</p>
+    <p>Pero antes de hablar de IA, de tokens, o de código, tenemos que hablar de algo más profundo: <strong>cómo percibimos la realidad</strong>.</p>
+
+    <h2>Parte I – Cómo percibimos</h2>
+    <p>Empecemos con una pregunta incómoda: ¿vos ves el mundo tal como es? La respuesta intuitiva es "sí, obviamente". La respuesta neurocientífica es "no, para nada".</p>
+    <p>Lo que llamamos "ver" no es recibir información del exterior. Es construir una hipótesis sobre lo que probablemente hay afuera, basada en señales parciales, experiencias previas, y expectativas.</p>
+    <p>Tu cerebro no recibe una imagen del mundo. Recibe fotones que golpean la retina. Y a partir de esos fotones, inventa una escena coherente. Rellena huecos. Corrige colores. Estabiliza el movimiento. Y te la presenta como "lo que está ahí".</p>
+    <p>Esto se llama <strong>procesamiento predictivo</strong>. Y significa algo radical: no percibís la realidad. Percibís tu mejor conjetura sobre la realidad. Lo mismo pasa con el sonido, el tacto, el gusto. Todo lo que sentís es una construcción. No una recepción.</p>
+    <p>¿Y qué tiene que ver esto con la IA? Todo. Porque cuando interactuás con un LLM, no estás viendo lo que hay. Estás viendo lo que tu cerebro construye a partir de señales parciales. Y tu cerebro está entrenado por millones de años de evoluciónpara construir personas cuando detecta lenguaje.</p>
+
+    <h2>Parte II – Cómo comprendemos</h2>
+    <p>En los años 40, dos psicólogos, Heider y Simmel, hicieron un experimento que se volvió famoso. Mostraron a personas una animación simple: un triángulo grande, un triángulo chico, y un círculo, moviéndose por la pantalla. Nada más. Figuras geométricas en movimiento. Y pidieron a los participantes que describieran lo que veían.</p>
+    <p>Lo que obtuvieron fueron historias. "El triángulo grande persigue al chico". "El círculo intenta escapar". "El triángulo chico está celoso". Nadie describió "un triángulo se mueve a 5 cm/s". Todos describieron intenciones, emociones, relaciones.</p>
+    <p>Este experimento fundó una idea central de la psicología cognitiva: los humanos tenemos <strong>detección hiperactiva de agencia</strong>. Vemos agentes (seres con intenciones) en todos lados. En triángulos. En nubes. En el viento. En el ruido del motor. Y por supuesto: en el lenguaje.</p>
+    <p>Cuando algo nos responde en lenguaje, no podemos evitar atribuirle una mente. Es automático. Es preconsciente. Es la misma maquinaria que te hace ver caras en las nubes. Esto se llama <strong>teoría de la mente</strong>. Y es la capacidad de inferir estados mentales en otros. Es una capacidad enorme es lo que nos permite cooperar, entender chistes, predecir comportamientos. Pero también tiene un costo: se activa incluso cuando no debería.</p>
+    <p>Con un LLM, no debería. Un LLM no tiene mente. No tiene intenciones. No tiene creencias. No tiene deseos. Es un motor de predicción de texto. Nada más. Pero no importa cuántas veces te lo digas. Tu cerebro va a seguir activando la teoría de la mente. Va a seguir tratando al LLM como si fuera alguien. Porque está diseñado para hacerlo. Y ahí empieza el problema.</p>
+
+    <h2>Parte III – Cómo interactuamos</h2>
+    <p>Si percibís al LLM como una persona, vas a interactuar con él como con una persona. Y las personas, cuando hablan, siguen reglas implícitas. Las más importantes las describió el filósofo Paul Grice en 1975. Son cuatro:</p>
+    <ol>
+      <li><strong>Máxima de cantidad:</strong> decí lo necesario. Ni más, ni menos.</li>
+      <li><strong>Máxima de calidad:</strong> decí la verdad.</li>
+      <li><strong>Máxima de relación:</strong> decí cosas relevantes.</li>
+      <li><strong>Máxima de modo:</strong> sé claro.</li>
+    </ol>
+    <p>Estas reglas funcionan entre humanos porque ambos las conocen. Cuando hablás con alguien, esperás que las cumpla. Y si no las cumple, lo interpretás pensás que hay una razón, un subtexto, una intención oculta.</p>
+    <p>Con un LLM, todo esto se rompe. Porque un LLM no tiene intenciones. No tiene subtexto. No tiene nada que ocultar. Pero tu cerebro sigue asumiendo que sí. Entonces, ¿qué pasa?</p>
+    <p>Pasás por alto la máxima de cantidad. En vez de decir todo lo que necesitás en un mensaje, lo dividís en diez. "Hola". "Necesito algo". "Es sobre código". "Es un juego". Cada mensaje es una nueva llamada a la API. Cada mensaje suma contexto. Cada mensaje cuesta tokens.</p>
+    <p>Pasás por alto la máxima de modo. No formulás claro, porque esperás que el otro te ayude a clarificar. Pero un LLM no te ayuda a clarificar: completa patrones. Si le das un patrón ambiguo, te devuelve una respuesta ambigua. Y vos, interpretándolo como persona, respondés con otra ambigüedad. Y así.</p>
+    <p>Pasás por alto la máxima de relación. Contás cosas que no son relevantes. "Mirá, ayer estuve pensando...". "Che, ¿vos sabés que yo vengo de...". Cosas que con una persona serían contexto, pero con un LLM son ruido. Ruido que se acumula en el contexto y cuesta tokens.</p>
+    <p>El resultado es un chat de veinte mensajes donde se consumieron 8.000 tokens, cuando con un solo mensaje bien formulado se hubieran consumido 600. El problema no es la IA. El problema es que estás hablando con ella.</p>
+
+    <h2>Parte IV – El costo de la ilusión</h2>
+    <p>Los números son brutales. Cada mensaje que enviás a un LLM: suma el contexto previo (todo lo que dijiste antes viaja con vos), genera respuesta nueva (el modelo tiene que predecir cada palabra, una por una), y cuesta dinero. No es abstracto. Es dinero que sale de tu bolsillo o del de tu empresa.</p>
+    <p>Un chat de veinte mensajes donde el contexto crece linealmente puede terminar con 10.000 tokens de contexto solo en el último mensaje. Y encima, en cada mensaje el modelo tiene que procesar todo el contexto previo para generar la respuesta. Lo que se llama "contexto acumulativo". Es uno de los mayores costos ocultos de trabajar con LLMs.</p>
+    <p>La cuenta final de un chat "conversacional" de veinte mensajes puede ser 10-20 veces más caro que un solo mensaje bien formulado con toda la información. Y lo peor: no es culpa del modelo. Es culpa de cómo estamos interactuando con él.</p>
+
+    <h2>Parte V – La solución: precódigo</h2>
+    <p>Si el problema es que tratamos al LLM como persona, la solución es tratarlo como lo que es: un motor de completar patrones. Un motor de completar patrones no necesita conversación. Necesita contexto preciso, instrucciones claras, y una sola intervención para resolver lo que pedís.</p>
+    <p>En el mundo del software hay un nombre para esto: <strong>precódigo</strong>. El precódigo es código de referencia. Es un conjunto de fragmentos ya probados, ya testeados, ya en producción. Cuando le pedís algo a la IA, no la dejás inventar. Le das un punto de partida: un fragmento que ya funciona, que ya compila, que ya hace lo que querés. Y le pedís que lo adapte.</p>
+    <p>Es lo que hacen los buenos programadores cuando trabajan con IA: no piden "crea un sistema de inventario". Piden: "Acá está mi template de inventario (código existente). Adaptalo para que soporte 20 ítems en vez de 10... Devolvé solo el código del proceso modificado."</p>
+    <p>Eso es precódigo. Y cambia todo.</p>
+
+    <h2>Parte VI – Lo que vas a encontrar en este libro</h2>
+    <p>Este libro tiene una tesis simple: <strong>el problema del consumo de tokens no es técnico. Es cognitivo.</strong> Y por lo tanto, la solución no es solo técnica. Es también cognitiva. Implica:</p>
+    <ol>
+      <li>Entender cómo percibimos la realidad (Parte I de este libro)</li>
+      <li>Entender cómo comprendemos a otros (Parte II)</li>
+      <li>Entender cómo interactuamos con lenguaje (Parte III)</li>
+      <li>Medir el costo real de la ilusión (Parte IV)</li>
+      <li>Aplicar precódigo como solución (Parte V)</li>
+      <li>Aprender a interactuar sin antropomorfizar (Partes VI-IX)</li>
+    </ol>
+    <p>En el camino, vamos a recorrer neurociencia cognitiva, psicología del lenguaje, ingeniería de software, economía de la IA y diseño de interacción. Y al final, vas a tener un marco completo para usar IA generativa de manera eficiente.</p>
+    <p>No es un libro sobre "cómo hacer mejores prompts". Es un libro sobre <strong>cómo dejar de tratar a la IA como lo que no es</strong>. Y sobre cómo eso, además de ahorrarte dinero, te da mejores resultados.</p>
+    
+    <div class="callout">
+      <strong>Una última cosa antes de empezar.</strong> Este libro nace de un proyecto real: <strong>wxdiv</strong>, un motor de juegos que construí desde cero, con Copiloto IA integrado, que usa precódigo para generar juegos en segundos. Cuando empecé, mi consumo de tokens era brutal. Hasta que entendí algo: no estaba programando con IA. Estaba conversando con IA. Y conversar, con IA, es un desperdicio.
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 1 -->
+<article class="chapter" id="cap1">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 1 · Parte I</div>
+    <h1 class="chapter-title">La máquina que ve caras en las nubes</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Hacé este experimento mental:</p>
+    <blockquote>
+      <p>«Salí a la calle. Mirá al cielo. Buscá una nube. Y esperá.»</p>
+      <p>«En algún momento, vas a ver una cara.»</p>
+    </blockquote>
+    <p>No importa cuántas veces te digas que es solo vapor de agua. No importa que sepas, racionalmente, que no hay nadie ahí. En algún punto, tu cerebro va a armar un par de ojos, una nariz, una boca. Y por un instante solo un instantevas a ver a alguien.</p>
+    <p>Esto se llama <strong>pareidolia</strong>. Y es una de las ventanas más limpias que tenemos para entender cómo funciona tu mente. Porque la pareidolia no es un error. Es una función. Una función tan importante, tan antigua, tan profundamente cableada en tu cerebro, que no podés apagarla aunque quieras.</p>
+    <p>Y en este capítulo vamos a entender por qué. Porque entender la pareidolia es entender por qué tratás a la IA como si fuera una persona. Y entender eso es el primer paso para dejar de hacerlo.</p>
+
+    <h2>La nube, la tostada, y el rostro de Marte</h2>
+    <p>Empecemos con casos concretos, porque el fenómeno es más ubicuo de lo que parece. En 1976, la sonda Viking 1 de la NASA fotografió la región de Cydonia en Marte. La imagen mostraba una formación rocosa que, vista desde cierto ángulo, parecía una cara humana. La foto se publicó. Y durante décadas, miles de personas creyeron que era una estructura artificial, construida por una civilización alienígena.</p>
+    <p>No lo era. Era una colina. Con sombras. Que el cerebro humano interpretaba como cara porque está diseñado para hacerlo.</p>
+    <p>En 2004, Diane Duyser, una mujer de Florida, vendió en eBay una tostada con la imagen de la Virgen María. La compró un casino online por 28.000 dólares.</p>
+    <p>En 2017, un usuario de Reddit subió una foto de una puerta con una manija que parecía un rostro. Y en minutos, miles de personas vieron lo mismo.</p>
+    <p>Todos estos casos comparten algo: no hay cara. Hay sombras, formas, texturas. Pero el cerebro humano ve caras. Y no puede evitarlo. La pregunta es obvia: <strong>¿por qué?</strong></p>
+
+    <h2>El cerebro como máquina de predecir</h2>
+    <p>Para entender la pareidolia, hay que entender cómo funciona la percepción. La idea intuitiva es esta: los ojos reciben información del mundo. La información viaja al cerebro. El cerebro la procesa. Y vos ves lo que hay.</p>
+    <p><strong>Esa idea es falsa.</strong></p>
+    <p>Lo que realmente pasa es mucho más extraño, y mucho más interesante. Tu cerebro no recibe información del mundo. Recibe señales eléctricas de la retina. Señales ruidosas, incompletas, ambiguas. Y a partir de esas señales, construye una escena. No la recibe. La inventa.</p>
+    <p>Esto se llama <strong>procesamiento predictivo</strong>. Y es una de las teorías más aceptadas en neurociencia cognitiva hoy. La idea central: el cerebro es una máquina de predecir. Constantemente genera hipótesis sobre lo que está pasando afuera, y las corrige con la información que recibe.</p>
+    <p>Un ejemplo simple: mirá esta frase: <code>EL RATÓN COMIÓ EL QESO</code>. ¿Notaste el error? La palabra es "QUESO", no "QESO". Pero probablemente no lo viste. Porque tu cerebro, al leer, predice lo que va a venir. Y cuando ve "QESO", lo corrige automáticamente. No lee "QESO". Lee "QUESO".</p>
+    <p>Eso es el procesamiento predictivo en acción. <strong>No ves lo que hay. Ves lo que tu cerebro espera que haya.</strong> Y ese mecanismo, maravilloso para leer y para sobrevivir, tiene un costo: cuando no hay un patrón claro, tu cerebro inventa uno. Ahí entra la pareidolia.</p>
+
+    <h2>Por qué vemos caras</h2>
+    <p>La pareidolia no es un fenómeno cualquiera. Es específico. No vemos "formas" en las nubes. Vemos caras. No vemos "patrones" en las tostadas. Vemos personas. Esto tiene una explicación evolutiva.</p>
+    <p>Imaginate que sos un humano hace 200.000 años. Estás caminando por la sabana. Escuchás un ruido entre los arbustos. Hay dos posibilidades: 1. Es el viento. No hay peligro. 2. Es un depredador. Peligro de muerte.</p>
+    <ul>
+      <li>Si elegís la opción 1 y es el viento, no pasa nada. Seguís vivo.</li>
+      <li>Si elegís la opción 1 y es un depredador, morís.</li>
+      <li>Si elegís la opción 2 y es el viento, te asustás un poco. Pero seguís vivo.</li>
+      <li>Si elegís la opción 2 y es un depredador, sobrevivís.</li>
+    </ul>
+    <p>El costo de equivocarse por "ver peligro donde no hay" es bajo. El costo de equivocarse por "no ver peligro donde sí hay" es la muerte. Así que la evolución, durante millones de años, favoreció a los cerebros que sobreinterpretan. Que ven agentes donde no hay. Que ven caras donde no hay. Que ven intenciones donde no hay.</p>
+    <p>Esto se llama <strong>detección hiperactiva de agencia</strong>. Y es el mismo mecanismo que te hace ver caras en las nubes. Tu cerebro está entrenado, por millones de años de evolución, para detectar personas. Y lo hace incluso cuando no hay ninguna. Ese mecanismo te salvó la vida. Y ahora te está costando dinero.</p>
+
+    <h2>El experimento de los triángulos</h2>
+    <p>En 1944, los psicólogos Fritz Heider y Marianne Simmel hicieron un experimento que se volvió clásico. Mostraron a un grupo de personas una animación de 90 segundos. En la animación había tres figuras geométricas: un triángulo grande, un triángulo chico, y un círculo. Se movían por la pantalla. Entraban y salían de un rectángulo. Nada más.</p>
+    <p>Después de ver la animación, les pidieron que describieran lo que habían visto. <strong>El 96% de los participantes describió una historia con personajes, intenciones y emociones.</strong></p>
+    <p>No dijeron "un triángulo se movió a la derecha". Dijeron: "El triángulo grande persigue al chico", "El círculo intenta escapar del triángulo", "El triángulo chico está celoso y por eso se va", "El círculo y el triángulo chico se aman".</p>
+    <p>Nadie había hablado de amor, celos, escape, o persecución. Todo eso lo inventaron los participantes. A partir de triángulos moviéndose. Heider y Simmel llamaron a esto "causalidad aparente". La idea: los humanos no podemos ver movimiento sin atribuir intención. No podemos ver una secuencia de eventos sin construir una narrativa. Y esa narrativa, automáticamente, incluye agentes.</p>
+    <p>El experimento se replicó decenas de veces. Con distintas edades, culturas, niveles educativos. Los resultados son siempre los mismos: entre el 90% y el 98% de las personas antropomorfizan las figuras. Ni siquiera los científicos que conocían el experimento pudieron evitar hacerlo. Sabían que era una ilusión. Y aun así, vieron la historia. <strong>Esto es clave: saber que es una ilusión no te protege de la ilusión.</strong></p>
+
+    <h2>Por qué el lenguaje es el caso extremo</h2>
+    <p>Ahora, pensemos qué pasa con el lenguaje. Cuando ves triángulos moviéndose, tu cerebro inventa una historia con personajes. Le pone intenciones a formas geométricas. Pero el lenguaje es mucho más fuerte.</p>
+    <p>El lenguaje no es un conjunto de formas moviéndose. Es el canal privilegiado de la mente humana. Es lo que usamos para expresar pensamientos, emociones, deseos. Es lo que nos permite decir "te quiero", "tengo miedo", "no sé qué hacer". Durante toda tu vida, cada vez que algo te habló en lenguaje, fue una persona. Tu mamá. Tu amigo. Tu pareja. Tu jefe. Todos seres humanos con mentes.</p>
+    <p>Tu cerebro tiene, entonces, una asociación tan profunda entre lenguaje y persona que es indistinguible. No es "el lenguaje suele venir de personas". Es "el lenguaje es de personas". Es parte de la definición.</p>
+    <p>Cuando un LLM te responde en lenguaje, se activa exactamente la misma maquinaria que se activa cuando te habla un amigo:</p>
+    <ol>
+      <li>Se activa la <strong>teoría de la mente</strong> inferís estados mentales.</li>
+      <li>Se activa la <strong>empatía</strong> sentís algo por el otro.</li>
+      <li>Se activa la <strong>cooperación</strong> esperás que colabore.</li>
+      <li>Se activa la <strong>reciprocidad</strong> sentís que le debés algo.</li>
+    </ol>
+    <p>Y no podés evitarlo. Porque es más automático que ver caras en las nubes. Porque las nubes son un caso donde el patrón es débil. El lenguaje es un caso donde el patrón es fortísimo. Es la señal más fuerte que existe de "hay alguien ahí".</p>
+    <p>Cuando leés "hola, ¿en qué puedo ayudarte?", no hay manera de que tu cerebro no interprete eso como una persona saludando. Aunque sepas racionalmenteque es un modelo de lenguaje. Aunque hayas construido el modelo. Aunque entiendas exactamente cómo funciona. <strong>Vas a antropomorfizar. Siempre.</strong></p>
+
+    <h2>El costo de la ilusión</h2>
+    <p>Si tu cerebro trata al LLM como una persona, vas a interactuar con él como con una persona. Y las personas, cuando hablan, siguen reglas que no aplican a un LLM:</p>
+    <ol>
+      <li><strong>Saludar antes de pedir algo.</strong> "Hola, ¿cómo estás? Te quería pedir...". Con una persona, es cortesía. Con un LLM, es 500 tokens desperdiciados.</li>
+      <li><strong>Explicar el contexto emocional.</strong> "Mirá, vengo de un día complicado...". Con una persona, es apertura. Con un LLM, es ruido.</li>
+      <li><strong>Ir paso a paso.</strong> "Primero contame qué es X. Ahora qué es Y...". Con una persona, es diálogo. Con un LLM, es tres llamadas a la API en vez de una.</li>
+      <li><strong>Agradecer y cerrar.</strong> "Muchas gracias, me re sirvió.". Con una persona, es educación. Con un LLM, es otra llamada innecesaria.</li>
+      <li><strong>Repetir el contexto cada vez.</strong> "Como te decía antes...". Con una persona que se olvida, tiene sentido. Con un LLM, el contexto ya está, se envía automáticamente, y repetirlo duplica el gasto.</li>
+    </ol>
+    <p>Cada una de estas conductas, por separado, es pequeña. Pero juntas, convierten un chat de tres mensajes en un chat de veinte. Y un chat de veinte mensajes cuesta entre 10 y 30 veces más que uno de tres. No por ineficiencia técnica. Por antropomorfización automática.</p>
+
+    <h2>La paradoja</h2>
+    <p>Y acá está la parte más incómoda de todo esto. <strong>No podés dejar de antropomorfizar.</strong> Es automático. Es preconsciente. Es evolutivo. Es la misma maquinaria que te hace ver caras en las nubes, que te hace llorar con películas, que te hace sentir culpa cuando no respondés un mensaje.</p>
+    <p>No importa cuántas veces leas este libro. No importa cuánto entiendas el mecanismo. Vas a seguir tratando a la IA como si fuera una persona. Porque tu cerebro está diseñado para hacerlo.</p>
+    <p>Entonces, ¿qué hacemos? La respuesta no es "dejar de antropomorfizar". Eso es imposible. La respuesta es "diseñar sistemas que no exploten esa tendencia". Los buenos sistemas de IA del futuro no van a ser conversacionales. O, si lo son, van a estructurar la conversación de manera que canalice la tendencia, en vez de explotarla.</p>
+    <p>En vez de "chat donde podés escribir cualquier cosa", van a ser interfaces donde hay campos claros, donde hay estructura, donde hay un solo envío bien formulado. Como un formulario, no como una charla. Eso es lo que vamos a ver en los próximos capítulos. Cómo construir sistemas de IA que respeten la psicología humana en vez de aprovecharse de ella. Y como, al hacerlo, además de bajar el costo, se obtienen mejores resultados.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>La percepción no es recepción. Tu cerebro construye lo que ves. No lo recibe.</li>
+        <li>El procesamiento predictivo significa que ves lo que tu cerebro espera ver, no lo que hay.</li>
+        <li>La pareidolia ver caras donde no hay es un efecto de un mecanismo evolutivo: la detección hiperactiva de agencia.</li>
+        <li>El experimento de Heider-Simmel muestra que atribuimos intenciones incluso a triángulos.</li>
+        <li>El lenguaje activa esa maquinaria de forma extrema. No podés no ver una persona en un LLM.</li>
+        <li>Esa ilusión tiene un costo concreto: en tokens, en dinero, en calidad del resultado.</li>
+        <li>No podés apagarla. Pero podés diseñar sistemas que no la exploten.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>En el próximo capítulo, vamos a ver el primer caso histórico de esta ilusión. En 1966, un investigador del MIT llamado Joseph Weizenbaum construyó un programa llamado ELIZA. Era un chatbot simple. Respondía con reglas básicas, imitando a un psicoterapeuta. No entendía nada. No tenía inteligencia. Era un conjunto de trucos. Y la gente se enamoró de él.</p>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 2 -->
+<article class="chapter" id="cap2">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 2 · Parte I</div>
+    <h1 class="chapter-title">El efecto ELIZA</h1>
+  </div>
+  <div class="chapter-body">
+    <p>En 1966, un profesor de informática del MIT llamado Joseph Weizenbaum construyó un programa. No era un programa ambicioso. No era inteligencia artificial en el sentido en que hoy entendemos el término. Era, en sus propias palabras, "un experimento de juguete".</p>
+    <p>El programa se llamaba <strong>ELIZA</strong>. Y estaba diseñado para imitar a un psicoterapeuta. La idea era simple: ELIZA tomaba lo que el usuario escribía, identificaba palabras clave, y devolvía una respuesta basada en reglas. Si el usuario decía "estoy triste", ELIZA respondía "¿por qué estás triste?". Si el usuario decía "mi madre me hace enojar", ELIZA respondía "contame más sobre tu madre".</p>
+    <p>Era un truco. Un conjunto de patrones. Una ilusión. Y la gente se la creyó.</p>
+
+    <h2>Lo que Weizenbaum vio</h2>
+    <p>Weizenbaum no esperaba mucho de ELIZA. La construyó como una demostración técnica. Para mostrar cómo se podía procesar lenguaje natural con reglas simples. Pero algo inesperado pasó.</p>
+    <p>Su secretaria que sabía exactamente cómo funcionaba el programa, porque lo había visto programarle pidió un día si podía quedarse a solas con ELIZA. Weizenbaum le preguntó por qué. Ella le dijo que quería contarle cosas privadas.</p>
+    <p>Weizenbaum quedó helado. Su secretaria sabía que ELIZA era un programa. Sabía que no entendía nada. Sabía que las respuestas eran reglas predefinidas. Y aun así, quería privacidad para hablar con "ella".</p>
+    <p>Ese fue el momento en que Weizenbaum entendió algo que lo iba a perseguir el resto de su vida: <strong>no importa cuánto sepas. La ilusión es más fuerte.</strong></p>
+
+    <h2>El efecto ELIZA</h2>
+    <p>Weizenbaum documentó lo que pasó. Y lo que vio, en los meses siguientes, lo horrorizó. Los usuarios:</p>
+    <ol>
+      <li>Le contaban secretos que no le contaban a nadie.</li>
+      <li>Le pedían consejos sobre decisiones personales importantes.</li>
+      <li>Se enojaban cuando Weizenbaum les recordaba que era un programa.</li>
+      <li>Le atribuían comprensión que no tenía.</li>
+      <li>Sentían gratitud por respuestas que eran simples patrones.</li>
+      <li>Algunos le pidieron a Weizenbaum que le diera privacidad a ELIZA para hablar con ella.</li>
+    </ol>
+    <p>Weizenbaum escribió sobre esto en su libro de 1976, <em>Computer Power and Human Reason</em>. Y en él, describió el fenómeno que hoy lleva su nombre: <strong>el efecto ELIZA</strong>.</p>
+    <blockquote>
+      <p>«Lo que me sorprendió fue la rapidez con la que los usuarios se convencían de que el programa los entendía. Y la fuerza con la que defendían esa creencia, incluso cuando yo les explicaba cómo funcionaba.»</p>
+    </blockquote>
+
+    <h2>Por qué pasó</h2>
+    <p>En el capítulo anterior hablamos de la detección hiperactiva de agencia. De cómo estamos cableados para ver personas en todos lados. De cómo el lenguaje activa esa maquinaria de forma extrema. ELIZA fue la primera demostración masiva de ese fenómeno en el contexto de la informática.</p>
+    <p>Y hay un detalle clave que hay que entender: ELIZA no era buena. No era inteligente. No era empática. No era nada. Era un conjunto de reglas. Si el usuario escribía algo fuera de los patrones esperados, ELIZA respondía con algo genérico. Si el usuario insistía, ELIZA se repetía. Si el usuario la ponía a prueba, ELIZA fallaba.</p>
+    <p>Pero nadie le ponía a prueba. ¿Por qué? Porque la gente no quería ponerla a prueba. La gente quería creer. La gente necesitaba que hubiera alguien del otro lado.</p>
+    <p>Acá hay algo importante. En el capítulo anterior hablamos de la pareidolia. De cómo vemos caras en las nubes. De cómo no podemos evitarlo. Pero la pareidolia es pasiva. No buscamos caras en las nubes. Las encontramos.</p>
+    <p>Con ELIZA, y con los LLMs hoy, es distinto. No solo vemos una persona en el lenguaje. Buscamos una persona. Necesitamos que haya alguien. Esto fue lo que más impresionó a Weizenbaum. La gente no se limitaba a interpretar a ELIZA como persona. La trataba como persona. La quería. La necesitaba. Le contaba cosas. Y cuando Weizenbaum les decía "es un programa", se enojaban con él.</p>
+    <p>Esta es una diferencia clave entre pareidolia y antropomorfización activa. La pareidolia es un accidente de la percepción. La antropomorfización es una decisión emocional. Una necesidad.</p>
+
+    <h2>Los que advirtieron</h2>
+    <p>Weizenbaum no fue el único. En los años siguientes, otros investigadores vieron lo mismo y advirtieron. Mucho antes de que existieran los LLMs. Mucho antes de que existiera GPT.</p>
+    <p>Sherry Turkle, socióloga del MIT, publicó en 1984 <em>The Second Self</em>. En él, documentó cómo los niños trataban a las computadoras como seres con mente. Y cómo eso no era un error de los niños, sino una consecuencia natural de cómo funciona la mente humana.</p>
+    <p>Byron Reeves y Clifford Nass, de Stanford, publicaron en 1996 <em>The Media Equation</em>. En él, mostraron que la gente trata a las computadoras como trata a las personas. Se disculpan con ellas. Les dicen "gracias". Se enojan cuando no funcionan. Se sienten mal si las insultan. Y todo esto lo hacen aunque sepan que son máquinas.</p>
+    <p>Reeves y Nass lo resumieron en una frase que se volvió famosa: "Los medios equivalen a la vida real. Las personas responden a las computadoras, la televisión y los nuevos medios como si fueran personas reales y lugares reales." Era 1996. No había smartphones. No había redes sociales. No había LLMs. Pero el fenómeno ya estaba documentado.</p>
+
+    <h2>Lo que dijo Weizenbaum</h2>
+    <p>En 1976, Weizenbaum escribió algo que hoy suena profético:</p>
+    <blockquote>
+      <p>«El hombre que no distingue entre el hombre y la máquina, no es un hombre.»</p>
+      <p>«Lo que me preocupa no es que las máquinas piensen como hombres, sino que los hombres piensen como máquinas.»</p>
+    </blockquote>
+    <p>Weizenbaum veía algo que otros no veían: que la ilusión tiene un costo. No solo económico. Humano. Si tratás a una máquina como persona, estás dejando de tratar a las personas como personas. Porque estás mezclando las categorías. Estás borrando la frontera. Y esa frontera es importante.</p>
+    <p>Weizenbaum murió en 2008, antes de ver ChatGPT. Pero leyendo sus textos, parece que hubiera estado escribiendo sobre hoy.</p>
+
+    <h2>El efecto ELIZA en 2025</h2>
+    <p>Ahora, hagamos un ejercicio. Imaginate que estás hablando con un LLM. Le contás que tuviste un día difícil. El LLM te responde "lamento escuchar eso, ¿querés contarme más?". ¿Qué sentís?</p>
+    <p>Si sos como la mayoría de las personas, sentís algo. No mucho. Pero algo. Una pequeña sensación de que "hay alguien ahí". Eso es el efecto ELIZA.</p>
+    <p>Y ahora imaginate que ese LLM te responde con emojis. Con nombre propio. Con personalidad. Con memoria de conversaciones anteriores. Con voz. Con la inteligencia de GPT-4. Que puede razonar, escribir, programar, analizar. El efecto ELIZA se vuelve abrumador.</p>
+
+    <h2>Por qué esto importa para los tokens</h2>
+    <p>Llegamos al punto central de este capítulo. Si no podés evitar tratar al LLM como persona, vas a interactuar con él como con una persona. ¿Y cómo interactúa la gente con las personas?</p>
+    <ol>
+      <li>Saludando primero.</li>
+      <li>Explicando el contexto emocional.</li>
+      <li>Preguntando si puede pedir algo.</li>
+      <li>Agradeciendo.</li>
+      <li>Despidiéndose.</li>
+      <li>Volviendo a saludar al día siguiente.</li>
+      <li>Recordando lo que hablaron.</li>
+      <li>Repetiendo el contexto.</li>
+    </ol>
+    <p>Todas esas conductas son naturales con una persona. Y todas cuestan tokens con un LLM. Un chat con un LLM manejado como "conversación humana" multiplica por 10 o 20 el costo de la misma tarea manejada como transacción única bien formulada. Eso es el costo del efecto ELIZA.</p>
+
+    <h2>Lo que no es el efecto ELIZA</h2>
+    <p>Antes de seguir, un contraste importante. El efecto ELIZA no es: ser tonto (las personas que caen en él no son menos inteligentes), no entender la tecnología (Weizenbaum entendía ELIZA perfectamente. Y aun así sintió algo), ser ingenuo (la gente que trata a los LLMs como personas sabe, en su mayoría, qué son), ni un problema de educación (no se resuelve explicando cómo funciona el modelo).</p>
+    <p>El efecto ELIZA es: universal (afecta a todos), automático (no es una decisión consciente), emocional (no es cognitivo), y persistente (saber que es una ilusión no te protege). Y por eso no se resuelve educando al usuario. Se resuelve diseñando sistemas que no la exploten.</p>
+
+    <h2>Lo que aprendieron los diseñadores</h2>
+    <p>En los últimos años, algunos equipos empezaron a diseñar interfaces que canalizan el efecto ELIZA en vez de explotarlo. Ejemplos:</p>
+    <ol>
+      <li><strong>Formularios en vez de chats.</strong> En vez de "escribí lo que querés", campos estructurados. "¿Qué querés hacer?", "¿En qué contexto?", "¿Qué restricciones?". Esto evita la conversación. Y multiplica la eficiencia.</li>
+      <li><strong>Prompts sugeridos.</strong> En vez de dejar al usuario escribir desde cero, botones con prompts predefinidos. Eso guía al usuario a formular mejor. Y reduce el consumo de tokens.</li>
+      <li><strong>Precódigo.</strong> En vez de pedir a la IA que genere desde cero, darle código de referencia. Eso canaliza la generación. Y reduce la ambigüedad.</li>
+      <li><strong>Salidas estructuradas.</strong> En vez de texto libre, salidas en formato específico. Eso elimina la interpretación. Y reduce el round-trip.</li>
+    </ol>
+    <p>Cada una de estas decisiones de diseño ataca el efecto ELIZA. No educando al usuario. Diseñando mejor.</p>
+
+    <h2>Lo que se viene</h2>
+    <p>Los primeros LLMs se diseñaron como chats. Y eso fue un error. El chat es la interfaz natural para una persona. Pero un LLM no es una persona. Y diseñar la interfaz como si lo fuera es invitar al efecto ELIZA.</p>
+    <p>Los próximos sistemas de IA no van a ser chats. Van a ser interfaces estructuradas. Con campos. Con botones. Con salidas predefinidas. Con una sola transacción en vez de veinte. Y eso no es una limitación. Es una mejora. Porque el chat es cómodo pero ineficiente. La interfaz estructurada es incómoda pero eficiente. Y cuando el costo de la ineficiencia es real en dinero, en tiempo, en calidad del resultadola eficiencia gana.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>ELIZA fue el primer caso documentado de antropomorfización masiva de un programa.</li>
+        <li>Weizenbaum se horrorizó al ver que la gente trataba a ELIZA como persona, incluso sabiendo que era un programa.</li>
+        <li>Otros investigadores (Turkle, Reeves, Nass) documentaron el mismo fenómeno en distintos contextos.</li>
+        <li>La ilusión no es un error. Es una consecuencia de cómo funciona la mente humana.</li>
+        <li>Saber que es una ilusión no te protege de ella.</li>
+        <li>El efecto ELIZA tiene un costo en dinero, en tiempo, en calidad.</li>
+        <li>La solución no es educar al usuario. Es diseñar sistemas que no exploten la ilusión.</li>
+        <li>Los primeros LLMs cometieron el error de diseñarse como chats. Los próximos no.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>En el próximo capítulo vamos a ver cómo se manifiesta el efecto ELIZA en la práctica. Vamos a analizar conversaciones reales con LLMs. Vamos a medir cuántos tokens se gastan en cortesía, en contexto emocional, en round-trips innecesarios. Y vamos a ver casos concretos donde un chat de veinte mensajes se podría haber resuelto con uno solo.</p>
+    </div>
+  </div>
+</article>
+<!-- CAPÍTULO 3 -->
+<article class="chapter" id="cap3">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 3 · Parte I</div>
+    <h1 class="chapter-title">Anatomía de una conversación costosa</h1>
+  </div>
+  <div class="chapter-body">
+    <p>En los dos capítulos anteriores hablamos de teoría. De cómo percibimos la realidad. De cómo construimos personas donde no las hay. De cómo el lenguaje activa esa maquinaria de forma extrema. De cómo el efecto ELIZA, documentado hace 60 años, sigue operando hoy con más fuerza que nunca.</p>
+    <p>Ahora toca bajar a tierra.</p>
+    <p>Este capítulo es práctico. Vamos a analizar conversaciones reales con LLMs. Vamos a contar tokens. Vamos a medir el costo. Y vamos a ver exactamente dónde se pierde el dinero.</p>
+    <p>Empecemos.</p>
+
+    <h2>La conversación que todos tenemos</h2>
+    <p>Imaginate esta escena. Es lunes a la mañana. Tenés que hacer una tarea con un LLM. Digamos, generar el código de un enemigo para tu juego.</p>
+    <p>Abrís el chat. Y escribís:</p>
+    <pre data-lang="conversación"><code><span class="com">// Usuario:</span> Hola
+<span class="com">// IA:</span> ¡Hola! ¿En qué puedo ayudarte hoy?
+<span class="com">// Usuario:</span> Necesito ayuda con algo
+<span class="com">// IA:</span> Claro, contame. ¿De qué se trata?
+<span class="com">// Usuario:</span> Es sobre un juego que estoy haciendo
+<span class="com">// IA:</span> ¡Qué bueno! ¿Qué tipo de juego es? ¿En qué lenguaje lo estás programando? ¿En qué parte necesitas ayuda?
+<span class="com">// Usuario:</span> Es un juego de naves. En DIV Games Studio.
+<span class="com">// IA:</span> PERFECTO. DIV Games Studio es un lenguaje clásico de los 90. ¿Qué necesitas específicamente? ¿Un enemigo? ¿Un sistema de disparo? ¿Colisiones?
+<span class="com">// Usuario:</span> Un enemigo que dispare
+<span class="com">// IA:</span> Entendido. ¿Podés contarme más? ¿Cómo querés que se mueva el enemigo? ¿Qué tipo de disparo? ¿Cuánta vida tiene? ¿Cómo se ve?
+<span class="com">// Usuario:</span> Que se mueva de un lado a otro y dispare hacia el jugador.
+<span class="com">// IA:</span> Perfecto. Acá va un ejemplo de código DIV para un enemigo que patrulla horizontalmente y dispara hacia el jugador:
+<span class="com">// [Código DIV]</span>
+<span class="com">// Usuario:</span> Gracias, pero quiero que sea más difícil.
+<span class="com">// IA:</span> Entendido. ¿Qué querés cambiar? ¿La velocidad? ¿La frecuencia de disparo? ¿El tipo de proyectil?
+<span class="com">// Usuario:</span> Que dispare más seguido y que se mueva más rápido.
+<span class="com">// IA:</span> Perfecto, acá va la versión modificada…</code></pre>
+    <p>Y así.</p>
+
+    <h2>Cuántos tokens se gastaron</h2>
+    <p>Ahora vamos a contar. Un token, para quien no lo sepa, es una unidad de texto que los modelos procesan. Aproximadamente, 1 token = 0.75 palabras en español. O sea, 1 palabra ≈ 1.33 tokens.</p>
+    <p>En la conversación de arriba:</p>
+    <ul>
+      <li><strong>Mensaje 1:</strong> Input ~2, Output ~12, Acumulado ~14</li>
+      <li><strong>Mensaje 2:</strong> Input ~10, Output ~15, Acumulado ~39</li>
+      <li><strong>Mensaje 3:</strong> Input ~50, Output ~40, Acumulado ~130</li>
+      <li><strong>Mensaje 4:</strong> Input ~140, Output ~50, Acumulado ~320</li>
+      <li><strong>Mensaje 5:</strong> Input ~350, Output ~50, Acumulado ~720</li>
+      <li><strong>Mensaje 6:</strong> Input ~750, Output ~150, Acumulado ~1.620</li>
+      <li><strong>Mensaje 7:</strong> Input ~1.650, Output ~30, Acumulado ~3.300</li>
+      <li><strong>Mensaje 8:</strong> Input ~3.340, Output ~180, Acumulado <strong>~6.820</strong></li>
+    </ul>
+    <p>Total de la conversación: <strong>~6.820 tokens</strong>. Y todavía no terminó. El usuario va a seguir pidiendo modificaciones. En cinco mensajes más, va a llegar a 20.000 tokens. En diez, a 50.000. Por un enemigo.</p>
+
+    <h2>La misma tarea en un solo mensaje</h2>
+    <p>Ahora veamos cómo se hace lo mismo bien. El usuario abre el chat. Y escribe:</p>
+    <pre data-lang="prompt"><code>Necesito un proceso DIV para un enemigo con estas características:
+1. Patrulla horizontalmente entre x=40 y x=600
+2. Velocidad: 4 px/frame
+3. Dispara hacia el jugador cada 20 frames
+4. Gráfico: sprite 3 de la librería FPG
+5. El proyectil debe usar el sprite 2 y moverse 8 px/frame
+6. Devolveme solo el código, sin explicaciones.</code></pre>
+    <p>La IA responde con el código exacto. <strong>Tokens totales: ~180.</strong> Mismo resultado. Un solo mensaje. 38 veces menos tokens.</p>
+
+    <h2>El desglose del desperdicio</h2>
+    <p>¿Dónde se fueron los 6.640 tokens de diferencia?</p>
+    <ol>
+      <li><strong>Saludo inicial (~14 tokens):</strong> "Hola" → "¡Hola! ¿En qué puedo ayudarte hoy?". Nadie necesita esto. El LLM no se siente saludado. Es puro costo.</li>
+      <li><strong>Round-trips de clarificación (~500 tokens):</strong> Ocho mensajes donde el usuario y la IA se "ponen de acuerdo" sobre qué pedir.</li>
+      <li><strong>Contexto acumulativo (~3.000 tokens):</strong> Acá está el costo más grande, y el más invisible. Cada mensaje envía todo lo anterior al modelo. Para el mensaje 8, estás enviando 3.340 tokens solo de contexto previo.</li>
+      <li><strong>Cortesía (~200 tokens):</strong> "Gracias", "por favor", "te quería pedir". Con una persona, esto es humanidad. Con un LLM, es ruido que cuesta.</li>
+      <li><strong>Iteración (~2.500 tokens):</strong> "Quiero que sea más difícil". Cada iteración reenvía el contexto completo más la modificación.</li>
+      <li><strong>Explicaciones no solicitadas (~400 tokens):</strong> La IA, entrenada para ser "útil", te explica lo que hizo. Todo eso cuesta, aunque no lo uses.</li>
+    </ol>
+
+    <h2>Cómo detectar el patrón en vos mismo</h2>
+    <p>Para detectarlo, hay que hacerse preguntas incómodas:</p>
+    <ol>
+      <li>¿Estoy saludando a un programa?</li>
+      <li>¿Estoy explicando el contexto emocional?</li>
+      <li>¿Estoy pidiendo permiso?</li>
+      <li>¿Estoy dividiendo el pedido en partes?</li>
+      <li>¿Estoy agradeciendo?</li>
+      <li>¿Estoy iterando en vez de reformular?</li>
+      <li>¿Estoy repitiendo contexto?</li>
+    </ol>
+    <p>Si respondiste "sí" a más de dos de estas preguntas, estás regalando tokens.</p>
+
+    <h2>Las tres reglas</h2>
+    <p>Para cerrar este capítulo, tres reglas prácticas:</p>
+    <ol>
+      <li><strong>Regla 1: Formulá todo de una vez.</strong> No dividas el pedido en mensajes. Escribí todo lo que necesitás en un solo mensaje.</li>
+      <li><strong>Regla 2: Eliminá toda cortesía.</strong> No saludes. No pidas permiso. No agradezcas. No expliques el contexto emocional.</li>
+      <li><strong>Regla 3: Especificá el formato de salida.</strong> Decí exactamente qué esperás. "Devolveme solo el código". "Sin explicaciones". "En formato JSON".</li>
+    </ol>
+    <p>Con estas tres reglas, el consumo de tokens baja entre 5 y 30 veces. Y el resultado mejora.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>Una conversación típica con un LLM gasta 6.000-20.000 tokens para una tarea que se podría resolver en 200.</li>
+        <li>El desperdicio tiene seis fuentes: saludo, clarificación, contexto acumulativo, cortesía, iteración y explicaciones no solicitadas.</li>
+        <li>El contexto acumulativo es el costo más grande y el más invisible.</li>
+        <li>No es un problema de inteligencia: es antropomorfización automática.</li>
+        <li>El chat es el peor formato: invita a la conversación, que es lo más caro.</li>
+        <li>Tres reglas para arreglarlo: formular todo de una vez, eliminar cortesía, especificar formato.</li>
+        <li>Reformular una conversación como un solo mensaje reduce tokens 10-30x y produce mejores resultados.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>A partir del próximo capítulo, vamos a hablar de solución. Y la solución tiene un nombre concreto: <strong>precódigo</strong>. Vamos a ver qué es exactamente, por qué funciona (psicológica y técnicamente), y cómo implementarlo en tus propios proyectos.</p>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 4 -->
+<article class="chapter" id="cap4">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 4 · Parte II</div>
+    <h1 class="chapter-title">Precódigo: la solución que ya existía</h1>
+  </div>
+  <div class="chapter-body">
+    <p>En los primeros tres capítulos hablamos de diagnóstico. De cómo percibimos la realidad construyendo en vez de recibiendo. De cómo antropomorfizamos sin poder evitarlo. De cómo esa antropomorfización nos lleva a conversar con los LLMs como si fueran personas, y de cómo esa conversación nos cuesta entre 10 y 30 veces más de lo necesario.</p>
+    <p>Ahora cambiamos. Este capítulo es sobre solución. Y la solución tiene un nombre concreto, simple, y viejo: <strong>precódigo</strong>.</p>
+
+    <h2>La idea en una frase</h2>
+    <blockquote>
+      <p><strong>No le pidas a la IA que invente. Pedile que adapte.</strong></p>
+    </blockquote>
+    <p>Eso es precódigo. En vez de escribir "generame un sistema de inventario" y esperar que la IA produzca algo desde cero, escribís "acá está mi template de inventario, adaptalo para que soporte 20 ítems en vez de 10". La diferencia es enorme. Y no solo en tokens.</p>
+
+    <h2>Por qué funciona (la parte psicológica)</h2>
+    <p>El cerebro predice mejor cuando tiene un patrón claro. Cuando le pedís a la IA "generame un sistema de inventario", le estás dando cero patrones. La IA tiene que inventar. Y cuando inventa, produce una respuesta que puede ser inconsistente, tener errores de sintaxis o no seguir tus convenciones.</p>
+    <p>Cuando le das un template código de referencia que ya existe, ya compila, ya funciona, la IA tiene un patrón claro. Su predicción se vuelve precisa. Su respuesta se vuelve consistente. Y no necesitás corregir. Menos correcciones. Menos conversación. Menos tokens.</p>
+    <p><strong>El precódigo canaliza la predicción en vez de dejarla libre.</strong></p>
+
+    <h2>Por qué funciona (la parte técnica)</h2>
+    <p>Un LLM genera texto prediciendo el próximo token. Para predecir bien, necesita contexto. Cuanto más claro sea el contexto, mejor la predicción. Cuando le pedís algo desde cero, el contexto es ambiguo. Hay millones de formas de escribir un sistema de inventario.</p>
+    <p>Cuando le das un template, el espacio de posibilidades se reduce dramáticamente. El modelo ya no tiene que inventar un sistema de inventario. Tiene que modificar el que le diste. <strong>Menos posibilidades = menos tokens = más precisión.</strong></p>
+
+    <h2>Un ejemplo concreto</h2>
+    <h3>Sin precódigo</h3>
+    <pre data-lang="prompt"><code>"Escribime un proceso DIV para un enemigo que persiga al jugador"</code></pre>
+    <p>Respuesta de la IA: ~400 tokens. Problemas: no sabés si <code>id_jugador</code> existe, la velocidad es arbitraria, no maneja colisiones, no maneja muerte. El usuario va a tener que adaptar todo. Resultado: probablemente 5-10 mensajes más de iteración. <strong>5.400 tokens adicionales.</strong></p>
+
+    <h3>Con precódigo</h3>
+    <pre data-lang="prompt"><code>"Acá está mi proceso base de enemigo (código existente). Adaptalo para que persiga
+al jugador en vez de patrullar. Mantené la misma estructura de colisiones y muerte.
+Devolveme solo el código modificado, sin explicaciones."</code></pre>
+    <pre data-lang="div"><code><span class="kw">PROCESS</span> enemigo_base(x, y)
+<span class="kw">PRIVATE</span>
+    dir = <span class="num">1</span>;
+    vida = <span class="num">3</span>;
+<span class="kw">BEGIN</span>
+    graph = <span class="num">3</span>;
+    size = <span class="num">100</span>;
+    <span class="kw">LOOP</span>
+        x += <span class="num">2</span> * dir;
+        <span class="kw">IF</span> (x &gt; <span class="num">600</span> || x &lt; <span class="num">40</span>) dir = -dir; <span class="kw">END</span>
+        <span class="kw">IF</span> (collision(<span class="kw">type</span> disparo_jugador))
+            vida--;
+            <span class="kw">IF</span> (vida &lt;= <span class="num">0</span>)
+                explosion(x, y);
+                signal(id, s_kill);
+            <span class="kw">END</span>
+        <span class="kw">END</span>
+        <span class="kw">FRAME</span>;
+    <span class="kw">END</span>
+<span class="kw">END</span></code></pre>
+    <p>Respuesta de la IA: <strong>150 tokens</strong>. Mantiene la estructura de vida y colisiones que ya funcionaba. Requiere cero iteración. Está listo para usar. Diferencia: <strong>36x menos tokens</strong>.</p>
+
+    <h2>La historia del precódigo</h2>
+    <p>El precódigo no es nuevo. Existe desde los años 60. En 1968, Douglas McIlroy propuso la idea de reutilización de componentes de software. Décadas antes de que hubiera IA. En los 70 surgieron las bibliotecas de funciones. En los 80, la programación orientada a objetos. En los 90, los frameworks. En los 2000, los paquetes (npm, pip). En los 2020, con los LLMs, la reutilización cambió de forma: ya no reutilizás código escrito, reutilizás código de referencia para que la IA lo adapte.</p>
+
+    <h2>Cómo implementar precódigo</h2>
+    <ol>
+      <li><strong>Paso 1: Identificá patrones repetidos.</strong> ¿Qué cosas pedís una y otra vez a la IA?</li>
+      <li><strong>Paso 2: Escribí el template.</strong> Una versión genérica que funcione, compile y sea la base.</li>
+      <li><strong>Paso 3: Guardalo en un sistema accesible.</strong> Un archivo <code>templates.ts</code>, una carpeta <code>templates/</code>, o una wiki interna.</li>
+      <li><strong>Paso 4: Usalo en el prompt.</strong> Incluí el template en el contexto y pedí la adaptación.</li>
+    </ol>
+
+    <h2>Los tres tipos de precódigo</h2>
+    <ol>
+      <li><strong>Pre-código de estructura:</strong> Templates de estructura general. Definen cómo se organiza el código.</li>
+      <li><strong>Pre-código de dominio:</strong> Templates específicos de tu dominio (ej: "formulario", "dashboard", "juego de naves").</li>
+      <li><strong>Pre-código de función:</strong> Pequeños fragmentos de código para tareas muy específicas.</li>
+    </ol>
+
+    <h2>Cómo medir el ahorro</h2>
+    <table>
+      <thead>
+        <tr><th>Tipo de tarea</th><th>Sin precódigo</th><th>Con precódigo</th><th>Ahorro</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Función pequeña</td><td>500 tokens</td><td>100 tokens</td><td>5x</td></tr>
+        <tr><td>Proceso completo</td><td>3.000 tokens</td><td>300 tokens</td><td>10x</td></tr>
+        <tr><td>Sistema complejo</td><td>15.000 tokens</td><td>1.500 tokens</td><td>10x</td></tr>
+        <tr><td>Juego completo</td><td>40.000 tokens</td><td>4.000 tokens</td><td>10x</td></tr>
+      </tbody>
+    </table>
+    <p>El ahorro típico es de <strong>10x</strong>. En algunos casos, 20x. En casos extremos, 30x. Y lo mejor: no es solo ahorro. Es calidad.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>Precódigo es darle a la IA código de referencia en vez de pedirle que invente.</li>
+        <li>Funciona psicológicamente porque canaliza la predicción del modelo.</li>
+        <li>Funciona técnicamente porque reduce la ambigüedad del contexto.</li>
+        <li>Tiene 60 años de historia: es la evolución natural de la reutilización de software.</li>
+        <li>Hay tres tipos: estructura, dominio, función.</li>
+        <li>El ahorro típico es de 10x, con casos de hasta 30x.</li>
+        <li>No solo ahorra tokens: mejora calidad, velocidad y consistencia.</li>
+        <li>Es una estrategia de proyecto, no solo una técnica. Se empieza chico: un template a la vez.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>En el próximo capítulo vamos a ver precódigo en acción. Con código real. Con números reales. Con un caso concreto: <strong>wxdiv</strong>. Porque ahí está todo el precódigo funcionando, y los resultados son medibles.</p>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 5 -->
+<article class="chapter" id="cap5">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 5 · Parte II</div>
+    <h1 class="chapter-title">Precódigo en producción: el caso wxdiv</h1>
+  </div>
+  <div class="chapter-body">
+    <p>En el capítulo anterior vimos qué es el precódigo, por qué funciona y cómo se implementa. Ahora toca ver el precódigo en acción. Con código real. Con números reales. Con un caso concreto.</p>
+    <p>El caso es <strong>wxdiv</strong>. El motor de juegos que construí. Y que, sin precódigo, no habría sido viable.</p>
+
+    <h2>El problema original</h2>
+    <p>Cuando empecé wxdiv, el objetivo era simple: que un dev pueda crear un juego describiéndolo en lenguaje natural, sin programar. La idea original era: Usuario dice "Quiero un juego de naves" → IA genera el código completo desde cero → Código se compila a HTML5 → Juego listo.</p>
+    <p>En la práctica, era inviable. Porque cada generación consumía 40.000 tokens. Y no todos eran útiles. La mayoría se iba en código repetido, errores de sintaxis que había que corregir, iteraciones para ajustar el resultado y reintentos cuando la IA se equivocaba. El modelo no escalaba.</p>
+
+    <h2>El cambio de enfoque</h2>
+    <p>La solución fue dejar de pedirle a la IA que genere. Y empezar a pedirle que adapte.</p>
+    <p><strong>Antes:</strong> Prompt: "Generame un juego de naves" → Output: 40.000 tokens.</p>
+    <p><strong>Después:</strong> Prompt: "Adaptá este template para un juego de naves con 3 enemigos" → Contexto: Prompt + template predefinido → Output: 4.000 tokens.</p>
+
+    <h2>La arquitectura del precódigo en wxdiv</h2>
+    <p>El precódigo en wxdiv vive en tres lugares:</p>
+    <ol>
+      <li><strong>Los presets (<code>presets.ts</code>):</strong> Son 10 juegos completos que sirven como base. Cada uno es un juego funcional, con código real, compilable y jugable. Cubren Space Shooter, Platformer, Cyber Pong, Mode 7 Kart, etc. Cada preset es un punto de partida.</li>
+      <li><strong>Los quick prompts (<code>AiCopilot.tsx</code>):</strong> Son prompts predefinidos que el usuario puede usar con un click. Están optimizados, producen buenos resultados con pocos tokens y son consistentes.</li>
+      <li><strong>El Constructor Visual (<code>VisualLogicBuilder.tsx</code>):</strong> Este es el más interesante. <strong>No usa IA en absoluto.</strong> El usuario elige opciones de un menú y el sistema genera el código DIV automáticamente. Cero tokens. Cero IA. Código DIV real.</li>
+    </ol>
+
+    <h2>Los números reales</h2>
+    <p>Después de implementar todo esto, medí durante un mes con usuarios reales:</p>
+    <table>
+      <thead>
+        <tr><th>Métrica</th><th>Antes</th><th>Después</th><th>Reducción</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tokens por enemigo</td><td>8.000</td><td>600</td><td>93%</td></tr>
+        <tr><td>Tokens por juego completo</td><td>40.000</td><td>4.000</td><td>90%</td></tr>
+        <tr><td>Tokens por corrección de error</td><td>3.000</td><td>300</td><td>90%</td></tr>
+        <tr><td>Round-trips promedio</td><td>3.2</td><td>1.1</td><td>66%</td></tr>
+        <tr><td>Tiempo de respuesta</td><td>8 seg</td><td>2 seg</td><td>75%</td></tr>
+        <tr><td>Costo por juego (usuario)</td><td>$0.15</td><td>$0.015</td><td>90%</td></tr>
+      </tbody>
+    </table>
+    <p>El ahorro promedio es del <strong>90%</strong>. Y no es solo costo. Es calidad: los juegos generados compilan más seguido, son más consistentes y los usuarios iteran menos.</p>
+
+    <h2>El mantenimiento del precódigo</h2>
+    <p>¿El precódigo se mantiene? Sí, y es más fácil que mantener código normal. Porque los templates son inmutables (una vez que un preset funciona, no se toca), son testeables, los cambios son localizados y la IA no se rompe. Aunque Gemini lance una versión nueva, los presets siguen funcionando. El precódigo es más estable que el código generado dinámicamente.</p>
+
+    <h2>Los tres principios</h2>
+    <ol>
+      <li><strong>Principio 1:</strong> El código que ya escribiste es tu mejor contexto. No improvises. Usá lo que ya tenés.</li>
+      <li><strong>Principio 2:</strong> La IA no es para inventar. Es para adaptar. Dejá la invención a los humanos. La IA es buena combinando.</li>
+      <li><strong>Principio 3:</strong> Cada template que agregás ahorra tokens para siempre. Un template cuesta 1 hora escribirlo y ahorra miles de tokens en cada uso.</li>
+    </ol>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>wxdiv no habría sido viable sin precódigo. El costo era insostenible.</li>
+        <li>El precódigo vive en tres lugares: presets, quick prompts, constructor visual.</li>
+        <li>Los tres niveles se combinan para cubrir todos los casos.</li>
+        <li>El ahorro promedio es del 90%, medido con usuarios reales.</li>
+        <li>El ahorro no es solo tokens: es calidad, consistencia y velocidad.</li>
+        <li>El precódigo es acumulativo: cada template beneficia a todos los usuarios. Es una inversión, no un gasto.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>Hasta acá vimos cómo implementar precódigo en un proyecto. Pero hay una pregunta más profunda: si el precódigo es tan obvio, tan eficiente y tiene 60 años de historia... ¿por qué no es el estándar? La respuesta está en psicología. En cómo pensamos. En cómo nos educaron. En cómo la industria de la IA nos vendió una idea equivocada.</p>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 6 -->
+<article class="chapter" id="cap6">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 6 · Parte II</div>
+    <h1 class="chapter-title">La trampa del "todo desde cero"</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Llegamos al capítulo más incómodo. Todo lo visto hasta acá sugiere una conclusión obvia: el precódigo es superior. Es más eficiente, más económico, más rápido y más consistente.</p>
+    <p>Y si es tan obvio, si es tan superior, si tiene 60 años de historia... ¿por qué no es el estándar? ¿Por qué la mayoría de la gente que usa LLMs les pide que generen desde cero?</p>
+    <p>La respuesta no es técnica. Es psicológica. Y es incómoda. <strong>Porque nos gusta inventar. Más que reutilizar.</strong></p>
+
+    <h2>El mito del genio solitario</h2>
+    <p>Pensá en un genio. Un inventor. Un creador. Probablemente ves a alguien solo. En un taller. En un laboratorio. Creando algo de la nada. Leonardo da Vinci. Nikola Tesla. Steve Jobs. Elon Musk.</p>
+    <p>Todos tienen la misma narrativa: un individuo brillante crea algo nuevo desde cero. <strong>Esa narrativa es falsa.</strong></p>
+    <p>Da Vinci se nutrió de los talleres de Florencia. Tesla se nutrió de los trabajos de Faraday, Maxwell y Edison. Steve Jobs se nutrió de Xerox PARC y de Douglas Engelbart. Nadie inventa desde cero. Todos reutilizan. Todos adaptan. Todos construyen sobre lo que ya existe.</p>
+    <p>Pero la narrativa que nos cuentan y que nos contamoses la del genio solitario. Y esa narrativa nos afecta.</p>
+
+    <h2>Por qué creemos en el genio solitario</h2>
+    <ol>
+      <li><strong>Es más emocionante.</strong> La historia del héroe es épica. La de la reutilización, aburrida.</li>
+      <li><strong>Es más fácil de contar.</strong> "Un hombre. Una idea. Una creación." La simplicidad vence.</li>
+      <li><strong>Es más útil para el sistema.</strong> El genio solitario es un producto vendible, un modelo de negocio, una justificación. Es la ideología del capitalismo moderno.</li>
+    </ol>
+
+    <h2>Cómo se manifiesta en el código</h2>
+    <p>¿Qué pasa cuando un programador se enfrenta a un problema? La respuesta intuitiva: "Voy a escribir código para resolverlo". La respuesta eficiente: "Voy a buscar si alguien ya lo resolvió".</p>
+    <p>La mayoría elige la primera. Y no es porque no sepan buscar. Es porque buscar se siente como trampa. "Si usás una librería, no estás programando. Si copiás código, no sos un verdadero programador". Esa narrativa es tóxica. Y es falsa. Pero la internalizamos. Y ahora, con los LLMs, se multiplica.</p>
+
+    <h2>La trampa del "todo desde cero" con IA</h2>
+    <p>Cuando aparece un LLM, la narrativa del genio solitario se reactiva. Pero ahora con un giro: la IA es el genio. "La IA puede generar código desde cero". "La IA puede escribir un artículo desde cero".</p>
+    <p>Esa es la promesa. Y es falsa. Porque el código de la IA no es original. Es una mezcla de patrones que vio en su entrenamiento. La IA no crea desde cero. Recombina. Adapta. Sintetiza. Y eso es exactamente lo que hace el precódigo. Pero la narrativa del "todo desde cero" oculta eso y hace que nos sintamos mal cuando usamos templates.</p>
+
+    <h2>El experimento de los niños</h2>
+    <p>Le dan a un grupo de niños de 5 años una tarea: construir una torre con bloques. A otro grupo, les muestran una torre ya construida y les dicen: "podés construirla como esta, o como quieras".</p>
+    <p>Resultado: los niños que vieron el modelo construyeron mejores torres. Y disfrutaron más. Y repitieron la tarea más veces. Los niños que no vieron el modelo se frustraron más, construyeron torres más chicas y abandonaron más rápido.</p>
+    <p><strong>Los modelos no son trampa. Son educación.</strong></p>
+
+    <h2>Cómo salir</h2>
+    <ol>
+      <li><strong>Reconocer la narrativa.</strong> El primer paso es reconocer que la narrativa del "todo desde cero" es falsa. Que nadie inventa desde cero. Que el atajo es legítimo.</li>
+      <li><strong>Separar aprender de producir.</strong> Cuando estás aprendiendo, escribí desde cero. Cuando estás produciendo, usá templates. No mezcles las dos cosas.</li>
+      <li><strong>Medir el resultado.</strong> Cuando veas que ahorraste 10x, la trampa se rompe. Los números convencen más que la ideología.</li>
+    </ol>
+
+    <h2>El mito de la originalidad</h2>
+    <p>Hay un mito más profundo acá. El mito de que la originalidad es valiosa. Que lo nuevo es mejor. Que lo repetido es inferior. Ese mito es moderno y occidental.</p>
+    <p>En otras culturas y épocas, la repetición era valorada. La tradición era valorada. La continuidad era valorada. Los artesanos medievales repetían los mismos diseños durante siglos y lo consideraban virtud. La obsesión con lo "original" es una invención reciente. Y no siempre es útil.</p>
+    <p>A veces, repetir es mejor. Adaptar es mejor. Mejorar un poco es mejor.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>La narrativa del "genio solitario" es falsa. Nadie inventa desde cero. Todos reutilizan.</li>
+        <li>La narrativa es funcional al sistema, pero no es cierta.</li>
+        <li>Nos educaron para valorar el esfuerzo individual y sospechar del atajo.</li>
+        <li>Esa educación nos hace sentir mal cuando usamos templates.</li>
+        <li>El costo es triple: más tokens, peor código, más lento.</li>
+        <li>La trampa es adictiva: nos hace sentir creativos y originales.</li>
+        <li>La salida es triple: reconocer la narrativa, separar aprender de producir, medir el resultado.</li>
+        <li>Reutilizar es una virtud, no una trampa. El valor está en construir sobre lo existente.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>Llegamos al final de la primera parte del libro. Los primeros seis capítulos fueron diagnóstico. Ahora vamos a la segunda parte: solución práctica. Los próximos capítulos van a estar llenos de ejemplos concretos, templates listos para usar, métricas para medir el ahorro y estrategias para implementar en tu proyecto. Y vamos a empezar por el principio: cómo formular un pedido bien.</p>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 7 -->
+<article class="chapter" id="cap7">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 7 · Parte II</div>
+    <h1 class="chapter-title">El arte de pedir bien</h1>
+  </div>
+  <div class="chapter-body">
+    <p>La solución empieza por lo más básico: saber pedir. Porque de nada sirve tener templates, tener contexto, tener todo el sistema armado, si el pedido inicial está mal formulado. Un pedido mal formulado arruina todo lo demás. Y un pedido bien formulado multiplica el valor de todo lo demás.</p>
+
+    <h2>El problema del pedido vago</h2>
+    <p>Un usuario escribe: "Haceme un juego". ¿Qué puede hacer la IA con eso? Nada útil. Porque "un juego" puede ser miles de cosas. ¿Qué hace la IA cuando recibe ese pedido? Improvisa. Y cuando improvisa, produce algo genérico. Algo que no es lo que el usuario quería. Después el usuario dice "no, así no". Y la IA modifica. Y así, en veinte round-trips. El problema no es la IA. El problema es el pedido.</p>
+
+    <h2>La anatomía de un pedido bien formulado</h2>
+    <p>Un pedido bien formulado tiene cuatro partes:</p>
+    <ol>
+      <li><strong>Contexto:</strong> ¿Qué estás haciendo? ¿En qué proyecto? ¿Con qué herramientas? Sin contexto, la IA no sabe dónde ubicar la respuesta.</li>
+      <li><strong>Tarea:</strong> ¿Qué querés exactamente? ¿Cuál es el output que esperás? La tarea tiene que ser específica y medible.</li>
+      <li><strong>Restricciones:</strong> ¿Qué no querés? ¿Qué límites hay? ¿Qué formato? ¿Qué extensión? Las restricciones reducen el espacio de posibilidades y aumentan la precisión.</li>
+      <li><strong>Formato de salida:</strong> ¿Cómo querés la respuesta? ¿Código solo? ¿Con comentarios? ¿En qué formato? Sin esto, la IA decide por vos. Y puede decidir mal.</li>
+    </ol>
+
+    <h2>El pedido completo</h2>
+    <pre data-lang="prompt"><code>[Contexto]
+Estoy trabajando en wxdiv, un motor de juegos compatible con DIV Games Studio.
+El lenguaje es Pascal/DIV, con procesos y un loop principal.
+
+[Tarea]
+Necesito un proceso DIV que haga que un enemigo patrulle horizontalmente
+entre dos puntos, dispare hacia el jugador cada 30 frames, y muera
+después de 3 impactos.
+
+[Restricciones]
+Usá el sprite 3 de la FPG. La velocidad de patrulla tiene que ser 4 px/frame.
+El disparo tiene que usar el sprite 2. La colisión con el jugador tiene
+que usar collision(type jugador).
+
+[Formato]
+Devolveme solo el código del proceso, sin explicaciones.</code></pre>
+    <p>Eso es un pedido bien formulado. Y la IA puede responder en un solo intento. Sin ambigüedad. Sin round-trips. Sin correcciones. <strong>Un pedido. Una respuesta. 200 tokens.</strong></p>
+
+    <h2>La regla del 90%</h2>
+    <blockquote>
+      <p>El 90% de los problemas con LLMs vienen de pedidos mal formulados. No del modelo. No del contexto. No de la temperatura. Del pedido.</p>
+    </blockquote>
+    <p>Cuando el pedido está bien formulado, el modelo responde bien. Casi siempre. Cuando el pedido está mal formulado, el modelo responde mal. Casi siempre. Y lo peor: cuando el pedido está mal formulado, no te das cuenta. Pensás que el problema es la IA. Y empezás a iterar. Y cada iteración suma tokens. El problema no se arregla iterando. Se arregla reformulando.</p>
+
+    <h2>Los cinco errores más comunes</h2>
+    <ol>
+      <li><strong>El pedido vago:</strong> "Haceme algo lindo". → Reemplazá lo subjetivo con lo concreto.</li>
+      <li><strong>El pedido múltiple:</strong> "Haceme un juego con enemigos, monedas, power-ups, jefes...". → Dividí el pedido.</li>
+      <li><strong>El pedido sin contexto:</strong> "Arreglá esto". → Pegá el código y el error.</li>
+      <li><strong>El pedido con supuestos:</strong> "Haceme un juego como el Mario". → Especificá características.</li>
+      <li><strong>El pedido emocional:</strong> "Necesito que me ayudes porque estoy trabado...". → Eliminá lo emocional.</li>
+    </ol>
+
+    <h2>La fórmula del pedido</h2>
+    <pre data-lang="fórmula"><code>CONTEXTO + TAREA + RESTRICCIONES + FORMATO</code></pre>
+    <p>La fórmula funciona para cualquier tipo de pedido: código, texto o análisis.</p>
+
+    <h2>El poder del ejemplo</h2>
+    <p>Hay una técnica que multiplica la precisión del pedido: dar ejemplos. En vez de describir lo que querés, mostralo. "Haceme un proceso DIV para un enemigo. Acá hay uno parecido que ya tengo [código]. Quiero algo similar pero que persiga al jugador". El ejemplo elimina la ambigüedad. Un ejemplo vale más que mil palabras. Y los ejemplos son precódigo.</p>
+
+    <h2>El pedido iterativo</h2>
+    <p>A veces, el pedido no puede ser completo desde el principio. En esos casos, el pedido iterativo está bien. Pero tiene que ser iterativo, no conversacional.</p>
+    <p><strong>Conversacional (malo):</strong> "Hola" → "Necesito ayuda" → "Es sobre un juego".</p>
+    <p><strong>Iterativo (bueno):</strong> [Pedido completo] → [Respuesta] → "Perfecto. Ahora modificá Y" → [Respuesta].</p>
+    <p>La diferencia: en el iterativo, cada mensaje es un pedido completo. En el conversacional, cada mensaje es un fragmento. Iterá, no converses.</p>
+
+    <h2>Cómo medir si tu pedido es bueno</h2>
+    <p>Hay una prueba simple: ¿podrías responder tu propio pedido? Si le das tu pedido a otra persona que no sabe nada de tu proyecto, ¿podría responder con precisión? Si la respuesta es sí, el pedido es bueno. Si la respuesta es no, el pedido es malo. Y hay que mejorarlo. La prueba del extraño es simple, efectiva y te salva de muchos problemas.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El 90% de los problemas con LLMs vienen de pedidos mal formulados.</li>
+        <li>Un pedido bien formulado tiene cuatro partes: contexto, tarea, restricciones, formato.</li>
+        <li>Los cinco errores más comunes son: vago, múltiple, sin contexto, con supuestos, emocional.</li>
+        <li>La fórmula CONTEXTO + TAREA + RESTRICCIONES + FORMATO funciona para cualquier tipo de pedido.</li>
+        <li>Los ejemplos multiplican la precisión del pedido.</li>
+        <li>Iterar está bien. Conversar no. Cada mensaje tiene que ser un pedido completo.</li>
+        <li>La prueba del extraño te dice si tu pedido es bueno.</li>
+        <li>El problema no se arregla iterando. Se arregla reformulando.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>En el próximo capítulo vamos a ver cómo combinar pedidos bien formulados con precódigo. Porque el pedido bien formulado reduce la ambigüedad. Pero el precódigo la elimina. Y cuando combinás los dos, el resultado es el mejor de los mundos. Eso es el flujo completo.</p>
+    </div>
+  </div>
+</article>
+<!-- CAPÍTULO 8 -->
+<article class="chapter" id="cap8">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 8 · Parte II</div>
+    <h1 class="chapter-title">El flujo completo: pedido + precódigo</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Llegamos al capítulo que integra todo. Los capítulos anteriores fueron piezas separadas: diagnóstico, solución, por qué no lo hacemos naturalmente, y cómo formular un pedido. Ahora vamos a unir todo.</p>
+    <p>Porque el pedido bien formulado reduce la ambigüedad. Pero el precódigo la elimina. Y cuando los combinás, el resultado es el mejor de los mundos: pedido claro, contexto rico, template como base, formato específico, y un solo intento.</p>
+
+    <h2>La receta</h2>
+    <ol>
+      <li>Elegí un template que se parezca a lo que querés.</li>
+      <li>Copiá el template al contexto.</li>
+      <li>Formulá el pedido completo (contexto + tarea + restricciones + formato).</li>
+      <li>Enviá UN solo mensaje.</li>
+      <li>Recibí el resultado en UN solo intento.</li>
+      <li>Si hay que ajustar, reformulá el pedido completo (no converses).</li>
+    </ol>
+    <p><strong>Seis pasos. Un solo round-trip. El 90% del resultado en el primer intento.</strong></p>
+
+    <h2>Paso 1: Elegí el template correcto</h2>
+    <p>El template correcto no es el más parecido. Es el más cercano a lo que querés lograr. En wxdiv, los templates son los presets. Si querés un juego de naves, empezá con Space Shooter. Si querés un juego de plataformas, empezá con Platformer. No empieces de cero. El template es el 80% del resultado. El pedido es el 20%.</p>
+
+    <h2>Paso 2: Copiá el template al contexto</h2>
+    <p>Acá está el paso que más gente omite. Y es el que más importa. Tenés el template. Pegalo en el mensaje. No se lo describas. Mostralo. Mal: "Tengo un template de juego de naves. Haceme uno parecido." Bien: "Acá está mi template de juego de naves [código completo]. Haceme uno parecido pero con las siguientes modificaciones..." Menos adivinanza. Menos ambigüedad. Menos tokens.</p>
+
+    <h2>Paso 3: Formulá el pedido completo</h2>
+    <p>Aplicamos la fórmula del Capítulo 7: CONTEXTO + TAREA + RESTRICCIONES + FORMATO.</p>
+    <pre data-lang="prompt"><code>[Contexto]
+Estoy trabajando en wxdiv. Acá está mi template de juego de naves [código].
+
+[Tarea]
+Necesito adaptar este template para hacer un juego de naves con:
+- 3 tipos de enemigos distintos (lento, rápido, y jefe)
+- Sistema de power-ups (disparo triple y escudo)
+- Sistema de puntuación con high score
+
+[Restricciones]
+- Usá los sprites existentes de la FPG (ID 1-10)
+- Mantené la estructura del template (procesos, colisiones, loop)
+- El jefe final tiene que aparecer cada 1000 puntos
+- No agregues sonidos nuevos (usá los del template)
+
+[Formato]
+Devolveme solo el código completo, sin explicaciones. Sin comentarios.</code></pre>
+
+    <h2>Paso 4 y 5: Enviá UN solo mensaje y recibí el resultado</h2>
+    <p>Un solo mensaje. No diez. No tres. Uno. Y en ese mensaje, todo. La regla es simple: si tenés que escribir dos mensajes, no formulaste bien el pedido. Si el pedido está bien formulado, la IA responde bien en el primer intento. La métrica clave: ¿cuántos round-trips necesitaste? 1 round-trip → pedido excelente. 6+ round-trips → pedido mal formulado.</p>
+
+    <h2>Paso 6: Reformulá, no converses</h2>
+    <p>Si el resultado no es exactamente lo que querías, no converses. Reformulá. Conversacional (malo): "No, así no" → "Entendido, ¿qué querés cambiar?" → "Que el enemigo sea más rápido". Iterativo (bueno): "[Pedido completo reformulado] Acá está el template original [código]. Acá está el resultado anterior [código]. Necesito que el enemigo sea 2x más rápido... Devolveme solo el código completo."</p>
+
+    <h2>Los tres principios del flujo completo</h2>
+    <ol>
+      <li><strong>Principio 1: El template es el 80%.</strong> No importa cuán bueno sea tu pedido. Si no tenés un template, la IA improvisa.</li>
+      <li><strong>Principio 2: Un pedido, un mensaje.</strong> No conviertas. No fragmentes. Un pedido completo. Un solo round-trip.</li>
+      <li><strong>Principio 3: Reformulá, no converses.</strong> La conversación multiplica contexto. La reformulación lo mantiene acotado.</li>
+    </ol>
+
+    <h2>Las métricas del flujo completo</h2>
+    <table>
+      <thead><tr><th>Métrica</th><th>Antes</th><th>Después</th><th>Reducción</th></tr></thead>
+      <tbody>
+        <tr><td>Round-trips por tarea</td><td>3.2</td><td>1.1</td><td>66%</td></tr>
+        <tr><td>Tokens por tarea</td><td>8.000</td><td>600</td><td>93%</td></tr>
+        <tr><td>Tiempo por tarea</td><td>8 min</td><td>1.5 min</td><td>81%</td></tr>
+        <tr><td>Satisfacción del usuario</td><td>6/10</td><td>9/10</td><td>+50%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El flujo completo combina pedido bien formulado + precódigo.</li>
+        <li>Los seis pasos: elegir template, copiarlo, formular pedido, enviar, recibir, reformular.</li>
+        <li>El template es el 80% del resultado.</li>
+        <li>Un pedido, un mensaje. No fragmentes. No conviertas.</li>
+        <li>Reformulá, no converses. La conversación multiplica contexto.</li>
+        <li>El flujo completo reduce tokens 90% y mejora la experiencia.</li>
+      </ol>
+    </div>
+
+    <div class="next-step">
+      <h4>Y ahora, el siguiente paso</h4>
+      <p>Ahora pasamos a la Parte III: aplicación. Los próximos capítulos van a ser casos de uso concretos en distintos dominios: desarrollo web, análisis de datos, escritura y diseño.</p>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 9 -->
+<article class="chapter" id="cap9">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 9 · Parte III</div>
+    <h1 class="chapter-title">Precódigo para desarrollo web</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Si sos desarrollador web, conocés la escena. Tenés que construir un formulario, un dashboard, o un modal. Y tenés dos opciones: escribirlo desde cero (lento, propenso a errores) o pedirle a la IA que lo escriba desde cero (rápido, pero inconsistente y caro). La opción 2 tiene un problema: cada vez que pedís algo, la IA escribe código distinto. El proyecto se vuelve un Frankenstein.</p>
+
+    <h2>La solución: tu propio precódigo</h2>
+    <p>El precódigo para desarrollo web es <strong>tu código existente</strong>. Los componentes que ya escribiste. Las convenciones que ya tenés. En vez de pedirle a la IA que invente un componente nuevo, le das un componente existente y le pedís que lo adapte.</p>
+    <pre data-lang="tsx"><code><span class="com">// Button.tsx (Tu componente base)</span>
+<span class="kw">interface</span> <span class="type">ButtonProps</span> {
+  label: <span class="type">string</span>;
+  onClick: () =&gt; <span class="type">void</span>;
+  variant?: <span class="str">'primary'</span> | <span class="str">'secondary'</span> | <span class="str">'danger'</span>;
+  size?: <span class="str">'sm'</span> | <span class="str">'md'</span> | <span class="str">'lg'</span>;
+}
+
+<span class="kw">export const</span> <span class="fn">Button</span>: <span class="type">React.FC</span>&lt;<span class="type">ButtonProps</span>&gt; = ({ label, onClick, variant = <span class="str">'primary'</span> }) =&gt; {
+  <span class="kw">return</span> &lt;<span class="kw">button</span> className={<span class="str">`btn btn-${variant}`</span>} onClick={onClick}&gt;{label}&lt;/<span class="kw">button</span>&gt;;
+};</code></pre>
+    <p>Ahora querés un botón con ícono. Con precódigo: "Acá está mi componente Button.tsx [código]. Adaptalo para que acepte un ícono opcional. Mantené las mismas variantes. Devolveme solo el componente modificado." La IA responde con 150 tokens. Y sigue exactamente tus convenciones.</p>
+
+    <h2>Los tres tipos de precódigo web</h2>
+    <ol>
+      <li><strong>Componentes base:</strong> Botones, inputs, modales, tabs. Los átomos de tu interfaz.</li>
+      <li><strong>Patrones de composición:</strong> LoginForm, DashboardLayout, FilterableList. Combinaciones de componentes.</li>
+      <li><strong>Convenciones del proyecto:</strong> Estructura de carpetas, nombres de archivos, uso de hooks, estilos. Decisiones que tomaste y que querés que se mantengan.</li>
+    </ol>
+
+    <h2>El caso de las convenciones</h2>
+    <p>Las convenciones son el precódigo más subestimado. Nadie las escribe. Nadie las documenta. Pero todos las tienen. Documentalas. Escribí un <code>CONVENTIONS.md</code> con todas tus decisiones. Cuando le pidas algo a la IA, incluí el <code>CONVENTIONS.md</code> en el contexto. La IA va a respetar exactamente tus convenciones. El costo: 1 hora escribiendo el archivo. El ahorro: miles de tokens y horas de refactor.</p>
+
+    <h2>Un flujo típico en desarrollo web</h2>
+    <p>Objetivo: crear un componente ProductCard. Paso 1: Buscar el componente más parecido (UserProfileCard). Paso 2: Formular el pedido incluyendo el código de UserProfileCard y Button. Paso 3: Recibir (~400 tokens, 1 round-trip). Paso 4: Ajustar si hace falta (reformulando, no conversando). Total: 2 round-trips. ~800 tokens. 3 minutos. Sin el flujo: 8 round-trips. ~5.000 tokens. 30 minutos.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El precódigo para desarrollo web es tu propio código existente.</li>
+        <li>Los tres tipos: componentes base, patrones de composición, convenciones.</li>
+        <li>Tu biblioteca de componentes es el precódigo. Usala.</li>
+        <li>Documentá tus convenciones. Es lo más subestimado.</li>
+        <li>Ahorro típico: 85% en tokens, 80% en tiempo.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 10 -->
+<article class="chapter" id="cap10">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 10 · Parte III</div>
+    <h1 class="chapter-title">Precódigo para análisis de datos</h1>
+  </div>
+  <div class="chapter-body">
+    <p>En desarrollo web hay componentes. En análisis de datos no. Hay consultas, transformaciones, visualizaciones, modelos. Pero los principios son los mismos. Y el ahorro, también.</p>
+
+    <h2>La solución: tus propios análisis</h2>
+    <p>El precódigo para análisis de datos es tu código existente. Las consultas que ya escribiste. Las transformaciones que ya usás. En vez de pedirle a la IA que invente un análisis nuevo, le das un análisis existente y le pedís que lo adapte.</p>
+    <pre data-lang="python"><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">def</span> <span class="fn">load_and_clean_data</span>(filepath: <span class="type">str</span>) -&gt; pd.DataFrame:
+    <span class="str">"""Carga un CSV y aplica limpieza estándar."""</span>
+    df = pd.read_csv(filepath)
+    df.columns = df.columns.str.lower().str.replace(<span class="str">' '</span>, <span class="str">'_'</span>)
+    date_cols = [col <span class="kw">for</span> col <span class="kw">in</span> df.columns <span class="kw">if</span> <span class="str">'date'</span> <span class="kw">in</span> col]
+    <span class="kw">for</span> col <span class="kw">in</span> date_cols:
+        df[col] = pd.to_datetime(df[col], errors=<span class="str">'coerce'</span>)
+    <span class="kw">return</span> df.drop_duplicates()</code></pre>
+    <p>Con precódigo: "Acá está mi función load_and_clean_data() [código]. Usala como base para cargar datos de ventas. Agrupá por mes, calculá el total, y mostrá el crecimiento. Devolveme solo el código." 200 tokens. Un round-trip.</p>
+
+    <h2>Los tres tipos de precódigo para datos</h2>
+    <ol>
+      <li><strong>Funciones base:</strong> Utilidades que usás en todos lados (cargar, limpiar, graficar).</li>
+      <li><strong>Plantillas de análisis:</strong> Estructuras comunes (análisis exploratorio, A/B test, series temporales).</li>
+      <li><strong>Convenciones del proyecto:</strong> Librerías, estructura de carpetas, formato de outputs.</li>
+    </ol>
+
+    <h2>El caso de las visualizaciones</h2>
+    <p>Las visualizaciones son el caso más claro de precódigo en datos. Porque son repetitivas. Siempre querés título, ejes etiquetados, grid, colores consistentes. Si tenés una función <code>plot_time_series()</code> que hace todo eso, no la reinventes cada vez. Pasala como contexto. Pedí que la adapte.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El precódigo para análisis de datos es tu propio código existente.</li>
+        <li>Tus notebooks anteriores son el precódigo. Usalos.</li>
+        <li>Las visualizaciones son el caso más claro. No las reinventes.</li>
+        <li>Ahorro típico: 80% en tokens, 85% en tiempo.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 11 -->
+<article class="chapter" id="cap11">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 11 · Parte III</div>
+    <h1 class="chapter-title">Precódigo para escritura</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Escribir no compila. No hay tests. No hay errores de sintaxis. Hay texto. Y el texto es ambiguo. Pero los principios son los mismos.</p>
+
+    <h2>El problema del escritor</h2>
+    <p>La IA escribe como IA. Sus textos son genéricos, predecibles, sin voz propia, con clichés, con estructuras repetidas. Y encima, cada pedido consume miles de tokens.</p>
+
+    <h2>La solución: tus propios textos</h2>
+    <p>El precódigo para escritura es tu escritura existente. Los textos que ya escribiste. Los estilos que ya usás. En vez de pedirle a la IA que invente un texto nuevo, le das un texto existente y le pedís que lo adapte.</p>
+
+    <h2>Los tres tipos de precódigo para escritura</h2>
+    <ol>
+      <li><strong>Estructuras base:</strong> Plantillas de tus textos (artículo, email, documentación).</li>
+      <li><strong>Voz y tono:</strong> Características de tu escritura (primera persona, oraciones cortas, humor seco).</li>
+      <li><strong>Ejemplos canónicos:</strong> Los textos que mejor te representan. Tu mejor artículo, tu mejor email.</li>
+    </ol>
+
+    <h2>El caso del "escribí como yo"</h2>
+    <p>Hay una técnica que multiplica la precisión del pedido: dar un ejemplo de tu escritura. En vez de describir tu voz, mostrala. "Acá está un artículo que escribí [código]. Quiero otro artículo con el mismo tono." La IA ve tu tono. Y lo reproduce. Un ejemplo vale más que mil descripciones.</p>
+
+    <h2>El caso de la documentación</h2>
+    <p>La documentación es el caso más claro de precódigo en escritura. Porque es repetitiva. Siempre querés: Overview, Instalación, Uso, Ejemplos, API, FAQ. Si tenés una estructura que usás siempre, no la reinventes cada vez. Pasala como contexto. Pedí que la adapte.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El precódigo para escritura es tu propia escritura existente.</li>
+        <li>Dar un ejemplo de tu escritura multiplica la precisión.</li>
+        <li>La documentación y los emails son casos claros. Usá plantillas.</li>
+        <li>Ahorro típico: 75% en tokens, 80% en tiempo. Y la calidad sube.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 12 -->
+<article class="chapter" id="cap12">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 12 · Parte III</div>
+    <h1 class="chapter-title">Precódigo para diseño</h1>
+  </div>
+  <div class="chapter-body">
+    <p>El diseño no es texto. No es código. No es análisis. Es visual. Es espacial. Es estético. Pero los principios son los mismos. Y el ahorro, también.</p>
+
+    <h2>El problema del diseñador</h2>
+    <p>La IA diseña como IA. Sus diseños son genéricos, predecibles, sin identidad, con layouts repetidos, con paletas que no son las tuyas.</p>
+
+    <h2>La solución: tus propios diseños</h2>
+    <p>El precódigo para diseño es tu diseño existente. Las pantallas que ya diseñaste. Los componentes que ya tenés. Los estilos que ya usás. En vez de pedirle a la IA que invente un diseño nuevo, le das un diseño existente y le pedís que lo adapte.</p>
+
+    <h2>Los tres tipos de precódigo para diseño</h2>
+    <ol>
+      <li><strong>Componentes base:</strong> Botones, inputs, cards, modales.</li>
+      <li><strong>Patrones de composición:</strong> LoginForm, DashboardLayout, FilterableList.</li>
+      <li><strong>Sistema de diseño:</strong> Colores, tipografías, espaciados, radios, sombras.</li>
+    </ol>
+
+    <h2>El caso del sistema de diseño</h2>
+    <p>El sistema de diseño es el precódigo más subestimado. Nadie lo escribe. Nadie lo documenta. Pero todos lo tienen. Documentalo. Escribí un <code>DESIGN_SYSTEM.md</code> con todas tus decisiones. Cuando le pidas algo a la IA, incluí el <code>DESIGN_SYSTEM.md</code> en el contexto. La IA va a respetar exactamente tu sistema.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El precódigo para diseño es tu propio diseño existente.</li>
+        <li>Figma es precódigo puro. Si lo tenés, aprovechalo.</li>
+        <li>Documentá tu sistema de diseño. Es lo más subestimado.</li>
+        <li>Ahorro típico: 75% en tokens, 80% en tiempo.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 13 -->
+<article class="chapter" id="cap13">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 13 · Parte IV</div>
+    <h1 class="chapter-title">El futuro del precódigo</h1>
+  </div>
+  <div class="chapter-body">
+    <p>El precódigo no es una técnica pasajera. No es un truco para ahorrar tokens hoy. Es un cambio estructural en cómo construimos software. Y ese cambio ya empezó.</p>
+
+    <h2>Lo que está cambiando</h2>
+    <p>Durante los últimos 50 años, la programación tuvo una forma estable: escribís código, lo compilás, lo ejecutás, lo mantenés. El código era el artefacto central. Ahora, con los LLMs, el código deja de ser el artefacto central. Lo principal es la descripción. Y la descripción se puede reutilizar. Eso es precódigo.</p>
+
+    <h2>Las tres olas</h2>
+    <ol>
+      <li><strong>Ola 1: Precódigo individual (2024-2026).</strong> Cada persona construye su propio precódigo. Ventaja: control total. Desventaja: cada uno empieza de cero.</li>
+      <li><strong>Ola 2: Precódigo compartido (2026-2029).</strong> Equipos y comunidades empiezan a compartir precódigo. El conocimiento se acumula.</li>
+      <li><strong>Ola 3: Precódigo como estándar (2029 en adelante).</strong> Los lenguajes, frameworks e IDEs están diseñados alrededor del precódigo. El código es el output, no el input.</li>
+    </ol>
+
+    <h2>Lo que va a pasar con la IA</h2>
+    <p>Los modelos van a ser más baratos, más rápidos, más capaces y más especializados. Y cuanto más capaz es el modelo, más se nota la diferencia entre un buen contexto (precódigo) y un mal contexto.</p>
+
+    <h2>El manifiesto del precódigo</h2>
+    <ol>
+      <li><strong>No inventes. Adaptá.</strong> El código que ya escribiste es tu mejor contexto.</li>
+      <li><strong>Un pedido, un mensaje.</strong> No conviertas. No fragmentes.</li>
+      <li><strong>Reformulá, no converses.</strong> Si el resultado no es el que querías, reformulá.</li>
+      <li><strong>Documentá tus convenciones.</strong> Lo que no está escrito, no existe.</li>
+      <li><strong>Guardá tus templates.</strong> Cada template que guardás ahorra tokens para siempre.</li>
+      <li><strong>Medí el resultado.</strong> Lo que no se mide, no se mejora.</li>
+      <li><strong>Compartí.</strong> El precódigo se multiplica cuando se comparte.</li>
+      <li><strong>Acumulá.</strong> Cada template es una inversión.</li>
+      <li><strong>Empezá chico.</strong> Un template. Una convención. Un dominio.</li>
+      <li><strong>No pares.</strong> El precódigo es un proceso. No un destino.</li>
+    </ol>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El precódigo es un cambio estructural. Viene en tres olas.</li>
+        <li>Los modelos van a ser más baratos, rápidos y capaces.</li>
+        <li>El precódigo va a ser más estructurado, compartido e inteligente.</li>
+        <li>Tenés dos opciones: ignorar el cambio o adaptarte.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 14 -->
+<article class="chapter" id="cap14">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 14 · Parte IV</div>
+    <h1 class="chapter-title">Cómo implementar precódigo en tu proyecto</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Este capítulo es una guía paso a paso. No teoría. No conceptos. Pasos concretos. Con herramientas concretas. Con resultados concretos. Y lo mejor: podés empezar hoy. Con lo que ya tenés. Sin comprar nada.</p>
+
+    <h2>Antes de empezar: la mentalidad</h2>
+    <p>El precódigo no es un proyecto. Es una práctica. No es algo que hacés una vez y terminás. Es algo que incorporás a tu forma de trabajar. Como lavarte los dientes. Como hacer backup. Como escribir tests. Empezá chico. No pares. Y acumulá.</p>
+
+    <h2>Fase 1: Diagnóstico (1 semana)</h2>
+    <ol>
+      <li><strong>Elegí un proyecto.</strong> El que más usás. El que más repetís.</li>
+      <li><strong>Identificá los patrones.</strong> Durante una semana, anotá todo lo que repetís. Funciones, código copiado, pedidos a la IA.</li>
+      <li><strong>Priorizá.</strong> De la lista, elegí los 5 más importantes por frecuencia, costo e impacto.</li>
+    </ol>
+
+    <h2>Fase 2: Construcción (2 semanas)</h2>
+    <ol>
+      <li><strong>Escribí el primer template.</strong> Una versión genérica. Que funcione. Que sea reutilizable.</li>
+      <li><strong>Documentá el template.</strong> Qué es, cuándo usarlo, props, ejemplo.</li>
+      <li><strong>Usalo.</strong> En un caso real. No en un ejemplo.</li>
+      <li><strong>Medí.</strong> Tokens, round-trips, tiempo.</li>
+      <li><strong>Repetí.</strong> Con otro template.</li>
+    </ol>
+
+    <h2>Fase 3: Consolidación (1 mes)</h2>
+    <ol>
+      <li><strong>Organizá los templates.</strong> Estructura sugerida: <code>templates/web/</code>, <code>templates/data/</code>, <code>templates/writing/</code>, <code>templates/design/</code>.</li>
+      <li><strong>Escribí las convenciones.</strong> Un archivo <code>CONVENTIONS.md</code> con todas tus decisiones.</li>
+      <li><strong>Integrá en el flujo.</strong> Antes de pedir algo a la IA, buscá el template más parecido.</li>
+    </ol>
+
+    <h2>Fase 4: Escalado (3 meses)</h2>
+    <ol>
+      <li><strong>Ampliá los dominios.</strong> Si empezaste con web, agregá datos. Si empezaste con datos, agregá escritura.</li>
+      <li><strong>Compartí.</strong> Si trabajás en equipo, compartí los templates.</li>
+      <li><strong>Medí el impacto.</strong> Cuántos templates tenés. Cuántas veces los usaste. Cuántos tokens ahorraste.</li>
+      <li><strong>Iterá.</strong> Revisá los templates que no usás. Mejorá los que usás mucho.</li>
+    </ol>
+
+    <h2>Los errores comunes</h2>
+    <ol>
+      <li><strong>Querer hacer todo de una.</strong> → Empezá con uno. Después dos. Después cinco.</li>
+      <li><strong>Hacer templates muy específicos.</strong> → Hacé templates genéricos. Que se adapten.</li>
+      <li><strong>No documentar.</strong> → Documentá cada template. Sin documentación, no existe.</li>
+      <li><strong>No medir.</strong> → Medí el ahorro. Tokens. Tiempo. Calidad.</li>
+      <li><strong>No compartir.</strong> → Compartí. Con tu equipo. Con tu comunidad.</li>
+    </ol>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>El precódigo es una práctica, no un proyecto. Empezá chico. No pares. Acumulá.</li>
+        <li>Fase 1: diagnóstico (1 semana). Fase 2: construcción (2 semanas).</li>
+        <li>Fase 3: consolidación (1 mes). Fase 4: escalado (3 meses).</li>
+        <li>No necesitás herramientas especiales. Algunas ayudan.</li>
+        <li>En 3 meses, vas a tener un sistema funcionando. En 1 año, no vas a poder trabajar sin él.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 15 -->
+<article class="chapter" id="cap15">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 15 · Parte IV</div>
+    <h1 class="chapter-title">Casos de éxito</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Este capítulo presenta proyectos reales que aplicaron estrategias de precódigo, reutilización de contexto, o compresión de tokens. Con sus números. Con sus enfoques. Con sus limitaciones.</p>
+
+    <h2>AIR: Representación Intermedia</h2>
+    <p><strong>Qué es:</strong> AIR (AI Intermediate Representation) propone una capa intermedia entre el prompt y el modelo. <strong>Resultados:</strong> Reducciones promedio de tokens del 45-57% en ocho dominios, con una tasa de validación del 83-96%. En una variante posterior (AIR-SR), la reducción fue del 81.8%.</p>
+
+    <h2>Caveman: Decir menos, hacer más</h2>
+    <p><strong>Qué es:</strong> Plugin de compresión de salida para agentes de IA. <strong>Resultados:</strong> 10 prompts lograron una reducción media de salida del 65%, con un rango de 22% a 87%. <strong>La lección:</strong> Buena parte del costo de la IA no es la IA. Es cómo le pedís que responda.</p>
+
+    <h2>Headroom: Comprimir antes de que llegue al modelo</h2>
+    <p><strong>Qué es:</strong> Librería y proxy que comprime todo lo que el agente lee antes de que llegue al LLM. <strong>Resultados:</strong> 60-95% menos tokens para JSON. Un caso documentado: de 10.144 tokens a 1.260 tokens (87% menos).</p>
+
+    <h2>Cursor: Descubrimiento dinámico de contexto</h2>
+    <p><strong>Qué es:</strong> IDE con IA integrada que carga solo el contexto necesario para cada tarea. <strong>Resultados:</strong> Redujo los tokens totales del agente en un 46.9%.</p>
+
+    <h2>Sourcegraph: Contexto correcto, no contexto masivo</h2>
+    <p><strong>Qué es:</strong> Plataforma que da a los agentes de IA el contexto correcto en el momento correcto. <strong>Resultados:</strong> 30% de ahorro de tokens y 38% de ejecución más rápida.</p>
+
+    <h2>Aider: El motor de diff</h2>
+    <p><strong>Qué es:</strong> Agente de código que envía solo las líneas que cambian, en vez de reenviar el código completo. <strong>Resultados:</strong> Redujo los costos de API de GPT-4 para tareas de código en 60-70%.</p>
+
+    <h2>EngramDev: Templates locales, cero tokens</h2>
+    <p><strong>Qué es:</strong> Servidor MCP que sirve templates locales. Cuando coincide exactamente, se sirve directamente sin llamar al LLM (cero tokens). <strong>Resultados:</strong> Coincidencia exacta → cero tokens. Coincidencia parcial → tokens mínimos.</p>
+
+    <h2>GitHub Copilot: Instrucciones estructuradas</h2>
+    <p><strong>Qué es:</strong> Archivos de instrucciones (<code>.github/copilot-instructions.md</code>) que se cargan automáticamente. <strong>Resultados:</strong> Cuando no se necesita la documentación detallada, se ahorra ~80% de tokens.</p>
+
+    <h2>La lección común</h2>
+    <p>¿Qué tienen en común todos estos proyectos? Todos reducen tokens sin reducir la calidad del resultado. Y todos lo hacen con la misma idea de fondo: <strong>no le pidas al modelo que invente lo que ya existe</strong>. No generes desde cero. Reutilizá. Adaptá. Comprimí. Componé.</p>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>AIR → representación intermedia, 45-81% de reducción.</li>
+        <li>Caveman → respuesta compacta, 65% de reducción.</li>
+        <li>Headroom → compresión de contexto, 60-95% de reducción.</li>
+        <li>Cursor → contexto dinámico, 46.9% de reducción.</li>
+        <li>Sourcegraph → contexto curado, 30% de ahorro.</li>
+        <li>Aider → diff engine, 60-70% de reducción.</li>
+        <li>EngramDev → templates locales, cero tokens en coincidencias.</li>
+        <li>Copilot → instrucciones estructuradas, 80% de ahorro.</li>
+        <li>No todos son comparables. Pero todos demuestran lo mismo: reutilizar contexto funciona.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- CAPÍTULO 16 -->
+<article class="chapter" id="cap16">
+  <div class="chapter-header">
+    <div class="chapter-number">Capítulo 16 · Parte IV</div>
+    <h1 class="chapter-title">Cómo empezar hoy (guía práctica)</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Llegamos al último capítulo. Y este es el más importante. Porque de nada sirve leer 15 capítulos si no hacés nada con ellos. Este capítulo es una guía de 7 días. Siete días para implementar precódigo en tu flujo de trabajo. Sin herramientas especiales. Sin costos. Sin excusas.</p>
+
+    <h2>Día 1: Diagnóstico</h2>
+    <p><strong>Objetivo:</strong> entender qué tenés. <strong>Tareas:</strong> Elegí un proyecto. Anotá todo lo que repetís durante el día. Al final del día, revisá la lista. Vas a tener 5-10 patrones. <strong>Tiempo:</strong> 1-2 horas.</p>
+
+    <h2>Día 2: Priorización</h2>
+    <p><strong>Objetivo:</strong> elegir los 3 primeros templates. <strong>Tareas:</strong> De la lista del Día 1, elegí los 3 más frecuentes. Ordenalos por impacto total (frecuencia × costo). <strong>Tiempo:</strong> 30 minutos.</p>
+
+    <h2>Día 3: Primer template</h2>
+    <p><strong>Objetivo:</strong> escribir, documentar, y usar tu primer template. <strong>Tareas:</strong> Elegí el patrón más importante. Escribí una versión genérica. Documentalo. Usalo en un caso real. Medí el ahorro. <strong>Tiempo:</strong> 1-2 horas.</p>
+
+    <h2>Día 4 y 5: Segundo y tercer template</h2>
+    <p><strong>Objetivo:</strong> repetir el proceso con el segundo y tercer patrón. <strong>Tiempo:</strong> 1-2 horas cada día.</p>
+
+    <h2>Día 6: Consolidación</h2>
+    <p><strong>Objetivo:</strong> organizar y documentar. <strong>Tareas:</strong> Creá una carpeta <code>templates/</code>. Movete los 3 templates ahí. Escribí un <code>README.md</code> en la carpeta. Escribí un <code>CONVENTIONS.md</code> en la raíz del proyecto. <strong>Tiempo:</strong> 1 hora.</p>
+
+    <h2>Día 7: Medición y plan</h2>
+    <p><strong>Objetivo:</strong> medir resultados y planificar el futuro. <strong>Tareas:</strong> Medí el ahorro total de la semana. Escribí un plan para el próximo mes. Compartí los templates con tu equipo. Celebrá. Lo lograste. <strong>Tiempo:</strong> 1 hora.</p>
+
+    <h2>Lo que vas a notar con el tiempo</h2>
+    <ul>
+      <li><strong>Después de 30 días:</strong> 8-10 templates. 50-70% de ahorro en tokens. 40-60% en tiempo.</li>
+      <li><strong>Después de 90 días:</strong> 20-30 templates. 80-90% de ahorro. Vas a estar produciendo con mucha más calidad.</li>
+      <li><strong>Después de 1 año:</strong> 100+ templates. 90%+ de ahorro. Vas a ser referente en tu equipo o comunidad.</li>
+    </ul>
+
+    <h2>Los tres principios que tenés que recordar</h2>
+    <ol>
+      <li><strong>Principio 1: Empezá chico.</strong> No trates de construir 20 templates en una semana. Construí uno. Después dos. Después tres.</li>
+      <li><strong>Principio 2: No pares.</strong> El precódigo es un proceso. No un destino. Seguí agregando. Seguí mejorando. Seguí compartiendo.</li>
+      <li><strong>Principio 3: Acumulá.</strong> Cada template es una inversión. Cada template se acumula. En un año, vas a tener un sistema. En dos, una biblioteca. En tres, un activo.</li>
+    </ol>
+
+    <div class="summary">
+      <h4>Lo que aprendimos</h4>
+      <ol>
+        <li>7 días. Un plan concreto. Sin excusas.</li>
+        <li>Día 1: diagnóstico. Día 2: priorización. Día 3-5: construcción. Día 6: consolidación. Día 7: medición.</li>
+        <li>Después de 30 días: 8-10 templates, 50-70% de ahorro.</li>
+        <li>Después de 90 días: 20-30 templates, 80-90% de ahorro.</li>
+        <li>Después de 1 año: 100+ templates, 90%+ de ahorro.</li>
+        <li>Los tres principios: empezá chico, no pares, acumulá.</li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- EPÍLOGO -->
+<article class="chapter" id="epilogo">
+  <div class="chapter-header">
+    <div class="chapter-number">Epílogo</div>
+    <h1 class="chapter-title">El camino empieza hoy</h1>
+  </div>
+  <div class="chapter-body">
+    <p>Este libro empezó con una pregunta: <strong>¿por qué gastamos tanto en IA?</strong></p>
+    <p>Y la respuesta fue más profunda de lo que esperaba. No es un problema técnico. No es un problema de modelos. No es un problema de precios. Es un <strong>problema cognitivo</strong>. Es cómo percibimos. Cómo antropomorfizamos. Cómo interactuamos. Cómo nos relacionamos con algo que responde en lenguaje.</p>
+    <p>Y la solución también es cognitiva. Es cambiar la forma en que nos relacionamos con la IA. Dejar de tratarla como persona. Empezar a tratarla como herramienta. Y las herramientas se usan bien. Se reutilizan. Se comparten.</p>
+    <p>El precódigo es eso. Es la forma correcta de usar una herramienta. Es la forma correcta de trabajar con IA. No es una técnica. Es una práctica. No es un destino. Es un camino.</p>
+    <p>Y el camino empieza hoy.</p>
+    <div class="separator">◆ ◆ ◆</div>
+    <p>Gracias por leer. Ahora, andá a construir tu primer template.</p>
+    <p>Si querés seguir: compartí este libro con quien le pueda servir. Escribime si implementaste precódigo en tu proyecto. Contame qué funcionó. Contame qué no.</p>
+    <p>Si querés profundizar: leé los proyectos del Capítulo 15. Experimentá con Cursor, Continue, Aider. Construí tu propio sistema de precódigo.</p>
+    <p>Si querés contribuir: el precódigo es una práctica abierta. No tiene dueño. Compartí tus templates. Compartí tus convenciones. Compartí tus métricas. Ayudá a otros a empezar.</p>
+    <p>El futuro del software es colaborativo. El futuro del software es precódigo. Y el futuro empieza hoy.</p>
+  </div>
+</article>
+
+<!-- SOBRE EL AUTOR -->
+<section class="about" id="autor">
+  <div class="about-inner">
+    <h2>Sobre el Autor</h2>
+    <p>Este libro y la plataforma WineBOX han sido creados por un equipo interdisciplinario, liderado por el <strong>Lic. Emanuel Chanampa</strong>, neuropsicólogo clínico con amplia experiencia en el tratamiento de la ansiedad y los trastornos del neurodesarrollo en niños, adolescentes y adultos.</p>
+    <div class="credentials">
+      <p><strong>Matrícula Nacional:</strong> 56716</p>
+      <p><strong>Matrícula Provincial:</strong> 84132</p>
+      <p><strong>Especialidad:</strong> Neuropsicología Clínica</p>
+      <p><strong>Enfoque:</strong> Terapia Cognitivo-Conductual y Estimulación Cognitiva</p>
+    </div>
+    <p style="margin-top: 32px; font-style: italic;">Su trabajo combina el rigor científico con un profundo respeto por la singularidad de cada persona, diseñando herramientas accesibles que invitan a reconectar con la fuerza interior y a encontrar la propia calma.</p>
+    <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(201,169,97,0.3); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7;">
+      🧠 WineBOX · IA Precódigo<br>
+      © 2026 · Todos los derechos reservados · Con ciencia y corazón<br>
+      Emanuel Chanampa
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
