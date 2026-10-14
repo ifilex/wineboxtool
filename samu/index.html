@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMU AI v9.0 — Manual de Configuración</title>
+<style>
+  :root {
+    --bg: #0f1624;
+    --bg-2: #16203a;
+    --bg-3: #1c2842;
+    --bg-4: #243352;
+    --border: #2d3d5f;
+    --text: #e6ecf5;
+    --text-dim: #96a3bd;
+    --accent: #4ea8ff;
+    --accent-2: #7dd3fc;
+    --ok: #6ee7a6;
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --purple: #b794f6;
+    --shadow: 0 4px 20px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, #0d1a35 0%, #16203a 50%, #0d1a35 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(78,168,255,.12), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(183,148,246,.10), transparent 40%);
+    pointer-events: none;
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    letter-spacing: .3px;
+    background: linear-gradient(90deg, #7dd3fc, #4ea8ff, #b794f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+  }
+  header .subtitle {
+    color: var(--text-dim);
+    font-size: .95rem;
+    margin: 0;
+  }
+  header .version {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 4px 12px;
+    background: rgba(78,168,255,.15);
+    border: 1px solid rgba(78,168,255,.4);
+    border-radius: 999px;
+    font-size: .8rem;
+    color: var(--accent-2);
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  }
+
+  /* ===== LAYOUT ===== */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* ===== NAV ===== */
+  nav.toc {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+  }
+  nav.toc h2 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  nav.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  nav.toc a {
+    display: block;
+    padding: 8px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: .9rem;
+    transition: background .15s, color .15s;
+    border-left: 3px solid transparent;
+  }
+  nav.toc a:hover {
+    background: var(--bg-3);
+    color: var(--accent-2);
+    border-left-color: var(--accent);
+  }
+
+  /* ===== ALERT BOXES ===== */
+  .alert {
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid;
+    font-size: .93rem;
+  }
+  .alert-rule { background: rgba(251,191,36,.08); border-color: var(--warn); }
+  .alert-info { background: rgba(78,168,255,.08); border-color: var(--accent); }
+  .alert-danger { background: rgba(248,113,113,.08); border-color: var(--danger); }
+  .alert-ok { background: rgba(110,231,166,.08); border-color: var(--ok); }
+  .alert strong { color: var(--text); }
+
+  /* ===== SECTIONS ===== */
+  section {
+    margin-bottom: 40px;
+    scroll-margin-top: 20px;
+  }
+  section > h2 {
+    font-size: 1.35rem;
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+  }
+  section > h2 .icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    box-shadow: var(--shadow);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+    min-width: 640px;
+  }
+  thead {
+    background: var(--bg-3);
+    position: sticky;
+    top: 0;
+  }
+  th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--accent-2);
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(45,61,95,.5);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: rgba(78,168,255,.04); }
+
+  code, .mono {
+    font-family: ui-monospace, "SF Mono", "Consolas", "Monaco", monospace;
+    font-size: .86em;
+    background: rgba(78,168,255,.10);
+    color: var(--accent-2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* ===== BADGES ===== */
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: .74rem;
+    font-weight: 600;
+    letter-spacing: .4px;
+    white-space: nowrap;
+  }
+  .badge-yes { background: rgba(110,231,166,.15); color: var(--ok); border: 1px solid rgba(110,231,166,.35); }
+  .badge-no  { background: rgba(248,113,113,.15); color: var(--danger); border: 1px solid rgba(248,113,113,.35); }
+  .badge-mid { background: rgba(251,191,36,.15); color: var(--warn); border: 1px solid rgba(251,191,36,.35); }
+
+  /* ===== CARDS GRID ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    transition: transform .15s, border-color .15s;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .card h3 {
+    margin: 0 0 10px;
+    font-size: .95rem;
+    color: var(--accent-2);
+    letter-spacing: .3px;
+  }
+  .card p { margin: 6px 0; font-size: .88rem; color: var(--text-dim); }
+  .card code { font-size: .8em; }
+
+  /* ===== CODE BLOCK ===== */
+  pre {
+    background: #0a1120;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: .86rem;
+    line-height: 1.55;
+    color: #cbd5e1;
+    box-shadow: var(--shadow);
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+    white-space: pre;
+  }
+  pre .k { color: #7dd3fc; }
+  pre .v { color: #6ee7a6; }
+  pre .c { color: #64748b; font-style: italic; }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow);
+  }
+  .checklist label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(45,61,95,.7);
+    font-size: .92rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .checklist label:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    background: var(--bg-3);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+  .checklist input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .checklist input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: .85rem;
+  }
+
+  /* ===== DETAILS / ACCORDION ===== */
+  details {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 12px 0;
+    overflow: hidden;
+    transition: border-color .15s;
+  }
+  details[open] { border-color: var(--accent); }
+  summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: .95rem;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "＋";
+    color: var(--accent);
+    font-weight: 400;
+    font-size: 1.1rem;
+    transition: transform .2s;
+  }
+  details[open] summary::after { content: "−"; }
+  details > div { padding: 0 20px 18px; border-top: 1px solid var(--border); margin-top: -1px; }
+
+  /* ===== SYMPTOM GRID ===== */
+  .symptom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .symptom > div {
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: .88rem;
+  }
+  .symptom .sym {
+    background: rgba(248,113,113,.08);
+    border-left: 3px solid var(--danger);
+    font-family: ui-monospace, monospace;
+    color: #fca5a5;
+  }
+  .symptom .meaning {
+    background: var(--bg-3);
+    border-left: 3px solid var(--accent);
+    color: var(--text-dim);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-dim);
+    font-size: .82rem;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  footer strong { color: var(--accent-2); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .symptom { grid-template-columns: 1fr; }
+    section > h2 { font-size: 1.15rem; }
+    th, td { padding: 9px 10px; font-size: .84rem; }
+    .container { padding: 20px 14px 60px; }
+    nav.toc ul { grid-template-columns: 1fr; }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: #fff; color: #111; }
+    header, footer, nav.toc { background: #fff; color: #111; border-color: #ccc; }
+    header h1 { color: #111; background: none; -webkit-text-fill-color: #111; }
+    .table-wrap, .card, details, .checklist { background: #fff; border-color: #ccc; box-shadow: none; }
+    table th { color: #333; background: #f3f3f3; }
+    td { border-color: #ddd; }
+    code, .mono { background: #f3f3f3; color: #b91c1c; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚙️ SAMU AI v9.0 — Manual de Configuración</h1>
+  <p class="subtitle">Guía completa de cada parámetro del Expert Advisor</p>
+  <span class="version">Versión 9.00 · MT4</span>
+</header>
+
+<div class="container">
+
+  <!-- ======================= TOC ======================= -->
+  <nav class="toc" aria-label="Índice">
+    <h2>Índice</h2>
+    <ul>
+      <li><a href="#regla">🎯 Regla de oro</a></li>
+      <li><a href="#capital">💰 Gestión de capital</a></li>
+      <li><a href="#salida">🚀 Salida / Scalp</a></li>
+      <li><a href="#ia">🧠 IA</a></li>
+      <li><a href="#recovery">🔄 Recovery IA</a></li>
+      <li><a href="#saml">📜 SAML</a></li>
+      <li><a href="#cripto">🌐 Cripto</a></li>
+      <li><a href="#filtros">🔍 Filtros</a></li>
+      <li><a href="#cb">🛡️ Circuit Breaker</a></li>
+      <li><a href="#simbolos">🎯 Símbolos</a></li>
+      <li><a href="#visual">🎨 Visual</a></li>
+      <li><a href="#recomendada">⚡ Config recomendada</a></li>
+      <li><a href="#alarma">🚨 Señales de alarma</a></li>
+      <li><a href="#checklist">📋 Checklist</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======================= REGLA DE ORO ======================= -->
+  <section id="regla">
+    <div class="alert alert-rule">
+      <strong>🎯 Regla de oro:</strong> Solo tocá lo que está marcado como
+      <span class="badge badge-yes">AJUSTABLE</span>. Lo demás está calibrado por diseño.
+    </div>
+  </section>
+
+  <!-- ======================= CAPITAL ======================= -->
+  <section id="capital">
+    <h2><span class="icon">💰</span> Gestión de Capital</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Parámetro</th>
+            <th>Qué hace</th>
+            <th>Ajustable</th>
+            <th>Rango</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>RiesgoPorTrade</code></td>
+            <td>% del balance que arriesgás por operación</td>
+            <td><span class="badge badge-yes">SÍ</span></td>
+            <td>0.3 – 1.0</td>
+          </tr>
+          <tr>
+            <td><code>RiesgoMaxAbsoluto</code></td>
+            <td><strong>Tope físico por trade.</strong> Nunca se supera</td>
+            <td><span class="badge badge-no">NO</span></td>
+            <td>0.75</td>
+          </tr>
+          <tr>
+            <td><code>RiesgoAgregadoMax</code></td>
+            <td>% máximo sumando todas las posiciones</td>
+            <td><span class="badge badge-no">NO</span></td>
+            <td>2.50</td>
+          </tr>
+          <tr>
+            <td><code>FraccionKelly</code></td>
+            <td>Cuánto del Kelly teórico usar (¼ = conservador)</td>
+            <td><span class="badge badge-yes">SÍ</span></td>
+            <td>0.15 – 0.30</td>
+          </tr>
+          <tr>
+            <td><code>MaxOrdenesSimbolo</code></td>
+            <td>Máx órdenes abiertas por par</td>
+            <td><span class="badge badge-yes">SÍ</span></td>
+            <td>1 – 3</td>
+          </tr>
+          <tr>
+            <td><code>DistanciaGridPips</code></td>
+            <td>Pips mínimos entre órdenes del mismo par</td>
+            <td><span class="badge badge-yes">SÍ</span></td>
+            <td>20 – 50</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-info">
+      Subir <code>RiesgoPorTrade</code> = más retorno, más DD. No lo subas hasta 3 meses en demo con resultado positivo.
+    </div>
+  </section>
+
+  <!-- ======================= SALIDA ======================= -->
+  <section id="salida">
+    <h2><span class="icon">🚀</span> Salida / Scalp</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Parámetro</th>
+            <th>Qué hace</th>
+            <th>Ajustable</th>
+            <th>Rango</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>SL_BaseR</code></td><td>Distancia del Stop Loss (×ATR)</td><td><span class="badge badge-yes">SÍ</span></td><td>0.7 – 1.2</td></tr>
+          <tr><td><code>TP_BaseR</code></td><td>Distancia del Take Profit (×ATR)</td><td><span class="badge badge-yes">SÍ</span></td><td>0.8 – 1.5</td></tr>
+          <tr><td><code>ActivarFastExit</code></td><td>Cierra rápido si vuela en pocos minutos</td><td><span class="badge badge-yes">SÍ</span></td><td>ON/OFF</td></tr>
+          <tr><td><code>FastExit_R</code></td><td>A cuántas R cerrar rápido</td><td><span class="badge badge-yes">SÍ</span></td><td>0.3 – 0.7</td></tr>
+          <tr><td><code>FastExit_Min</code></td><td>Solo si llegó en menos de N minutos</td><td><span class="badge badge-yes">SÍ</span></td><td>3 – 15</td></tr>
+          <tr><td><code>Timeout_Scalp_Min</code></td><td>Cierra si no se movió en N min</td><td><span class="badge badge-yes">SÍ</span></td><td>30 – 90</td></tr>
+          <tr><td><code>ActivarBreakEven</code></td><td>Mueve SL a entrada cuando va a favor</td><td><span class="badge badge-yes">SÍ</span></td><td>ON/OFF</td></tr>
+          <tr><td><code>BreakEven_R</code></td><td>A cuántas R aplica BE</td><td><span class="badge badge-yes">SÍ</span></td><td>0.6 – 1.0</td></tr>
+          <tr><td><code>BreakEven_LockPips</code></td><td>Pips asegurados al mover a BE</td><td><span class="badge badge-yes">SÍ</span></td><td>1 – 5</td></tr>
+          <tr><td><code>ActivarTrailing</code></td><td>Sigue el precio con SL dinámico</td><td><span class="badge badge-yes">SÍ</span></td><td>ON/OFF</td></tr>
+          <tr><td><code>Trailing_StartR</code></td><td>A cuántas R empieza el trailing</td><td><span class="badge badge-yes">SÍ</span></td><td>1.0 – 1.5</td></tr>
+          <tr><td><code>Trailing_ATRMult</code></td><td>Distancia del trail (×ATR)</td><td><span class="badge badge-yes">SÍ</span></td><td>0.8 – 1.5</td></tr>
+          <tr><td><code>ActivarParcial</code></td><td>Cierra 50% del lote al llegar a X R</td><td><span class="badge badge-yes">SÍ</span></td><td>ON/OFF</td></tr>
+          <tr><td><code>Parcial_R</code></td><td>A cuántas R cierra parcial</td><td><span class="badge badge-yes">SÍ</span></td><td>0.8 – 1.5</td></tr>
+          <tr><td><code>Parcial_Pct</code></td><td>% del lote a cerrar</td><td><span class="badge badge-yes">SÍ</span></td><td>30 – 70</td></tr>
+          <tr><td><code>ActivarProfitLock</code></td><td><strong>Evita devolver ganancia grande</strong></td><td><span class="badge badge-yes">SÍ</span></td><td>ON/OFF</td></tr>
+          <tr><td><code>ProfitLock_MinUSD</code></td><td>Desde cuánto flotante vigila</td><td><span class="badge badge-yes">SÍ</span></td><td>15 – 50</td></tr>
+          <tr><td><code>ProfitLock_Back</code></td><td>Si devuelve N% del pico → cierra todo</td><td><span class="badge badge-yes">SÍ</span></td><td>30 – 50</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-ok">
+      <strong>El Profit Lock es el fix al bug que tuviste.</strong> Dejalo ON siempre.
+    </div>
+  </section>
+
+  <!-- ======================= IA ======================= -->
+  <section id="ia">
+    <h2><span class="icon">🧠</span> Inteligencia Artificial</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ActivarRedNeural</code></td><td>Prende/apaga la red neuronal</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+          <tr><td><code>LearningRateNN</code></td><td>Velocidad de aprendizaje</td><td><span class="badge badge-mid">⚠️ 0.005–0.02</span></td></tr>
+          <tr><td><code>MomentumNN</code></td><td>Inercia del gradiente</td><td><span class="badge badge-no">NO</span></td></tr>
+          <tr><td><code>VentanaEntrenamiento</code></td><td>Barras para entrenar</td><td><span class="badge badge-no">NO · 500</span></td></tr>
+          <tr><td><code>TamanoPoolEstrategias</code></td><td>N° estrategias genéticas</td><td><span class="badge badge-no">NO · 20</span></td></tr>
+          <tr><td><code>FrecuenciaEvolucion</code></td><td>Trades entre evoluciones del pool</td><td><span class="badge badge-no">NO · 50</span></td></tr>
+          <tr><td><code>MaxExperiencia</code></td><td>Buffer de memoria</td><td><span class="badge badge-no">NO · 5000</span></td></tr>
+          <tr><td><code>BatchReplay</code></td><td>Muestras por reentrenamiento</td><td><span class="badge badge-no">NO · 32</span></td></tr>
+          <tr><td><code>ReplaysPorHora</code></td><td>Reentrenamientos por hora</td><td><span class="badge badge-no">NO · 4</span></td></tr>
+          <tr><td><code>PesoRedNeural</code></td><td>Peso inicial NN vs pool</td><td><span class="badge badge-mid">⚠️ 0.5–0.7</span></td></tr>
+          <tr><td><code>PesoEnsemble</code></td><td>Peso inicial pool</td><td><span class="badge badge-mid">⚠️ 0.3–0.5</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-danger">
+      <strong>No toques nada de esta sección</strong> salvo que sepas lo que hacés. Todo está calibrado.
+    </div>
+  </section>
+
+  <!-- ======================= RECOVERY ======================= -->
+  <section id="recovery">
+    <h2><span class="icon">🔄</span> Recovery IA</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th><th>Rango</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ActivarRecovery</code></td><td>Activa el motor de recuperación</td><td><span class="badge badge-yes">SÍ</span></td><td>ON/OFF</td></tr>
+          <tr><td><code>Recov_TriggerR</code></td><td>R acumulada negativa que dispara recovery</td><td><span class="badge badge-yes">SÍ</span></td><td>-0.6 a -1.2</td></tr>
+          <tr><td><code>Recov_TriggerPct</code></td><td>O por % del balance negativo</td><td><span class="badge badge-yes">SÍ</span></td><td>0.8 – 2.0</td></tr>
+          <tr><td><code>Recov_TimeoutMin</code></td><td>Reevalúa táctica cada N min</td><td><span class="badge badge-yes">SÍ</span></td><td>10 – 30</td></tr>
+          <tr><td><code>Recov_MaxIntentos</code></td><td>Máx intentos antes de PROTECT</td><td><span class="badge badge-yes">SÍ</span></td><td>3 – 8</td></tr>
+          <tr><td><code>Recov_LotMultMax</code></td><td>Multiplicador máx del lote</td><td><span class="badge badge-no">NO</span></td><td>1.20</td></tr>
+          <tr><td><code>Recov_DamageCapPct</code></td><td><strong>Tope duro de pérdida en recovery</strong></td><td><span class="badge badge-no">NO</span></td><td>3.00</td></tr>
+          <tr><td><code>Recov_PausaHoras</code></td><td>Pausa tras activar PROTECT</td><td><span class="badge badge-yes">SÍ</span></td><td>2 – 12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-danger">
+      No subas <code>Recov_LotMultMax</code> ni <code>Recov_DamageCapPct</code>. Son el seguro contra ruina.
+    </div>
+  </section>
+
+  <!-- ======================= SAML ======================= -->
+  <section id="saml">
+    <h2><span class="icon">📜</span> SAML (auto-optimización)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ActivarSAML</code></td><td>Prende el motor de reglas auto-aprendidas</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+          <tr><td><code>SAML_EvolucionCada</code></td><td>Trades entre evoluciones SAML</td><td><span class="badge badge-no">NO · 30</span></td></tr>
+          <tr><td><code>SAML_TasaMutacion</code></td><td>% de mutación por generación</td><td><span class="badge badge-mid">⚠️ 0.1–0.3</span></td></tr>
+          <tr><td><code>SAML_LotMultCap</code></td><td>Tope de multiplicador de lote</td><td><span class="badge badge-no">NO · 1.30</span></td></tr>
+          <tr><td><code>SAML_AutoGenerar</code></td><td>Crea reglas desde patrones</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= CRIPTO ======================= -->
+  <section id="cripto">
+    <h2><span class="icon">🌐</span> Cripto</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ModoCripto</code></td><td>Activa modo cripto (24/7, sin filtros horarios)</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+          <tr><td><code>MultiplicadorATRCripto</code></td><td>ATR más agresivo en cripto</td><td><span class="badge badge-yes">SÍ · 1.2–1.6</span></td></tr>
+          <tr><td><code>SpreadMaxCripto</code></td><td>Spread máximo en pips cripto</td><td><span class="badge badge-yes">SÍ · 10–25</span></td></tr>
+          <tr><td><code>SinFiltroHorarioCripto</code></td><td>No aplica horario a cripto</td><td><span class="badge badge-yes">SÍ · ON</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-rule">
+      Poné <code>ModoCripto=true</code> si tu bróker usa BTCUSD/ETHUSD. Si no, <code>EsCripto()</code> falla y los lotes quedan mal.
+    </div>
+  </section>
+
+  <!-- ======================= FILTROS ======================= -->
+  <section id="filtros">
+    <h2><span class="icon">🔍</span> Filtros</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>FiltroRegimen</code></td><td>Evita operar en caos</td><td><span class="badge badge-yes">SÍ · ON</span></td></tr>
+          <tr><td><code>FiltroTendencia</code></td><td>Solo opera a favor de EMA50/200</td><td><span class="badge badge-yes">SÍ · ON</span></td></tr>
+          <tr><td><code>FiltroSpread</code></td><td>Bloquea si spread alto</td><td><span class="badge badge-yes">SÍ · ON</span></td></tr>
+          <tr><td><code>SpreadMaxPips</code></td><td>Spread máximo forex</td><td><span class="badge badge-yes">SÍ · 2–5</span></td></tr>
+          <tr><td><code>FiltroHorario</code></td><td>Solo opera en horario</td><td><span class="badge badge-yes">SÍ · ON</span></td></tr>
+          <tr><td><code>HoraInicio</code> / <code>HoraFin</code></td><td>Ventana horaria</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= CB ======================= -->
+  <section id="cb">
+    <h2><span class="icon">🛡️</span> Circuit Breaker</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ActivarCircuitBreaker</code></td><td>Pausa el EA en DD alto</td><td><span class="badge badge-yes">SÍ · ON</span></td></tr>
+          <tr><td><code>DD_Nivel1</code></td><td>Empieza a reducir lote 50%</td><td><span class="badge badge-no">NO · 4.0</span></td></tr>
+          <tr><td><code>DD_Nivel2</code></td><td>Lote mínimo</td><td><span class="badge badge-no">NO · 8.0</span></td></tr>
+          <tr><td><code>DD_Nivel3</code></td><td><strong>Cierra todo y pausa</strong></td><td><span class="badge badge-no">NO · 12.0</span></td></tr>
+          <tr><td><code>HorasPausaDD</code></td><td>Horas de pausa tras Nivel 3</td><td><span class="badge badge-yes">SÍ · 12–48</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= SÍMBOLOS ======================= -->
+  <section id="simbolos">
+    <h2><span class="icon">🎯</span> Símbolos</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Simbolo01</code> … <code>Simbolo30</code></td><td>Pares a operar (sin sufijo)</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+          <tr><td><code>MaxParesSimultaneos</code></td><td>Máx pares operando a la vez</td><td><span class="badge badge-yes">SÍ · 1–4</span></td></tr>
+          <tr><td><code>ComentarioOrden</code></td><td>Texto en cada orden</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+          <tr><td><code>ResetCerebroAlInicio</code></td><td>Borra aprendizaje al arrancar</td><td><span class="badge badge-mid">⚠️ ON 1 sola vez</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-info">
+      <strong>Recomendación:</strong> empezá con <strong>2-3 pares</strong> (EURUSD, GBPUSD, USDJPY). Menos es más.
+    </div>
+  </section>
+
+  <!-- ======================= VISUAL ======================= -->
+  <section id="visual">
+    <h2><span class="icon">🎨</span> Visual</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Parámetro</th><th>Qué hace</th><th>Ajustable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>PintarVelas</code></td><td>Colorea velas</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+          <tr><td><code>MostrarPisosTechos</code></td><td>Dibuja soportes/resistencias</td><td><span class="badge badge-yes">SÍ</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================= RECOMENDADA ======================= -->
+  <section id="recomendada">
+    <h2><span class="icon">⚡</span> Configuración recomendada para empezar</h2>
+    <pre><code><span class="c"># --- Valores seguros para la primera corrida ---</span>
+<span class="k">RiesgoPorTrade</span>       = <span class="v">0.50</span>
+<span class="k">MaxOrdenesSimbolo</span>    = <span class="v">2</span>
+<span class="k">MaxParesSimultaneos</span>  = <span class="v">2</span>
+<span class="k">ActivarRecovery</span>      = <span class="v">true</span>
+<span class="k">ActivarSAML</span>          = <span class="v">true</span>
+<span class="k">ResetCerebroAlInicio</span> = <span class="v">true</span>   <span class="c">← solo la 1ª vez</span>
+<span class="k">ModoCripto</span>           = <span class="v">false</span>  <span class="c">← o true si operás cripto</span></code></pre>
+    <div class="alert alert-ok">
+      <strong>Todos los demás:</strong> dejá los valores por defecto.
+    </div>
+  </section>
+
+  <!-- ======================= ALARMA ======================= -->
+  <section id="alarma">
+    <h2><span class="icon">🚨</span> Señales de alarma</h2>
+    <p style="color:var(--text-dim);font-size:.92rem;">Si ves esto en el panel, <strong style="color:var(--text)">paralo y avisame</strong>:</p>
+
+    <div class="symptom">
+      <div class="sym">SAML reglas &gt; 25</div>
+      <div class="meaning">Sobreajuste en evolución</div>
+
+      <div class="sym">Buffer lleno pero PnL cae</div>
+      <div class="meaning">La IA no generaliza</div>
+
+      <div class="sym">Intentos recovery &gt; 4 seguido</div>
+      <div class="meaning">El trigger es muy sensible</div>
+
+      <div class="sym">Nivel CB = N1 por más de 2 días</div>
+      <div class="meaning">El sistema no tiene edge</div>
+
+      <div class="sym">WR &lt; 40% con &gt; 50 trades</div>
+      <div class="meaning">No funciona en este par/timeframe</div>
+    </div>
+  </section>
+
+  <!-- ======================= CHECKLIST ======================= -->
+  <section id="checklist">
+    <h2><span class="icon">📋</span> Checklist antes de cada sesión</h2>
+    <div class="checklist">
+      <label><input type="checkbox"> ¿Spread del bróker es el que configuré?</label>
+      <label><input type="checkbox"> ¿Los símbolos existen en mi bróker (con sufijo)?</label>
+      <label><input type="checkbox"> ¿<code>ResetCerebroAlInicio = false</code>? (después de la 1ª vez)</label>
+      <label><input type="checkbox"> ¿Balance &gt; <code>BALANCE_MINIMO</code> ($500)?</label>
+      <label><input type="checkbox"> ¿VPS encendido 24/7? (crítico para la IA)</label>
+    </div>
+  </section>
+
+  <!-- ======================= REGLA FINAL ======================= -->
+  <section>
+    <div class="alert alert-rule">
+      <strong>⚖️ Regla final:</strong> si un cambio tuyo empeora el resultado en demo por 2 semanas seguidas,
+      <strong>volvé al valor anterior</strong>. La IA necesita estabilidad para aprender, no intervención constante.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p><strong>SAMU AI v9.0</strong> · Manual de configuración</p>
+  <p>Guardá este archivo y consultalo antes de tocar cualquier parámetro.</p>
+</footer>
+
+</body>
+</html>
