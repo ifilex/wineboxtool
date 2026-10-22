@@ -397,6 +397,35 @@ footer{background:var(--text);color:rgba(255,255,255,.7);padding:64px 0 32px;fon
 .sticky-cta-text small{display:block;font-size:.75rem;color:var(--text-muted);font-weight:400}
 .sticky-cta .btn{padding:10px 20px;font-size:.85rem}
 @media(max-width:600px){.sticky-cta{flex-direction:column;padding:10px 16px;gap:8px}.sticky-cta .btn{width:100%}}
+
+/* TEAM */
+.team{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-soft) 100%);border-top:1px solid var(--border)}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.team-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:32px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;transition:var(--transition);box-shadow:var(--shadow-sm)}
+.team-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.team-card.featured{border:2px solid var(--primary);box-shadow:var(--shadow-md)}
+.team-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--primary-soft);margin-bottom:18px;flex-shrink:0;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:var(--text-muted)}
+.team-badge{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.08em;padding:5px 12px;border-radius:100px;color:#fff;margin-bottom:14px;text-transform:uppercase}
+.team-badge.founder{background:var(--primary)}
+.team-badge.tech{background:var(--accent)}
+.team-badge.dev{background:var(--purple)}
+.team-name{font-size:1.08rem;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.3;font-family:var(--font-display)}
+.team-license{font-size:.78rem;color:var(--text-muted);margin-bottom:8px;line-height:1.5}
+.team-role{font-size:.88rem;font-weight:700;color:var(--primary);margin-bottom:14px}
+.team-bio{font-size:.88rem;color:var(--text-soft);line-height:1.6;margin:0 0 14px}
+.team-formation{width:100%;margin-top:auto;border-top:1px solid var(--border);padding-top:12px}
+.team-formation summary{cursor:pointer;font-size:.8rem;color:var(--primary);font-weight:700;padding:6px 0;list-style:none;text-align:center}
+.team-formation summary::-webkit-details-marker{display:none}
+.team-formation summary::after{content:" ▾";color:var(--text-muted)}
+.team-formation[open] summary::after{content:" ▴"}
+.team-formation ul{text-align:left;list-style:none;margin:10px 0 0;padding:0;font-size:.82rem;color:var(--text-soft)}
+.team-formation li{padding:4px 0 4px 16px;position:relative;line-height:1.5}
+.team-formation li::before{content:"·";position:absolute;left:4px;top:1px;color:var(--primary);font-weight:900;font-size:1.1rem}
+.team-note{max-width:800px;margin:44px auto 0;text-align:center;font-size:.82rem;color:var(--text-muted);line-height:1.7;padding:18px 22px;background:var(--bg-soft);border-radius:var(--radius);border:1px solid var(--border)}
+.team-social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:0 0 14px}
+.team-social a{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;background:var(--primary-soft);color:var(--primary);text-decoration:none;font-size:.78rem;font-weight:700;transition:var(--transition);border:1px solid rgba(37,99,235,.2)}
+.team-social a:hover{background:var(--primary);color:#fff}
+.team-social a i{font-size:.9rem}
 </style>
 </head>
 <body>
@@ -423,6 +452,7 @@ footer{background:var(--text);color:rgba(255,255,255,.7);padding:64px 0 32px;fon
       <a href="#desarrollo" data-i18n="nav_custom">Desarrollo</a>
       <a href="#aura">Aura</a>
       <a href="#libro" data-i18n="nav_book">Libro</a>
+      <a href="#equipo" data-i18n="nav_team">Equipo</a>
       <a href="#precios" data-i18n="nav_pricing">Precios</a>
       <div class="lang-switcher">
         <button class="lang-btn active" data-lang="es" onclick="setLanguage('es')">ES</button>
@@ -560,11 +590,21 @@ footer{background:var(--text);color:rgba(255,255,255,.7);padding:64px 0 32px;fon
     </div>
 
     <div style="text-align:center;margin-top:48px;" class="reveal">
-      <a href="https://wa.me/5491166116631?text=Hola%2C%20quiero%20una%20demo%20de%20WineBOX%20Clinic%20para%20mi%20colegio" target="_blank" rel="noopener" class="btn btn-accent btn-lg"><i class="fab fa-whatsapp"></i> <span data-i18n="clinic_cta">Solicitar demo para mi colegio</span></a>
+      <a href="https://wa.me/5491166116631?text=Hola%2C%20quiero%20una%20demo%20de%20WineBOX%20Tool%20para%20mi%20colegio" target="_blank" rel="noopener" class="btn btn-accent btn-lg"><i class="fab fa-whatsapp"></i> <span data-i18n="clinic_cta">Solicitar demo para mi colegio</span></a>
       <div class="guarantee" style="max-width:560px;margin:20px auto 0;">
         <i class="fas fa-shield-alt"></i>
         <div class="guarantee-text"><strong data-i18n="clinic_guarantee_strong">Garantía de satisfacción:</strong> <span data-i18n="clinic_guarantee">Si en 30 días el gabinete no ve mejoras en la comunicación docente, te devolvemos el dinero.</span></div>
       </div>
+    </div>
+
+    <!-- Bridge a winebox.clinic: para casos que necesitan evaluación clínica individual con informe firmado -->
+    <div class="reveal" style="max-width:820px;margin:48px auto 0;padding:28px 32px;background:#fff;border:1.5px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--radius-lg);display:flex;flex-wrap:wrap;align-items:center;gap:20px;justify-content:space-between;box-shadow:var(--shadow-sm)">
+      <div style="flex:1;min-width:280px">
+        <div style="font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:8px"><i class="fas fa-link"></i> Servicio complementario</div>
+        <h3 style="font-size:1.1rem;margin:0 0 8px;color:var(--text)" data-i18n="clinic_bridge_h3">¿Los casos detectados necesitan informe clínico firmado?</h3>
+        <p style="font-size:.9rem;color:var(--text-soft);margin:0;line-height:1.55" data-i18n="clinic_bridge_p"><strong>WineBOX Tool</strong> detecta y clasifica a escala. <strong>WineBOX Clinic</strong>, nuestro servicio clínico hermano, hace la evaluación neurocognitiva individual del alumno con informe firmado y sellado por psicólogo matriculado, apto para presentar en obras sociales, neuropediatra o la propia escuela.</p>
+      </div>
+      <a href="https://winebox.clinic" target="_blank" rel="noopener" class="btn btn-secondary" style="white-space:nowrap"><i class="fas fa-stethoscope"></i> <span data-i18n="clinic_bridge_cta">Conocer winebox.clinic</span></a>
     </div>
   </div>
 </section>
@@ -804,6 +844,79 @@ footer{background:var(--text);color:rgba(255,255,255,.7);padding:64px 0 32px;fon
       <i class="fas fa-arrow-right eco-arrow"></i>
       <div class="eco-node"><div class="icon"><i class="fas fa-sparkles"></i></div><span>Aura</span><small data-i18n="eco_5">IA sin tokens</small></div>
     </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="equipo" class="team">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow" data-i18n="team_eyebrow">Equipo</span>
+      <h2 data-i18n="team_h2">Las personas detrás de WineBOX</h2>
+      <p data-i18n="team_p">Un equipo pequeño que combina práctica clínica, ingeniería y desarrollo de software. Construimos lo que usamos — y usamos lo que construimos.</p>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- 1. EMANUEL — Fundador -->
+      <div class="team-card featured reveal">
+        <img class="team-photo" src="img/team-emanuel.jpg" alt="Lic. Emanuel Chanampa, neuropsicólogo clínico infantil y fundador de WineBOX" width="120" height="120" loading="lazy">
+        <span class="team-badge founder">Fundador · Dirección</span>
+        <div class="team-name">Lic. Emanuel Chanampa</div>
+        <div class="team-license">Neuropsicólogo Clínico Infantil · Mat. Nacional 56716 · Mat. Provincial 84132</div>
+        <div class="team-role">Dirección clínica y arquitectura del producto</div>
+        <p class="team-bio">13 años de práctica clínica en consultorio y 9 años como Lead Systems Architect del ecosistema WineBOX. Diseña la arquitectura técnica a partir de la experiencia clínica real: lo que falta en consulta, lo construye en código.</p>
+        <div class="team-social">
+          <a href="https://ar.linkedin.com/in/emanuel-chanampa-a595063bb" target="_blank" rel="noopener" aria-label="LinkedIn de Emanuel Chanampa"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a href="https://github.com/ifilex" target="_blank" rel="noopener" aria-label="GitHub de Emanuel Chanampa"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+        <details class="team-formation">
+          <summary>Formación y antecedentes</summary>
+          <ul>
+            <li>Licenciatura en Psicología — <strong>Universidad de la Marina Mercante</strong> (2008–2012, promedio 8.51)</li>
+            <li>Neuropsicólogo clínico en consultorio desde 2013</li>
+            <li>Lead Systems Architect del ecosistema <strong>WineBOX</strong> desde 2017 (Tool, Health, Aura, WXDIV)</li>
+            <li>Autor de la biblioteca de 9 ebooks clínicos gratuitos</li>
+            <li>Ciudad Evita, Provincia de Buenos Aires, Argentina</li>
+          </ul>
+        </details>
+      </div>
+
+      <!-- 2. FABIO — Dirección técnica -->
+      <div class="team-card reveal">
+        <img class="team-photo" src="img/team-fabio.jpg" alt="Ing. Horvel Fabio Hinojosa Retamozo, ingeniero y responsable técnico de WineBOX" width="120" height="120" loading="lazy">
+        <span class="team-badge tech">Dirección técnica · Formación médica</span>
+        <div class="team-name">Ing. Horvel Fabio Hinojosa Retamozo</div>
+        <div class="team-license">Ingeniero de Automatización (Politecnico di Milano) · Estudiante de Medicina (UPF Barcelona)</div>
+        <div class="team-role">Infraestructura, plataforma y nexo clínico-técnico</div>
+        <p class="team-bio">Ingeniero de automatización y programador. Desde 2021 cursa Medicina en Barcelona (Hospital Clínic y UPF), lo que lo acerca de primera mano al terreno sanitario. Aporta la capa técnica —plataforma, infraestructura, herramientas digitales— con la mirada de quien combina ingeniería y formación médica.</p>
+        <details class="team-formation">
+          <summary>Formación y antecedentes</summary>
+          <ul>
+            <li><strong>Laurea en Ingeniería de Automatización</strong> — Politecnico di Milano (2013–2017)</li>
+            <li>Posgrado en Vehículos Eléctricos y otras tecnologías de propulsión — <strong>UPC School, Barcelona</strong> (2019)</li>
+            <li>Programación de PLC y HMI con SoMachine / TIA PORTAL — CIFO Sant Feliu (2018–2019)</li>
+            <li>Programa de emprendimiento juvenil — Fundación INCYDE (2020)</li>
+            <li>Estudios de Medicina — <strong>Hospital Clínic de Barcelona</strong> (2021–2022) y <strong>Universitat Pompeu Fabra</strong> (desde 2022, cursando 2.º año)</li>
+          </ul>
+        </details>
+      </div>
+
+      <!-- 3. STEFANO — Desarrollo + atención al cliente -->
+      <div class="team-card reveal">
+        <img class="team-photo" src="img/team-stefano.jpg" alt="Stefano Hinojosa Retamozo, desarrollador y responsable de atención al cliente de WineBOX" width="120" height="120" loading="lazy">
+        <span class="team-badge dev">Desarrollo · Atención al cliente</span>
+        <div class="team-name">Stefano Hinojosa Retamozo</div>
+        <div class="team-license">Técnico Superior en Desarrollo de Aplicaciones Multiplataforma · FP DAM, Barcelona</div>
+        <div class="team-role">Desarrollo y atención al cliente</div>
+        <p class="team-bio">Desarrollador. Suma al equipo técnico en las herramientas del ecosistema WineBOX y es el primer contacto en la atención al cliente por los canales operativos.</p>
+      </div>
+
+    </div>
+
+    <p class="team-note">
+      <strong>WineBOX Tool</strong> es una licencia de software institucional. La responsabilidad por la interpretación clínica de los datos y la firma de informes clínicos es exclusiva del equipo profesional de cada institución. El rol clínico del Lic. Emanuel Chanampa dentro del equipo se circunscribe al servicio hermano <a href="https://winebox.clinic" target="_blank" rel="noopener" style="color:var(--primary);font-weight:700">winebox.clinic</a>.
+    </p>
   </div>
 </section>
 
@@ -1081,7 +1194,7 @@ footer{background:var(--text);color:rgba(255,255,255,.7);padding:64px 0 32px;fon
 const TRANSLATIONS = {
   es: {
     urgency_text:"Oferta de lanzamiento: 50% OFF en licencias escolares y clínicas",urgency_slots:"· Quedan 7 cupos a este precio",
-    nav_schools:"Colegios",nav_clinics:"Clínicas",nav_custom:"Desarrollo",nav_book:"Libro",nav_pricing:"Precios",nav_contact:"Contactar",
+    nav_schools:"Colegios",nav_clinics:"Clínicas",nav_custom:"Desarrollo",nav_book:"Libro",nav_team:"Equipo",nav_pricing:"Precios",nav_contact:"Contactar",
     hero_badge:"Software escolar ya vendido a colegios reales · IA sin tokens · 100% offline",
     hero_h1_1:"El software que",hero_h1_school:"detecta lo que el gabinete no llega a ver",
     hero_lead:"WineBOX Tool evalúa funciones ejecutivas de todo un curso en 15 minutos. Los chicos juegan, el sistema analiza, y el docente recibe un plan de intervención al instante. Sin servidores, sin internet, sin costos de API. Ya vendido a colegios reales en 4 países.",
@@ -1156,7 +1269,7 @@ const TRANSLATIONS = {
   },
   en: {
     urgency_text:"Launch offer: 50% OFF on school and clinic licenses",urgency_slots:"· Only 7 spots left at this price",
-    nav_schools:"Schools",nav_clinics:"Clinics",nav_custom:"Development",nav_book:"Book",nav_pricing:"Pricing",nav_contact:"Contact",
+    nav_schools:"Schools",nav_clinics:"Clinics",nav_custom:"Development",nav_book:"Book",nav_team:"Team",nav_pricing:"Pricing",nav_contact:"Contact",
     hero_badge:"School software already sold to real schools · AI without tokens · 100% offline",
     hero_h1_1:"The software that",hero_h1_school:"catches what the cabinet can't see",
     hero_lead:"WineBOX Tool evaluates executive functions of a whole class in 15 minutes. Kids play, the system analyzes, and teachers receive an intervention plan instantly. No servers, no internet, no API costs. Already sold to real schools in 4 countries.",
@@ -1231,7 +1344,7 @@ const TRANSLATIONS = {
   },
 pt: {
     urgency_text:"Oferta de lançamento: 50% OFF em licenças para escolas e clínicas",urgency_slots:"· Apenas 7 vagas restantes nesse preço",
-    nav_schools:"Escolas",nav_clinics:"Clínicas",nav_custom:"Desenvolvimento",nav_book:"Livro",nav_pricing:"Preços",nav_contact:"Contato",
+    nav_schools:"Escolas",nav_clinics:"Clínicas",nav_custom:"Desenvolvimento",nav_book:"Livro",nav_team:"Equipe",nav_pricing:"Preços",nav_contact:"Contato",
     hero_badge:"Software escolar já vendido a escolas reais · IA sem tokens · 100% offline",
     hero_h1_1:"O software que",hero_h1_school:"capta o que o gabinete não consegue ver",
     hero_lead:"WineBOX Tool avalia as funções executivas de uma turma inteira em 15 minutos. As crianças brincam, o sistema analisa, e os professores recebem um plano de intervenção instantaneamente. Sem servidores, sem internet, sem custos de API. Já vendido a escolas reais em 4 países.",
@@ -1306,7 +1419,7 @@ pt: {
 },
 it: {
     urgency_text:"Offerta di lancio: 50% OFF su licenze per scuole e cliniche",urgency_slots:"· Solo 7 posti rimasti a questo prezzo",
-    nav_schools:"Scuole",nav_clinics:"Cliniche",nav_custom:"Sviluppo",nav_book:"Libro",nav_pricing:"Prezzi",nav_contact:"Contatti",
+    nav_schools:"Scuole",nav_clinics:"Cliniche",nav_custom:"Sviluppo",nav_book:"Libro",nav_team:"Team",nav_pricing:"Prezzi",nav_contact:"Contatti",
     hero_badge:"Software scolastico già venduto a scuole reali · IA senza token · 100% offline",
     hero_h1_1:"Il software che",hero_h1_school:"coglie ciò che l'équipe non riesce a vedere",
     hero_lead:"WineBOX Tool valuta le funzioni esecutive di un'intera classe in 15 minuti. I bambini giocano, il sistema analizza e gli insegnanti ricevono un piano di intervento istantaneamente. Nessun server, nessuna internet, nessun costo API. Già venduto a scuole reali in 4 paesi.",
@@ -1381,7 +1494,7 @@ it: {
 },
 fr: {
     urgency_text:"Offre de lancement : 50 % DE RÉDUCTION sur les licences écoles et cliniques",urgency_slots:"· Plus que 7 places à ce prix",
-    nav_schools:"Écoles",nav_clinics:"Cliniques",nav_custom:"Développement",nav_book:"Livre",nav_pricing:"Tarifs",nav_contact:"Contact",
+    nav_schools:"Écoles",nav_clinics:"Cliniques",nav_custom:"Développement",nav_book:"Livre",nav_team:"Équipe",nav_pricing:"Tarifs",nav_contact:"Contact",
     hero_badge:"Logiciel scolaire déjà vendu à de vraies écoles · IA sans tokens · 100 % hors ligne",
     hero_h1_1:"Le logiciel qui",hero_h1_school:"capte ce que le cabinet ne peut pas voir",
     hero_lead:"WineBOX Tool évalue les fonctions exécutives d'une classe entière en 15 minutes. Les enfants jouent, le système analyse, et les enseignants reçoivent un plan d'intervention instantanément. Aucun serveur, aucune internet, aucun coût d'API. Déjà vendu à de vraies écoles dans 4 pays.",
@@ -1456,7 +1569,7 @@ fr: {
 },
 de: {
     urgency_text:"Launch-Angebot: 50 % RABATT auf Schul- und Kliniklizenzen",urgency_slots:"· Nur noch 7 Plätze zu diesem Preis",
-    nav_schools:"Schulen",nav_clinics:"Kliniken",nav_custom:"Entwicklung",nav_book:"Buch",nav_pricing:"Preise",nav_contact:"Kontakt",
+    nav_schools:"Schulen",nav_clinics:"Kliniken",nav_custom:"Entwicklung",nav_book:"Buch",nav_team:"Team",nav_pricing:"Preise",nav_contact:"Kontakt",
     hero_badge:"Schulsoftware bereits an echte Schulen verkauft · KI ohne Tokens · 100 % offline",
     hero_h1_1:"Die Software, die",hero_h1_school:"erfasst, was das Team nicht sehen kann",
     hero_lead:"WineBOX Tool bewertet die exekutiven Funktionen einer ganzen Klasse in 15 Minuten. Kinder spielen, das System analysiert, und Lehrkräfte erhalten sofort einen Interventionsplan. Keine Server, kein Internet, keine API-Kosten. Bereits an echte Schulen in 4 Ländern verkauft.",
